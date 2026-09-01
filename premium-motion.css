@@ -337,7 +337,9 @@ body.premium-legacy #main .avia-button {
   .motion-line > span,
   .motion-media,
   .motion-media img,
-  .motion-sequence > * {
+  .motion-sequence > *,
+  .process-grid,
+  .research-pillars {
     opacity: 1 !important;
     filter: none !important;
     translate: none !important;
@@ -738,30 +740,83 @@ body.premium-legacy #main .button {
 }
 
 /* --- c) Washes ---------------------------------------------------------- */
-/* A radial mask instead of a clip-path circle: the stops carry the edge out
-   over about a fifth of the radius, so the dark surface arrives as a gradient
-   rather than as an expanding disc with a drawn edge. mask-position is set in
-   pixels by premium-motion.js - percentages misbehave once the mask is larger
-   than the box it sits in. */
+/* A soft-edged radial mask instead of a clip-path circle, because clip-path is
+   applied after filter in the rendering order and its edge can never be
+   softened.
+
+   The mask stays exactly the size of the card and the pointer position goes
+   *inside* the gradient, where `circle at <length>` means the circle's centre.
+   The previous attempt grew the mask to 340% and moved it with mask-position,
+   which does not work: a length mask-position places the image's top-left
+   corner at that point, not its centre. On a 354x290 card that put the
+   gradient's solid core at x=642 - nearly two card-widths off to the right -
+   so the card only ever saw the faint outer edge of the wash, arriving from
+   the wrong side. That was the "變黑有點壞掉".
+
+   Growing the stop offsets instead of the mask box needs --wash registered, or
+   it is just a token substitution and cannot be interpolated. Where @property
+   is unsupported the var() fallbacks keep the mask valid and the hover simply
+   snaps rather than sweeping. */
+@property --wash {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+
 .capability-card::before,
 .motion-spotlight::after {
   clip-path: none;
-  -webkit-mask-image: radial-gradient(circle, #000 34%, rgba(0,0,0,.6) 60%, transparent 80%);
-  mask-image: radial-gradient(circle, #000 34%, rgba(0,0,0,.6) 60%, transparent 80%);
+  -webkit-mask-image: radial-gradient(circle at var(--spot-x, 50%) var(--spot-y, 50%),
+                      #000 var(--wash, 0%),
+                      rgba(0,0,0,.45) calc(var(--wash, 0%) + 13%),
+                      transparent calc(var(--wash, 0%) + 30%));
+  mask-image: radial-gradient(circle at var(--spot-x, 50%) var(--spot-y, 50%),
+              #000 var(--wash, 0%),
+              rgba(0,0,0,.45) calc(var(--wash, 0%) + 13%),
+              transparent calc(var(--wash, 0%) + 30%));
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
-  -webkit-mask-position: var(--spot-x, 50%) var(--spot-y, 50%);
-  mask-position: var(--spot-x, 50%) var(--spot-y, 50%);
-  -webkit-mask-size: 0% 0%;
-  mask-size: 0% 0%;
-  transition: -webkit-mask-size 1.3s var(--wash-ease),
-              mask-size 1.3s var(--wash-ease),
-              opacity .9s var(--wash-ease);
+  -webkit-mask-position: 0 0;
+  mask-position: 0 0;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  transition: --wash 1.3s var(--wash-ease), opacity .9s var(--wash-ease);
 }
+/* Set on the pseudo-element, not the card: --wash is registered with
+   inherits:false, so a value on the card would not reach ::before. */
 .capability-card:hover::before,
-.motion-spotlight:hover::after {
-  -webkit-mask-size: 340% 340%;
-  mask-size: 340% 340%;
+.motion-spotlight:hover::after { --wash: 130%; }
+
+/* --- d) Grids whose rules are the container's own background ------------- */
+/* .process-grid (the 8 project steps, and the 4 on the contact page) and
+   .research-pillars draw their hairlines as the container's background showing
+   through 1px gaps, instead of as borders on the cells the way every other
+   grid here does. That is invisible at rest, but the cells are reveal targets:
+   at opacity 0 they stop covering the container, so the whole grid reads as a
+   dark slab that then fades out from under them. Every other grid on the site
+   has a transparent container, which is exactly why only these two looked
+   wrong. They rise as one block instead of cell by cell. */
+.process-grid,
+.research-pillars {
+  opacity: 0;
+  translate: 0 34px;
+  filter: blur(4px);
+  transition: opacity 1.05s var(--rise-ease),
+              translate 1.05s var(--rise-ease),
+              filter 1.05s var(--rise-ease);
+}
+.process-grid.is-visible,
+.research-pillars.is-visible {
+  opacity: 1;
+  translate: none;
+  filter: blur(0);
+}
+.process-grid > .motion-item,
+.research-pillars > .motion-item {
+  opacity: 1 !important;
+  translate: none !important;
+  filter: none !important;
+  transition-delay: 0s !important;
 }
 
 /* The small button washes keep clip-path - at that size the edge is a few
