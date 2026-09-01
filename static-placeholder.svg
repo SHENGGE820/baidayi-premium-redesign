@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1200" role="img" aria-labelledby="title description">
+  <title id="title">圖片準備中</title>
+  <desc id="description">百達醫包材圖片暫用示意圖</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#183f3d"/>
+      <stop offset="1" stop-color="#c79b55"/>
+    </linearGradient>
+    <linearGradient id="pack" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity=".96"/>
+      <stop offset="1" stop-color="#e7e2d7" stop-opacity=".82"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="1200" rx="70" fill="url(#bg)"/>
+  <circle cx="150" cy="150" r="220" fill="#fff" opacity=".06"/>
+  <circle cx="810" cy="1040" r="270" fill="#fff" opacity=".07"/>
+  <g transform="translate(250 250)">
+    <path d="M80 40h240l55 85v500c0 42-34 75-75 75H100c-42 0-75-33-75-75V125z" fill="url(#pack)"/>
+    <path d="M80 40h240l55 85H25z" fill="#f6f0e3"/>
+    <rect x="83" y="245" width="234" height="185" rx="24" fill="#183f3d" opacity=".88"/>
+    <circle cx="200" cy="338" r="47" fill="#d9ad55"/>
+    <path d="M200 301v74M163 338h74" stroke="#183f3d" stroke-width="14" stroke-linecap="round"/>
+  </g>
+  <text x="450" y="1040" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="48" font-weight="700" letter-spacing="8">IMAGE COMING SOON</text>
+  <text x="450" y="1110" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="38">圖片準備中</text>
+</svg>

@@ -1,0 +1,1651 @@
+/* BAIDAYI static-site fixes: keep essential interactions independent from WordPress. */
+
+html {
+  scroll-behavior: smooth !important;
+  scroll-padding-top: 96px;
+}
+
+[id] {
+  scroll-margin-top: 96px;
+}
+
+#header .main_menu a,
+#header .main_menu a * {
+  cursor: pointer !important;
+}
+
+@media (min-width: 990px) {
+  #header .main_menu > ul > li > .avia_mega_div,
+  #header .main_menu > ul > li > .sub-menu {
+    display: block !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transform: translateY(9px) !important;
+    transform-origin: 50% 0;
+    transition: opacity .18s ease-out, transform .24s cubic-bezier(.22, .72, .24, 1), visibility 0s linear .24s !important;
+    animation: none !important;
+  }
+
+  #header .main_menu > ul > li:hover > .avia_mega_div,
+  #header .main_menu > ul > li:focus-within > .avia_mega_div,
+  #header .main_menu > ul > li:hover > .sub-menu,
+  #header .main_menu > ul > li:focus-within > .sub-menu {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: translateY(0) !important;
+    transition-delay: 0s !important;
+  }
+
+  #header .main_menu > ul > li > a,
+  #header .main_menu .avia_mega_menu_columns_first > li > a,
+  #header .main_menu .sub-menu a {
+    transition: color .18s ease, background-color .18s ease, opacity .18s ease !important;
+  }
+
+  #header .main_menu > ul > li > .avia_mega_div .sub-menu > li,
+  #header .main_menu > ul > li > .sub-menu > li {
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity .18s ease-out, transform .24s cubic-bezier(.22, .72, .24, 1) !important;
+  }
+
+  #header .main_menu > ul > li:hover > .avia_mega_div .sub-menu > li,
+  #header .main_menu > ul > li:focus-within > .avia_mega_div .sub-menu > li,
+  #header .main_menu > ul > li:hover > .sub-menu > li,
+  #header .main_menu > ul > li:focus-within > .sub-menu > li {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #header .main_menu > ul > li:hover .sub-menu > li:nth-child(2),
+  #header .main_menu > ul > li:focus-within .sub-menu > li:nth-child(2) { transition-delay: 35ms !important; }
+  #header .main_menu > ul > li:hover .sub-menu > li:nth-child(3),
+  #header .main_menu > ul > li:focus-within .sub-menu > li:nth-child(3) { transition-delay: 70ms !important; }
+  #header .main_menu > ul > li:hover .sub-menu > li:nth-child(4),
+  #header .main_menu > ul > li:focus-within .sub-menu > li:nth-child(4) { transition-delay: 105ms !important; }
+  #header .main_menu > ul > li:hover .sub-menu > li:nth-child(n+5),
+  #header .main_menu > ul > li:focus-within .sub-menu > li:nth-child(n+5) { transition-delay: 140ms !important; }
+}
+
+@media (max-width: 989px) {
+  .av-burger-overlay,
+  .av-burger-overlay-scroll {
+    transition: opacity .22s ease-out, transform .28s cubic-bezier(.22, .72, .24, 1) !important;
+  }
+
+  html:not(.av-burger-overlay-active) .av-burger-overlay-scroll {
+    opacity: 0;
+    transform: translateX(18px);
+  }
+
+  html.av-burger-overlay-active .av-burger-overlay-scroll {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  html.av-burger-overlay-active #av-burger-menu-ul > li {
+    animation: bke-mobile-menu-item .3s cubic-bezier(.22, .72, .24, 1) both;
+    animation-delay: calc(var(--bke-mobile-menu-order, 0) * 45ms);
+  }
+
+  #av-burger-menu-ul > li:nth-child(2) { --bke-mobile-menu-order: 1; }
+  #av-burger-menu-ul > li:nth-child(3) { --bke-mobile-menu-order: 2; }
+  #av-burger-menu-ul > li:nth-child(4) { --bke-mobile-menu-order: 3; }
+  #av-burger-menu-ul > li:nth-child(5) { --bke-mobile-menu-order: 4; }
+  #av-burger-menu-ul > li:nth-child(6) { --bke-mobile-menu-order: 5; }
+  #av-burger-menu-ul > li:nth-child(n+7) { --bke-mobile-menu-order: 6; }
+}
+
+@keyframes bke-mobile-menu-item {
+  from { opacity: 0; transform: translateX(12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+body.bke-motion-ready #main {
+  animation: bke-page-enter .42s cubic-bezier(.22, .72, .24, 1) both;
+}
+
+@keyframes bke-page-enter {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.bke-motion-ready .bke-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity .52s ease-out calc(var(--bke-reveal-order, 0) * 65ms),
+    transform .68s cubic-bezier(.22, .72, .24, 1) calc(var(--bke-reveal-order, 0) * 65ms) !important;
+  will-change: opacity, transform;
+}
+
+.bke-motion-ready .bke-reveal.bke-reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+  will-change: auto;
+}
+
+.bke-motion-ready .bke-reveal-fade {
+  transform: none;
+}
+
+#main img.bke-image-fade {
+  opacity: 0;
+  filter: saturate(.9);
+  transition: opacity .42s ease-out, filter .55s ease-out !important;
+}
+
+#main img.bke-image-fade.bke-image-visible {
+  opacity: 1;
+  filter: saturate(1);
+}
+
+.bke-swap-in {
+  animation: bke-content-swap .34s cubic-bezier(.22, .72, .24, 1) both !important;
+}
+
+@keyframes bke-content-swap {
+  from { opacity: .25; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+#main .avia-button,
+#main button:not(.pum-close),
+#main input[type="submit"] {
+  transition: transform .18s ease, box-shadow .22s ease, background-color .18s ease, color .18s ease !important;
+}
+
+#main .avia-button:hover,
+#main .avia-button:focus-visible,
+#main button:not(.pum-close):hover,
+#main button:not(.pum-close):focus-visible,
+#main input[type="submit"]:hover,
+#main input[type="submit"]:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, .16);
+}
+
+#main .av-masonry-entry .av-inner-masonry,
+#main .slide-entry .slide-image {
+  transition: transform .28s cubic-bezier(.22, .72, .24, 1), box-shadow .28s ease, filter .28s ease !important;
+}
+
+#main .av-masonry-entry:hover .av-inner-masonry,
+#main .slide-entry:hover .slide-image {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, .15);
+}
+
+.bke-modal-lock {
+  overflow: hidden !important;
+}
+
+#pum-4684.bke-static-modal-open {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  background: rgba(10, 18, 18, .5) !important;
+  animation: bke-modal-fade .18s ease-out both !important;
+}
+
+#pum-4684.bke-static-modal-open .pum-container {
+  visibility: visible !important;
+  opacity: 1 !important;
+  animation: bke-modal-slide .32s cubic-bezier(.22,.72,.24,1) both !important;
+}
+
+@keyframes bke-modal-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes bke-modal-slide {
+  from { opacity: 0; transform: scale(.88) translateY(-18px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* "合作洽談" turned into a draggable floating window instead of a fixed
+   right-side slide-in panel. JS (static-compat.js) clears any left-over
+   drag position on open (so it always rests top-right again) and sets an
+   explicit left/top while dragging; these rules just make sure that
+   positioning wins over the popup plugin's own values and give it a
+   window-like affordance. */
+#pum-4684.bke-static-modal-open {
+  background: transparent !important;
+}
+
+#pum-4684.bke-static-modal-open .pum-container {
+  position: fixed !important;
+  top: 20px !important;
+  right: 20px !important;
+  left: auto !important;
+  bottom: auto !important;
+  margin: 0 !important;
+  transform-origin: top right;
+  width: min(360px, calc(100vw - 40px)) !important;
+  height: auto !important;
+  max-height: min(560px, calc(100vh - 40px)) !important;
+  display: flex !important;
+  flex-direction: column;
+  box-shadow: 0 18px 46px rgba(0, 0, 0, .28) !important;
+  border-radius: 14px !important;
+  overflow: hidden !important;
+}
+
+#pum-4684.bke-modal-dragging .pum-container {
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .38) !important;
+}
+
+#pum-4684.bke-static-modal-open .pum-content {
+  overflow-y: auto;
+  padding: 18px 20px 22px !important;
+}
+
+.bke-modal-draghandle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 34px;
+  padding: 0 12px;
+  background: #1a1a1a;
+  color: #f4f1eb;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  cursor: move;
+  user-select: none;
+  touch-action: none;
+}
+
+.bke-modal-draghandle::before {
+  content: "\22EE\22EE";
+  letter-spacing: 2px;
+  opacity: .6;
+  font-size: 13px;
+}
+
+#pum-4684.bke-modal-dragging .pum-container {
+  animation: none !important;
+  transition: none !important;
+}
+
+.static-counter-managed {
+  opacity: 1 !important;
+}
+
+.static-counter-managed .avia-single-number {
+  display: inline-block;
+  min-width: .7em;
+  font-variant-numeric: tabular-nums;
+  transform-origin: 50% 70%;
+}
+
+.static-counter-managed.is-counting .avia-single-number {
+  animation: bke-counter-pulse .9s ease-in-out infinite alternate;
+}
+
+.bke-service-jump-nav {
+  display: grid !important;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: clamp(10px, 1.35vw, 18px);
+  align-items: stretch;
+  width: min(1080px, calc(100% - 34px)) !important;
+  margin: -38px auto -14px !important;
+  position: relative;
+  z-index: 4;
+}
+
+.bke-service-jump-nav::before,
+.bke-service-jump-nav::after {
+  display: none !important;
+}
+
+.bke-service-jump-nav > .bke-service-jump-card {
+  float: none !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  cursor: pointer !important;
+  height: 174px !important;
+  min-height: 174px !important;
+  padding: 18px 9px !important;
+  border: 2px solid #e5bd16 !important;
+  border-radius: 30px !important;
+  background: #fff !important;
+  box-shadow: 0 9px 20px rgba(0, 0, 0, .16) !important;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.bke-service-jump-nav > .bke-service-jump-card::before,
+.bke-service-jump-nav > .bke-service-jump-card::after {
+  display: none !important;
+  content: none !important;
+}
+
+.bke-service-jump-nav > .bke-service-jump-card:hover,
+.bke-service-jump-nav > .bke-service-jump-card:focus-visible {
+  transform: translateY(-7px) !important;
+  border-color: #c28e23 !important;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, .22) !important;
+}
+
+.bke-service-jump-card .avia_textblock p {
+  margin: 0 0 9px !important;
+}
+
+.bke-service-jump-card img {
+  width: 42px !important;
+  height: 42px !important;
+  object-fit: contain;
+}
+
+.bke-service-jump-card .av-subheading p {
+  font-size: clamp(10px, .9vw, 13px) !important;
+  line-height: 1.2 !important;
+}
+
+.bke-service-jump-card .av-special-heading-tag {
+  font-size: clamp(16px, 1.25vw, 20px) !important;
+  line-height: 1.2 !important;
+}
+
+.bke-service-jump-card:focus-visible {
+  outline: 3px solid #d0a24f !important;
+  outline-offset: 5px;
+}
+
+@keyframes bke-counter-pulse {
+  from { color: inherit; transform: translateY(2px) scale(.97); }
+  to { color: #d3a451; transform: translateY(-2px) scale(1.035); }
+}
+
+/* Keep every manufacturing-wheel layer on the same square coordinate system. */
+.bke-pie-ready {
+  min-width: 0 !important;
+}
+
+.bke-pie-stage {
+  position: relative;
+  width: min(100%, 720px);
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  overflow: visible;
+  isolation: isolate;
+}
+
+.bke-pie-stage > .pie-base,
+.bke-pie-stage > .pie-main {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  transform: none !important;
+}
+
+.bke-pie-stage > .pie-base img,
+.bke-pie-stage > .pie-main .avia-gallery-thumb,
+.bke-pie-stage > .pie-main .avia-gallery-thumb > a,
+.bke-pie-stage > .pie-main .avia-gallery-thumb > a > img {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  object-fit: contain !important;
+}
+
+.bke-pie-stage > .pie-icon {
+  position: absolute !important;
+  top: 33% !important;
+  left: 50% !important;
+  width: 13% !important;
+  height: auto !important;
+  aspect-ratio: 311 / 261;
+  margin: 0 !important;
+  transform: translateX(-50%) !important;
+  transition: opacity .28s ease, transform .34s cubic-bezier(.22, .72, .24, 1) !important;
+}
+
+.bke-pie-stage > .pie-text {
+  position: absolute !important;
+  top: 51% !important;
+  left: 50% !important;
+  width: 40% !important;
+  height: 20% !important;
+  margin: 0 !important;
+  transform: translateX(-50%) !important;
+}
+
+.bke-pie-stage.bke-wheel-switch .pie-icon {
+  animation: bke-wheel-icon-in .34s cubic-bezier(.22, .72, .24, 1) both;
+}
+
+.bke-pie-stage.bke-wheel-switch .pie-text {
+  animation: bke-content-swap .34s cubic-bezier(.22, .72, .24, 1) both;
+}
+
+@keyframes bke-wheel-icon-in {
+  from { opacity: .2; transform: translateX(-50%) scale(.86); }
+  to { opacity: 1; transform: translateX(-50%) scale(1); }
+}
+
+.bke-pie-stage > .pie-buttons {
+  position: absolute !important;
+  top: 1.5% !important;
+  left: 1.9% !important;
+  width: 96.6% !important;
+  height: 96.6% !important;
+  margin: 0 !important;
+  opacity: 0 !important;
+  z-index: 200 !important;
+}
+
+.bke-pie-stage > .pie-buttons svg {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+@media (max-width: 767px) {
+  .responsive .bke-pie-ready {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 0 auto !important;
+  }
+
+  .bke-pie-stage {
+    width: min(calc(100vw - 24px), 520px) !important;
+    max-width: 100% !important;
+  }
+
+  .bke-pie-stage > .pie-text .av_iconlist_title {
+    font-size: clamp(12px, 4.2vw, 16px) !important;
+    line-height: 1.2 !important;
+  }
+
+  .bke-pie-stage > .pie-text .iconlist_content {
+    font-size: clamp(7px, 2.6vw, 10px) !important;
+  }
+}
+
+/* The migrated site has no live WooCommerce checkout, so do not expose dead cart UI. */
+.cart_dropdown,
+.cart_dropdown_first,
+.widget_shopping_cart,
+.woocommerce-mini-cart,
+.woocommerce-mini-cart__buttons,
+a.add_to_cart_button,
+form.cart,
+.added_to_cart {
+  display: none !important;
+}
+
+/* One-stop-service galleries */
+.av-horizontal-gallery {
+  --bke-arrow-size: 60px;
+}
+
+.av-horizontal-gallery .avia-slideshow-arrows {
+  pointer-events: none;
+}
+
+.av-horizontal-gallery a.prev-slide,
+.av-horizontal-gallery a.next-slide {
+  width: var(--bke-arrow-size) !important;
+  height: var(--bke-arrow-size) !important;
+  min-width: var(--bke-arrow-size) !important;
+  border-radius: 50% !important;
+  display: grid !important;
+  place-items: center !important;
+  padding: 0 !important;
+  color: #fff !important;
+  background: rgba(17, 57, 55, .92) !important;
+  border: 2px solid rgba(255, 255, 255, .96) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .28) !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  opacity: 1 !important;
+  transition: transform .22s ease, background-color .22s ease, opacity .22s ease !important;
+  z-index: 20 !important;
+}
+
+.av-horizontal-gallery a.prev-slide:hover,
+.av-horizontal-gallery a.next-slide:hover,
+.av-horizontal-gallery a.prev-slide:focus-visible,
+.av-horizontal-gallery a.next-slide:focus-visible {
+  background: #c89c55 !important;
+  transform: scale(1.08) !important;
+  outline: 3px solid rgba(200, 156, 85, .28) !important;
+  outline-offset: 3px !important;
+}
+
+.av-horizontal-gallery a.prev-slide[aria-disabled="true"],
+.av-horizontal-gallery a.next-slide[aria-disabled="true"] {
+  opacity: .34 !important;
+  cursor: default !important;
+}
+
+.av-horizontal-gallery a.prev-slide svg,
+.av-horizontal-gallery a.next-slide svg {
+  width: 14px !important;
+  height: 30px !important;
+  fill: currentColor !important;
+  margin: 0 !important;
+}
+
+.av-horizontal-gallery-wrap,
+.av-horizontal-gallery-wrap img,
+.av-horizontal-gallery-wrap::after {
+  border-radius: 20px !important;
+}
+
+.av-horizontal-gallery-wrap {
+  overflow: hidden !important;
+}
+
+.av-horizontal-gallery .av-image-copyright {
+  position: absolute !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  left: 0 !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: 0 !important;
+  padding: 0 clamp(13px, 1.6vw, 22px) clamp(14px, 1.8vw, 24px) !important;
+  overflow: hidden !important;
+}
+
+.av-horizontal-gallery .av-image-copyright > span {
+  display: block !important;
+  max-width: 100% !important;
+  font-size: clamp(17px, 2.1vw, 27px) !important;
+  line-height: 1.12 !important;
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+}
+
+.av-horizontal-gallery .buttonmore {
+  display: inline-block !important;
+  margin-top: 9px !important;
+  font-size: .58em !important;
+  line-height: 1.2 !important;
+}
+
+.bke-finished-packaging-shell,
+.bke-finished-packaging-shell .container,
+.bke-finished-packaging-shell .content,
+.bke-finished-packaging,
+.bke-finished-packaging .av-horizontal-gallery-inner,
+.bke-finished-packaging .av-horizontal-gallery-slider,
+.bke-finished-packaging .av-horizontal-gallery-wrap {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.bke-finished-packaging {
+  display: block !important;
+  min-height: 350px;
+}
+
+.bke-finished-packaging .av-image-copyright {
+  color: #1a1a1a !important;
+  padding-top: 72px !important;
+  background: linear-gradient(0deg, rgba(255, 255, 255, .96) 0%, rgba(255, 255, 255, .82) 52%, rgba(255, 255, 255, 0) 100%) !important;
+}
+
+.bke-finished-packaging .av-image-copyright span,
+.bke-finished-packaging .av-image-copyright .buttonmore {
+  color: #1a1a1a !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .85) !important;
+}
+
+.bke-finished-packaging .av-image-copyright > span {
+  font-size: clamp(16px, 1.65vw, 21px) !important;
+  line-height: 1.16 !important;
+}
+
+.bke-placeholder-image {
+  object-fit: cover !important;
+  background: #1a1a1a !important;
+}
+
+/* New vertically stacked news page */
+.bke-news-source-hidden {
+  display: none !important;
+}
+
+.bke-news-shell {
+  background: #f4f1eb !important;
+}
+
+/* The exported theme leaves an empty transition section between the news hero and list. */
+.bke-news-document #av_section_2 {
+  display: none !important;
+}
+
+.bke-news-page {
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: clamp(44px, 5vw, 68px) 0 clamp(72px, 8vw, 112px);
+  color: #1a1a1a;
+}
+
+.bke-news-hero {
+  max-width: 830px;
+  margin-bottom: clamp(38px, 4.5vw, 58px);
+}
+
+.bke-news-eyebrow {
+  margin: 0 0 14px;
+  color: #bb8840;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+}
+
+.bke-news-title {
+  margin: 0;
+  color: #1a1a1a !important;
+  font-family: Lora, "Noto Serif TC", serif;
+  font-size: clamp(40px, 4.4vw, 58px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -.035em;
+}
+
+.bke-news-intro {
+  max-width: 690px;
+  margin: 16px 0 0;
+  color: #5c5c5c;
+  font-size: clamp(15px, 1.45vw, 18px);
+  line-height: 1.8;
+}
+
+.bke-news-section + .bke-news-section {
+  margin-top: clamp(82px, 10vw, 132px);
+}
+
+.bke-news-section {
+  display: grid;
+  grid-template-columns: minmax(145px, 190px) minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(32px, 6vw, 78px);
+}
+
+.bke-news-section-heading {
+  position: sticky;
+  top: 118px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  margin: 0;
+  padding: 5px 0 22px;
+  border-bottom: 2px solid #bb8840;
+}
+
+.bke-news-section-heading h2 {
+  margin: 0;
+  color: #1a1a1a;
+  font-family: Lora, "Noto Serif TC", serif;
+  font-size: clamp(27px, 3vw, 42px);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -.02em;
+}
+
+.bke-news-section-kicker {
+  order: -1;
+  margin: 0 0 12px;
+  color: #bb8840;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .15em;
+}
+
+.bke-news-count {
+  margin-top: 16px;
+  color: #bb8840;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+
+.bke-news-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(20px, 3vw, 32px);
+}
+
+.bke-news-card {
+  display: grid !important;
+  grid-template-columns: 1fr;
+  min-height: 0;
+  color: inherit !important;
+  text-decoration: none !important;
+  background: #fff;
+  border: 1px solid rgba(26, 26, 26, .1) !important;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 14px 42px rgba(26, 26, 26, .09);
+  transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+}
+
+.bke-news-card:hover,
+.bke-news-card:focus-visible {
+  transform: translateY(-5px);
+  border-color: rgba(187, 136, 64, .45) !important;
+  box-shadow: 0 22px 55px rgba(26, 26, 26, .16);
+  outline: none;
+}
+
+.bke-news-card-image {
+  min-height: 0;
+  aspect-ratio: 16 / 10;
+  background-color: #ececec;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: transform .55s ease;
+}
+
+.bke-news-card:hover .bke-news-card-image {
+  transform: scale(1.025);
+}
+
+.bke-news-card-copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: clamp(22px, 2.6vw, 30px);
+  background: #fff;
+}
+
+.bke-news-card h3 {
+  margin: 0;
+  color: #1a1a1a;
+  font-family: Lora, "Noto Serif TC", serif;
+  font-size: clamp(19px, 1.65vw, 24px);
+  font-weight: 700;
+  line-height: 1.42;
+  overflow-wrap: anywhere;
+}
+
+.bke-news-card-summary {
+  display: -webkit-box;
+  margin: 18px 0 0;
+  overflow: hidden;
+  color: #666666;
+  font-size: 15px;
+  line-height: 1.75;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.bke-news-card-date {
+  margin-top: 22px;
+  color: #8f8f8f;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .08em;
+}
+
+/* Homepage "產品開發" 5-circle wheel. The theme drew two extra decorative rings
+   behind each circle (::before/::after) that were off-centre from the circle's
+   own border-radius:500px shape; enlarging them to fix the hover dead-zone just
+   made the mismatch more visible and let neighbouring circles' halos overlap.
+   Drop both and keep only the circle's own real border, so the hit area and
+   the visible ring are the exact same shape. (A radial-gradient fill on a
+   hover-opacity pseudo-element was tried here for a softer look, but it did
+   not paint reliably, so this sticks to a plain background-color transition
+   on the circle itself, which is solid.) */
+.product-development .flex_column::before,
+.product-development .flex_column::after {
+  display: none !important;
+}
+
+/* Enfold draws a 30px drop-shadow strip along the top edge of this section
+   (z-index:10) to separate it from the yellow banner above. Because the wheel
+   sits half in each section, that shadow band cut straight across the middle
+   of every circle. Replace it with a soft fade sitting behind the circles
+   instead (on the yellow section, low z-index) so the yellow eases into white
+   rather than ending on a hard, shadowed edge. */
+body.page-id-2319 #av_section_4::before {
+  display: none !important;
+}
+
+body.page-id-2319 #av_section_3 {
+  position: relative;
+  background-color: #f4f1eb !important;
+}
+
+body.page-id-2319 #av_section_3::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 90px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, .9) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Homepage: responsive duplicate of the H1 subtitle, the "WHY CHOOSE BKE"
+   panel, and the "R&D CERTIFICATION" heading all still carried their
+   original bright colours from the per-page builder CSS. */
+body.page-id-2319 .av-mgrp4glc-f762dc997096cb73b4d2f63415b55625 {
+  color: #bb8840 !important;
+}
+
+body.page-id-2319 .av-mfz2cn8s-164dd7981eccbf6eb03f69e98ca61ef7 {
+  background-color: #f4f1eb !important;
+}
+
+body.page-id-2319 .av-mfz1n7bs-3fc6aecd18b230688f972b2ad08c0a0c,
+body.page-id-2319 .av-mfz1ngf6-58db40214958012d921892cdd7e9c8ff,
+body.page-id-2319 .av-1vxe73-d1b7eca52f8037437dd90d0967b41510,
+body.page-id-2319 .av-s0ghnz-16ee150753667e4f3cf66fef5c2b8316 {
+  color: #bb8840 !important;
+}
+
+.product-development .flex_column {
+  transition: background-color .4s ease, border-color .4s ease, transform .3s ease, box-shadow .4s ease !important;
+}
+
+.product-development .flex_column:hover {
+  transform: translateY(-4px);
+  background-color: #1a1a1a !important;
+  border-color: #0d0d0d !important;
+  box-shadow: 0 12px 26px rgba(13, 13, 13, .35);
+}
+
+.product-development .avia_textblock p {
+  position: relative !important;
+  width: 50px;
+  height: 50px;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.product-development .avia_textblock p > img.icon-default,
+.product-development .avia_textblock p > img.icon-hover {
+  display: block !important;
+  position: absolute !important;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 50px !important;
+  height: 50px !important;
+  transition: opacity .32s ease !important;
+}
+
+.product-development .avia_textblock p > img.icon-default {
+  opacity: 1;
+}
+
+.product-development .avia_textblock p > img.icon-hover {
+  opacity: 0;
+}
+
+.product-development .flex_column:hover .avia_textblock p > img.icon-default {
+  opacity: 0 !important;
+}
+
+.product-development .flex_column:hover .avia_textblock p > img.icon-hover {
+  opacity: 1 !important;
+}
+
+.product-development .av-subheading > p,
+.product-development .av-special-heading-tag {
+  position: relative;
+  z-index: 2;
+  transition: color .32s ease !important;
+}
+
+/* Homepage: two more hard section-colour cuts with nothing to ease them —
+   white "WHYCHOOSE BKE" numbers block straight into the dark grey R&D
+   certification band, and the dark teal news block straight into the bright
+   white "INTEGRATED SERVICE" photo. Same fix pattern as the news section:
+   a short gradient overlay at the top of the following section, fading from
+   the previous section's colour down to transparent. */
+body.page-id-2319 #av_section_6 {
+  position: relative;
+}
+
+body.page-id-2319 #av_section_6::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 70px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, .8) 0%, rgba(255, 255, 255, 0) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+body.page-id-2319 #av_section_8 {
+  position: relative;
+}
+
+body.page-id-2319 #av_section_8::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 80px;
+  background: linear-gradient(to bottom, rgba(244, 241, 235, .9) 0%, rgba(244, 241, 235, 0) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Homepage latest-news preview (replaces the old static banner image).
+   The theme's own section colouring left this row on the exact same
+   near-black as the R&D certification section above it, so the two blocks
+   visually fused with no seam — a cream "card" panel reads as its own
+   section instead, echoing the news listing page's own shell colour. A
+   fade at the top (below) eases the black into it instead of a hard cut. */
+body.page-id-2319 #not-full-right,
+body.page-id-2319 #not-full-right .flex_cell,
+body.page-id-2319 #not-full-right .flex_cell_inner {
+  background: #f4f1eb !important;
+}
+
+body.page-id-2319 #not-full-right {
+  padding: clamp(56px, 7vw, 96px) 0 !important;
+}
+
+/* #not-full-right is display:table with a single cell — a ::before straight
+   on it would trigger the same anonymous-table-cell bug documented below
+   for #av-layout-grid-1/-3, so this targets the inner .flex_cell instead. */
+body.page-id-2319 #not-full-right > .flex_cell {
+  position: relative;
+}
+
+body.page-id-2319 #not-full-right > .flex_cell::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 70px;
+  background: linear-gradient(to bottom, rgba(3, 7, 10, .85) 0%, rgba(3, 7, 10, 0) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 全面性服務/一站式服務 page: several flat-colour sections butt straight into
+   each other with no seam (dark wheel section into white text, dark section
+   into the next white block, white into near-black, near-black into white).
+   Same top-edge fade technique as the homepage fixes above.
+   #av-layout-grid-1/-3 are display:table with a single, width:auto cell (no
+   sibling to share space with). Adding a ::before straight on the table
+   forces CSS's table anonymous-box fix-up to wrap it as a second table-cell,
+   which under table-layout:fixed splits the row 50/50 and left half the
+   section blank. Target the inner .flex_cell (already display:table-cell)
+   instead — pseudo-content inside a cell doesn't trigger that fix-up. */
+body.page-id-4648 #av_section_3,
+body.page-id-4648 #av-layout-grid-1 > .flex_cell,
+body.page-id-4648 #av_section_6,
+body.page-id-4648 #av-layout-grid-3 > .flex_cell {
+  position: relative;
+}
+
+body.page-id-4648 #av_section_3::before,
+body.page-id-4648 #av-layout-grid-1 > .flex_cell::before,
+body.page-id-4648 #av_section_6::before,
+body.page-id-4648 #av-layout-grid-3 > .flex_cell::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 70px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body.page-id-4648 #av_section_3::before {
+  background: linear-gradient(to bottom, rgba(61, 58, 57, .8) 0%, rgba(61, 58, 57, 0) 100%);
+}
+
+body.page-id-4648 #av-layout-grid-1 > .flex_cell::before {
+  background: linear-gradient(to bottom, rgba(61, 58, 57, .8) 0%, rgba(61, 58, 57, 0) 100%);
+}
+
+body.page-id-4648 #av_section_6::before {
+  background: linear-gradient(to bottom, rgba(255, 255, 255, .9) 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+body.page-id-4648 #av-layout-grid-3 > .flex_cell::before {
+  background: linear-gradient(to bottom, rgba(3, 7, 10, .85) 0%, rgba(3, 7, 10, 0) 100%);
+}
+
+/* Site-wide palette pass: bright yellow "PRODUCT DEVELOPMENT" banner and
+   pink section headings didn't fit the gold + neutral direction. */
+body.page-id-4648 #av_section_4 {
+  background-color: #f4f1eb !important;
+}
+
+body.page-id-4648 .av-mhlu18m2-470fd356796a282e6825d787fce9773d h2,
+body.page-id-4648 .av-mhlu1dnb-7a6a05a62745d24adac383ed42ea7069 h2,
+body.page-id-4648 .av-dpvlbc-4923c100e68c032cd2c6c924b963757e h2,
+body.page-id-4648 .av-cwchpk-c5ceae10b52099d0c625a62d1c4c1c39 h2 {
+  color: #bb8840 !important;
+}
+
+/* Remaining "category label" headings on the same page, each a slightly
+   different accidental pastel/gold in the original design. */
+body.page-id-4648 .av-1i5yknc-86d96cd21ac1b59f5de4226a6ba5fee8,
+body.page-id-4648 .av-16puyuw-343e3484266c944e5356c1fa585d3a6a,
+body.page-id-4648 .av-12t1b54-0a47b5df4adee7a951b9561ea20bd002,
+body.page-id-4648 .av-mhltuzkr-69c1b6f21ef198fe229124277f5fe810,
+body.page-id-4648 .av-mhltv3op-9033847096c94a156a349d59f3103f95,
+body.page-id-4648 .av-ml67roi1-fc7fd2b9e34c3a532b03f5a5c38c33ad,
+body.page-id-4648 .av-ml67sc56-cb27b677564b691e76e92e4db5909045,
+body.page-id-4648 .av-mhltzthi-bc87a4d913b0a5d31cb2dc9999db59ea,
+body.page-id-4648 .av-mhltzz01-d321266fd28d3aecfddab1e2033654c7,
+body.page-id-4648 .av-mn2rgcnd-d6bd8f567401399362498c2690251bcf {
+  color: #bb8840 !important;
+}
+
+/* 認識百達醫/關於百達醫: white block into pale-yellow "近20年..." block, and
+   that yellow block straight into the white "SANNING ASIA" block below it —
+   both hard, unbridged cuts. */
+body.page-id-3364 #av_section_4,
+body.page-id-3364 #av_section_5 {
+  position: relative;
+}
+
+body.page-id-3364 #av_section_4::before,
+body.page-id-3364 #av_section_5::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 70px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body.page-id-3364 #av_section_4::before {
+  background: linear-gradient(to bottom, rgba(251, 251, 251, .9) 0%, rgba(251, 251, 251, 0) 100%);
+}
+
+body.page-id-3364 #av_section_5::before {
+  background: linear-gradient(to bottom, rgba(244, 241, 235, .9) 0%, rgba(244, 241, 235, 0) 100%);
+}
+
+/* Site-wide palette pass: purple hero band, yellow "近20年" block, and the
+   blue/yellow BELIEF+POTENTIAL cards didn't fit the gold + neutral direction. */
+body.page-id-3364 #av_section_2 {
+  background-color: #1a1a1a !important;
+}
+
+body.page-id-3364 .av-gwpnhg-dd04c4f583e6a1aca95661f9d740eb50,
+body.page-id-3364 .av-d127tw-e9c182b682d560a6b33fd5e8c868775e,
+body.page-id-3364 .av-aqpr5g-be1cb4029799f1ca05f454aa28443ad0,
+body.page-id-3364 .av-mg65esx7-452c2dc4bb411b4f385dc430d0490119 {
+  color: #bb8840 !important;
+}
+
+body.page-id-3364 #av_section_4 {
+  background-color: #f4f1eb !important;
+}
+
+body.page-id-3364 .av-9t6en8-522d157d803c39ee424e802f4d0bf958 {
+  background-color: #1a1a1a !important;
+}
+
+body.page-id-3364 .av-mfz6hj94-06686e292812663618b528ecec3d4a4c,
+body.page-id-3364 .av-mg0fp2d6-0624539ceffcd8cb09625ca3a4481c5b {
+  color: #bb8840 !important;
+}
+
+body.page-id-3364 .av-2d6zjo-93c0bee3345cc4c174ac825591ed75b5 {
+  color: #d8d5cf !important;
+}
+
+body.page-id-3364 .av-mg0fv9ej-0ad2259cc753a52911f655d0dd6e863c,
+body.page-id-3364 .av-mg0fvfi5-232ce3b221713757f6edac13ce80f109 {
+  color: #1a1a1a !important;
+}
+
+body.page-id-3364 .av-mfz6kvgn-6494a608d91bae43cce7a6366a47005f {
+  background-color: #f4f1eb !important;
+}
+
+body.page-id-3364 .av-mfz6kvgn-6494a608d91bae43cce7a6366a47005f h2 {
+  color: #1a1a1a !important;
+}
+
+body.page-id-3364 .av-mfz4q4d4-e26efa931d01c06d9c41a26353d8d7dd,
+body.page-id-3364 .av-mfz4u9eg-5805670d5d9c2092629788243ddc0ffd {
+  color: #bb8840 !important;
+}
+
+body.page-id-3364 .about-banner-red h3,
+body.page-id-3364 .about-banner-red h4,
+body.page-id-3364 .about-banner-blue h3,
+body.page-id-3364 .about-banner-blue h4,
+body.page-id-3364 .about-banner-green h3,
+body.page-id-3364 .about-banner-green h4 {
+  color: #f4f1eb !important;
+}
+
+/* 認識百達醫/綠色永續: light-green intro block and the white org-chart block
+   meet with a hard edge, and again white into the pink "PHILANTHROPY" block. */
+body.page-id-3367 #av_section_3,
+body.page-id-3367 #not-full-right {
+  position: relative;
+}
+
+body.page-id-3367 #av_section_3::before,
+body.page-id-3367 #not-full-right::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 70px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body.page-id-3367 #av_section_3::before {
+  background: linear-gradient(to bottom, rgba(244, 241, 235, .85) 0%, rgba(244, 241, 235, 0) 100%);
+}
+
+body.page-id-3367 #not-full-right::before {
+  background: linear-gradient(to bottom, rgba(255, 255, 255, .85) 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+/* Site-wide palette pass: light-green intro band, teal/green headings, and
+   the pink/yellow PHILANTHROPY+RENEWABLE ENERGY cards didn't fit the gold +
+   neutral direction. */
+body.page-id-3367 #av_section_2 {
+  background-color: #f4f1eb !important;
+}
+
+body.page-id-3367 .av-mgt1lx0q-37b9d6bc559845939c1c7806c85419d8,
+body.page-id-3367 .av-mgt1rj8i-686bac3ba3902d055af6be72cd82649c,
+body.page-id-3367 .av-mgt1rmli-5c157f8fc5af3cf59cb20c86295d16c0,
+body.page-id-3367 .av-a5yspz-315559eaa18f605e8425fe9628b9c73c,
+body.page-id-3367 .av-8lfwjr-89f721c8891ba623e3bc118457ebdff8 {
+  color: #bb8840 !important;
+}
+
+body.page-id-3367 .av-rdx987-15050917ecc57c29e2484ea0a75f6489 {
+  background-color: #1a1a1a !important;
+}
+
+body.page-id-3367 .av-rdx987-15050917ecc57c29e2484ea0a75f6489 h2 {
+  color: #bb8840 !important;
+}
+
+body.page-id-3367 .av-rdx987-15050917ecc57c29e2484ea0a75f6489 p {
+  color: #d8d5cf !important;
+}
+
+body.page-id-3367 .av-mgt2q87y-936429b10ca5dc1eaf3fc808a27cef9a {
+  background-color: #f4f1eb !important;
+}
+
+body.page-id-3367 .av-mgt2q87y-936429b10ca5dc1eaf3fc808a27cef9a h2 {
+  color: #1a1a1a !important;
+}
+
+body.page-id-3367 #not-full-right {
+  background-color: #1a1a1a !important;
+}
+
+body.page-id-3367 #not-full-left {
+  background-color: #f4f1eb !important;
+}
+
+body.page-id-3367 .philanthropy-bg::before,
+body.page-id-3367 .whychoosebke-bg::before {
+  background: #bb8840 !important;
+}
+
+/* 研發科技: white "MAIN ADVANTAGE" block into the orange "WHY CHOOSE BKE"
+   block (the orange colour lives on a nested .whychoosebke-bg cell, not the
+   grid row itself), and the blue "R&D CERTIFICATION" block into the
+   light-blue block below it — both flat, unbridged colour cuts. */
+body.page-id-4535 .whychoosebke-bg,
+body.page-id-4535 #av_section_7 {
+  position: relative;
+}
+
+body.page-id-4535 .whychoosebke-bg::before,
+body.page-id-4535 #av_section_7::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 70px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body.page-id-4535 .whychoosebke-bg::before {
+  background: linear-gradient(to bottom, rgba(255, 255, 255, .85) 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+body.page-id-4535 #av_section_7::before {
+  background: linear-gradient(to bottom, rgba(26, 26, 26, .85) 0%, rgba(26, 26, 26, 0) 100%);
+}
+
+body.page-id-4535 #av_section_2,
+body.page-id-4535 #certification,
+body.page-id-4535 #av_section_7 {
+  background-color: #1a1a1a !important;
+}
+
+body.page-id-4535 .whychoosebke-bg {
+  background-color: #f4f1eb !important;
+}
+
+body.page-id-4535 .whychoosebke-bg h3,
+body.page-id-2319 .av-mfz2cn8s-164dd7981eccbf6eb03f69e98ca61ef7 h3 {
+  color: #3d3a39 !important;
+}
+
+body.page-id-4535 .av-662d5xz-691b29ffcbdf0230e003366f6f93e14d,
+body.page-id-4535 .av-5s5c98n-2d8d281bc0f8dccb8aa0835a8ca07512,
+body.page-id-4535 .av-5q7zgzb-4f04da6f54a0318600f70830e3d5b8eb,
+body.page-id-4535 .av-mh33lkdl-2512f7f02acef8dea756d368b7bfa7be,
+body.page-id-4535 .av-mh33mkix-4e4ff9e663b0fb5ee250fc9a93919445 {
+  color: #bb8840 !important;
+}
+
+body.page-id-4535 .av-1hvzcgn-28b47b0f7eebef022010394e62943335,
+body.page-id-4535 .av-59eq6f-c6a6dce0b05fc07c77f69909e67d6a70,
+body.page-id-4535 .av-hjizb-18671e99f1d5d7b2fb088dd6bd98e6c6,
+body.page-id-4535 .av-389esn-0d4c393db9489c96c8f7c596a0276325 {
+  color: #1a1a1a !important;
+}
+
+body.page-id-4535 .av-5kr84zb-42bd2529a98295775f7e73991cb775ef,
+body.page-id-4535 .av-5gmowzb-4d2b936b9d85c892b8448899e19e2a3b,
+body.page-id-4535 .av-5arze9z-df1487c9811d89e932b2bef7831fafb7,
+body.page-id-4535 .av-3y5jw7-aaa9a8a8da6de11bb657117af5d36704 {
+  border-color: #bb8840 !important;
+}
+
+.avia-single-number {
+  color: #bb8840 !important;
+}
+
+.avia-animated-number-title {
+  color: #bb8840 !important;
+}
+
+.avia-animated-number-icon.avia-svg-icon svg {
+  fill: #bb8840 !important;
+  stroke: #bb8840 !important;
+}
+
+/* 聯絡我們 + 聯絡我們(感謝頁): pale-pink banner spacer under the hero
+   photo, and the "CONTACT US" heading itself (shared heading class, hot
+   pink in the original design). */
+body.page-id-4821 #av_section_2,
+body.page-id-4877 #av_section_2 {
+  background-color: #f4f1eb !important;
+}
+
+body.page-id-4821 .av-mies0thd-70f201d4f5b15f96e24f80987afb417a,
+body.page-id-4877 .av-mies0thd-70f201d4f5b15f96e24f80987afb417a {
+  color: #bb8840 !important;
+}
+
+body.page-id-4821 .av-mies0thd-70f201d4f5b15f96e24f80987afb417a .special-heading-inner-border,
+body.page-id-4877 .av-mies0thd-70f201d4f5b15f96e24f80987afb417a .special-heading-inner-border {
+  border-color: #bb8840 !important;
+}
+
+/* 最新消息: page-title heading, hot pink in the original design. */
+body.page-id-4301 .av-mgsvzdy7-0cf1bfb1dd07d45a48c62630ee894abf {
+  color: #bb8840 !important;
+}
+
+body.page-id-4301 .av-mgsvzdy7-0cf1bfb1dd07d45a48c62630ee894abf .special-heading-inner-border {
+  border-color: #bb8840 !important;
+}
+
+.bke-home-news {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 3.5vw, 42px);
+  width: 100%;
+  max-width: 540px;
+  padding: clamp(6px, 1vw, 16px) clamp(20px, 4vw, 26px);
+  margin: 0 auto;
+}
+
+.bke-home-news-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px 28px;
+  padding-bottom: 22px;
+  border-bottom: 2px solid #bb8840;
+}
+
+.bke-home-news-eyebrow {
+  width: 100%;
+  margin: 0 0 6px;
+  color: #bb8840;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+}
+
+.bke-home-news-title {
+  margin: 0;
+  color: #1a1a1a !important;
+  font-family: Lora, "Noto Serif TC", serif;
+  font-size: clamp(30px, 3.2vw, 42px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -.02em;
+}
+
+.bke-home-news-intro {
+  flex: 1 1 320px;
+  max-width: 520px;
+  margin: 10px 0 0;
+  color: #5c5c5c;
+  font-size: clamp(14px, 1.2vw, 16px);
+  line-height: 1.75;
+}
+
+.bke-home-news-more {
+  display: inline-flex !important;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 3px;
+  padding: 12px 22px;
+  color: #f4f1eb !important;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-decoration: none !important;
+  background: #1a1a1a;
+  border: 2px solid #1a1a1a !important;
+  border-radius: 999px;
+  transition: background-color .32s ease, color .32s ease, transform .28s ease, border-color .32s ease, box-shadow .32s ease;
+}
+
+.bke-home-news-more svg {
+  width: 16px;
+  height: 16px;
+  transition: transform .28s ease;
+}
+
+.bke-home-news-more:hover,
+.bke-home-news-more:focus-visible {
+  color: #f4f1eb !important;
+  background: #bb8840;
+  border-color: #bb8840 !important;
+  transform: translateX(2px);
+  box-shadow: 0 10px 26px rgba(187, 136, 64, .35);
+  outline: none;
+}
+
+.bke-home-news-more:hover svg,
+.bke-home-news-more:focus-visible svg {
+  transform: translateX(3px);
+}
+
+/* The container was narrowed to roughly half the page width, so the old
+   featured-card-plus-list two-column layout no longer has room to breathe
+   at any viewport; use the simple even grid (previously only the <989px
+   fallback) unconditionally instead. */
+.bke-home-news-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(18px, 2.4vw, 30px);
+}
+
+.bke-home-news-grid .bke-home-news-card:nth-child(1),
+.bke-home-news-grid .bke-home-news-card:nth-child(2),
+.bke-home-news-grid .bke-home-news-card:nth-child(3) {
+  grid-column: auto;
+  grid-row: auto;
+  display: grid !important;
+}
+
+.bke-home-news-grid .bke-home-news-card:nth-child(1) .bke-news-card-image,
+.bke-home-news-grid .bke-home-news-card:nth-child(2) .bke-news-card-image,
+.bke-home-news-grid .bke-home-news-card:nth-child(3) .bke-news-card-image {
+  aspect-ratio: 16 / 10;
+  min-height: 0;
+  flex: none;
+}
+
+.bke-home-news-grid .bke-home-news-card:nth-child(1) h3 {
+  font-size: clamp(16px, 1.4vw, 19px);
+}
+
+.bke-home-news-grid .bke-home-news-card:nth-child(3) {
+  display: none !important;
+}
+
+.bke-news-card-tag {
+  display: inline-block;
+  width: fit-content;
+  margin-bottom: 12px;
+  padding: 4px 12px;
+  color: #bb8840;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  background: rgba(187, 136, 64, .12);
+  border-radius: 999px;
+}
+
+.bke-home-news-grid .bke-news-card h3 {
+  font-size: clamp(16px, 1.4vw, 19px);
+  line-height: 1.5;
+}
+
+.bke-home-news-grid .bke-news-card-summary {
+  margin-top: 10px;
+  font-size: 13.5px;
+  line-height: 1.7;
+  -webkit-line-clamp: 2;
+}
+
+.bke-home-news-grid .bke-news-card-date {
+  margin-top: 14px;
+}
+
+.bke-home-news-grid .bke-news-card-copy {
+  padding: clamp(18px, 2vw, 24px);
+}
+
+@media (max-width: 767px) {
+  .bke-service-jump-nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: min(100% - 26px, 620px) !important;
+    margin-top: -24px !important;
+  }
+
+  .av-horizontal-gallery {
+    --bke-arrow-size: 48px;
+  }
+
+  .av-horizontal-gallery a.prev-slide {
+    left: 8px !important;
+  }
+
+  .av-horizontal-gallery a.next-slide {
+    right: 8px !important;
+  }
+
+  .av-horizontal-gallery-inner {
+    max-width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  .av-horizontal-gallery-wrap {
+    max-width: min(76vw, 310px) !important;
+  }
+
+  .av-horizontal-gallery .av-image-copyright > span {
+    font-size: clamp(16px, 5.4vw, 23px) !important;
+  }
+
+  .bke-news-page {
+    width: min(100% - 28px, 680px);
+    padding-top: 42px;
+  }
+
+  .bke-news-section-heading {
+    position: static;
+    padding-bottom: 16px;
+  }
+
+  .bke-news-section {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .bke-news-card {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    border-radius: 20px;
+  }
+
+  .bke-news-list {
+    grid-template-columns: 1fr;
+  }
+
+  .bke-news-card-image {
+    min-height: 0;
+    aspect-ratio: 16 / 10;
+  }
+
+  .bke-news-card-copy {
+    padding: 26px 22px 30px;
+  }
+
+  .bke-news-card h3 {
+    font-size: clamp(21px, 6.6vw, 28px);
+    line-height: 1.4;
+  }
+
+  .bke-home-news-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .bke-home-news-more {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .bke-home-news-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bke-home-news-grid .bke-home-news-card:nth-child(3) {
+    display: grid !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.bke-motion-ready #main {
+    animation-duration: .2s !important;
+    transform: none !important;
+  }
+
+  .bke-motion-ready .bke-reveal {
+    transform: none !important;
+    transition-duration: .24s !important;
+    transition-delay: 0s !important;
+  }
+
+  .bke-news-card,
+  .bke-news-card-image {
+    transition-duration: .01ms !important;
+  }
+}
+
+/* Site-wide palette pass: 一站式服務 product sub-pages + 養顏美容 used various pastel panel colours (blue/teal/pink/tan) per product type; normalised to cream to match the gold + neutral direction. */
+body.page-id-5053 .av-2a9djpp-fda50350271ab4f227ea860b5e33579f,
+body.page-id-5053 .av-5zc5z1-eeac94b912c64188d4fc412b29e74804 {
+  background-color: #f4f1eb !important;
+}
+
+body.page-id-5098 .av-1384ve2-805e76cf7104e17cb423fb7114c4dff1 {
+  background-color: #f4f1eb !important;
+}
+
+body.page-id-5155 .av-1kjxksj-dcf1b05a8002d4ead8be7e432aec2aad,
+body.page-id-5155 .av-mlj9wui2-291461a99aa2e9a73d58ca31a5c02831 {
+  background-color: #f4f1eb !important;
+}
+
+body.page-id-5161 .av-1lguf49-c459ce7c68355a4212fd75777b9401ec {
+  background-color: #f4f1eb !important;
+}
+
+body.page-id-5424 .av-mochqbhl-0cc5b73878717af082aa6cc0cb20076b {
+  background-color: #f4f1eb !important;
+}
+
+body.page-id-5435 .av-mexr8b-6f8ebce15ec99cb6a711982fcc84ffd7 {
+  background-color: #f4f1eb !important;
+}
+
+body.page-id-5449 .av-moihndsl-f85c78b01c8c9d6f7ab573969e51f4c8,
+body.page-id-5449 .av-moihnn5w-7548eaeb903ef4550a967c2c9f060f9b {
+  background-color: #f4f1eb !important;
+}
+
+body.page-id-5456 .av-moihqk6e-50809cb9e84814524829083068fdba2b {
+  background-color: #f4f1eb !important;
+}
+
+body.page-id-5462 .av-moihv292-19f75c6c48e75798bbeed9ff74b73c1a {
+  background-color: #f4f1eb !important;
+}
+
+body.page-id-5469 .av-moii0p6j-aa00bfc6fe950c76866e76daa480a9f0 {
+  background-color: #f4f1eb !important;
+}
+
+body.page-id-5703 .av-1390e47-bdc9cc3718dccd8891fa121c16de5530,
+body.page-id-5703 .av-oekmxz-2dc70230366f6871d1ac820064cb792d {
+  background-color: #f4f1eb !important;
+}
+
+body.page-id-5790 .av-vldjym-500c315a1d1a3415b57d57f8707cb2e7 {
+  background-color: #f4f1eb !important;
+}
+

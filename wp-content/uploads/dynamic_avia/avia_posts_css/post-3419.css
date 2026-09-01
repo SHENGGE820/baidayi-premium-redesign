@@ -1,0 +1,55 @@
+.avia-section.av-mfz09lqe-9c154485a31279fd4ab44c285ebd6843{
+background-repeat:no-repeat;
+background-image:url(../../2025/09/INTEGRATED-SERVICE-bg-img.jpg);
+background-position:50% 50%;
+background-attachment:scroll;
+}
+
+#top .av-special-heading.av-6uxti3-f7822fff60a042dee38589ce73e84c69{
+padding-bottom:10px;
+color:#3d3a39;
+font-size:95px;
+}
+body .av-special-heading.av-6uxti3-f7822fff60a042dee38589ce73e84c69 .av-special-heading-tag .heading-char{
+font-size:25px;
+}
+#top #wrap_all .av-special-heading.av-6uxti3-f7822fff60a042dee38589ce73e84c69 .av-special-heading-tag{
+font-size:95px;
+}
+.av-special-heading.av-6uxti3-f7822fff60a042dee38589ce73e84c69 .special-heading-inner-border{
+border-color:#3d3a39;
+}
+.av-special-heading.av-6uxti3-f7822fff60a042dee38589ce73e84c69 .av-subheading{
+font-size:28px;
+color:#3d3a39;
+}
+
+#top .hr.hr-invisible.av-5futsr-fba5e72d69334e36a66f97d1a3910a59{
+height:15px;
+}
+
+#top #wrap_all .avia-button.av-1uv9l7-4598c17f7678a7851c7a2b60df11785b{
+margin-bottom:5px;
+margin-right:3px;
+margin-left:3px;
+}
+#top #wrap_all .avia-button.av-1uv9l7-4598c17f7678a7851c7a2b60df11785b:hover{
+opacity:0.9;
+transition:all 0.4s ease-in-out;
+}
+
+
+@media only screen and (min-width: 480px) and (max-width: 767px){ 
+#top #wrap_all .av-special-heading.av-6uxti3-f7822fff60a042dee38589ce73e84c69 .av-special-heading-tag{
+font-size:0.8em;
+}
+}
+
+@media only screen and (max-width: 479px){ 
+#top #wrap_all .av-special-heading.av-6uxti3-f7822fff60a042dee38589ce73e84c69 .av-special-heading-tag{
+font-size:50px;
+}
+.av-special-heading.av-6uxti3-f7822fff60a042dee38589ce73e84c69 .av-subheading{
+font-size:20px;
+}
+}

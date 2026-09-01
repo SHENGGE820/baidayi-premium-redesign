@@ -1,0 +1,64 @@
+.avia-section.av-mgsvzvvn-940618538496e72095f6358c66013480{
+background-repeat:no-repeat;
+background-image:url(../../2025/10/資產-5.jpg);
+background-position:50% 50%;
+background-attachment:scroll;
+}
+
+#top .av-special-heading.av-mgsvzdy7-0cf1bfb1dd07d45a48c62630ee894abf{
+padding-bottom:10px;
+color:#d60e73;
+font-size:75px;
+}
+body .av-special-heading.av-mgsvzdy7-0cf1bfb1dd07d45a48c62630ee894abf .av-special-heading-tag .heading-char{
+font-size:25px;
+}
+#top #wrap_all .av-special-heading.av-mgsvzdy7-0cf1bfb1dd07d45a48c62630ee894abf .av-special-heading-tag{
+font-size:75px;
+}
+.av-special-heading.av-mgsvzdy7-0cf1bfb1dd07d45a48c62630ee894abf .special-heading-inner-border{
+border-color:#d60e73;
+}
+.av-special-heading.av-mgsvzdy7-0cf1bfb1dd07d45a48c62630ee894abf .av-subheading{
+font-size:18px;
+color:#3d3a39;
+}
+
+.avia-section.av-230x99-c87796a067d7612856fab2c566ca0f1a{
+background-color:#3d3a39;
+background-image:unset;
+margin-top:0px;
+margin-bottom:0px;
+}
+
+#top .hr.hr-invisible.av-mgugtxqh-9e7f5be3dbac4446634dc761490616ac{
+height:170px;
+}
+
+.avia-section.av-2x4tbh-d49920512e0ea2d5b3a62953e6b160d6{
+background-color:#585757;
+background-image:unset;
+}
+
+#top .flex_column.av-mguhdyrf-52a82ed21b9569f800f6cc9e07385ef3{
+margin-top:-250px;
+}
+.responsive #top #wrap_all .flex_column.av-mguhdyrf-52a82ed21b9569f800f6cc9e07385ef3{
+margin-top:-250px;
+}
+
+
+@media only screen and (min-width: 480px) and (max-width: 767px){ 
+#top #wrap_all .av-special-heading.av-mgsvzdy7-0cf1bfb1dd07d45a48c62630ee894abf .av-special-heading-tag{
+font-size:0.8em;
+}
+}
+
+@media only screen and (max-width: 479px){ 
+#top #wrap_all .av-special-heading.av-mgsvzdy7-0cf1bfb1dd07d45a48c62630ee894abf .av-special-heading-tag{
+font-size:26px;
+}
+.av-special-heading.av-mgsvzdy7-0cf1bfb1dd07d45a48c62630ee894abf .av-subheading{
+font-size:16px;
+}
+}

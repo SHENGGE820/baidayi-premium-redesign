@@ -1,0 +1,8 @@
+# OS / editor
+Thumbs.db
+desktop.ini
+.DS_Store
+*.swp
+
+# Local tooling
+node_modules/

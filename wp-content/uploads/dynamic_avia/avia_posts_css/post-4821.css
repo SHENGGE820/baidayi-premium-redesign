@@ -1,0 +1,54 @@
+.avia-section.av-6dszsl-fc9eb36da0b3e9a8116690da7a66a73a{
+background-repeat:no-repeat;
+background-image:url(../../2025/11/資產-2-100.jpg);
+background-position:50% 50%;
+background-attachment:scroll;
+}
+
+#top .av-special-heading.av-mies0thd-70f201d4f5b15f96e24f80987afb417a{
+padding-bottom:10px;
+color:#e9537b;
+font-size:75px;
+}
+body .av-special-heading.av-mies0thd-70f201d4f5b15f96e24f80987afb417a .av-special-heading-tag .heading-char{
+font-size:25px;
+}
+#top #wrap_all .av-special-heading.av-mies0thd-70f201d4f5b15f96e24f80987afb417a .av-special-heading-tag{
+font-size:75px;
+}
+.av-special-heading.av-mies0thd-70f201d4f5b15f96e24f80987afb417a .special-heading-inner-border{
+border-color:#e9537b;
+}
+.av-special-heading.av-mies0thd-70f201d4f5b15f96e24f80987afb417a .av-subheading{
+font-size:18px;
+color:#3d3a39;
+}
+
+.avia-section.av-miescpy5-09ebb5cff3cdf201ab239513014ba8d0{
+background-color:#f4d2df;
+background-image:unset;
+}
+
+#top .hr.hr-invisible.av-miesks47-166d3ddd405c027e244db6763db61ef7{
+height:170px;
+}
+
+.avia-section.av-38vphh-8bdc0def5900356d51caef5540c9b14b{
+margin-top:-250px;
+}
+
+
+@media only screen and (min-width: 480px) and (max-width: 767px){ 
+#top #wrap_all .av-special-heading.av-mies0thd-70f201d4f5b15f96e24f80987afb417a .av-special-heading-tag{
+font-size:0.8em;
+}
+}
+
+@media only screen and (max-width: 479px){ 
+#top #wrap_all .av-special-heading.av-mies0thd-70f201d4f5b15f96e24f80987afb417a .av-special-heading-tag{
+font-size:26px;
+}
+.av-special-heading.av-mies0thd-70f201d4f5b15f96e24f80987afb417a .av-subheading{
+font-size:16px;
+}
+}

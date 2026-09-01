@@ -1,0 +1,804 @@
+:root {
+  --motion-ease: cubic-bezier(.22, 1, .36, 1);
+  --motion-soft: cubic-bezier(.16, 1, .3, 1);
+  --hover-ease: cubic-bezier(.28, .08, .22, 1);
+}
+
+.motion-progress {
+  position: fixed;
+  z-index: 22000;
+  inset: 0 0 auto;
+  height: 2px;
+  pointer-events: none;
+}
+.motion-progress i {
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: #c49a56;
+  transform: scaleX(var(--scroll-progress, 0));
+  transform-origin: left;
+  will-change: transform;
+}
+
+.motion-curtain {
+  position: fixed;
+  z-index: 21000;
+  inset: 0;
+  pointer-events: none;
+  background: #171713;
+  transform: translate3d(0, 101%, 0);
+  transition: transform .48s var(--motion-soft);
+  will-change: transform;
+}
+body.motion-leaving .motion-curtain { transform: translate3d(0, 0, 0); }
+
+.site-header,
+.legacy-premium-header { animation: motionHeaderIn .9s var(--motion-ease) both; }
+
+.motion-item {
+  opacity: 0;
+  filter: blur(5px);
+  translate: 0 30px;
+  transition:
+    opacity .9s var(--motion-ease) var(--motion-delay, 0ms),
+    transform .9s var(--motion-ease) var(--motion-delay, 0ms),
+    translate .9s var(--motion-ease) var(--motion-delay, 0ms),
+    filter .9s var(--motion-ease) var(--motion-delay, 0ms);
+  will-change: opacity, translate, filter;
+}
+.motion-item.is-visible {
+  opacity: 1;
+  filter: blur(0);
+  translate: 0 0;
+}
+
+.motion-headline { opacity: 1 !important; transform: none !important; }
+.motion-line { display: block; overflow: hidden; padding-bottom: .06em; margin-bottom: -.06em; }
+.motion-line > span {
+  display: block;
+  opacity: 0;
+  transform: translate3d(0, 112%, 0) rotate(.8deg);
+  transform-origin: left bottom;
+  transition: opacity .2s ease, transform 1.05s var(--motion-ease);
+  transition-delay: calc(var(--motion-line, 0) * 110ms + 100ms);
+  will-change: transform;
+}
+.motion-headline.is-animated .motion-line > span { opacity: 1; transform: translate3d(0, 0, 0) rotate(0); }
+
+.motion-media {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 1.15s var(--motion-soft);
+  will-change: clip-path;
+}
+.motion-media.is-visible { clip-path: inset(0 0 0 0); }
+.motion-media img {
+  transform: scale(1.075);
+  transition: transform 1.45s var(--motion-ease) !important;
+  will-change: transform;
+}
+.motion-media.is-visible img { transform: scale(1); }
+.insight-card:hover .motion-media.is-visible img,
+.article-card:hover .motion-media.is-visible img,
+.av-masonry-entry:hover .motion-media.is-visible img { transform: scale(1.04); }
+
+.hero-media img,
+.inner-hero-media img {
+  transform: translate3d(0, var(--motion-parallax, 0px), 0) scale(1.065);
+  will-change: transform;
+}
+.hero-media.motion-media.is-visible img,
+.inner-hero-media.motion-media.is-visible img {
+  transform: translate3d(0, var(--motion-parallax, 0px), 0) scale(1.065);
+}
+
+.motion-spotlight { position: relative; isolation: isolate; overflow: hidden; }
+.motion-spotlight::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(196,154,86,.14), rgba(196,154,86,.045) 62%, rgba(255,255,255,.045));
+  opacity: 0;
+  clip-path: circle(0% at var(--spot-x, 50%) var(--spot-y, 50%));
+  transition: opacity .82s ease, clip-path 1.24s var(--hover-ease);
+}
+.motion-spotlight:hover::after {
+  opacity: 1;
+  clip-path: circle(155% at var(--spot-x, 50%) var(--spot-y, 50%));
+}
+.motion-spotlight > * { position: relative; z-index: 1; }
+
+.button,
+.header-cta,
+.floating-consult,
+.legacy-premium-cta,
+.legacy-floating-consult,
+body.premium-legacy #main .avia-button {
+  translate: var(--magnet-x, 0px) calc(var(--magnet-y, 0px) + var(--hover-lift, 0px));
+  transition-property: color, background-color, border-color, box-shadow, translate;
+  transition-duration: .68s, .68s, .68s, .9s, 1.02s;
+  transition-timing-function: ease, ease, ease, ease, var(--motion-ease);
+}
+.button.motion-item.is-visible {
+  translate: var(--magnet-x, 0px) calc(var(--magnet-y, 0px) + var(--hover-lift, 0px));
+}
+
+.floating-consult::after,
+.legacy-floating-consult::after {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  border: 1px solid rgba(196,154,86,.44);
+  border-radius: inherit;
+  animation: motionConsultPulse 3.8s ease-out infinite;
+  pointer-events: none;
+}
+
+.proof-item strong.counting { color: #d0aa67; }
+
+/* Per-component hover states. The shared rules live in the Hover system
+   section at the end of this file. */
+  .primary-nav a::after,
+  .legacy-premium-nav a::after {
+    transform-origin: center;
+    transition-duration: .92s;
+    transition-timing-function: var(--hover-ease);
+  }
+
+  .button,
+  .header-cta,
+  .legacy-premium-cta,
+  .floating-consult,
+  .legacy-floating-consult,
+  body.premium-legacy #main .avia-button {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    transition: color .62s ease, background-color .72s ease, border-color .72s ease, box-shadow 1.08s var(--hover-ease), translate 1.12s var(--hover-ease);
+  }
+  .button::before,
+  .header-cta::before,
+  .legacy-premium-cta::before,
+  .floating-consult::before,
+  .legacy-floating-consult::before,
+  body.premium-legacy #main .avia-button::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    pointer-events: none;
+    background: var(--hover-wash, linear-gradient(115deg, rgba(255,255,255,.04), rgba(255,255,255,.16)));
+    opacity: 0;
+    clip-path: circle(0% at var(--spot-x, 50%) var(--spot-y, 50%));
+    transition: opacity .82s ease, clip-path 1.28s var(--hover-ease);
+  }
+  .button:hover::before,
+  .header-cta:hover::before,
+  .legacy-premium-cta:hover::before,
+  .floating-consult:hover::before,
+  .legacy-floating-consult:hover::before,
+  body.premium-legacy #main .avia-button:hover::before {
+    opacity: 1;
+    clip-path: circle(150% at var(--spot-x, 50%) var(--spot-y, 50%));
+  }
+  .button:hover,
+  .header-cta:hover {
+    --hover-lift: -5px;
+    transform: none;
+    box-shadow: 0 22px 46px rgba(17,17,14,.12);
+  }
+  .legacy-premium-cta:hover { --hover-lift: -5px; box-shadow: 0 22px 46px rgba(17,17,14,.12); }
+  .button-gold { --hover-wash: linear-gradient(115deg, rgba(255,255,255,.02), rgba(255,245,211,.42)); }
+  .button-gold:hover { background: var(--gold); }
+  .button-outline { --hover-wash: linear-gradient(115deg, #c59e5b, #dfc78f); }
+  .button-outline:hover { color: var(--ink); background: transparent; border-color: var(--gold-light); transition-delay: .34s, 0s, 0s, 0s, 0s, 0s; }
+  .button-dark { --hover-wash: linear-gradient(115deg, rgba(196,154,86,.07), rgba(255,255,255,.11)); }
+  .button-dark:hover { background: var(--ink); }
+  .header-cta,
+  .legacy-premium-cta,
+  body.premium-legacy #main .avia-button { --hover-wash: linear-gradient(115deg, #b98a3d, #d9b875); }
+  .floating-consult,
+  .legacy-floating-consult { --hover-wash: radial-gradient(circle, rgba(255,250,231,.48), rgba(255,250,231,.08) 68%); }
+  .header-cta:hover { background: var(--gold); }
+
+  .text-link {
+    background-image: linear-gradient(90deg, currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: 0 1px;
+    transition: gap .9s var(--hover-ease), color .65s ease .26s, background-size 1.1s var(--hover-ease), border-color .65s ease;
+  }
+  .text-link:hover { gap: 20px; color: #8d672b; background-size: 100% 1px; border-bottom-color: transparent; }
+  .text-link-light:hover { color: var(--gold-light); }
+
+  .capability-card {
+    transition: color .62s ease, box-shadow 1.05s var(--hover-ease), transform 1.08s var(--hover-ease);
+  }
+  .capability-card::before {
+    background: linear-gradient(145deg, #2b2a24 0%, #171713 72%);
+    opacity: 1;
+    transform: none;
+    clip-path: circle(0% at var(--spot-x, 50%) var(--spot-y, 50%));
+    transition: clip-path 1.26s var(--hover-ease);
+  }
+  .capability-card:hover::before {
+    opacity: 1;
+    transform: none;
+    clip-path: circle(155% at var(--spot-x, 50%) var(--spot-y, 50%));
+  }
+  .capability-card:hover { transition-delay: .34s, 0s, 0s, 0s, 0s; }
+  .capability-card p { transition: color .58s ease; }
+  .capability-card:hover p { transition-delay: .34s; }
+  .card-arrow { transition-duration: 1.02s; transition-timing-function: var(--hover-ease); }
+  .capability-card:hover .card-arrow { transform: translate(2px,-2px); }
+
+  .solution-row { transition: color .58s ease, padding 1.02s var(--hover-ease), border-color .72s ease; }
+  .solution-row:hover { transition-delay: .3s, 0s, 0s; }
+  .solution-row:hover { padding-left: 12px; border-color: rgba(217,184,117,.5); }
+
+  .process-step {
+    transition: box-shadow 1.08s var(--hover-ease), transform 1.12s var(--hover-ease);
+  }
+  .process-step:hover { background: var(--ivory); box-shadow: 0 22px 48px rgba(25,24,19,.06), inset 0 0 0 1px rgba(185,138,61,.12); transform: translateY(-4px); }
+
+  .format-card {
+    transition: transform 1.12s var(--hover-ease), box-shadow 1.08s var(--hover-ease);
+  }
+  .format-card:hover { background: #272721; transform: translateY(-5px); box-shadow: 0 26px 56px rgba(15,15,12,.12); }
+
+  .insight-card,
+  .article-card {
+    transition: transform 1.12s var(--hover-ease), box-shadow 1.08s var(--hover-ease), border-color .72s ease;
+  }
+  .insight-card:hover,
+  .article-card:hover { transform: translateY(-4px); box-shadow: 0 24px 54px rgba(25,24,19,.075); border-color: rgba(185,138,61,.32); }
+  .insight-card:hover .motion-media.is-visible img,
+  .article-card:hover .motion-media.is-visible img,
+  .av-masonry-entry:hover .motion-media.is-visible img { transform: scale(1.025); }
+
+  .news-filter button {
+    background-image: radial-gradient(circle, rgba(185,138,61,.11), rgba(185,138,61,.035) 54%, transparent 72%);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 0 0;
+    transition: color .55s ease .28s, background-size 1.15s var(--hover-ease), border-color .72s ease;
+  }
+  .news-filter button:not(.is-active):hover { color: #8d672b; background-color: transparent; background-size: 260% 260%; border-color: rgba(141,103,43,.45); }
+
+  .footer-nav a,
+  .legacy-premium-footer-nav a { transition: color .55s ease; }
+  .floating-consult:hover,
+  .legacy-floating-consult:hover {
+    --hover-lift: -7px;
+    transform: none;
+    background: var(--gold);
+    box-shadow: 0 28px 60px rgba(0,0,0,.15);
+  }
+
+  body.premium-legacy #main .avia-button,
+  body.premium-legacy #main .button,
+  body.premium-legacy #main input[type="submit"] {
+    transition: color .58s ease .32s, background-color .72s ease, border-color .72s ease, box-shadow 1.08s var(--hover-ease), translate 1.12s var(--hover-ease) !important;
+  }
+  body.premium-legacy #main .avia-button:hover,
+  body.premium-legacy #main .button:hover {
+    --hover-lift: -5px;
+    color: #171713 !important;
+    background: #171713 !important;
+    border-color: #171713 !important;
+    box-shadow: 0 22px 46px rgba(17,17,14,.12) !important;
+  }
+  body.premium-legacy #main input[type="submit"] {
+    background-image: radial-gradient(circle, #d9b875, #b98a3d 68%) !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-size: 0 0 !important;
+  }
+  body.premium-legacy #main input[type="submit"]:hover {
+    color: #171713 !important;
+    background-color: #171713 !important;
+    background-size: 280% 280% !important;
+    border-color: #171713 !important;
+  }
+  body.premium-legacy #main .avia-gallery-thumb img,
+  body.premium-legacy #main .av-horizontal-gallery-wrap img { transition-duration: 1.15s !important; transition-timing-function: var(--motion-ease) !important; }
+  body.premium-legacy #main .avia-gallery-thumb a:hover img,
+  body.premium-legacy #main .av-horizontal-gallery-wrap:hover img { transform: scale(1.018); }
+
+@keyframes motionHeaderIn {
+  from { opacity: 0; transform: translate3d(0, -22px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes motionConsultPulse {
+  0%, 46% { opacity: 0; transform: scale(.9); }
+  62% { opacity: .9; }
+  88%, 100% { opacity: 0; transform: scale(1.18); }
+}
+
+@media (max-width: 820px) {
+  .hero-media img,
+  .inner-hero-media img,
+  .hero-media.motion-media.is-visible img,
+  .inner-hero-media.motion-media.is-visible img { transform: scale(1.035); }
+  .motion-item { filter: none; translate: 0 20px; }
+  .motion-sequence > * { transition-delay: calc(var(--motion-index, 0) * 45ms); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-progress,
+  .motion-curtain { display: none !important; }
+  .site-header,
+  .legacy-premium-header,
+  .floating-consult::after,
+  .legacy-floating-consult::after { animation: none !important; }
+  .motion-item,
+  .motion-line > span,
+  .motion-media,
+  .motion-media img,
+  .motion-sequence > * {
+    opacity: 1 !important;
+    filter: none !important;
+    translate: none !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+}
+
+/* ==========================================================================
+   Hover system
+   --------------------------------------------------------------------------
+   Two problems this section solves.
+
+   1. The nav underline never actually grew from the centre. The base rule in
+      premium-site.css pinned transform-origin to `right` and the :hover rule
+      flipped it to `left`, so the line wiped in from the left edge and then
+      retracted to the right - two different motions for the same gesture.
+      Both states now sit on `center`, and that centre-out line is reused as
+      the shared idiom for every text link on the site.
+
+   2. Roughly half the interactive surfaces had no hover state at all - the
+      stat cells, the about/service/research cards, the timeline and quality
+      rows, the logo, the scroll cue, the footer links, form fields, and every
+      link inside the 43 legacy WordPress pages. They now all transition.
+
+   Durations are deliberately three values, not eighteen: colour changes are
+   quick, transforms sit in the middle, and anything that travels across a
+   surface (an underline, a wash) takes the long one.
+   ========================================================================== */
+
+:root {
+  --hv-quick: .3s;
+  --hv-base: .48s;
+  --hv-spread: .72s;
+}
+
+/* --------------------------------------------------------------------------
+   1. Centre-out underline
+   -------------------------------------------------------------------------- */
+.primary-nav a::after,
+.legacy-premium-nav a::after {
+  transform-origin: center !important;
+}
+.primary-nav a:hover::after,
+.primary-nav a:focus-visible::after,
+.legacy-premium-nav a:hover::after,
+.legacy-premium-nav a:focus-visible::after {
+  transform: scaleX(1);
+}
+.primary-nav a,
+.legacy-premium-nav a { transition: color var(--hv-quick) ease; }
+.primary-nav a:hover,
+.primary-nav a:focus-visible { color: #d9b875; }
+.legacy-premium-nav a:hover,
+.legacy-premium-nav a:focus-visible { color: #d9b875 !important; }
+
+/* The same line, applied to links that previously only changed colour. The
+   pseudo-element is added here rather than in the base sheets so the two
+   footers (rebuilt and legacy) stay in step. */
+.footer-nav a,
+.legacy-premium-footer-nav a,
+.contact-detail strong a,
+.story-copy a {
+  position: relative;
+  display: inline-block;
+  transition: color var(--hv-quick) ease;
+}
+.footer-nav a::after,
+.legacy-premium-footer-nav a::after,
+.contact-detail strong a::after,
+.story-copy a::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -2px;
+  left: 0;
+  height: 1px;
+  background: currentColor;
+  opacity: .6;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform var(--hv-spread) var(--hover-ease);
+}
+.footer-nav a:hover::after,
+.footer-nav a:focus-visible::after,
+.legacy-premium-footer-nav a:hover::after,
+.legacy-premium-footer-nav a:focus-visible::after,
+.contact-detail strong a:hover::after,
+.story-copy a:hover::after { transform: scaleX(1); }
+.legacy-premium-footer-nav a:hover,
+.legacy-premium-footer-nav a:focus-visible { color: #fff !important; }
+.contact-detail strong a:hover { color: #8d672b; }
+
+/* --------------------------------------------------------------------------
+   2. Header furniture - logo, menu button, scroll cue
+   -------------------------------------------------------------------------- */
+.brand,
+.legacy-premium-brand { transition: opacity var(--hv-base) ease; }
+.brand:hover,
+.brand:focus-visible,
+.legacy-premium-brand:hover,
+.legacy-premium-brand:focus-visible { opacity: .78; }
+
+.menu-toggle,
+.legacy-premium-toggle {
+  cursor: pointer;
+  transition: color var(--hv-quick) ease;
+}
+.menu-toggle:hover,
+.legacy-premium-toggle:hover { color: #d9b875; }
+.menu-toggle-lines i,
+.legacy-premium-toggle i { transition: transform .3s var(--motion-ease), background-color var(--hv-quick) ease; }
+
+.hero-scroll { transition: color var(--hv-base) ease, gap var(--hv-spread) var(--hover-ease); }
+.hero-scroll:hover,
+.hero-scroll:focus-visible { color: #fff; gap: 20px; }
+.hero-scroll i { transition: width var(--hv-spread) var(--hover-ease); }
+.hero-scroll:hover i { width: 64px; }
+
+/* --------------------------------------------------------------------------
+   3. Stat cells
+   Not links, but they are the first grid on the page and sat completely
+   inert. A wash plus the same centre-out rule ties them to the nav.
+   -------------------------------------------------------------------------- */
+.proof-item {
+  position: relative;
+  transition: background-color var(--hv-spread) ease;
+}
+.proof-item::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  background: #b98a3d;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform var(--hv-spread) var(--hover-ease);
+}
+.proof-item:hover { background-color: rgba(255,255,255,.32); }
+.proof-item:hover::after { transform: scaleX(1); }
+.proof-item span { transition: color var(--hv-base) ease; }
+.proof-item:hover span { color: #4a463f; }
+
+/* --------------------------------------------------------------------------
+   4. Cards that only had the spotlight wash
+   premium-motion.js tags these with .motion-spotlight, which fades a gradient
+   over them, but none of them moved. A short lift and a heading colour change
+   give the wash something to sit on.
+   -------------------------------------------------------------------------- */
+.certification-card,
+.value-card,
+.service-overview-card {
+  transition: transform var(--hv-spread) var(--hover-ease),
+              box-shadow var(--hv-spread) ease,
+              border-color var(--hv-base) ease;
+}
+.certification-card:hover { transform: translateY(-4px); box-shadow: 0 24px 50px rgba(0,0,0,.22); }
+.value-card:hover,
+.service-overview-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 52px rgba(25,24,19,.07);
+  border-color: rgba(185,138,61,.34);
+}
+.value-card h3,
+.service-overview-card h3,
+.research-pillar h3,
+.certification-card strong { transition: color var(--hv-base) ease; }
+.value-card:hover h3,
+.service-overview-card:hover h3,
+.certification-card:hover strong { color: #8d672b; }
+
+.research-pillar {
+  transition: background-color var(--hv-spread) ease,
+              transform var(--hv-spread) var(--hover-ease);
+}
+.research-pillar:hover { background-color: #20201a; transform: translateY(-4px); }
+.research-pillar:hover h3 { color: #d9b875; }
+
+/* --------------------------------------------------------------------------
+   5. List rows - timeline and quality list
+   Same gesture as .solution-row on the homepage, which already had it.
+   -------------------------------------------------------------------------- */
+.timeline li,
+.quality-row {
+  transition: padding-left var(--hv-spread) var(--hover-ease),
+              border-color var(--hv-base) ease,
+              color var(--hv-base) ease;
+}
+.timeline li:hover { padding-left: 14px; border-bottom-color: rgba(217,184,117,.5); }
+.quality-row:hover { padding-left: 14px; border-bottom-color: rgba(185,138,61,.45); }
+.timeline strong,
+.quality-row strong { transition: color var(--hv-base) ease; }
+.timeline li:hover strong { color: #d9b875; }
+.quality-row:hover strong { color: #8d672b; }
+
+/* --------------------------------------------------------------------------
+   6. Imagery
+   .split-feature-media had overflow visible and no hover at all; the two card
+   images had a transition declared but nothing to trigger it without JS.
+   -------------------------------------------------------------------------- */
+.split-feature-media { overflow: hidden; }
+.split-feature:hover .split-feature-media img,
+.split-feature:hover .motion-media.is-visible img { transform: scale(1.035); }
+.insight-card:hover .insight-image img,
+.article-card:hover .article-card-image img { transform: scale(1.025); }
+
+/* --------------------------------------------------------------------------
+   7. Arrows
+   -------------------------------------------------------------------------- */
+.solution-row i { transition: transform var(--hv-spread) var(--hover-ease), opacity var(--hv-base) ease; }
+.solution-row:hover i { opacity: 1; transform: translate(3px,-3px); }
+.button span[aria-hidden],
+.header-cta span[aria-hidden] { transition: transform var(--hv-spread) var(--hover-ease); }
+.button:hover span[aria-hidden],
+.header-cta:hover span[aria-hidden] { transform: translate(2px,-2px); }
+
+/* --------------------------------------------------------------------------
+   8. News filter and forms
+   -------------------------------------------------------------------------- */
+.news-filter button { cursor: pointer; }
+.news-filter button.is-active {
+  transition: background-color var(--hv-base) ease, border-color var(--hv-base) ease;
+}
+.news-filter button.is-active:hover { background-color: #35342c; border-color: #35342c; }
+
+.form-field label { transition: color var(--hv-base) ease; }
+.form-field:focus-within label { color: #8d672b; }
+.form-field input,
+.form-field select,
+.form-field textarea {
+  transition: border-color var(--hv-base) ease,
+              background-color var(--hv-spread) ease;
+}
+.form-field input:hover,
+.form-field select:hover,
+.form-field textarea:hover { border-bottom-color: #6f685c; }
+
+/* --------------------------------------------------------------------------
+   9. Legacy WordPress pages
+   43 of the 49 pages are the original theme markup inside the premium shell.
+   Body links there had no hover treatment of any kind.
+   -------------------------------------------------------------------------- */
+/* Scoped to #main rather than .entry-content-wrapper: on most of these pages
+   the body links sit outside the wrapper, so the narrower selector matched
+   nothing. Colour only, so an image or gallery link is unaffected. */
+body.premium-legacy #main a:not(.avia-button):not(.button):not(.avia-gallery-thumb):not([class*="lightbox"]) {
+  transition: color var(--hv-quick) ease;
+}
+body.premium-legacy #main a:not(.avia-button):not(.button):not(.avia-gallery-thumb):not([class*="lightbox"]):hover {
+  color: #8d672b;
+}
+body.premium-legacy #main .av-masonry-entry {
+  transition: transform var(--hv-spread) var(--hover-ease), box-shadow var(--hv-spread) ease;
+}
+body.premium-legacy #main .av-masonry-entry:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 52px rgba(25,24,19,.09);
+}
+body.premium-legacy #main .av-masonry-entry-title { transition: color var(--hv-base) ease; }
+body.premium-legacy #main .av-masonry-entry:hover .av-masonry-entry-title { color: #8d672b; }
+
+/* --------------------------------------------------------------------------
+   10. Keyboard parity
+   Nothing on the site drew a focus ring, so a keyboard user got none of the
+   above. :focus-visible only fires for keyboard interaction, so this stays
+   invisible to mouse users.
+   -------------------------------------------------------------------------- */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #c49a56;
+  outline-offset: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   11. Card tilt
+   premium-motion.js drives the rotation on .insight-card and .article-card;
+   these two classes decide what is transitioned at each stage. The split
+   matters: while the card tracks the pointer, transform must NOT be
+   transitioned, or it trails the cursor by the transition's own duration. The
+   slow return on leave is where the site's unhurried feel actually reads.
+
+   The tilt is only wired up when the visitor has not asked for reduced motion,
+   so neither class ever appears in that case - the plain translateY(-4px)
+   hover further up stays in force for reduced-motion, touch and no-JS.
+   -------------------------------------------------------------------------- */
+.tilt-card { transform-style: preserve-3d; }
+
+.tilt-card.is-tilting {
+  will-change: transform;
+  transition: box-shadow 1.08s var(--hover-ease), border-color var(--hv-spread) ease;
+}
+
+.tilt-card.is-returning {
+  transition: transform var(--hv-spread) var(--motion-ease),
+              box-shadow 1.08s var(--hover-ease),
+              border-color var(--hv-spread) ease;
+}
+
+/* --------------------------------------------------------------------------
+   12. Softening pass
+   Everything above this point moved correctly but landed hard. Three separate
+   causes, all of which read to the eye as "stiff":
+
+   a) --motion-ease is cubic-bezier(.22, 1, .36, 1). Its first control point
+      reaches y=1 at x=.22, so roughly 80% of the travel happens in the first
+      quarter of the duration and the element then crawls the last few pixels.
+      That lurch-then-hang is the stiffness in every rise on the site.
+
+   b) The button lift and the cursor magnet were both written onto `translate`,
+      so they shared one transition. The magnet is a pointermove tracker, but
+      it was inheriting the lift's ~1.1s easing and dragging a full second
+      behind the cursor.
+
+   c) The card washes grow with clip-path. clip-path is applied after filter in
+      the rendering order, so the circle's edge is always a hard cut and no
+      amount of blur softens it. A mask does feather, and mask-size animates.
+   -------------------------------------------------------------------------- */
+
+:root {
+  /* easeOutCubic - same family as before but the tail is four times longer,
+     so the movement stays visible instead of finishing in the first frames. */
+  --rise-ease: cubic-bezier(.33, 1, .68, 1);
+  /* Overshoots by ~4% and settles back. On a 5px lift that is a fifth of a
+     pixel past the mark - not seen, but felt as give rather than as a stop. */
+  --lift-ease: cubic-bezier(.34, 1.16, .64, 1);
+  /* Slow in, slow out, for surfaces that spread rather than move. */
+  --wash-ease: cubic-bezier(.4, .5, .2, 1);
+}
+
+/* --- a) Rises ----------------------------------------------------------- */
+.motion-item {
+  translate: 0 34px;
+  filter: blur(4px);
+  transition:
+    opacity 1.05s var(--rise-ease) var(--motion-delay, 0ms),
+    transform 1.05s var(--rise-ease) var(--motion-delay, 0ms),
+    translate 1.05s var(--rise-ease) var(--motion-delay, 0ms),
+    filter 1.05s var(--rise-ease) var(--motion-delay, 0ms);
+}
+
+/* The headline lines faded in over .2s while still sliding for another
+   second, so the text was fully opaque before most of the movement had
+   happened and the slide read as a separate, mechanical event. */
+.motion-line > span {
+  transform: translate3d(0, 108%, 0) rotate(.6deg);
+  transition: opacity .8s var(--rise-ease), transform 1.15s var(--rise-ease);
+  transition-delay: calc(var(--motion-line, 0) * 130ms + 120ms);
+}
+
+/* --- b) Button lift and magnet, split apart ----------------------------- */
+.button,
+.header-cta,
+.floating-consult,
+.legacy-premium-cta,
+.legacy-floating-consult {
+  translate: 0 var(--hover-lift, 0px);
+  transform: translate3d(var(--magnet-x, 0px), var(--magnet-y, 0px), 0);
+  transition: color .62s ease,
+              background-color .72s ease,
+              border-color .72s ease,
+              box-shadow .8s var(--wash-ease),
+              translate .62s var(--lift-ease),
+              transform .22s ease-out;
+}
+
+/* The earlier rules set `transform: none` on hover to stop the lift and the
+   magnet fighting; now that they live on separate properties the magnet has
+   to survive the hover. */
+.button:hover,
+.header-cta:hover,
+.floating-consult:hover,
+.legacy-premium-cta:hover,
+.legacy-floating-consult:hover {
+  transform: translate3d(var(--magnet-x, 0px), var(--magnet-y, 0px), 0);
+}
+
+/* `translate` is also what the entrance rise uses, and the rule above would
+   otherwise cancel it for buttons that are themselves reveal targets. */
+.button.motion-item:not(.is-visible),
+.header-cta.motion-item:not(.is-visible) { translate: 0 34px; }
+.button.motion-item.is-visible { translate: 0 var(--hover-lift, 0px); }
+
+body.premium-legacy #main .avia-button,
+body.premium-legacy #main .button {
+  translate: 0 var(--hover-lift, 0px) !important;
+  transform: translate3d(var(--magnet-x, 0px), var(--magnet-y, 0px), 0) !important;
+  transition: color .58s ease .32s,
+              background-color .72s ease,
+              border-color .72s ease,
+              box-shadow .8s var(--wash-ease),
+              translate .62s var(--lift-ease),
+              transform .22s ease-out !important;
+}
+
+/* --- c) Washes ---------------------------------------------------------- */
+/* A radial mask instead of a clip-path circle: the stops carry the edge out
+   over about a fifth of the radius, so the dark surface arrives as a gradient
+   rather than as an expanding disc with a drawn edge. mask-position is set in
+   pixels by premium-motion.js - percentages misbehave once the mask is larger
+   than the box it sits in. */
+.capability-card::before,
+.motion-spotlight::after {
+  clip-path: none;
+  -webkit-mask-image: radial-gradient(circle, #000 34%, rgba(0,0,0,.6) 60%, transparent 80%);
+  mask-image: radial-gradient(circle, #000 34%, rgba(0,0,0,.6) 60%, transparent 80%);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: var(--spot-x, 50%) var(--spot-y, 50%);
+  mask-position: var(--spot-x, 50%) var(--spot-y, 50%);
+  -webkit-mask-size: 0% 0%;
+  mask-size: 0% 0%;
+  transition: -webkit-mask-size 1.3s var(--wash-ease),
+              mask-size 1.3s var(--wash-ease),
+              opacity .9s var(--wash-ease);
+}
+.capability-card:hover::before,
+.motion-spotlight:hover::after {
+  -webkit-mask-size: 340% 340%;
+  mask-size: 340% 340%;
+}
+
+/* The small button washes keep clip-path - at that size the edge is a few
+   pixels of travel - but they get the same unhurried curve. */
+.button::before,
+.header-cta::before,
+.legacy-premium-cta::before,
+.floating-consult::before,
+.legacy-floating-consult::before,
+body.premium-legacy #main .avia-button::before {
+  transition: opacity .82s var(--wash-ease), clip-path 1.28s var(--wash-ease);
+}
+
+/* Card lifts pick up the same give as the buttons. */
+.capability-card,
+.process-step,
+.format-card,
+.certification-card,
+.value-card,
+.service-overview-card,
+.research-pillar {
+  transition: color .62s ease,
+              background-color .8s var(--wash-ease),
+              border-color .62s ease,
+              box-shadow .8s var(--wash-ease),
+              transform .62s var(--lift-ease);
+}
+
+.insight-card,
+.article-card {
+  transition: transform .62s var(--lift-ease),
+              box-shadow .8s var(--wash-ease),
+              border-color .62s ease;
+}
+.tilt-card.is-returning {
+  transition: transform .62s var(--lift-ease),
+              box-shadow .8s var(--wash-ease),
+              border-color .62s ease;
+}
+

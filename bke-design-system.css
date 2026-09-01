@@ -1,0 +1,301 @@
+/* ==========================================================================
+   BKE design system
+   --------------------------------------------------------------------------
+   Loaded after static-overrides.css. Where that file fixes specific bugs and
+   recolours specific elements, this one sets the shared foundation: type
+   scale, vertical rhythm, and measure.
+
+   The page builder wrote a font-size onto every single heading individually,
+   so there was no scale to speak of — h2 turned up at 95px, 58px and 30px on
+   one page with letter-spacing drifting between 1px, normal and -0.6px. The
+   rules below deliberately override those per-element sizes and reattach type
+   to the *role* the builder already marks:
+
+     .av-special-heading-h1 + .av-inherit-size   page hero title  (English)
+     .av-special-heading-h2 + .av-inherit-size   section title    (English)
+     .av-special-heading-h2 (no inherit-size)    companion title  (Chinese)
+     .av-special-heading-h3                      card / item title
+
+   That English-title-over-Chinese-subtitle pairing is the site's real
+   editorial idea. It was just never expressed as a hierarchy — both halves
+   were set at weight 900 and competed. Here the English leads and the Chinese
+   sits under it as a tracked, lighter companion.
+   ========================================================================== */
+
+:root {
+  /* Type scale — fluid, so the jump from laptop to desktop stays proportional
+     instead of the fixed 58px/95px steps the builder emitted. */
+  --bke-display: clamp(36px, 5.2vw, 68px);
+  --bke-title: clamp(28px, 3.4vw, 48px);
+  --bke-companion: clamp(16px, 1.5vw, 20px);
+  --bke-card-title: clamp(16px, 1.15vw, 19px);
+  --bke-body: 16px;
+  --bke-small: 14px;
+  --bke-label: 12px;
+
+  /* Vertical rhythm. Sections currently carry no padding of their own, so
+     these are applied explicitly further down. */
+  --bke-section-y: clamp(72px, 7.5vw, 128px);
+  --bke-block-y: clamp(28px, 3vw, 48px);
+
+  /* Longest comfortable line for running text. Latin and CJK read at
+     different densities, so CJK gets the narrower of the two. */
+  --bke-measure: 68ch;
+  --bke-measure-cjk: 34em;
+
+  /* Palette, carried over from the gold + neutral pass. */
+  --bke-gold: #bb8840;
+  --bke-gold-soft: rgba(187, 136, 64, .16);
+  --bke-ink: #1a1a1a;
+  --bke-ink-soft: #57534f;
+  --bke-cream: #f4f1eb;
+  --bke-rule: rgba(26, 26, 26, .12);
+}
+
+/* --------------------------------------------------------------------------
+   1. Font stack
+   The theme asked for 'Outfit', sans-serif — a Latin-only face. Every Chinese
+   character therefore fell through to the generic sans of whatever OS was
+   rendering it (JhengHei on Windows, PingFang on macOS, something else again
+   on Android), so the bulk of the site's actual copy was never designed at
+   all. Noto Sans TC is appended so Latin and CJK are both specified.
+   -------------------------------------------------------------------------- */
+body,
+body h1, body h2, body h3, body h4, body h5, body h6,
+body p, body a, body span, body div, body li,
+body input, body textarea, body select, body button {
+  font-family: 'Outfit', 'Noto Sans TC', -apple-system, "PingFang TC",
+               "Microsoft JhengHei", sans-serif !important;
+}
+
+/* --------------------------------------------------------------------------
+   2. Type scale
+   High specificity on purpose: the builder's own rules are of the shape
+   #top #wrap_all .av-special-heading.<hash> .av-special-heading-tag {...}
+   so anything less than this simply loses.
+   -------------------------------------------------------------------------- */
+
+/* Hero title — one per page, the largest thing on it. */
+#top #wrap_all .av-special-heading.av-special-heading-h1.av-inherit-size .av-special-heading-tag,
+#top #wrap_all .av-special-heading.av-special-heading-h1 .av-special-heading-tag {
+  font-size: var(--bke-display) !important;
+  font-weight: 700 !important;
+  line-height: 1.06 !important;
+  letter-spacing: -.02em !important;
+}
+
+/* Section title, English. */
+#top #wrap_all .av-special-heading.av-special-heading-h2.av-inherit-size .av-special-heading-tag {
+  font-size: var(--bke-title) !important;
+  font-weight: 700 !important;
+  line-height: 1.1 !important;
+  letter-spacing: -.015em !important;
+}
+
+/* Companion title, Chinese. Previously 30px/900, which fought the English
+   line above it; demoted to a quieter second voice. */
+#top #wrap_all .av-special-heading.av-special-heading-h2:not(.av-inherit-size) .av-special-heading-tag {
+  font-size: var(--bke-companion) !important;
+  font-weight: 500 !important;
+  line-height: 1.5 !important;
+  letter-spacing: .08em !important;
+  color: var(--bke-ink-soft) !important;
+}
+
+/* Card / item titles. */
+#top #wrap_all .av-special-heading.av-special-heading-h3 .av-special-heading-tag {
+  font-size: var(--bke-card-title) !important;
+  font-weight: 600 !important;
+  line-height: 1.45 !important;
+  letter-spacing: normal !important;
+}
+
+/* The gap between an English title and its Chinese companion was set by the
+   builder per element and ranged from 0 to 30px. Make it one value. */
+#top #wrap_all .av-special-heading.av-special-heading-h2.av-inherit-size {
+  margin-bottom: 6px !important;
+  padding-bottom: 0 !important;
+}
+
+#top #wrap_all .av-special-heading.av-special-heading-h2:not(.av-inherit-size) {
+  margin-top: 0 !important;
+  margin-bottom: var(--bke-block-y) !important;
+}
+
+/* The builder draws a decorative rule under some headings. Kept, but as a
+   short gold mark rather than a full-width divider. */
+#top #wrap_all .av-special-heading .special-heading-border {
+  display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   3. Eyebrow labels
+   The small line that sits above a heading ("OEM PROCESS", "NEWS"). Uppercase,
+   tracked, small — this is where the gold accent earns its keep.
+   -------------------------------------------------------------------------- */
+#top #wrap_all .av-special-heading .av-subheading_above p,
+#top #wrap_all .av-special-heading .av-subheading_above {
+  font-size: var(--bke-label) !important;
+  font-weight: 700 !important;
+  line-height: 1.6 !important;
+  letter-spacing: .16em !important;
+  text-transform: uppercase !important;
+  color: var(--bke-gold) !important;
+  margin-bottom: 14px !important;
+}
+
+/* The line below a heading is a standfirst, not a label — keep it sentence
+   case and readable. */
+#top #wrap_all .av-special-heading .av-subheading_below p,
+#top #wrap_all .av-special-heading .av-subheading_below {
+  font-size: var(--bke-body) !important;
+  font-weight: 400 !important;
+  line-height: 1.8 !important;
+  letter-spacing: normal !important;
+  color: var(--bke-ink-soft) !important;
+}
+
+/* --------------------------------------------------------------------------
+   4. Running text
+   One paragraph on the homepage was 18px on a 50px line-height (2.78x), while
+   others sat at 1.30x and 1.65x. Normalised, and given a measure so long
+   lines stop running the full 1310px content width.
+   -------------------------------------------------------------------------- */
+#top #main .avia_textblock p,
+#top #main .entry-content-wrapper p {
+  font-size: var(--bke-body) !important;
+  line-height: 1.8 !important;
+  letter-spacing: .01em !important;
+}
+
+#top #main .avia_textblock {
+  max-width: var(--bke-measure);
+}
+
+/* Centred blocks keep their measure but stay centred. */
+#top #main .modern-centered .avia_textblock,
+#top #main .av-inherit-default-styling .avia_textblock {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* --------------------------------------------------------------------------
+   5. Vertical rhythm
+   Sections carried padding: 0 and relied on inner elements for spacing, which
+   is why section heights landed anywhere between 82px and 1010px. Give every
+   full-width section the same breathing room.
+
+   The footer and the copyright socket sit inside #main too but are not
+   content sections — the socket is a single thin line of text and blew up
+   from 56px to 218px when it picked this up, so both are excluded.
+   -------------------------------------------------------------------------- */
+#top #main > .avia-section:not(#footer):not(#socket) > .container,
+#top #main > .container_wrap:not(#footer):not(#socket) > .container {
+  padding-top: var(--bke-section-y) !important;
+  padding-bottom: var(--bke-section-y) !important;
+}
+
+/* Hero sections size themselves from their background image and would be
+   thrown off by extra padding. */
+#top #main > .avia-section.av-minimum-height > .container,
+#top #main > .avia-section[data-av_minimum_height_pc] > .container {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* --------------------------------------------------------------------------
+   6. Header
+   The nav is white text on a permanently transparent fixed bar. Past the
+   hero the content behind it is white, and on the product sub-pages it is
+   white from the very top — a measured contrast ratio of 1.00, i.e. the
+   navigation was invisible. static-compat.js now adds .bke-header-solid to
+   <html> whenever the bar is not over a hero; this gives it a backdrop.
+
+   The text stays white and a dark backdrop slides in behind it, rather than
+   flipping the text to dark — fewer moving parts, and a dark nav bar suits
+   the brand better than a white one.
+   -------------------------------------------------------------------------- */
+/* static-compat.js injects .bke-header-backdrop as the first child of
+   #header and fades it in. It exists because both #header and .header_bg are
+   pinned by the theme's minified CSS — .header_bg carries two competing
+   `background-color: ... !important` declarations, and on #header even an
+   inline `!important` was observed losing — so a node nothing else targets
+   was the only reliable way to get a backdrop behind the nav.
+
+   z-index 0 keeps it under #header_main (z-index 1), so the logo and menu
+   stay above it. */
+.bke-header-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0;
+  pointer-events: none;
+  background-color: rgba(20, 20, 20, .94);
+  -webkit-backdrop-filter: saturate(150%) blur(12px);
+  backdrop-filter: saturate(150%) blur(12px);
+  box-shadow: 0 1px 0 rgba(187, 136, 64, .3),
+              0 10px 30px rgba(0, 0, 0, .14);
+  transition: opacity .3s ease;
+}
+
+/* Nav labels: slightly smaller and tracked reads as more considered than
+   the default 15px/500 with no tracking. */
+#top #header .av-main-nav > li > a .avia-menu-text {
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  letter-spacing: .1em !important;
+}
+
+/* "合作洽談" is the primary conversion action but was styled identically to
+   every other link. Promote it to a button so the main call to action is
+   findable at a glance. */
+#top #header .av-main-nav > li.popmake-4684 > a .avia-menu-text {
+  display: inline-block;
+  padding: 9px 20px;
+  color: #1a1a1a !important;
+  background: var(--bke-gold);
+  border-radius: 2px;
+  font-weight: 700 !important;
+  transition: background-color .2s ease, transform .2s ease;
+}
+
+#top #header .av-main-nav > li.popmake-4684 > a:hover .avia-menu-text {
+  background: #cf9a4c;
+  transform: translateY(-1px);
+}
+
+/* That item is a button now, so suppress the theme's underline/arrow hover
+   treatment on it. */
+#top #header .av-main-nav > li.popmake-4684 > a .avia-menu-fx {
+  display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   7. Buttons
+   -------------------------------------------------------------------------- */
+#top #wrap_all .avia-button {
+  font-size: var(--bke-small) !important;
+  font-weight: 600 !important;
+  letter-spacing: .06em !important;
+  border-radius: 2px !important;
+  padding: 15px 30px !important;
+}
+
+/* --------------------------------------------------------------------------
+   7. Content width
+   1310px is wide for a brand site; pulling it in slightly gives the layout
+   more margin and makes the type feel more deliberate.
+   -------------------------------------------------------------------------- */
+#top #main .container {
+  max-width: 1240px !important;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --bke-section-y: 56px;
+  }
+
+  #top #wrap_all .av-special-heading.av-special-heading-h2:not(.av-inherit-size) .av-special-heading-tag {
+    letter-spacing: .06em !important;
+  }
+}
