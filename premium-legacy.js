@@ -9,7 +9,7 @@
   fonts.href = 'https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600&family=Noto+Serif+TC:wght@500;600&family=Outfit:wght@300;400;500;600&display=swap';
   document.head.appendChild(fonts);
   var css = document.createElement('link');
-  css.rel = 'stylesheet'; css.href = href('premium-legacy.css?v=20260901-11');
+  css.rel = 'stylesheet'; css.href = href('premium-legacy.css?v=20260901-12');
   document.head.appendChild(css);
 
   document.body.classList.add('premium-legacy');
