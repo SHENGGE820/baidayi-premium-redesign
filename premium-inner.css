@@ -140,6 +140,112 @@ a.service-overview-card,
 a.value-card { color: inherit; text-decoration: none; }
 .format-disclaimer { max-width: 640px; margin: 30px 0 0; color: var(--muted); font-size: 13px; }
 
+/* Catalogue cards on 劑型與包材. The images are the client's own product
+   photography, already in the mirror at 694x1030, so the media box keeps that
+   portrait ratio rather than cropping it. Some items have a detail page and
+   some do not — the same card renders as an anchor or a div, and only the
+   anchor gets the lift and the "查看樣式" line. */
+.catalogue-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(14px, 1.6vw, 22px);
+}
+.catalogue-grid-3 { grid-template-columns: repeat(3, 1fr); }
+
+.catalogue-card {
+  display: flex;
+  flex-direction: column;
+  color: inherit;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+}
+.catalogue-media {
+  aspect-ratio: 694 / 1030;
+  overflow: hidden;
+  background: var(--sand);
+}
+.catalogue-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.catalogue-copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 18px 18px 22px;
+}
+.catalogue-en {
+  color: #8d672b;
+  font-family: "Outfit", sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .12em;
+}
+.catalogue-card h3 {
+  margin: 6px 0 0;
+  font-family: "Noto Serif TC", serif;
+  font-size: clamp(17px, 1.5vw, 21px);
+  font-weight: 500;
+  line-height: 1.35;
+}
+.catalogue-card p {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+.catalogue-more {
+  position: relative;
+  align-self: flex-start;
+  margin-top: 16px;
+  padding-top: 14px;
+  color: #8d672b;
+  font-size: 13px;
+  font-weight: 500;
+}
+.catalogue-card p + .catalogue-more { margin-top: auto; }
+.catalogue-more::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -3px;
+  left: 0;
+  height: 1px;
+  background: currentColor;
+  opacity: .5;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform var(--hv-spread, .72s) var(--hover-ease, ease);
+}
+
+/* Only the linked cards react. A card with no detail page behind it should not
+   pretend to be clickable. */
+a.catalogue-card {
+  transition: transform .62s var(--lift-ease, ease),
+              box-shadow .8s var(--wash-ease, ease),
+              border-color .62s ease;
+}
+a.catalogue-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 52px rgba(25,24,19,.08);
+  border-bottom-color: rgba(185,138,61,.4);
+}
+a.catalogue-card:hover .catalogue-more::after,
+a.catalogue-card:focus-visible .catalogue-more::after { transform: scaleX(1); }
+
+@media (max-width: 900px) {
+  .catalogue-grid,
+  .catalogue-grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 520px) {
+  .catalogue-grid,
+  .catalogue-grid-3 { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .catalogue-copy { padding: 14px 12px 18px; }
+  .catalogue-card p { font-size: 12px; }
+}
+
 @media (max-width: 900px) {
   .inner-hero { min-height: 620px; }
   .page-heading,
