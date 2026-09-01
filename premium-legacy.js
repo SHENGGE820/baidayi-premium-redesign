@@ -28,7 +28,35 @@
 
   var footer = document.createElement('footer');
   footer.className = 'legacy-premium-footer';
-  footer.innerHTML = '<div class="legacy-premium-footer-main"><div class="legacy-premium-footer-brand"><img src="' + href('wp-content/uploads/2025/09/BKE-logo-new.png') + '" width="320" height="99" alt="BKE 百達醫"><p>以研發、製造與市場洞察，協助品牌打造值得長期經營的保健產品。</p></div><div class="legacy-premium-footer-nav"><div><strong>關於百達醫</strong><a href="' + href('認識百達醫/關於百達醫/index.html') + '">品牌介紹</a><a href="' + href('認識百達醫/綠色永續/index.html') + '">綠色永續</a></div><div><strong>研發製造</strong><a href="' + href('研發科技/index.html') + '">研發科技</a><a href="' + href('全面性服務/一站式服務/index.html') + '">一站式服務</a></div><div><strong>聯絡</strong><a href="tel:+886285219269">+886 2 8521 9269</a><a href="' + href('contact/index.html') + '">專案諮詢</a></div></div></div><div class="legacy-premium-footer-bottom"><span>© 2026 BAIDAYI ENTERPRISE CO., LTD.</span><span>新北市新莊區新北大道四段 187 號 15 樓</span></div>';
+  footer.innerHTML = '<div class="legacy-premium-footer-main"><div class="legacy-premium-footer-brand"><img src="' + href('wp-content/uploads/2025/09/BKE-logo-new.png') + '" width="320" height="99" alt="BKE 百達醫"><p>以研發、製造與市場洞察，協助品牌打造值得長期經營的保健產品。</p></div><div class="legacy-premium-footer-nav"><div><strong>關於百達醫</strong><a href="' + href('認識百達醫/關於百達醫/index.html') + '">品牌介紹</a><a href="' + href('認識百達醫/綠色永續/index.html') + '">綠色永續</a></div><div><strong>研發製造</strong><a href="' + href('研發科技/index.html') + '">研發科技</a><a href="' + href('全面性服務/一站式服務/index.html') + '">一站式服務</a><a href="' + href('全面性服務/功能配方/index.html') + '">功能配方</a></div><div><strong>聯絡</strong><a href="tel:+886285219269">+886 2 8521 9269</a><a href="' + href('contact/index.html') + '">專案諮詢</a></div></div></div><div class="legacy-premium-footer-bottom"><span>© 2026 BAIDAYI ENTERPRISE CO., LTD.</span><span>新北市新莊區新北大道四段 187 號 15 樓</span></div>';
+
+  // The dosage and packaging pages hang off 一站式服務 and are content dead
+  // ends: a customer who clicks "膠囊" from the polished service page lands on
+  // roughly 200 characters with no way back to the other formats and no way to
+  // ask about the one they are looking at. The only exit is the generic
+  // floating button. Give every one of them a real next step.
+  var subPath = decodeURIComponent(location.pathname).replace(/index\.html$/, '');
+  var subMatch = subPath.match(/\/(?:一站式服務|integrated-service)\/([^\/]+)\/$/);
+  if (subMatch) {
+    var formatName = (document.title.split(/\s+[-–|]\s+/)[0] || '').trim();
+    var exit = document.createElement('section');
+    exit.className = 'legacy-page-exit';
+    exit.innerHTML =
+      '<div class="legacy-page-exit-inner">' +
+        '<div class="legacy-page-exit-copy">' +
+          '<p class="legacy-page-exit-eyebrow">NEXT STEP</p>' +
+          '<h2>想用' + (formatName ? '「' + formatName + '」' : '這個劑型') + '做產品？</h2>' +
+          '<p>告訴我們產品訴求與預計數量，專案顧問會回覆可行的規格、成本與時程。</p>' +
+        '</div>' +
+        '<div class="legacy-page-exit-actions">' +
+          '<a class="legacy-premium-cta" href="' + href('contact/index.html') + '"><span>詢問這個劑型</span><span aria-hidden="true">↗</span></a>' +
+          '<a class="legacy-page-exit-back" href="' + href('全面性服務/一站式服務/index.html') + '#dosage">← 回到全部劑型與包裝</a>' +
+          '<a class="legacy-page-exit-back" href="' + href('全面性服務/功能配方/index.html') + '">先看功能配方方向 →</a>' +
+        '</div>' +
+      '</div>';
+    wrap.appendChild(exit);
+  }
+
   wrap.appendChild(footer);
   var consult = document.createElement('a');
   consult.className = 'legacy-floating-consult'; consult.href = href('contact/index.html'); consult.innerHTML = '專案<br>諮詢'; consult.setAttribute('aria-label','開啟專案諮詢');
