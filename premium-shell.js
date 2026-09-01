@@ -50,7 +50,7 @@
           '</div>' +
           '<div class="footer-nav">' +
             '<div><strong>關於百達醫</strong><a href="' + url('認識百達醫/關於百達醫/index.html') + '">品牌介紹</a><a href="' + url('認識百達醫/綠色永續/index.html') + '">綠色永續</a></div>' +
-            '<div><strong>研發製造</strong><a href="' + url('研發科技/index.html') + '">研發科技</a><a href="' + url('全面性服務/一站式服務/index.html') + '">一站式服務</a><a href="' + url('全面性服務/功能配方/index.html') + '">功能配方</a></div>' +
+            '<div><strong>研發製造</strong><a href="' + url('研發科技/index.html') + '">研發科技</a><a href="' + url('全面性服務/一站式服務/index.html') + '">一站式服務</a><a href="' + url('全面性服務/功能配方/index.html') + '">功能配方</a><a href="' + url('全面性服務/劑型與包材/index.html') + '">劑型與包材</a></div>' +
             '<div><strong>聯絡</strong><a href="tel:+886285219269">+886 2 8521 9269</a><a href="' + url('contact/index.html') + '">專案諮詢</a></div>' +
           '</div>' +
         '</div>' +
