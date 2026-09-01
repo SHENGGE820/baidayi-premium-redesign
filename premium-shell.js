@@ -9,20 +9,34 @@
     return root + path;
   }
 
-  var navItems = [
-    ['about', '品牌實力', '認識百達醫/關於百達醫/index.html'],
-    ['research', '研發與品質', '研發科技/index.html'],
-    ['service', '解決方案', '全面性服務/一站式服務/index.html'],
-    ['news', '洞察觀點', '最新消息/index.html'],
-    ['contact', '聯絡我們', 'contact/index.html']
-  ];
+  function navLink(key, label, path) {
+    var current = key === active ? ' class="is-current" aria-current="page"' : '';
+    return '<a href="' + url(path) + '"' + current + '>' + label + '</a>';
+  }
+
+  function solutionsNav() {
+    var current = active === 'service' ? ' is-current' : '';
+    return '<div class="nav-cluster">' +
+      '<a class="nav-cluster-trigger' + current + '" href="' + url('全面性服務/一站式服務/index.html') + '">解決方案 <span aria-hidden="true">＋</span></a>' +
+      '<div class="nav-panel" aria-label="解決方案選單">' +
+        '<p>ONE-STOP ODM / OEM</p>' +
+        '<div class="nav-panel-grid">' +
+          '<a href="' + url('全面性服務/一站式服務/index.html') + '"><span>01</span><strong>一條龍服務</strong><small>從市場定位、配方研發到量產交付</small></a>' +
+          '<a href="' + url('全面性服務/功能配方/index.html') + '"><span>02</span><strong>功能配方</strong><small>依二十個產品方向探索開發可能</small></a>' +
+          '<a href="' + url('全面性服務/劑型與包材/index.html') + '"><span>03</span><strong>劑型與包材</strong><small>查看可製作的產品形式與包裝</small></a>' +
+        '</div>' +
+        '<div class="nav-panel-stages"><span>依目前階段開始</span><a href="' + url('contact/index.html?stage=idea') + '">只有初步想法</a><a href="' + url('contact/index.html?stage=formula') + '">已有配方方向</a><a href="' + url('contact/index.html?stage=upgrade') + '">既有產品改版</a></div>' +
+      '</div>' +
+    '</div>';
+  }
 
   var headerMount = document.querySelector('[data-premium-header]');
   if (headerMount) {
-    var nav = navItems.map(function (item) {
-      var current = item[0] === active ? ' class="is-current" aria-current="page"' : '';
-      return '<a href="' + url(item[2]) + '"' + current + '>' + item[1] + '</a>';
-    }).join('');
+    var nav = navLink('about', '品牌實力', '認識百達醫/關於百達醫/index.html') +
+      navLink('research', '研發與品質', '研發科技/index.html') +
+      solutionsNav() +
+      navLink('news', '洞察觀點', '最新消息/index.html') +
+      navLink('contact', '聯絡我們', 'contact/index.html');
 
     headerMount.outerHTML =
       '<header class="site-header is-scrolled" data-site-header>' +

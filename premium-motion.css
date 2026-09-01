@@ -862,3 +862,7 @@ body.premium-legacy #main .avia-button::before {
               border-color .62s ease;
 }
 
+@media (min-width: 821px) {
+  .primary-nav .nav-panel-grid > a:hover,
+  .primary-nav .nav-panel-grid > a:focus-visible { color: var(--white); }
+}
