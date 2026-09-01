@@ -101,12 +101,11 @@ body.motion-leaving .motion-curtain { transform: translate3d(0, 0, 0); }
   pointer-events: none;
   background: linear-gradient(135deg, rgba(196,154,86,.14), rgba(196,154,86,.045) 62%, rgba(255,255,255,.045));
   opacity: 0;
-  clip-path: circle(0% at var(--spot-x, 50%) var(--spot-y, 50%));
-  transition: opacity .82s ease, clip-path 1.24s var(--hover-ease);
+  /* The growing disc that used to live here is gone; the glow now simply
+     fades, and its size and colour are set in the Softening pass below. */
 }
 .motion-spotlight:hover::after {
   opacity: 1;
-  clip-path: circle(155% at var(--spot-x, 50%) var(--spot-y, 50%));
 }
 .motion-spotlight > * { position: relative; z-index: 1; }
 
@@ -220,13 +219,7 @@ body.premium-legacy #main .avia-button {
     background: linear-gradient(145deg, #2b2a24 0%, #171713 72%);
     opacity: 1;
     transform: none;
-    clip-path: circle(0% at var(--spot-x, 50%) var(--spot-y, 50%));
-    transition: clip-path 1.26s var(--hover-ease);
-  }
-  .capability-card:hover::before {
-    opacity: 1;
-    transform: none;
-    clip-path: circle(155% at var(--spot-x, 50%) var(--spot-y, 50%));
+    /* The reveal itself is the mask wipe in the Softening pass below. */
   }
   .capability-card:hover { transition-delay: .34s, 0s, 0s, 0s, 0s; }
   .capability-card p { transition: color .58s ease; }
@@ -740,52 +733,64 @@ body.premium-legacy #main .button {
 }
 
 /* --- c) Washes ---------------------------------------------------------- */
-/* A soft-edged radial mask instead of a clip-path circle, because clip-path is
-   applied after filter in the rendering order and its edge can never be
-   softened.
+/* The dark surface rises from the bottom edge, which is what premium-site.css
+   originally did with transform-origin:bottom before the motion layer replaced
+   it with an expanding clip-path circle. The circle was the wrong shape for
+   this: a disc opening in the middle of a rectangular card reads as an object
+   sitting on the card rather than as the card changing state, and softening
+   its edge only made it rounder still.
 
-   The mask stays exactly the size of the card and the pointer position goes
-   *inside* the gradient, where `circle at <length>` means the circle's centre.
-   The previous attempt grew the mask to 340% and moved it with mask-position,
-   which does not work: a length mask-position places the image's top-left
-   corner at that point, not its centre. On a 354x290 card that put the
-   gradient's solid core at x=642 - nearly two card-widths off to the right -
-   so the card only ever saw the faint outer edge of the wash, arriving from
-   the wrong side. That was the "變黑有點壞掉".
+   A linear-gradient mask keeps the soft edge but gives it a direction. --wash
+   is the height the solid fill has reached; the transparent stop sits 34%
+   above it, so the boundary is always a gradient rather than a line. It starts
+   at -34% so that at rest the transparent stop is exactly at the bottom edge
+   and nothing shows.
 
-   Growing the stop offsets instead of the mask box needs --wash registered, or
-   it is just a token substitution and cannot be interpolated. Where @property
-   is unsupported the var() fallbacks keep the mask valid and the hover simply
-   snaps rather than sweeping. */
+   Growing a gradient stop needs --wash registered, or it is a plain token and
+   cannot be interpolated. Where @property is unsupported the var() fallbacks
+   keep the mask valid and the hover snaps instead of sweeping. */
 @property --wash {
   syntax: "<percentage>";
   inherits: false;
-  initial-value: 0%;
+  initial-value: -34%;
 }
 
-.capability-card::before,
-.motion-spotlight::after {
+.capability-card::before {
   clip-path: none;
-  -webkit-mask-image: radial-gradient(circle at var(--spot-x, 50%) var(--spot-y, 50%),
-                      #000 var(--wash, 0%),
-                      rgba(0,0,0,.45) calc(var(--wash, 0%) + 13%),
-                      transparent calc(var(--wash, 0%) + 30%));
-  mask-image: radial-gradient(circle at var(--spot-x, 50%) var(--spot-y, 50%),
-              #000 var(--wash, 0%),
-              rgba(0,0,0,.45) calc(var(--wash, 0%) + 13%),
-              transparent calc(var(--wash, 0%) + 30%));
+  -webkit-mask-image: linear-gradient(to top,
+                      #000 var(--wash, -34%),
+                      transparent calc(var(--wash, -34%) + 34%));
+  mask-image: linear-gradient(to top,
+              #000 var(--wash, -34%),
+              transparent calc(var(--wash, -34%) + 34%));
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   -webkit-mask-position: 0 0;
   mask-position: 0 0;
   -webkit-mask-size: 100% 100%;
   mask-size: 100% 100%;
-  transition: --wash 1.3s var(--wash-ease), opacity .9s var(--wash-ease);
+  transition: --wash 1.15s var(--wash-ease);
 }
 /* Set on the pseudo-element, not the card: --wash is registered with
    inherits:false, so a value on the card would not reach ::before. */
-.capability-card:hover::before,
-.motion-spotlight:hover::after { --wash: 130%; }
+.capability-card:hover::before { --wash: 100%; }
+
+/* The gold spotlight on the other cards stops resizing and simply fades. It is
+   a light source, not a shape, so a large soft ellipse centred on the pointer
+   at a fixed size reads as the card catching light; growing it turned the same
+   gradient into a second travelling disc. */
+.motion-spotlight::after {
+  clip-path: none;
+  -webkit-mask-image: none;
+  mask-image: none;
+  background: radial-gradient(58% 78% at var(--spot-x, 50%) var(--spot-y, 50%),
+              rgba(196,154,86,.17),
+              rgba(196,154,86,.06) 44%,
+              rgba(196,154,86,0) 74%);
+  opacity: 0;
+  transition: opacity .95s var(--wash-ease);
+}
+.motion-spotlight:hover::after { opacity: 1; }
 
 /* --- d) Grids whose rules are the container's own background ------------- */
 /* .process-grid (the 8 project steps, and the 4 on the contact page) and
