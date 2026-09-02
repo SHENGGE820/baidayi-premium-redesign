@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-labelledby="t d">
+  <title id="t">原料圖片待補</title>
+  <desc id="d">此為版面示意用的暫代圖，實際原料照片待提供</desc>
+  <rect width="800" height="600" fill="#e9e3d6"/>
+  <g fill="none" stroke="#c3b79f" stroke-width="1">
+    <path d="M0 150h800M0 300h800M0 450h800M200 0v600M400 0v600M600 0v600"/>
+  </g>
+  <circle cx="400" cy="272" r="92" fill="none" stroke="#b98a3d" stroke-width="1.5" opacity=".75"/>
+  <circle cx="400" cy="272" r="6" fill="#b98a3d" opacity=".75"/>
+  <path d="M348 300c22-34 44-34 66 0s44 34 66 0" fill="none" stroke="#b98a3d" stroke-width="1.5" opacity=".55"/>
+  <text x="400" y="418" text-anchor="middle" fill="#8d672b"
+        font-family="Outfit, 'Noto Sans TC', sans-serif" font-size="15" letter-spacing="4">IMAGE PENDING</text>
+  <text x="400" y="446" text-anchor="middle" fill="#8a8272"
+        font-family="'Noto Sans TC', sans-serif" font-size="15">原料圖片待補</text>
+</svg>

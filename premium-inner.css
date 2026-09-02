@@ -364,3 +364,25 @@ a.catalogue-card:focus-visible .catalogue-more::after { transform: scaleX(1); }
 @media (max-width: 560px) {
   .chart-figure { padding: 18px; }
 }
+
+/* Ingredient catalogue. Reuses .catalogue-card, but raw materials read better
+   in landscape than the portrait aspect the packaging shots use, and there is
+   no detail page to link to yet, so the cards are articles rather than links.
+
+   .is-placeholder marks a card whose data is dummy content for layout review,
+   so it is obvious at a glance which pages are still waiting on real copy. */
+.catalogue-grid-ingredient { grid-template-columns: repeat(3, 1fr); }
+.catalogue-grid-ingredient .catalogue-media { aspect-ratio: 4 / 3; background: #e9e3d6; }
+.catalogue-grid-ingredient .catalogue-media img { object-fit: cover; }
+.ingredient-meta { margin: 12px 0 0; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; letter-spacing: .02em; }
+.ingredient-meta b { color: #6d675c; font-weight: 500; }
+
+.placeholder-note { display: flex; align-items: center; gap: 14px; margin-bottom: 40px; padding: 16px 20px; background: rgba(185,138,61,.09); border-left: 2px solid var(--gold); color: #6d675c; font-size: 13px; line-height: 1.7; }
+.placeholder-note strong { color: #8d672b; font-weight: 600; }
+
+@media (max-width: 900px) {
+  .catalogue-grid-ingredient { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .catalogue-grid-ingredient { grid-template-columns: 1fr; }
+}
