@@ -80,7 +80,10 @@
 .research-pillars { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: rgba(255,255,255,.2); }
 .research-pillar { min-height: 290px; padding: 28px; background: var(--ink); }
 .research-pillar span { color: var(--gold-light); font-family: "Outfit",sans-serif; font-size: 12px; }
-.research-pillar h3 { margin: 100px 0 12px; font-family: "Noto Serif TC",serif; font-size: 28px; }
+/* The card sets its own dark background, so the heading has to set its own
+   colour too: it otherwise inherits the surrounding section's dark heading
+   colour and lands black-on-black. */
+.research-pillar h3 { margin: 100px 0 12px; color: #fff; font-family: "Noto Serif TC",serif; font-size: 28px; }
 .research-pillar p { margin: 0; color: rgba(255,255,255,.52); font-size: 14px; }
 
 .quality-system { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(50px,9vw,130px); }
