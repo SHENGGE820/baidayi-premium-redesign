@@ -125,40 +125,112 @@ button { color: inherit; font: inherit; }
 .nav-cluster-trigger > span { color: var(--gold-light); font-family: "Outfit",sans-serif; font-size: 14px; transition: transform var(--dur-base) var(--ease); }
 .nav-cluster:hover .nav-cluster-trigger > span,
 .nav-cluster:focus-within .nav-cluster-trigger > span { transform: rotate(45deg); }
+/* ── Solutions dropdown ───────────────────────────────────────────────────
+   Rebuilt as navigation. It previously reused .entry-path-card — the big
+   bordered tile from the page body — which made a menu of six links 760x291px
+   with ~50px of dead space above each label, and inverted to ivory against
+   the dark header so it read as a floating window rather than part of the bar.
+
+   Now: dark, continuous with the header; a scannable list instead of tiles;
+   anchored to the trigger instead of centred across the whole nav; and the
+   stage shortcuts given their own labelled column rather than trailing off
+   the bottom-right like a footnote. The 01/02/03 counters are dropped —
+   these are three parallel destinations, not steps. */
 .nav-panel {
-  width: min(760px, calc(100vw - 56px));
+  width: min(600px, calc(100vw - 56px));
   position: absolute;
   z-index: 30;
-  top: calc(100% + 17px);
-  left: 50%;
-  padding: 26px;
-  color: var(--ink);
-  background: rgba(244,240,231,.985);
-  border: 1px solid rgba(185,138,61,.25);
-  box-shadow: 0 32px 70px rgba(0,0,0,.2);
+  top: calc(100% + 14px);
+  /* Anchored to the trigger's right edge, not its left: the nav is
+     right-aligned, so a 600px panel hung from the left ran off screen. */
+  right: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 186px;
+  column-gap: 26px;
+  padding: 22px 24px;
+  color: var(--white);
+  background: rgba(23, 23, 19, .97);
+  border: 1px solid rgba(185, 138, 61, .34);
+  box-shadow: 0 26px 60px rgba(0, 0, 0, .42);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transform: translate(-50%, 14px);
+  transform: translateY(10px);
   transition: opacity var(--dur-base) ease, visibility var(--dur-base) ease, transform var(--dur-lift) var(--ease);
 }
 .nav-cluster:hover .nav-panel,
-.nav-cluster:focus-within .nav-panel { opacity: 1; visibility: visible; pointer-events: auto; transform: translate(-50%, 0); }
-.nav-panel > p { margin: 0 0 16px; color: #8d672b; font-family: "Outfit",sans-serif; font-size: 10px; letter-spacing: .18em; }
-.nav-panel-grid { display: grid; grid-template-columns: repeat(3,1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
-.nav-panel-grid > a { min-height: 160px; display: flex; flex-direction: column; padding: 18px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); transition: color var(--dur-base) ease, background var(--dur-base) var(--ease), transform var(--dur-lift) var(--ease); }
+.nav-cluster:focus-within .nav-panel { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0); }
+
+.nav-panel > p {
+  grid-column: 1 / -1;
+  margin: 0 0 12px;
+  color: var(--gold-light);
+  font-family: "Outfit", sans-serif;
+  font-size: 10px;
+  letter-spacing: .18em;
+}
+
+/* The three destinations: one row each, title and description on a line. */
+.nav-panel-grid { display: flex; flex-direction: column; border: 0; }
+.nav-panel-grid > a {
+  min-height: 0;
+  display: block;
+  padding: 11px 12px;
+  border: 0;
+  border-radius: 3px;
+  transition: background var(--dur-quick) ease, color var(--dur-quick) ease;
+}
 .nav-panel-grid > a:hover,
-.nav-panel-grid > a:focus-visible { color: var(--white); background: var(--ink); transform: translateY(var(--lift-distance)); }
-.nav-panel-grid span { color: #8d672b; font-family: "Outfit",sans-serif; font-size: 10px; }
-.nav-panel-grid strong { margin-top: auto; font-family: "Noto Serif TC",serif; font-size: 20px; font-weight: 500; }
-.nav-panel-grid small { margin-top: 6px; color: var(--muted); font-size: 11px; line-height: 1.55; }
+.nav-panel-grid > a:focus-visible { color: var(--white); background: rgba(185, 138, 61, .18); transform: none; }
+.nav-panel-grid span { display: none; }          /* 01 / 02 / 03 — implies an order that is not there */
+.nav-panel-grid strong {
+  display: block;
+  margin: 0;
+  font-family: "Noto Serif TC", serif;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.nav-panel-grid small { display: block; margin-top: 2px; color: rgba(255,255,255,.55); font-size: 11.5px; line-height: 1.5; }
 .nav-panel-grid > a:hover small,
-.nav-panel-grid > a:focus-visible small { color: rgba(255,255,255,.62); }
-.nav-panel-stages { display: flex; align-items: center; gap: 18px; padding-top: 18px; color: var(--muted); font-size: 12px; }
-.nav-panel-stages > span { margin-right: auto; color: #8d672b; }
-.nav-panel-stages a { padding-bottom: 2px; border-bottom: 1px solid transparent; transition: color .38s ease, border-color .38s ease; }
+.nav-panel-grid > a:focus-visible small { color: rgba(255,255,255,.72); }
+
+/* Stage shortcuts: a real second group, not a trailing row. */
+.nav-panel-stages {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2px;
+  padding: 0 0 0 24px;
+  border-left: 1px solid rgba(255,255,255,.14);
+  color: rgba(255,255,255,.55);
+  font-size: 12px;
+}
+.nav-panel-stages > span {
+  margin: 4px 0 8px;
+  color: var(--gold-light);
+  font-family: "Outfit", sans-serif;
+  font-size: 10px;
+  letter-spacing: .14em;
+}
+.nav-panel-stages a {
+  padding: 7px 10px;
+  border: 0;
+  border-radius: 3px;
+  color: rgba(255,255,255,.8);
+  font-size: 12.5px;
+  transition: background var(--dur-quick) ease, color var(--dur-quick) ease;
+}
 .nav-panel-stages a:hover,
-.nav-panel-stages a:focus-visible { color: var(--ink); border-bottom-color: var(--gold); }
+.nav-panel-stages a:focus-visible { color: var(--white); background: rgba(185, 138, 61, .18); border: 0; }
+
+@media (max-width: 1080px) {
+  .nav-panel { grid-template-columns: minmax(0, 1fr); row-gap: 4px; }
+  .nav-panel-stages { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 4px; margin-top: 10px; padding: 12px 0 0; border-top: 1px solid rgba(255,255,255,.14); border-left: 0; }
+  .nav-panel-stages > span { margin: 0 8px 0 2px; }
+}
 .header-cta {
   min-width: 138px;
   height: 48px;
