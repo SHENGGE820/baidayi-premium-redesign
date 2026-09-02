@@ -350,3 +350,14 @@ a.catalogue-card:focus-visible .catalogue-more::after { transform: scaleX(1); }
   .premium-form .button,
   .form-status { grid-column: auto; }
 }
+
+/* Diagram figure. Unlike .split-feature-media, this must not crop: it holds
+   charts such as the sustainability committee structure, where cropping
+   would cut off boxes. Sized to contain, on a panel that reads as a plate. */
+.chart-figure { margin-top: clamp(38px,5vw,58px); padding: clamp(24px,3.5vw,44px); background: var(--ivory); border: 1px solid rgba(23,23,19,.09); }
+.chart-figure img { display: block; width: 100%; height: auto; margin: 0 auto; }
+.chart-figure figcaption { margin-top: 20px; color: var(--muted); font-size: 14px; text-align: center; }
+
+@media (max-width: 560px) {
+  .chart-figure { padding: 18px; }
+}
