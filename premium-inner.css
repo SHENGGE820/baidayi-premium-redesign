@@ -387,3 +387,30 @@ a.catalogue-card:focus-visible .catalogue-more::after { transform: scaleX(1); }
 @media (max-width: 560px) {
   .catalogue-grid-ingredient { grid-template-columns: 1fr; }
 }
+
+/* Packaging / dosage spec gallery. These are product shots of tablets,
+   capsules, bottles and pouches — very different silhouettes on white — so
+   the cell is square and the image is contained rather than cropped. The
+   caption carries the size, which is the actual spec the client is
+   communicating (圓型-11.5mm and 圓型-13mm are different products). */
+.spec-group + .spec-group { margin-top: clamp(48px, 6vw, 84px); }
+.spec-group-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+.spec-group-head span { color: #8d672b; font-family: "Outfit", sans-serif; font-size: 12px; letter-spacing: .14em; }
+.spec-group-head h2 { margin: 0; font-family: "Noto Serif TC", serif; font-size: clamp(22px, 2.4vw, 30px); font-weight: 500; }
+
+/* align-items:start stops the grid stretching each item to the tallest row,
+   which was overriding .spec-media aspect-ratio and letterboxing every shot. */
+.spec-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: clamp(10px, 1.2vw, 16px); align-items: start; }
+.spec-item { display: flex; flex-direction: column; }
+/* The client's product shots are a consistent 451x796 portrait card with the
+   spec panel baked in, so the cell matches that rather than a square. Kept as
+   contain, never cover: cropping would cut the printed spec off the image. */
+.spec-media { aspect-ratio: 451 / 796; display: flex; align-items: center; justify-content: center; background: var(--paper); border: 1px solid var(--line); }
+.spec-media img { width: 100%; height: 100%; object-fit: contain; }
+.spec-item figcaption { margin-top: 8px; color: var(--muted); font-size: 12px; line-height: 1.5; text-align: center; }
+
+.spec-note { margin-top: clamp(40px, 5vw, 64px); padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+
+@media (max-width: 1100px) { .spec-grid { grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 700px)  { .spec-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 460px)  { .spec-grid { grid-template-columns: repeat(2, 1fr); } }
