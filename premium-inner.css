@@ -142,7 +142,8 @@
 .article-card-copy > span { color: #8d672b; font-size: 12px; }
 .article-card h2 { margin: 14px 0; font-family: "Noto Serif TC",serif; font-size: 24px; line-height: 1.5; }
 .article-card p { margin: 0 0 24px; color: var(--muted); font-size: 14px; }
-.article-card time { margin-top: auto; color: #8c877e; font-family: "Outfit",sans-serif; font-size: 11px; }
+/* was #8c877e — 3.39:1 at 11px */
+.article-card time { margin-top: auto; color: #6b6659; font-family: "Outfit",sans-serif; font-size: 11px; }
 
 .contact-page { padding-top: 76px; }
 .contact-masthead { padding: 100px 0 80px; color: var(--white); background: var(--ink); }

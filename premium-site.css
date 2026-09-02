@@ -14,7 +14,10 @@ html { background: #171713; }
   --line: #cfc7b8;
   --gold: #b98a3d;
   --gold-light: #d9b875;
-  --muted: #716c62;
+  /* Darkened from #716c62, which measured 3.58:1 against the sand sections —
+     under the 4.5:1 minimum. #605b50 clears it on all three surfaces
+     (paper 6.42, ivory 5.94, sand 4.63) while keeping the muted feel. */
+  --muted: #605b50;
   --white: #ffffff;
   --header-height: 88px;
   --container: 1240px;
@@ -423,12 +426,16 @@ h3 { margin: 0; font-size: 22px; font-weight: 500; line-height: 1.45; }
 .insight-copy > span { color: #8d672b; font-size: 12px; font-weight: 500; letter-spacing: .08em; }
 .insight-copy h3 { margin: 12px 0; }
 .insight-copy p { margin: 0 0 22px; color: var(--muted); font-size: 14px; }
-.insight-copy time { color: #8a857b; font-family: "Outfit", sans-serif; font-size: 11px; letter-spacing: .08em; }
+/* was #8a857b, 3.49:1 */
+.insight-copy time { color: #6b6659; font-family: "Outfit", sans-serif; font-size: 11px; letter-spacing: .08em; }
 
 .project-cta { padding: 100px 0; background: var(--gold); }
 .project-cta-inner { display: grid; grid-template-columns: 1.2fr .8fr; align-items: end; gap: clamp(50px, 10vw, 140px); }
 .project-cta h2 { font-size: clamp(40px, 5vw, 68px); }
-.project-cta-copy p { max-width: 440px; margin: 0 0 28px; color: rgba(23,23,19,.72); }
+/* This copy sits on the gold CTA panel, where .72 alpha measured 3.72:1.
+   .9 gives 5.07:1. It is the conversion CTA — the last place that should be
+   losing legibility. */
+.project-cta-copy p { max-width: 440px; margin: 0 0 28px; color: rgba(23,23,19,.9); }
 
 .site-footer { color: var(--white); background: var(--ink); }
 .footer-main { display: grid; grid-template-columns: .9fr 1.1fr; gap: 80px; padding-top: 76px; padding-bottom: 68px; }
@@ -647,3 +654,40 @@ body.motion-ready .reveal.is-visible { opacity: 1; transform: translateY(0); }
   .floating-consult { right: 16px; bottom: 16px; width: 62px; height: 62px; font-size: 10px; }
   .floating-consult i { top: 8px; right: 10px; }
 }
+
+/* Touch targets. On a phone several inline links measured 23–30px tall —
+   under the 24px WCAG 2.5.8 minimum, let alone the 44px both Apple and
+   Google recommend. Padding is added rather than font-size so nothing
+   reflows: the text stays where it is, the tappable box grows around it. */
+@media (max-width: 820px) {
+  .text-link,
+  .card-arrow,
+  .function-card-cta,
+  .catalogue-more,
+  .article-back,
+  .hero-scroll,
+  .footer-nav a,
+  .footer-meta a,
+  .legacy-premium-footer-nav a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* Footer link lists sit close together; give them room to be hit. */
+  .footer-nav a,
+  .footer-meta a { padding: 6px 0; }
+}
+
+/* Two gold-on-gold contrast failures.
+   .eyebrow-dark was #8d672b: fine on paper (4.86) and ivory (4.50), but only
+   3.51 on the sand sections. #75541f clears all three (6.56 / 6.07 / 4.73).
+   On the gold CTA panel no gold works at all — it measured 1.65 — so the
+   eyebrow and body copy there switch to ink instead. */
+.eyebrow-dark { color: #75541f; }
+
+/* Solid rather than translucent: alpha over a gold panel is hard to reason
+   about and easy to measure wrongly. Ink on gold is 5.79:1. */
+.project-cta .eyebrow,
+.project-cta .eyebrow-dark { color: var(--ink); }
+.project-cta-copy p { color: var(--ink); }
