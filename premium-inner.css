@@ -453,10 +453,16 @@ a.catalogue-card:focus-visible .catalogue-more::after { transform: scaleX(1); }
 .bke-video-wrap { margin: 2em 0; }
 .bke-video-wrap .wp-video,
 .bke-video-wrap video { width: 100% !important; height: auto !important; }
-.bke-video-wrap.mobile-video { display: none; }
+/* Landscape cut on desktop, portrait cut on mobile. Targeted on the
+   .desktop-video / .mobile-video classes alone rather than on a particular
+   wrapper: the posts use three different wrapper conventions
+   (bke-video-wrap, video-switcher, video-wrap) and only these two class
+   names are common to all of them. */
+.article-body .mobile-video { display: none; }
+.article-body .desktop-video { display: block; }
 @media (max-width: 700px) {
-  .bke-video-wrap.desktop-video { display: none; }
-  .bke-video-wrap.mobile-video { display: block; }
+  .article-body .desktop-video { display: none; }
+  .article-body .mobile-video { display: block; }
 }
 
 .article-back { display: inline-flex; align-items: center; gap: 10px; margin-top: clamp(48px, 6vw, 80px); padding-bottom: 3px; color: #8d672b; border-bottom: 1px solid rgba(141,103,43,.4); font-size: 13px; font-weight: 500; }

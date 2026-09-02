@@ -241,7 +241,22 @@
     if (destination.origin !== location.origin || destination.href === location.href) return;
     event.preventDefault();
     body.classList.add('motion-leaving');
-    window.setTimeout(function () { location.href = destination.href; }, 390);
+
+    /* Navigate only once the curtain has actually finished covering. This
+     * used to be a flat 390ms against a 480ms transition, so the page swapped
+     * while the curtain was still ~80% of the way up and the change showed
+     * through as a flash. transitionend is authoritative; the timeout is only
+     * a fallback for the case where it never fires (interrupted transition,
+     * tab backgrounded mid-navigation). */
+    var navigated = false;
+    function go() {
+      if (navigated) return;
+      navigated = true;
+      location.href = destination.href;
+    }
+    curtain.addEventListener('transitionend', go, { once: true });
+    var wait = parseFloat(window.getComputedStyle(curtain).transitionDuration) * 1000;
+    window.setTimeout(go, (wait || 480) + 120);
   });
 
   window.addEventListener('pageshow', function () { body.classList.remove('motion-leaving'); });

@@ -917,3 +917,26 @@ body.premium-legacy #main .avia-button::before {
   .primary-nav .nav-panel-grid > a:hover,
   .primary-nav .nav-panel-grid > a:focus-visible { color: var(--white); }
 }
+
+/* A short fade on arrival. Without it the new page snaps in the instant the
+   curtain clears, which reads as a second flash right after the first.
+   Deliberately opacity-only and CSS-driven: no transform, so it cannot shift
+   layout, and it still runs if the motion script fails to load. */
+body.premium-site,
+body.premium-legacy {
+  animation: motionPageIn var(--dur-base) var(--ease-rise) both;
+}
+
+@keyframes motionPageIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Leaving pages must not fade out as well — the curtain is doing that job,
+   and two overlapping fades read as a stutter. */
+body.motion-leaving { animation: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  body.premium-site,
+  body.premium-legacy { animation: none !important; }
+}

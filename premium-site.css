@@ -1,3 +1,10 @@
+/* The browser paints its own background between unloading one page and the
+   first paint of the next. That default is white, and against the dark
+   page-transition curtain it showed up as a flash on every navigation.
+   Matching html to the curtain colour makes that gap invisible; body still
+   sets its own colour, so nothing else changes. */
+html { background: #171713; }
+
 :root {
   --ink: #171713;
   --ink-soft: #262620;

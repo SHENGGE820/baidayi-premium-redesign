@@ -82,6 +82,16 @@ function readBody(slug) {
   return b;
 }
 
+/* Note on the videos: each post ships a landscape and a portrait cut, but the
+ * posts use three different wrapper conventions for them —
+ *   bke-video-wrap desktop-video / mobile-video   (6060-2, 夏季私密)
+ *   video-switcher > desktop-video / mobile-video (glp-1, 魚油)
+ *   video-wrap, single landscape cut              (鈣產品)
+ * The desktop/mobile switch is handled in premium-inner.css against the
+ * .desktop-video / .mobile-video classes directly, which all conventions
+ * share. An earlier attempt to strip and re-wrap the markup here was wrong:
+ * these wrappers nest, and a non-greedy regex closes on the wrong </div>. */
+
 const esc = s => String(s).replace(/&(?!#?\w+;)/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
 
 function shell({ a, main, extraClass = '' }) {
