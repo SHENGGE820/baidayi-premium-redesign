@@ -59,12 +59,12 @@
 .service-overview-card span { color: #8d672b; font-family: "Outfit",sans-serif; font-size: 12px; }
 .service-overview-card h3 { margin: 72px 0 12px; font-size: 24px; }
 .service-overview-card p { margin: 0; color: var(--muted); font-size: 14px; }
-.function-card-cta { display: inline-flex; align-items: center; gap: 12px; margin-top: 24px; padding-bottom: 3px; color: #8d672b; border-bottom: 1px solid rgba(141,103,43,.42); font-size: 12px; font-weight: 500; letter-spacing: .04em; transition: gap .72s var(--ease), color .48s ease, border-color .48s ease; }
+.function-card-cta { display: inline-flex; align-items: center; gap: 12px; margin-top: 24px; padding-bottom: 3px; color: #8d672b; border-bottom: 1px solid rgba(141,103,43,.42); font-size: 12px; font-weight: 500; letter-spacing: .04em; transition: gap var(--dur-spread) var(--ease), color var(--dur-base) ease, border-color var(--dur-base) ease; }
 .function-card-cta:hover,
 .function-card-cta:focus-visible { gap: 18px; color: var(--ink); border-bottom-color: var(--gold); }
 
 .format-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
-.format-card { min-height: 250px; display: flex; flex-direction: column; justify-content: space-between; padding: 24px; color: var(--white); background: #272721; transition: transform .3s var(--ease), background .3s ease; }
+.format-card { min-height: 250px; display: flex; flex-direction: column; justify-content: space-between; padding: 24px; color: var(--white); background: #272721; transition: transform var(--dur-quick) var(--ease), background var(--dur-quick) ease; }
 .format-card span { color: var(--gold-light); font-family: "Outfit",sans-serif; font-size: 11px; letter-spacing: .12em; }
 .format-card h3 { font-family: "Noto Serif TC",serif; font-size: 27px; }
 .format-card small { color: rgba(255,255,255,.48); }
@@ -99,8 +99,8 @@
 .faq-item summary { min-height: 98px; display: grid; grid-template-columns: 44px minmax(0,1fr) 32px; align-items: center; gap: 22px; padding: 18px 0; cursor: pointer; list-style: none; }
 .faq-item summary::-webkit-details-marker { display: none; }
 .faq-item summary > span { color: #8d672b; font-family: "Outfit",sans-serif; font-size: 11px; }
-.faq-item summary strong { font-family: "Noto Serif TC",serif; font-size: clamp(20px,2.2vw,28px); font-weight: 500; transition: color .48s ease; }
-.faq-item summary i { color: #8d672b; font-family: "Outfit",sans-serif; font-size: 22px; font-style: normal; text-align: center; transition: transform .72s var(--ease), color .48s ease; }
+.faq-item summary strong { font-family: "Noto Serif TC",serif; font-size: clamp(20px,2.2vw,28px); font-weight: 500; transition: color var(--dur-base) ease; }
+.faq-item summary i { color: #8d672b; font-family: "Outfit",sans-serif; font-size: 22px; font-style: normal; text-align: center; transition: transform var(--dur-spread) var(--ease), color var(--dur-base) ease; }
 .faq-item[open] summary i { transform: rotate(45deg); }
 .faq-item > div { display: grid; grid-template-columns: 66px minmax(0,760px); padding: 0 0 32px; }
 .faq-item > div p { grid-column: 2; margin: 0; color: var(--muted); }
@@ -112,11 +112,11 @@
 .certificate-evidence-head h3 { max-width: 640px; font-family: "Noto Serif TC",serif; font-size: clamp(30px,3.4vw,46px); font-weight: 500; }
 .certificate-evidence-head p { max-width: 420px; margin: 0; color: rgba(255,255,255,.55); font-size: 13px; }
 .certificate-evidence-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
-.certificate-evidence-card { position: relative; display: grid; grid-template-columns: minmax(0,.72fr) minmax(150px,1.28fr); min-height: 310px; overflow: hidden; color: var(--ink); background: var(--ivory); transition: transform .72s var(--lift-ease,ease), box-shadow .82s var(--wash-ease,ease); }
+.certificate-evidence-card { position: relative; display: grid; grid-template-columns: minmax(0,.72fr) minmax(150px,1.28fr); min-height: 310px; overflow: hidden; color: var(--ink); background: var(--ivory); transition: transform var(--dur-spread) var(--lift-ease,ease), box-shadow .82s var(--wash-ease,ease); }
 .certificate-evidence-card:hover,
-.certificate-evidence-card:focus-visible { transform: translateY(-5px); box-shadow: 0 28px 62px rgba(0,0,0,.3); }
+.certificate-evidence-card:focus-visible { transform: translateY(var(--lift-distance)); box-shadow: 0 28px 62px rgba(0,0,0,.3); }
 .certificate-evidence-media { min-height: 310px; overflow: hidden; background: #ddd7ca; }
-.certificate-evidence-media img { width: 100%; height: 100%; padding: 12px; object-fit: contain; object-position: center; transition: transform 1.1s var(--ease); }
+.certificate-evidence-media img { width: 100%; height: 100%; padding: 12px; object-fit: contain; object-position: center; transition: transform var(--dur-wash) var(--ease); }
 .certificate-evidence-card:hover img,
 .certificate-evidence-card:focus-visible img { transform: scale(1.025); }
 .certificate-evidence-copy { display: flex; flex-direction: column; padding: 24px 22px; }
@@ -163,7 +163,7 @@
 .form-field label { font-size: 13px; font-weight: 500; }
 .form-field input,
 .form-field select,
-.form-field textarea { width: 100%; min-height: 52px; padding: 12px 14px; color: var(--ink); background: transparent; border: 0; border-bottom: 1px solid #9f988d; border-radius: 0; font: inherit; outline: none; transition: border-color .2s ease, background .2s ease; }
+.form-field textarea { width: 100%; min-height: 52px; padding: 12px 14px; color: var(--ink); background: transparent; border: 0; border-bottom: 1px solid #9f988d; border-radius: 0; font: inherit; outline: none; transition: border-color var(--dur-quick) ease, background var(--dur-quick) ease; }
 .form-field textarea { min-height: 150px; resize: vertical; }
 .form-field input:focus,
 .form-field select:focus,
@@ -261,12 +261,12 @@ a.value-card { color: inherit; text-decoration: none; }
 /* Only the linked cards react. A card with no detail page behind it should not
    pretend to be clickable. */
 a.catalogue-card {
-  transition: transform .62s var(--lift-ease, ease),
-              box-shadow .8s var(--wash-ease, ease),
-              border-color .62s ease;
+  transition: transform var(--dur-lift) var(--lift-ease, ease),
+              box-shadow var(--dur-spread) var(--wash-ease, ease),
+              border-color var(--dur-base) ease;
 }
 a.catalogue-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(var(--lift-distance));
   box-shadow: 0 24px 52px rgba(25,24,19,.08);
   border-bottom-color: rgba(185,138,61,.4);
 }

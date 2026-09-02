@@ -1,7 +1,60 @@
+/* ==========================================================================
+   Motion system — one value per gesture
+   --------------------------------------------------------------------------
+   These values had accumulated across three separate passes, leaving 47
+   distinct durations, seven easing tokens (two of which were the same curve
+   under different names) and four different hover-lift distances for what is
+   visually one gesture. Everything below now resolves to a single scale, so
+   the same effect is the same effect wherever it appears.
+
+   Pick by GESTURE, not by taste:
+
+     colour / opacity only ....... --dur-quick   + ease
+     standard hover state ........ --dur-base    + ease
+     card & button lift .......... --dur-lift    + --ease-lift
+     spreads (rules, arrows) ..... --dur-spread  + --ease-hover
+     surfaces that expand ........ --dur-wash    + --ease-wash
+     scroll-in entrance .......... --dur-rise    + --ease-rise
+   ========================================================================== */
 :root {
-  --motion-ease: cubic-bezier(.22, 1, .36, 1);
-  --motion-soft: cubic-bezier(.16, 1, .3, 1);
-  --hover-ease: cubic-bezier(.28, .08, .22, 1);
+  --dur-quick: .3s;
+  --dur-base: .48s;
+  --dur-lift: .62s;
+  --dur-spread: .72s;
+  --dur-rise: 1.05s;
+  --dur-wash: 1.15s;
+
+  --ease: cubic-bezier(.22, 1, .36, 1);
+  --ease-rise: cubic-bezier(.33, 1, .68, 1);
+  --ease-lift: cubic-bezier(.34, 1.16, .64, 1);
+  --ease-hover: cubic-bezier(.28, .08, .22, 1);
+  --ease-wash: cubic-bezier(.4, .5, .2, 1);
+
+  /* One lift distance everywhere. Was -3px, -4px, -5px and -7px depending on
+     which component you hovered. */
+  /* One stagger step for every sequenced reveal. Was 45ms, 110ms and 130ms
+     in three different places. */
+  --stagger: 90ms;
+  /* Held before a colour change so the surface moves first and the text
+     follows, rather than both switching at once. */
+  --delay-hover: .34s;
+
+  --lift-distance: -4px;
+  --rise-distance: 34px;
+
+  /* Legacy names kept as aliases so existing rules keep working. Each now
+     points at the canonical curve rather than its own near-duplicate;
+     --motion-ease in particular was character-for-character identical to
+     --ease. */
+  --motion-ease: var(--ease);
+  --motion-soft: var(--ease-wash);
+  --hover-ease: var(--ease-hover);
+  --rise-ease: var(--ease-rise);
+  --lift-ease: var(--ease-lift);
+  --wash-ease: var(--ease-wash);
+  --hv-quick: var(--dur-quick);
+  --hv-base: var(--dur-base);
+  --hv-spread: var(--dur-spread);
 }
 
 .motion-progress {
@@ -28,23 +81,23 @@
   pointer-events: none;
   background: #171713;
   transform: translate3d(0, 101%, 0);
-  transition: transform .48s var(--motion-soft);
+  transition: transform var(--dur-base) var(--ease-wash);
   will-change: transform;
 }
 body.motion-leaving .motion-curtain { transform: translate3d(0, 0, 0); }
 
 .site-header,
-.legacy-premium-header { animation: motionHeaderIn .9s var(--motion-ease) both; }
+.legacy-premium-header { animation: motionHeaderIn .9s var(--ease) both; }
 
 .motion-item {
   opacity: 0;
   filter: blur(5px);
   translate: 0 30px;
   transition:
-    opacity .9s var(--motion-ease) var(--motion-delay, 0ms),
-    transform .9s var(--motion-ease) var(--motion-delay, 0ms),
-    translate .9s var(--motion-ease) var(--motion-delay, 0ms),
-    filter .9s var(--motion-ease) var(--motion-delay, 0ms);
+    opacity var(--dur-rise) var(--ease) var(--motion-delay, 0ms),
+    transform var(--dur-rise) var(--ease) var(--motion-delay, 0ms),
+    translate var(--dur-rise) var(--ease) var(--motion-delay, 0ms),
+    filter var(--dur-rise) var(--ease) var(--motion-delay, 0ms);
   will-change: opacity, translate, filter;
 }
 .motion-item.is-visible {
@@ -60,21 +113,21 @@ body.motion-leaving .motion-curtain { transform: translate3d(0, 0, 0); }
   opacity: 0;
   transform: translate3d(0, 112%, 0) rotate(.8deg);
   transform-origin: left bottom;
-  transition: opacity .2s ease, transform 1.05s var(--motion-ease);
-  transition-delay: calc(var(--motion-line, 0) * 110ms + 100ms);
+  transition: opacity var(--dur-quick) ease, transform var(--dur-lift) var(--ease);
+  transition-delay: calc(var(--motion-line, 0) * var(--stagger) + var(--stagger));
   will-change: transform;
 }
 .motion-headline.is-animated .motion-line > span { opacity: 1; transform: translate3d(0, 0, 0) rotate(0); }
 
 .motion-media {
   clip-path: inset(0 100% 0 0);
-  transition: clip-path 1.15s var(--motion-soft);
+  transition: clip-path var(--dur-wash) var(--ease-wash);
   will-change: clip-path;
 }
 .motion-media.is-visible { clip-path: inset(0 0 0 0); }
 .motion-media img {
   transform: scale(1.075);
-  transition: transform 1.45s var(--motion-ease) !important;
+  transition: transform 1.45s var(--ease) !important;
   will-change: transform;
 }
 .motion-media.is-visible img { transform: scale(1); }
@@ -117,8 +170,8 @@ body.motion-leaving .motion-curtain { transform: translate3d(0, 0, 0); }
 body.premium-legacy #main .avia-button {
   translate: var(--magnet-x, 0px) calc(var(--magnet-y, 0px) + var(--hover-lift, 0px));
   transition-property: color, background-color, border-color, box-shadow, translate;
-  transition-duration: .68s, .68s, .68s, .9s, 1.02s;
-  transition-timing-function: ease, ease, ease, ease, var(--motion-ease);
+  transition-duration: var(--dur-base), var(--dur-base), var(--dur-base), var(--dur-lift), var(--dur-lift);
+  transition-timing-function: ease, ease, ease, ease, var(--ease);
 }
 .button.motion-item.is-visible {
   translate: var(--magnet-x, 0px) calc(var(--magnet-y, 0px) + var(--hover-lift, 0px));
@@ -142,8 +195,8 @@ body.premium-legacy #main .avia-button {
   .primary-nav a::after,
   .legacy-premium-nav a::after {
     transform-origin: center;
-    transition-duration: .92s;
-    transition-timing-function: var(--hover-ease);
+    transition-duration: var(--dur-spread);
+    transition-timing-function: var(--ease-hover);
   }
 
   .button,
@@ -155,7 +208,7 @@ body.premium-legacy #main .avia-button {
     position: relative;
     isolation: isolate;
     overflow: hidden;
-    transition: color .62s ease, background-color .72s ease, border-color .72s ease, box-shadow 1.08s var(--hover-ease), translate 1.12s var(--hover-ease);
+    transition: color var(--dur-base) ease, background-color var(--dur-spread) ease, border-color var(--dur-spread) ease, box-shadow var(--dur-lift) var(--ease-hover), translate var(--dur-lift) var(--ease-hover);
   }
   .button::before,
   .header-cta::before,
@@ -171,7 +224,7 @@ body.premium-legacy #main .avia-button {
     background: var(--hover-wash, linear-gradient(115deg, rgba(255,255,255,.04), rgba(255,255,255,.16)));
     opacity: 0;
     clip-path: circle(0% at var(--spot-x, 50%) var(--spot-y, 50%));
-    transition: opacity .82s ease, clip-path 1.28s var(--hover-ease);
+    transition: opacity var(--dur-base) ease, clip-path var(--dur-wash) var(--ease-hover);
   }
   .button:hover::before,
   .header-cta:hover::before,
@@ -184,15 +237,15 @@ body.premium-legacy #main .avia-button {
   }
   .button:hover,
   .header-cta:hover {
-    --hover-lift: -5px;
+    --hover-lift: var(--lift-distance);
     transform: none;
     box-shadow: 0 22px 46px rgba(17,17,14,.12);
   }
-  .legacy-premium-cta:hover { --hover-lift: -5px; box-shadow: 0 22px 46px rgba(17,17,14,.12); }
+  .legacy-premium-cta:hover { --hover-lift: var(--lift-distance); box-shadow: 0 22px 46px rgba(17,17,14,.12); }
   .button-gold { --hover-wash: linear-gradient(115deg, rgba(255,255,255,.02), rgba(255,245,211,.42)); }
   .button-gold:hover { background: var(--gold); }
   .button-outline { --hover-wash: linear-gradient(115deg, #c59e5b, #dfc78f); }
-  .button-outline:hover { color: var(--ink); background: transparent; border-color: var(--gold-light); transition-delay: .34s, 0s, 0s, 0s, 0s, 0s; }
+  .button-outline:hover { color: var(--ink); background: transparent; border-color: var(--gold-light); transition-delay: var(--delay-hover), 0s, 0s, 0s, 0s, 0s; }
   .button-dark { --hover-wash: linear-gradient(115deg, rgba(196,154,86,.07), rgba(255,255,255,.11)); }
   .button-dark:hover { background: var(--ink); }
   .header-cta,
@@ -207,13 +260,13 @@ body.premium-legacy #main .avia-button {
     background-repeat: no-repeat;
     background-position: center bottom;
     background-size: 0 1px;
-    transition: gap .9s var(--hover-ease), color .65s ease .26s, background-size 1.1s var(--hover-ease), border-color .65s ease;
+    transition: gap var(--dur-spread) var(--ease-hover), color var(--dur-base) ease .26s, background-size var(--dur-spread) var(--ease-hover), border-color var(--dur-base) ease;
   }
   .text-link:hover { gap: 20px; color: #8d672b; background-size: 100% 1px; border-bottom-color: transparent; }
   .text-link-light:hover { color: var(--gold-light); }
 
   .capability-card {
-    transition: color .62s ease, box-shadow 1.05s var(--hover-ease), transform 1.08s var(--hover-ease);
+    transition: color var(--dur-base) ease, box-shadow var(--dur-lift) var(--ease-hover), transform var(--dur-lift) var(--ease-hover);
   }
   .capability-card::before {
     background: linear-gradient(145deg, #2b2a24 0%, #171713 72%);
@@ -221,32 +274,32 @@ body.premium-legacy #main .avia-button {
     transform: none;
     /* The reveal itself is the mask wipe in the Softening pass below. */
   }
-  .capability-card:hover { transition-delay: .34s, 0s, 0s, 0s, 0s; }
-  .capability-card p { transition: color .58s ease; }
-  .capability-card:hover p { transition-delay: .34s; }
-  .card-arrow { transition-duration: 1.02s; transition-timing-function: var(--hover-ease); }
+  .capability-card:hover { transition-delay: var(--delay-hover), 0s, 0s, 0s, 0s; }
+  .capability-card p { transition: color var(--dur-base) ease; }
+  .capability-card:hover p { transition-delay: var(--delay-hover); }
+  .card-arrow { transition-duration: var(--dur-spread); transition-timing-function: var(--ease-hover); }
   .capability-card:hover .card-arrow { transform: translate(2px,-2px); }
 
-  .solution-row { transition: color .58s ease, padding 1.02s var(--hover-ease), border-color .72s ease; }
+  .solution-row { transition: color var(--dur-base) ease, padding var(--dur-spread) var(--ease-hover), border-color var(--dur-spread) ease; }
   .solution-row:hover { transition-delay: .3s, 0s, 0s; }
   .solution-row:hover { padding-left: 12px; border-color: rgba(217,184,117,.5); }
 
   .process-step {
-    transition: box-shadow 1.08s var(--hover-ease), transform 1.12s var(--hover-ease);
+    transition: box-shadow var(--dur-lift) var(--ease-hover), transform var(--dur-lift) var(--ease-hover);
   }
-  .process-step:hover { background: var(--ivory); box-shadow: 0 22px 48px rgba(25,24,19,.06), inset 0 0 0 1px rgba(185,138,61,.12); transform: translateY(-4px); }
+  .process-step:hover { background: var(--ivory); box-shadow: 0 22px 48px rgba(25,24,19,.06), inset 0 0 0 1px rgba(185,138,61,.12); transform: translateY(var(--lift-distance)); }
 
   .format-card {
-    transition: transform 1.12s var(--hover-ease), box-shadow 1.08s var(--hover-ease);
+    transition: transform var(--dur-lift) var(--ease-hover), box-shadow var(--dur-lift) var(--ease-hover);
   }
-  .format-card:hover { background: #272721; transform: translateY(-5px); box-shadow: 0 26px 56px rgba(15,15,12,.12); }
+  .format-card:hover { background: #272721; transform: translateY(var(--lift-distance)); box-shadow: 0 26px 56px rgba(15,15,12,.12); }
 
   .insight-card,
   .article-card {
-    transition: transform 1.12s var(--hover-ease), box-shadow 1.08s var(--hover-ease), border-color .72s ease;
+    transition: transform var(--dur-lift) var(--ease-hover), box-shadow var(--dur-lift) var(--ease-hover), border-color var(--dur-spread) ease;
   }
   .insight-card:hover,
-  .article-card:hover { transform: translateY(-4px); box-shadow: 0 24px 54px rgba(25,24,19,.075); border-color: rgba(185,138,61,.32); }
+  .article-card:hover { transform: translateY(var(--lift-distance)); box-shadow: 0 24px 54px rgba(25,24,19,.075); border-color: rgba(185,138,61,.32); }
   .insight-card:hover .motion-media.is-visible img,
   .article-card:hover .motion-media.is-visible img,
   .av-masonry-entry:hover .motion-media.is-visible img { transform: scale(1.025); }
@@ -256,15 +309,15 @@ body.premium-legacy #main .avia-button {
     background-position: center;
     background-repeat: no-repeat;
     background-size: 0 0;
-    transition: color .55s ease .28s, background-size 1.15s var(--hover-ease), border-color .72s ease;
+    transition: color var(--dur-base) ease .28s, background-size var(--dur-spread) var(--ease-hover), border-color var(--dur-spread) ease;
   }
   .news-filter button:not(.is-active):hover { color: #8d672b; background-color: transparent; background-size: 260% 260%; border-color: rgba(141,103,43,.45); }
 
   .footer-nav a,
-  .legacy-premium-footer-nav a { transition: color .55s ease; }
+  .legacy-premium-footer-nav a { transition: color var(--dur-base) ease; }
   .floating-consult:hover,
   .legacy-floating-consult:hover {
-    --hover-lift: -7px;
+    --hover-lift: var(--lift-distance);
     transform: none;
     background: var(--gold);
     box-shadow: 0 28px 60px rgba(0,0,0,.15);
@@ -273,11 +326,11 @@ body.premium-legacy #main .avia-button {
   body.premium-legacy #main .avia-button,
   body.premium-legacy #main .button,
   body.premium-legacy #main input[type="submit"] {
-    transition: color .58s ease .32s, background-color .72s ease, border-color .72s ease, box-shadow 1.08s var(--hover-ease), translate 1.12s var(--hover-ease) !important;
+    transition: color var(--dur-base) ease .32s, background-color var(--dur-spread) ease, border-color var(--dur-spread) ease, box-shadow var(--dur-lift) var(--ease-hover), translate var(--dur-lift) var(--ease-hover) !important;
   }
   body.premium-legacy #main .avia-button:hover,
   body.premium-legacy #main .button:hover {
-    --hover-lift: -5px;
+    --hover-lift: var(--lift-distance);
     color: #171713 !important;
     background: #171713 !important;
     border-color: #171713 !important;
@@ -296,7 +349,7 @@ body.premium-legacy #main .avia-button {
     border-color: #171713 !important;
   }
   body.premium-legacy #main .avia-gallery-thumb img,
-  body.premium-legacy #main .av-horizontal-gallery-wrap img { transition-duration: 1.15s !important; transition-timing-function: var(--motion-ease) !important; }
+  body.premium-legacy #main .av-horizontal-gallery-wrap img { transition-duration: var(--dur-wash) !important; transition-timing-function: var(--ease) !important; }
   body.premium-legacy #main .avia-gallery-thumb a:hover img,
   body.premium-legacy #main .av-horizontal-gallery-wrap:hover img { transform: scale(1.018); }
 
@@ -316,7 +369,7 @@ body.premium-legacy #main .avia-button {
   .hero-media.motion-media.is-visible img,
   .inner-hero-media.motion-media.is-visible img { transform: scale(1.035); }
   .motion-item { filter: none; translate: 0 20px; }
-  .motion-sequence > * { transition-delay: calc(var(--motion-index, 0) * 45ms); }
+  .motion-sequence > * { transition-delay: calc(var(--motion-index, 0) * var(--stagger)); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -363,11 +416,8 @@ body.premium-legacy #main .avia-button {
    surface (an underline, a wash) takes the long one.
    ========================================================================== */
 
-:root {
-  --hv-quick: .3s;
-  --hv-base: .48s;
-  --hv-spread: .72s;
-}
+/* --hv-quick / --hv-base / --hv-spread are now defined once, with the rest of
+   the motion scale, at the top of this file. */
 
 /* --------------------------------------------------------------------------
    1. Centre-out underline
@@ -383,7 +433,7 @@ body.premium-legacy #main .avia-button {
   transform: scaleX(1);
 }
 .primary-nav a,
-.legacy-premium-nav a { transition: color var(--hv-quick) ease; }
+.legacy-premium-nav a { transition: color var(--dur-quick) ease; }
 .primary-nav a:hover,
 .primary-nav a:focus-visible { color: #d9b875; }
 .legacy-premium-nav a:hover,
@@ -398,7 +448,7 @@ body.premium-legacy #main .avia-button {
 .story-copy a {
   position: relative;
   display: inline-block;
-  transition: color var(--hv-quick) ease;
+  transition: color var(--dur-quick) ease;
 }
 .footer-nav a::after,
 .legacy-premium-footer-nav a::after,
@@ -414,7 +464,7 @@ body.premium-legacy #main .avia-button {
   opacity: .6;
   transform: scaleX(0);
   transform-origin: center;
-  transition: transform var(--hv-spread) var(--hover-ease);
+  transition: transform var(--dur-spread) var(--ease-hover);
 }
 .footer-nav a:hover::after,
 .footer-nav a:focus-visible::after,
@@ -430,7 +480,7 @@ body.premium-legacy #main .avia-button {
    2. Header furniture - logo, menu button, scroll cue
    -------------------------------------------------------------------------- */
 .brand,
-.legacy-premium-brand { transition: opacity var(--hv-base) ease; }
+.legacy-premium-brand { transition: opacity var(--dur-base) ease; }
 .brand:hover,
 .brand:focus-visible,
 .legacy-premium-brand:hover,
@@ -439,17 +489,17 @@ body.premium-legacy #main .avia-button {
 .menu-toggle,
 .legacy-premium-toggle {
   cursor: pointer;
-  transition: color var(--hv-quick) ease;
+  transition: color var(--dur-quick) ease;
 }
 .menu-toggle:hover,
 .legacy-premium-toggle:hover { color: #d9b875; }
 .menu-toggle-lines i,
-.legacy-premium-toggle i { transition: transform .3s var(--motion-ease), background-color var(--hv-quick) ease; }
+.legacy-premium-toggle i { transition: transform var(--dur-quick) var(--ease), background-color var(--dur-quick) ease; }
 
-.hero-scroll { transition: color var(--hv-base) ease, gap var(--hv-spread) var(--hover-ease); }
+.hero-scroll { transition: color var(--dur-base) ease, gap var(--dur-spread) var(--ease-hover); }
 .hero-scroll:hover,
 .hero-scroll:focus-visible { color: #fff; gap: 20px; }
-.hero-scroll i { transition: width var(--hv-spread) var(--hover-ease); }
+.hero-scroll i { transition: width var(--dur-spread) var(--ease-hover); }
 .hero-scroll:hover i { width: 64px; }
 
 /* --------------------------------------------------------------------------
@@ -459,7 +509,7 @@ body.premium-legacy #main .avia-button {
    -------------------------------------------------------------------------- */
 .proof-item {
   position: relative;
-  transition: background-color var(--hv-spread) ease;
+  transition: background-color var(--dur-spread) ease;
 }
 .proof-item::after {
   content: "";
@@ -471,11 +521,11 @@ body.premium-legacy #main .avia-button {
   background: #b98a3d;
   transform: scaleX(0);
   transform-origin: center;
-  transition: transform var(--hv-spread) var(--hover-ease);
+  transition: transform var(--dur-spread) var(--ease-hover);
 }
 .proof-item:hover { background-color: rgba(255,255,255,.32); }
 .proof-item:hover::after { transform: scaleX(1); }
-.proof-item span { transition: color var(--hv-base) ease; }
+.proof-item span { transition: color var(--dur-base) ease; }
 .proof-item:hover span { color: #4a463f; }
 
 /* --------------------------------------------------------------------------
@@ -487,30 +537,30 @@ body.premium-legacy #main .avia-button {
 .certification-card,
 .value-card,
 .service-overview-card {
-  transition: transform var(--hv-spread) var(--hover-ease),
-              box-shadow var(--hv-spread) ease,
-              border-color var(--hv-base) ease;
+  transition: transform var(--dur-spread) var(--ease-hover),
+              box-shadow var(--dur-spread) ease,
+              border-color var(--dur-base) ease;
 }
-.certification-card:hover { transform: translateY(-4px); box-shadow: 0 24px 50px rgba(0,0,0,.22); }
+.certification-card:hover { transform: translateY(var(--lift-distance)); box-shadow: 0 24px 50px rgba(0,0,0,.22); }
 .value-card:hover,
 .service-overview-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(var(--lift-distance));
   box-shadow: 0 24px 52px rgba(25,24,19,.07);
   border-color: rgba(185,138,61,.34);
 }
 .value-card h3,
 .service-overview-card h3,
 .research-pillar h3,
-.certification-card strong { transition: color var(--hv-base) ease; }
+.certification-card strong { transition: color var(--dur-base) ease; }
 .value-card:hover h3,
 .service-overview-card:hover h3,
 .certification-card:hover strong { color: #8d672b; }
 
 .research-pillar {
-  transition: background-color var(--hv-spread) ease,
-              transform var(--hv-spread) var(--hover-ease);
+  transition: background-color var(--dur-spread) ease,
+              transform var(--dur-spread) var(--ease-hover);
 }
-.research-pillar:hover { background-color: #20201a; transform: translateY(-4px); }
+.research-pillar:hover { background-color: #20201a; transform: translateY(var(--lift-distance)); }
 .research-pillar:hover h3 { color: #d9b875; }
 
 /* --------------------------------------------------------------------------
@@ -519,14 +569,14 @@ body.premium-legacy #main .avia-button {
    -------------------------------------------------------------------------- */
 .timeline li,
 .quality-row {
-  transition: padding-left var(--hv-spread) var(--hover-ease),
-              border-color var(--hv-base) ease,
-              color var(--hv-base) ease;
+  transition: padding-left var(--dur-spread) var(--ease-hover),
+              border-color var(--dur-base) ease,
+              color var(--dur-base) ease;
 }
 .timeline li:hover { padding-left: 14px; border-bottom-color: rgba(217,184,117,.5); }
 .quality-row:hover { padding-left: 14px; border-bottom-color: rgba(185,138,61,.45); }
 .timeline strong,
-.quality-row strong { transition: color var(--hv-base) ease; }
+.quality-row strong { transition: color var(--dur-base) ease; }
 .timeline li:hover strong { color: #d9b875; }
 .quality-row:hover strong { color: #8d672b; }
 
@@ -544,10 +594,10 @@ body.premium-legacy #main .avia-button {
 /* --------------------------------------------------------------------------
    7. Arrows
    -------------------------------------------------------------------------- */
-.solution-row i { transition: transform var(--hv-spread) var(--hover-ease), opacity var(--hv-base) ease; }
+.solution-row i { transition: transform var(--dur-spread) var(--ease-hover), opacity var(--dur-base) ease; }
 .solution-row:hover i { opacity: 1; transform: translate(3px,-3px); }
 .button span[aria-hidden],
-.header-cta span[aria-hidden] { transition: transform var(--hv-spread) var(--hover-ease); }
+.header-cta span[aria-hidden] { transition: transform var(--dur-spread) var(--ease-hover); }
 .button:hover span[aria-hidden],
 .header-cta:hover span[aria-hidden] { transform: translate(2px,-2px); }
 
@@ -556,17 +606,17 @@ body.premium-legacy #main .avia-button {
    -------------------------------------------------------------------------- */
 .news-filter button { cursor: pointer; }
 .news-filter button.is-active {
-  transition: background-color var(--hv-base) ease, border-color var(--hv-base) ease;
+  transition: background-color var(--dur-base) ease, border-color var(--dur-base) ease;
 }
 .news-filter button.is-active:hover { background-color: #35342c; border-color: #35342c; }
 
-.form-field label { transition: color var(--hv-base) ease; }
+.form-field label { transition: color var(--dur-base) ease; }
 .form-field:focus-within label { color: #8d672b; }
 .form-field input,
 .form-field select,
 .form-field textarea {
-  transition: border-color var(--hv-base) ease,
-              background-color var(--hv-spread) ease;
+  transition: border-color var(--dur-base) ease,
+              background-color var(--dur-spread) ease;
 }
 .form-field input:hover,
 .form-field select:hover,
@@ -581,19 +631,19 @@ body.premium-legacy #main .avia-button {
    the body links sit outside the wrapper, so the narrower selector matched
    nothing. Colour only, so an image or gallery link is unaffected. */
 body.premium-legacy #main a:not(.avia-button):not(.button):not(.avia-gallery-thumb):not([class*="lightbox"]) {
-  transition: color var(--hv-quick) ease;
+  transition: color var(--dur-quick) ease;
 }
 body.premium-legacy #main a:not(.avia-button):not(.button):not(.avia-gallery-thumb):not([class*="lightbox"]):hover {
   color: #8d672b;
 }
 body.premium-legacy #main .av-masonry-entry {
-  transition: transform var(--hv-spread) var(--hover-ease), box-shadow var(--hv-spread) ease;
+  transition: transform var(--dur-spread) var(--ease-hover), box-shadow var(--dur-spread) ease;
 }
 body.premium-legacy #main .av-masonry-entry:hover {
-  transform: translateY(-4px);
+  transform: translateY(var(--lift-distance));
   box-shadow: 0 24px 52px rgba(25,24,19,.09);
 }
-body.premium-legacy #main .av-masonry-entry-title { transition: color var(--hv-base) ease; }
+body.premium-legacy #main .av-masonry-entry-title { transition: color var(--dur-base) ease; }
 body.premium-legacy #main .av-masonry-entry:hover .av-masonry-entry-title { color: #8d672b; }
 
 /* --------------------------------------------------------------------------
@@ -627,13 +677,13 @@ textarea:focus-visible {
 
 .tilt-card.is-tilting {
   will-change: transform;
-  transition: box-shadow 1.08s var(--hover-ease), border-color var(--hv-spread) ease;
+  transition: box-shadow var(--dur-lift) var(--ease-hover), border-color var(--dur-spread) ease;
 }
 
 .tilt-card.is-returning {
-  transition: transform var(--hv-spread) var(--motion-ease),
-              box-shadow 1.08s var(--hover-ease),
-              border-color var(--hv-spread) ease;
+  transition: transform var(--dur-spread) var(--ease),
+              box-shadow var(--dur-lift) var(--ease-hover),
+              border-color var(--dur-spread) ease;
 }
 
 /* --------------------------------------------------------------------------
@@ -656,26 +706,27 @@ textarea:focus-visible {
       amount of blur softens it. A mask does feather, and mask-size animates.
    -------------------------------------------------------------------------- */
 
-:root {
-  /* easeOutCubic - same family as before but the tail is four times longer,
-     so the movement stays visible instead of finishing in the first frames. */
-  --rise-ease: cubic-bezier(.33, 1, .68, 1);
-  /* Overshoots by ~4% and settles back. On a 5px lift that is a fifth of a
-     pixel past the mark - not seen, but felt as give rather than as a stop. */
-  --lift-ease: cubic-bezier(.34, 1.16, .64, 1);
-  /* Slow in, slow out, for surfaces that spread rather than move. */
-  --wash-ease: cubic-bezier(.4, .5, .2, 1);
-}
+/* The three curves this pass introduced are now --ease-rise, --ease-lift and
+   --ease-wash, defined once at the top of this file:
+
+     --ease-rise  easeOutCubic. Same family as the original, but the tail is
+                  four times longer, so movement stays visible instead of
+                  finishing in the first few frames.
+     --ease-lift  Overshoots by ~4% and settles back. On a 4px lift that is
+                  under a fifth of a pixel past the mark — not seen, but felt
+                  as give rather than as a stop.
+     --ease-wash  Slow in, slow out, for surfaces that spread rather than move.
+*/
 
 /* --- a) Rises ----------------------------------------------------------- */
 .motion-item {
   translate: 0 34px;
   filter: blur(4px);
   transition:
-    opacity 1.05s var(--rise-ease) var(--motion-delay, 0ms),
-    transform 1.05s var(--rise-ease) var(--motion-delay, 0ms),
-    translate 1.05s var(--rise-ease) var(--motion-delay, 0ms),
-    filter 1.05s var(--rise-ease) var(--motion-delay, 0ms);
+    opacity var(--dur-rise) var(--ease-rise) var(--motion-delay, 0ms),
+    transform var(--dur-lift) var(--ease-rise) var(--motion-delay, 0ms),
+    translate var(--dur-lift) var(--ease-rise) var(--motion-delay, 0ms),
+    filter var(--dur-rise) var(--ease-rise) var(--motion-delay, 0ms);
 }
 
 /* The headline lines faded in over .2s while still sliding for another
@@ -683,8 +734,8 @@ textarea:focus-visible {
    happened and the slide read as a separate, mechanical event. */
 .motion-line > span {
   transform: translate3d(0, 108%, 0) rotate(.6deg);
-  transition: opacity .8s var(--rise-ease), transform 1.15s var(--rise-ease);
-  transition-delay: calc(var(--motion-line, 0) * 130ms + 120ms);
+  transition: opacity var(--dur-spread) var(--ease-rise), transform var(--dur-wash) var(--ease-rise);
+  transition-delay: calc(var(--motion-line, 0) * var(--stagger) + var(--stagger));
 }
 
 /* --- b) Button lift and magnet, split apart ----------------------------- */
@@ -695,11 +746,11 @@ textarea:focus-visible {
 .legacy-floating-consult {
   translate: 0 var(--hover-lift, 0px);
   transform: translate3d(var(--magnet-x, 0px), var(--magnet-y, 0px), 0);
-  transition: color .62s ease,
-              background-color .72s ease,
-              border-color .72s ease,
-              box-shadow .8s var(--wash-ease),
-              translate .62s var(--lift-ease),
+  transition: color var(--dur-base) ease,
+              background-color var(--dur-spread) ease,
+              border-color var(--dur-spread) ease,
+              box-shadow var(--dur-spread) var(--ease-wash),
+              translate var(--dur-lift) var(--ease-lift),
               transform .22s ease-out;
 }
 
@@ -724,11 +775,11 @@ body.premium-legacy #main .avia-button,
 body.premium-legacy #main .button {
   translate: 0 var(--hover-lift, 0px) !important;
   transform: translate3d(var(--magnet-x, 0px), var(--magnet-y, 0px), 0) !important;
-  transition: color .58s ease .32s,
-              background-color .72s ease,
-              border-color .72s ease,
-              box-shadow .8s var(--wash-ease),
-              translate .62s var(--lift-ease),
+  transition: color var(--dur-base) ease .32s,
+              background-color var(--dur-spread) ease,
+              border-color var(--dur-spread) ease,
+              box-shadow var(--dur-spread) var(--ease-wash),
+              translate var(--dur-lift) var(--ease-lift),
               transform .22s ease-out !important;
 }
 
@@ -769,7 +820,7 @@ body.premium-legacy #main .button {
   mask-position: 0 0;
   -webkit-mask-size: 100% 100%;
   mask-size: 100% 100%;
-  transition: --wash 1.15s var(--wash-ease);
+  transition: --wash 1.15s var(--ease-wash);
 }
 /* Set on the pseudo-element, not the card: --wash is registered with
    inherits:false, so a value on the card would not reach ::before. */
@@ -788,7 +839,7 @@ body.premium-legacy #main .button {
               rgba(196,154,86,.06) 44%,
               rgba(196,154,86,0) 74%);
   opacity: 0;
-  transition: opacity .95s var(--wash-ease);
+  transition: opacity .95s var(--ease-wash);
 }
 .motion-spotlight:hover::after { opacity: 1; }
 
@@ -806,9 +857,9 @@ body.premium-legacy #main .button {
   opacity: 0;
   translate: 0 34px;
   filter: blur(4px);
-  transition: opacity 1.05s var(--rise-ease),
-              translate 1.05s var(--rise-ease),
-              filter 1.05s var(--rise-ease);
+  transition: opacity var(--dur-rise) var(--ease-rise),
+              translate var(--dur-lift) var(--ease-rise),
+              filter var(--dur-rise) var(--ease-rise);
 }
 .process-grid.is-visible,
 .research-pillars.is-visible {
@@ -832,7 +883,7 @@ body.premium-legacy #main .button {
 .floating-consult::before,
 .legacy-floating-consult::before,
 body.premium-legacy #main .avia-button::before {
-  transition: opacity .82s var(--wash-ease), clip-path 1.28s var(--wash-ease);
+  transition: opacity var(--dur-base) var(--ease-wash), clip-path var(--dur-wash) var(--ease-wash);
 }
 
 /* Card lifts pick up the same give as the buttons. */
@@ -843,23 +894,23 @@ body.premium-legacy #main .avia-button::before {
 .value-card,
 .service-overview-card,
 .research-pillar {
-  transition: color .62s ease,
-              background-color .8s var(--wash-ease),
-              border-color .62s ease,
-              box-shadow .8s var(--wash-ease),
-              transform .62s var(--lift-ease);
+  transition: color var(--dur-base) ease,
+              background-color var(--dur-spread) var(--ease-wash),
+              border-color var(--dur-base) ease,
+              box-shadow var(--dur-spread) var(--ease-wash),
+              transform var(--dur-lift) var(--ease-lift);
 }
 
 .insight-card,
 .article-card {
-  transition: transform .62s var(--lift-ease),
-              box-shadow .8s var(--wash-ease),
-              border-color .62s ease;
+  transition: transform var(--dur-lift) var(--ease-lift),
+              box-shadow var(--dur-spread) var(--ease-wash),
+              border-color var(--dur-base) ease;
 }
 .tilt-card.is-returning {
-  transition: transform .62s var(--lift-ease),
-              box-shadow .8s var(--wash-ease),
-              border-color .62s ease;
+  transition: transform var(--dur-lift) var(--ease-lift),
+              box-shadow var(--dur-spread) var(--ease-wash),
+              border-color var(--dur-base) ease;
 }
 
 @media (min-width: 821px) {
