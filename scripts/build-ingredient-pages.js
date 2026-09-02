@@ -18,6 +18,10 @@ const categories = [
   { slug: 'beauty', en: 'SKIN MAINTENANCE', zh: '養顏美容',
     lead: '客群對成分名稱熟悉度高，差異化多半落在來源、規格與每日服用的體驗。',
     items: [
+      // The one ingredient the client had already published, with their own
+      // photo. Everything after it is placeholder.
+      ['ICE CRYSTAL TOMATO', '冰晶番茄', '百達醫官網既有品項，果實原料。', '果實原料',
+        '../../../wp-content/uploads/2026/08/冰晶番茄-695x1030.png'],
       ['COLLAGEN PEPTIDE', '膠原蛋白胜肽', '水解型小分子胜肽，常見來源為魚鱗或魚皮。', '粉末｜水解'],
       ['GLUTATHIONE', '穀胱甘肽', '由酵母發酵取得的三肽成分。', '粉末｜發酵'],
       ['VITAMIN C', '維生素 C', '抗壞血酸，可選用一般型或緩釋型。', '粉末｜結晶'],
@@ -188,10 +192,15 @@ const categories = [
 ];
 
 const esc = s => s.replace(/&/g, '&amp;');
+const PLACEHOLDER = '../../../assets/premium/ingredient-placeholder.svg';
 
-function card([en, zh, desc, meta]) {
+/* A fifth element is the path to a real photo. Where it is present the card
+ * carries the client's own image and drops the placeholder alt text. */
+function card([en, zh, desc, meta, img]) {
+  const src = img || PLACEHOLDER;
+  const alt = img ? `${zh}原料` : '';
   return `<article class="catalogue-card reveal">` +
-    `<div class="catalogue-media"><img src="../../../assets/premium/ingredient-placeholder.svg" alt="" loading="lazy"></div>` +
+    `<div class="catalogue-media"><img src="${src}" alt="${esc(alt)}" loading="lazy"></div>` +
     `<div class="catalogue-copy"><span class="catalogue-en">${esc(en)}</span><h3>${esc(zh)}</h3>` +
     `<p>${esc(desc)}</p><p class="ingredient-meta"><b>形式</b>　${esc(meta)}</p></div></article>`;
 }

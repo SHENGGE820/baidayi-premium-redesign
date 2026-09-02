@@ -1,15 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 695 1030" role="img" aria-labelledby="t d">
   <title id="t">原料圖片待補</title>
-  <desc id="d">此為版面示意用的暫代圖，實際原料照片待提供</desc>
-  <rect width="800" height="600" fill="#e9e3d6"/>
+  <desc id="d">版面示意用的暫代圖，尺寸比照客戶既有的原料圖 695×1030</desc>
+  <rect width="695" height="1030" fill="#e9e3d6"/>
   <g fill="none" stroke="#c3b79f" stroke-width="1">
-    <path d="M0 150h800M0 300h800M0 450h800M200 0v600M400 0v600M600 0v600"/>
+    <path d="M0 210h695M0 420h695M0 630h695M232 0v1030M463 0v1030"/>
   </g>
-  <circle cx="400" cy="272" r="92" fill="none" stroke="#b98a3d" stroke-width="1.5" opacity=".75"/>
-  <circle cx="400" cy="272" r="6" fill="#b98a3d" opacity=".75"/>
-  <path d="M348 300c22-34 44-34 66 0s44 34 66 0" fill="none" stroke="#b98a3d" stroke-width="1.5" opacity=".55"/>
-  <text x="400" y="418" text-anchor="middle" fill="#8d672b"
-        font-family="Outfit, 'Noto Sans TC', sans-serif" font-size="15" letter-spacing="4">IMAGE PENDING</text>
-  <text x="400" y="446" text-anchor="middle" fill="#8a8272"
-        font-family="'Noto Sans TC', sans-serif" font-size="15">原料圖片待補</text>
+  <circle cx="347.5" cy="392" r="104" fill="none" stroke="#b98a3d" stroke-width="1.6" opacity=".72"/>
+  <circle cx="347.5" cy="392" r="7" fill="#b98a3d" opacity=".72"/>
+  <path d="M289 424c23-38 47-38 70 0s47 38 70 0" fill="none" stroke="#b98a3d" stroke-width="1.6" opacity=".5"/>
+  <text x="347.5" y="566" text-anchor="middle" fill="#8d672b"
+        font-family="Outfit, 'Noto Sans TC', sans-serif" font-size="17" letter-spacing="5">IMAGE PENDING</text>
+  <text x="347.5" y="598" text-anchor="middle" fill="#8a8272"
+        font-family="'Noto Sans TC', sans-serif" font-size="17">原料圖片待補</text>
+  <rect y="648" width="695" height="382" fill="#221f1a"/>
+  <text x="347.5" y="852" text-anchor="middle" fill="#5d564a"
+        font-family="'Noto Sans TC', sans-serif" font-size="16">實際照片沿用此比例即可直接替換</text>
 </svg>
