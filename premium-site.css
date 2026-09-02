@@ -463,8 +463,12 @@ h3 { margin: 0; font-size: 22px; font-weight: 500; line-height: 1.45; }
 }
 .floating-consult i { position: absolute; top: 12px; right: 15px; font-style: normal; font-size: 11px; }
 
-.reveal { opacity: 0; transform: translateY(24px); transition: opacity var(--dur-spread) var(--ease), transform var(--dur-spread) var(--ease); }
-.reveal.is-visible { opacity: 1; transform: translateY(0); }
+/* Gated on .motion-ready, which premium-motion.js sets on <body> as soon as
+   it starts. Without the gate this rule hides every .reveal element with no
+   way back if the script fails to load at all — the markup carries .reveal,
+   so the hidden state would simply stick. Now: no script, no hiding. */
+body.motion-ready .reveal { opacity: 0; transform: translateY(24px); transition: opacity var(--dur-spread) var(--ease), transform var(--dur-spread) var(--ease); }
+body.motion-ready .reveal.is-visible { opacity: 1; transform: translateY(0); }
 .hero .reveal:nth-child(2) { transition-delay: calc(var(--stagger, 90ms) * 1); }
 .hero .reveal:nth-child(3) { transition-delay: calc(var(--stagger, 90ms) * 2); }
 .hero .reveal:nth-child(4) { transition-delay: calc(var(--stagger, 90ms) * 3); }

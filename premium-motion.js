@@ -4,6 +4,12 @@
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var body = document.body;
 
+  /* Set first, not last. The CSS that hides .reveal is gated on this class,
+     so setting it late would show a frame of un-hidden content before the
+     hiding applied. The fail-safe below is registered immediately after,
+     so nothing can get stuck hidden if the rest of this file throws. */
+  body.classList.add('motion-ready');
+
   var progress = document.createElement('div');
   progress.className = 'motion-progress';
   progress.setAttribute('aria-hidden', 'true');
@@ -18,6 +24,32 @@
   function makeVisible(element) {
     element.classList.add('is-visible');
   }
+
+  /* Safety net.
+   *
+   * Everything on the site starts hidden and is revealed by the observer
+   * below. That means any single failure — the observer never firing, a
+   * throw further down this file, a browser that stops producing frames —
+   * leaves content permanently invisible rather than merely unanimated.
+   *
+   * This is registered up front, before anything that could throw, so it
+   * still runs if the rest of the script dies. After the delay it reveals
+   * anything still hidden near the viewport; and if NOTHING has been
+   * revealed by then, the observer is presumed dead and everything is shown
+   * outright. Content being visible always beats content being animated. */
+  function failSafe() {
+    var revealedAnything = document.querySelector('.is-visible') !== null;
+    var limit = window.innerHeight * 1.5;
+    document.querySelectorAll('.motion-item, .motion-media, .motion-sequence, .reveal').forEach(function (element) {
+      if (element.classList.contains('is-visible')) return;
+      if (!revealedAnything || element.getBoundingClientRect().top < limit) makeVisible(element);
+    });
+    document.querySelectorAll('.motion-headline:not(.is-animated)').forEach(function (heading) {
+      heading.classList.add('is-animated');
+    });
+  }
+  window.setTimeout(failSafe, 2600);
+  window.addEventListener('load', function () { window.setTimeout(failSafe, 1200); });
 
   var motionObserver = reducedMotion || !('IntersectionObserver' in window) ? null : new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
@@ -260,5 +292,4 @@
   });
 
   window.addEventListener('pageshow', function () { body.classList.remove('motion-leaving'); });
-  body.classList.add('motion-ready');
 })();

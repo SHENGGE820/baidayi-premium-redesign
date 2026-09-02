@@ -94,6 +94,28 @@ function readBody(slug) {
 
 const esc = s => String(s).replace(/&(?!#?\w+;)/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
 
+/* Intrinsic dimensions straight from the file header — needed to tell the
+ * square card thumbnail apart from the landscape editorial images. */
+function imageSize(src) {
+  const p = decodeURIComponent(src.replace(/^(?:\.\.\/)+/, ''));
+  try {
+    const b = fs.readFileSync(p);
+    if (b[0] === 0x89 && b[1] === 0x50) return [b.readUInt32BE(16), b.readUInt32BE(20)];
+    if (b[0] === 0xFF && b[1] === 0xD8) {
+      let i = 2;
+      while (i < b.length) {
+        if (b[i] !== 0xFF) { i++; continue; }
+        const mk = b[i + 1];
+        if (mk >= 0xC0 && mk <= 0xCF && mk !== 0xC4 && mk !== 0xC8 && mk !== 0xCC) {
+          return [b.readUInt16BE(i + 7), b.readUInt16BE(i + 5)];
+        }
+        i += 2 + b.readUInt16BE(i + 2);
+      }
+    }
+  } catch (e) { /* missing file — treated as unknown below */ }
+  return null;
+}
+
 function shell({ a, main, extraClass = '' }) {
   return `<!doctype html>
 <html lang="zh-Hant">
@@ -151,8 +173,34 @@ for (const a of articles) {
     main = `      <div class="article-video-lead reveal">\n        ${iframe.replace(/ style="[^"]*"/gi, '')}\n      </div>`;
     videoOnly++;
   } else {
-    const hero = a.img ? `      <div class="article-hero reveal"><img src="../${a.img.replace(/^\.\.\//, '')}" alt="${esc(a.title)}"></div>\n` : '';
-    main = `${hero}      <div class="article-body">\n${body}\n      </div>`;
+    /* Each post opens with its square card thumbnail (1030x1030) — that image
+     * is made for the listing grid, not to run full width as a lead. Drop it
+     * from the body, since the listing already shows it, and lead instead
+     * with the post's first landscape image (~1774x887), removing that from
+     * the body too so it is not repeated. */
+    let inner = body;
+    let heroSrc = '', heroAlt = '';
+
+    for (const tag of [...inner.matchAll(/<img[^>]*>/gi)].map(m => m[0])) {
+      const src = (tag.match(/src="([^"]+)"/) || [, ''])[1];
+      if (!src) continue;
+      const size = imageSize(src);
+      const square = size && Math.abs(size[0] - size[1]) / size[0] < 0.05;
+      if (square) { inner = inner.replace(tag, ''); continue; }  // card thumbnail
+      heroSrc = src;
+      heroAlt = (tag.match(/alt="([^"]*)"/) || [, ''])[1] || a.title;
+      inner = inner.replace(tag, '');
+      break;
+    }
+
+    // tidy the wrappers those images left behind
+    inner = inner.replace(/<p>\s*(?:<br\s*\/?>)?\s*<\/p>/gi, '')
+                 .replace(/<figure>\s*<\/figure>/gi, '');
+
+    const hero = heroSrc
+      ? `      <div class="article-hero reveal"><img src="${heroSrc}" alt="${esc(heroAlt)}"></div>\n`
+      : '';
+    main = `${hero}      <div class="article-body">\n${inner.trim()}\n      </div>`;
   }
 
   fs.writeFileSync(path.join(a.slug, 'index.html'), shell({ a, main }));
