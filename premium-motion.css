@@ -74,20 +74,8 @@
   will-change: transform;
 }
 
-.motion-curtain {
-  position: fixed;
-  z-index: 21000;
-  inset: 0;
-  pointer-events: none;
-  background: #171713;
-  transform: translate3d(0, 101%, 0);
-  transition: transform var(--dur-base) var(--ease-wash);
-  will-change: transform;
-}
-body.motion-leaving .motion-curtain { transform: translate3d(0, 0, 0); }
-
 .site-header,
-.legacy-premium-header { animation: motionHeaderIn .9s var(--ease) both; }
+.legacy-premium-header { animation: none; }
 
 /* Below 820px the mobile menu is a full-screen `position: fixed; inset: 0`
    panel that lives inside the header. motionHeaderIn animates transform and,

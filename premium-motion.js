@@ -4,10 +4,17 @@
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var body = document.body;
 
-  /* Set first, not last. The CSS that hides .reveal is gated on this class,
-     so setting it late would show a frame of un-hidden content before the
-     hiding applied. The fail-safe below is registered immediately after,
-     so nothing can get stuck hidden if the rest of this file throws. */
+  // The document may have painted before this bottom-of-page script arrives.
+  // Never hide already-visible content to replay its entrance animation.
+  // This also respects restored scroll positions when returning to a page.
+  var initialViewport = new WeakSet();
+  document.querySelectorAll('.reveal, .hero-media, .inner-hero-media, .split-feature-media, .insight-image, .article-card-image, .proof-grid, .capability-grid, .solution-list, .process-grid, .certification-grid, .insight-grid, .value-grid, .service-overview, .format-grid, .research-pillars, .article-grid, .contact-detail-list').forEach(function (element) {
+    var rect = element.getBoundingClientRect();
+    if (rect.bottom > 0 && rect.top < window.innerHeight) {
+      initialViewport.add(element);
+      element.classList.add('is-visible');
+    }
+  });
   body.classList.add('motion-ready');
 
   var progress = document.createElement('div');
@@ -15,11 +22,6 @@
   progress.setAttribute('aria-hidden', 'true');
   progress.innerHTML = '<i></i>';
   body.appendChild(progress);
-
-  var curtain = document.createElement('div');
-  curtain.className = 'motion-curtain';
-  curtain.setAttribute('aria-hidden', 'true');
-  body.appendChild(curtain);
 
   function makeVisible(element) {
     element.classList.add('is-visible');
@@ -90,11 +92,13 @@
     '.article-card-image', '#main .avia-image-container', '#main .av-masonry-image-container'
   ];
   document.querySelectorAll(mediaSelectors.join(',')).forEach(function (element) {
+    if (initialViewport.has(element)) return;
     element.classList.add('motion-media');
     observe(element);
   });
 
   document.querySelectorAll('.hero h1, .inner-hero h1, .news-masthead h1, .contact-masthead h1').forEach(function (heading) {
+    if (initialViewport.has(heading)) return;
     /* Split on <br> by walking child nodes rather than round-tripping through
      * innerHTML. The old version read innerHTML, split the string, then wrote
      * it back concatenated — the classic mXSS shape. Nothing dynamic reaches a
@@ -275,34 +279,6 @@
     });
   }
 
-  document.addEventListener('click', function (event) {
-    if (reducedMotion || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-    var link = event.target.closest('a[href]');
-    if (!link || link.target === '_blank' || link.hasAttribute('download')) return;
-    var href = link.getAttribute('href');
-    if (!href || href.charAt(0) === '#' || /^(?:mailto:|tel:|javascript:)/i.test(href)) return;
-    var destination;
-    try { destination = new URL(link.href, location.href); } catch (error) { return; }
-    if (destination.origin !== location.origin || destination.href === location.href) return;
-    event.preventDefault();
-    body.classList.add('motion-leaving');
-
-    /* Navigate only once the curtain has actually finished covering. This
-     * used to be a flat 390ms against a 480ms transition, so the page swapped
-     * while the curtain was still ~80% of the way up and the change showed
-     * through as a flash. transitionend is authoritative; the timeout is only
-     * a fallback for the case where it never fires (interrupted transition,
-     * tab backgrounded mid-navigation). */
-    var navigated = false;
-    function go() {
-      if (navigated) return;
-      navigated = true;
-      location.href = destination.href;
-    }
-    curtain.addEventListener('transitionend', go, { once: true });
-    var wait = parseFloat(window.getComputedStyle(curtain).transitionDuration) * 1000;
-    window.setTimeout(go, (wait || 480) + 120);
-  });
-
-  window.addEventListener('pageshow', function () { body.classList.remove('motion-leaving'); });
+  // Let the browser keep the current document visible until navigation is ready.
+  // An outgoing black curtain cannot persist across separate HTML documents.
 })();
