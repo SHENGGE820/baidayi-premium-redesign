@@ -69,14 +69,6 @@
     element.classList.add('motion-item');
   });
 
-  if (body.classList.contains('premium-legacy')) {
-    document.querySelectorAll('#main .avia-section, #main article, #main .av-masonry-entry, #main .av_textblock_section').forEach(function (element, index) {
-      element.classList.add('motion-item');
-      element.style.setProperty('--motion-delay', Math.min(index % 3, 2) * 65 + 'ms');
-      observe(element);
-    });
-  }
-
   var staggerGroups = [
     '.proof-grid', '.capability-grid', '.solution-list', '.process-grid',
     '.certification-grid', '.insight-grid', '.value-grid', '.service-overview',
