@@ -764,3 +764,36 @@ body.motion-ready .reveal.is-visible { opacity: 1; transform: translateY(0); }
 .project-cta .eyebrow,
 .project-cta .eyebrow-dark { color: var(--ink); }
 .project-cta-copy p { color: var(--ink); }
+
+/* ── CJK headline breaking on phones ──────────────────────────────────────
+   Every display heading carries an authored <br> chosen for desktop. In a
+   343px column those breaks overflow and drop one or two characters onto a
+   line of their own: the homepage h1 ended 「品。」 alone at 83px, and
+   .page-title on 劑型與包材 broke as 270 / 77 / 270 / 77 — both halves
+   orphaned. Measured across every page, the longest single authored line is
+   9 CJK characters for the heroes and 11 for .page-title.
+
+   Two fixes, because the two groups differ: premium-motion.js rewrites the
+   hero <br> into .motion-line spans for the line-rise animation, so there is
+   no <br> left to suppress there — those are sized to fit instead. The rest
+   keep their <br>, so it is simply dropped and the browser allowed to
+   balance the lines itself. */
+@media (max-width: 560px) {
+  /* Heroes: split into spans by the motion script, so size to the break.
+     9 chars x 0.965em must clear 343px -> 38px. */
+  .hero h1 { font-size: 38px; }
+
+  /* Everything else: let the browser choose, and balance the result so no
+     line is left with two characters on it. */
+  .project-cta h2,
+  .split-feature-copy h2,
+  .display-statement { text-wrap: balance; }
+  .project-cta h2 br,
+  .split-feature-copy h2 br,
+  .display-statement br { display: none; }
+  .project-cta h2 { font-size: 34px; }
+
+  /* "ONE-STOP HEALTH SUPPLEMENT ODM / OEM" needed 344px at .22em tracking
+     and dropped "OEM" onto its own 35px line. */
+  .eyebrow { letter-spacing: .14em; }
+}

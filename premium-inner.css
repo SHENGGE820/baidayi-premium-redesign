@@ -486,3 +486,19 @@ a.catalogue-card:focus-visible .catalogue-more::after { transform: scaleX(1); }
 @media (max-width: 700px) {
   .article-body { font-size: 16px; line-height: 1.95; }
 }
+
+/* These two live here rather than in premium-site.css: media queries add no
+   specificity, so the plain .inner-hero h1 / .page-title rules earlier in
+   THIS file beat an @media rule in the file that loads before it. Same
+   reasoning as the block in premium-site.css — the authored <br> is a
+   desktop break that orphans characters in a 343px column. */
+@media (max-width: 560px) {
+  /* Split into spans by premium-motion.js, so there is no <br> to drop —
+     sized to fit instead. Longest authored line is 9 CJK chars. */
+  .inner-hero h1 { font-size: 38px; }
+
+  /* Keeps its <br>, so drop it and let the browser balance the lines.
+     Longest authored line here is 11 chars, which never fit at 40px. */
+  .page-title { font-size: 34px; text-wrap: balance; }
+  .page-title br { display: none; }
+}
