@@ -23,6 +23,27 @@
   progress.innerHTML = '<i></i>';
   body.appendChild(progress);
 
+  var curtain = document.createElement('div');
+  curtain.className = 'motion-curtain';
+  curtain.setAttribute('aria-hidden', 'true');
+  body.appendChild(curtain);
+
+  var documentElement = document.documentElement;
+  if (documentElement.classList.contains('motion-arriving')) {
+    function clearArrival() {
+      documentElement.classList.remove('motion-arriving', 'motion-arrival-release');
+    }
+    documentElement.addEventListener('transitionend', function (event) {
+      if (event.pseudoElement === '::before' && event.propertyName === 'transform') clearArrival();
+    }, { once: true });
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        documentElement.classList.add('motion-arrival-release');
+      });
+    });
+    window.setTimeout(clearArrival, 900);
+  }
+
   function makeVisible(element) {
     element.classList.add('is-visible');
   }
@@ -279,6 +300,33 @@
     });
   }
 
-  // Let the browser keep the current document visible until navigation is ready.
-  // An outgoing black curtain cannot persist across separate HTML documents.
+  document.addEventListener('click', function (event) {
+    if (reducedMotion || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    var link = event.target.closest('a[href]');
+    if (!link || link.target === '_blank' || link.hasAttribute('download')) return;
+    var href = link.getAttribute('href');
+    if (!href || href.charAt(0) === '#' || /^(?:mailto:|tel:|javascript:)/i.test(href)) return;
+    var destination;
+    try { destination = new URL(link.href, location.href); } catch (error) { return; }
+    if (destination.origin !== location.origin || destination.href === location.href) return;
+    if (destination.pathname === location.pathname && destination.search === location.search) return;
+    event.preventDefault();
+    body.classList.add('motion-leaving');
+
+    var navigated = false;
+    function go() {
+      if (navigated) return;
+      navigated = true;
+      try { sessionStorage.setItem('bke-page-transition', '1'); } catch (error) {}
+      location.href = destination.href;
+    }
+    curtain.addEventListener('transitionend', function (transitionEvent) {
+      if (transitionEvent.propertyName === 'transform') go();
+    }, { once: true });
+    window.setTimeout(go, 700);
+  });
+
+  window.addEventListener('pageshow', function () {
+    body.classList.remove('motion-leaving');
+  });
 })();

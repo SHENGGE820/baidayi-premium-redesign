@@ -57,32 +57,6 @@
   --hv-spread: var(--dur-spread);
 }
 
-/* Same-origin page navigation uses the browser's captured old/new frames.
-   The next document is ready before the crossfade begins, so no bare browser
-   background or one-sided curtain can appear between pages. Unsupported
-   browsers simply keep their normal immediate navigation. */
-@view-transition { navigation: auto; }
-
-::view-transition-group(root) {
-  animation-duration: .64s;
-  animation-timing-function: var(--ease-wash);
-}
-::view-transition-old(root) {
-  animation: pageLeave .42s ease both;
-  mix-blend-mode: normal;
-}
-::view-transition-new(root) {
-  animation: pageEnter .64s var(--ease) both;
-  mix-blend-mode: normal;
-}
-@keyframes pageLeave {
-  to { opacity: 0; transform: scale(.995); }
-}
-@keyframes pageEnter {
-  from { opacity: 0; transform: translate3d(0, 10px, 0) scale(1.002); }
-  to { opacity: 1; transform: none; }
-}
-
 .motion-progress {
   position: fixed;
   z-index: 22000;
@@ -98,6 +72,36 @@
   transform: scaleX(var(--scroll-progress, 0));
   transform-origin: left;
   will-change: transform;
+}
+
+/* The curtain crosses the document boundary in two matched halves. The old
+   page brings it up from below; the next page is already covered on its first
+   paint, then releases the same surface upward. */
+.motion-curtain {
+  position: fixed;
+  z-index: 21000;
+  inset: 0;
+  pointer-events: none;
+  background: #171713;
+  transform: translate3d(0, 101%, 0);
+  transition: transform var(--dur-base) var(--ease-wash);
+  will-change: transform;
+}
+body.motion-leaving .motion-curtain { transform: translate3d(0, 0, 0); }
+
+html.motion-arriving::before {
+  position: fixed;
+  z-index: 21000;
+  inset: 0;
+  pointer-events: none;
+  background: #171713;
+  content: "";
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+html.motion-arriving.motion-arrival-release::before {
+  transform: translate3d(0, -101%, 0);
+  transition: transform var(--dur-base) var(--ease-wash);
 }
 
 .site-header,
@@ -418,8 +422,7 @@ body.premium-legacy #main .avia-button {
     transform: none !important;
     clip-path: none !important;
   }
-  ::view-transition-old(root),
-  ::view-transition-new(root) { animation: none !important; }
+  html.motion-arriving::before { display: none !important; }
 }
 
 /* ==========================================================================

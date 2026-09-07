@@ -14,7 +14,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const V = '20260907-04';
+const V = '20260907-05';
 const SRC = '全面性服務/一站式服務';
 const HERO = '../../../assets/premium/service-packaging-studio.jpg';
 
@@ -144,7 +144,7 @@ function render(d) {
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600&family=Noto+Serif+TC:wght@500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../../premium-site.css?v=${V}"><link rel="stylesheet" href="../../../premium-inner.css?v=${V}">
-  <link rel="stylesheet" href="../../../premium-motion.css?v=${V}">
+  <script src="../../../premium-transition-init.js?v=${V}"></script><link rel="stylesheet" href="../../../premium-motion.css?v=${V}">
 </head>
 <body class="premium-site premium-inner" data-root="../../../" data-active="service">
   <a class="skip-link" href="#main-content">跳到主要內容</a><div data-premium-header></div>
