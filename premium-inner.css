@@ -158,10 +158,11 @@
 .contact-detail span { display: block; color: #8d672b; font-family: "Outfit",sans-serif; font-size: 11px; letter-spacing: .14em; }
 .contact-detail strong { display: block; margin-top: 7px; font-size: 16px; font-weight: 500; }
 .premium-form { display: grid; grid-template-columns: repeat(2,1fr); gap: 24px 18px; }
-.form-intro { grid-column: 1 / -1; margin: 0 0 12px; padding: 18px 20px; color: #5d584f; background: rgba(185,138,61,.1); border-left: 2px solid var(--gold); font-size: 13px; }
+.form-intro { grid-column: 1 / -1; margin: 0 0 12px; padding: 18px 20px; color: #5d584f; background: rgba(185,138,61,.1); border-left: 2px solid var(--gold); font-size: 14px; }
+.form-interest { grid-column: 1 / -1; margin: -12px 0 0; padding: 0 0 20px; border-bottom: 1px solid var(--line); color: var(--ink); font-size: 16px; }
 .form-field { display: grid; gap: 8px; }
 .form-field-full { grid-column: 1 / -1; }
-.form-field label { font-size: 13px; font-weight: 500; }
+.form-field label { font-size: 14px; font-weight: 500; }
 .form-field input,
 .form-field select,
 .form-field textarea { width: 100%; min-height: 52px; padding: 12px 14px; color: var(--ink); background: transparent; border: 0; border-bottom: 1px solid #9f988d; border-radius: 0; font: inherit; outline: none; transition: border-color var(--dur-quick) ease, background var(--dur-quick) ease; }
@@ -169,9 +170,18 @@
 .form-field input:focus,
 .form-field select:focus,
 .form-field textarea:focus { background: rgba(185,138,61,.06); border-bottom-color: var(--gold); }
-.form-note { grid-column: 1 / -1; margin: 0; color: var(--muted); font-size: 12px; }
+.form-note { grid-column: 1 / -1; margin: 0; color: var(--muted); font-size: 14px; }
 .premium-form .button { justify-self: start; cursor: pointer; }
-.form-status { grid-column: 1 / -1; min-height: 28px; margin: 0; font-size: 13px; }
+.form-status { grid-column: 1 / -1; min-height: 28px; margin: 0; font-size: 14px; }
+
+/* A compact reading index; it wraps on phones instead of hiding destinations. */
+.catalogue-nav { background: var(--ivory); border-bottom: 1px solid var(--line); }
+.catalogue-nav .container { display: flex; flex-wrap: wrap; gap: 8px 32px; padding-block: 18px; }
+.catalogue-nav a { position: relative; display: inline-flex; align-items: center; min-height: 44px; gap: 12px; color: var(--ink); font-size: 16px; text-decoration: none; }
+.catalogue-nav a span { color: var(--muted); font-family: "Outfit", sans-serif; font-size: 13px; }
+.catalogue-nav a::after { content: ""; position: absolute; inset: auto 0 2px; height: 1px; background: currentColor; transform: scaleX(0); transition: transform var(--dur-spread, .72s) var(--ease-hover, ease); }
+.catalogue-nav a:hover::after, .catalogue-nav a:focus-visible::after { transform: scaleX(1); }
+.catalogue-nav a:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
 
 /* On 劑型與包材 the overview and value cards are links rather than static
    articles, so every format a customer sees is one click from its own page. */
@@ -232,7 +242,7 @@ a.value-card { color: inherit; text-decoration: none; }
 .catalogue-card p {
   margin: 10px 0 0;
   color: var(--muted);
-  font-size: 13px;
+  font-size: 16px;
   line-height: 1.7;
 }
 .catalogue-more {
@@ -241,7 +251,7 @@ a.value-card { color: inherit; text-decoration: none; }
   margin-top: 16px;
   padding-top: 14px;
   color: #8d672b;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
 }
 .catalogue-card p + .catalogue-more { margin-top: auto; }
@@ -282,7 +292,8 @@ a.catalogue-card:focus-visible .catalogue-more::after { transform: scaleX(1); }
   .catalogue-grid,
   .catalogue-grid-3 { grid-template-columns: 1fr 1fr; gap: 10px; }
   .catalogue-copy { padding: 14px 12px 18px; }
-  .catalogue-card p { font-size: 12px; }
+  .catalogue-card p { font-size: 16px; }
+  .catalogue-nav .container { column-gap: 24px; }
 }
 
 @media (max-width: 900px) {

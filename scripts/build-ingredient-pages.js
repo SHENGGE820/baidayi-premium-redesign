@@ -12,7 +12,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const V = '20260901-14';
+const V = '20260907-01';
 
 const categories = [
   { slug: 'beauty', en: 'SKIN MAINTENANCE', zh: '養顏美容',

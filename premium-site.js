@@ -69,12 +69,6 @@
     revealItems.forEach(function (item) { item.classList.add('is-visible'); });
   }
 
-  document.querySelectorAll('a[href^="#"]').forEach(function (link) {
-    link.addEventListener('click', function (event) {
-      var target = document.querySelector(link.getAttribute('href'));
-      if (!target) return;
-      event.preventDefault();
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  });
+  // Native fragment navigation preserves focus, URL history and modified clicks.
+  // CSS supplies smooth scrolling, reduced-motion support and header clearance.
 })();
