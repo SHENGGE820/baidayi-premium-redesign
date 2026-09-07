@@ -116,7 +116,14 @@ function imageSize(src) {
   return null;
 }
 
-function shell({ a, main, extraClass = '' }) {
+function shell({ a, main, heroSrc = '', extraClass = '' }) {
+  /* Link previews on LINE and Facebook are most of what a forwarded article
+     shows, so every post carries a full card. og:image is the post's own hero
+     where it has one; video-led posts fall back to the site hero. */
+  const SITE = 'https://shengge820.github.io/baidayi-premium-redesign/';
+  const ogImage = heroSrc
+    ? SITE + heroSrc.replace(/^(?:\.\.\/)+/, '')
+    : SITE + 'assets/premium/hero-formulation-lab.jpg';
   return `<!doctype html>
 <html lang="zh-Hant">
 <head>
@@ -125,8 +132,13 @@ function shell({ a, main, extraClass = '' }) {
   <meta name="description" content="${esc(a.summary || a.title)}">
   <link rel="canonical" href="https://shengge820.github.io/baidayi-premium-redesign/${a.slug}/">
   <meta property="og:type" content="article">
+  <meta property="og:locale" content="zh_TW">
+  <meta property="og:site_name" content="百達醫 BKE">
+  <meta property="og:url" content="https://shengge820.github.io/baidayi-premium-redesign/${a.slug}/">
   <meta property="og:title" content="${esc(a.title)}">
   <meta property="og:description" content="${esc(a.summary || a.title)}">
+  <meta property="og:image" content="${esc(ogImage)}">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#171713">
   <link rel="icon" href="../wp-content/uploads/2025/09/BKE-favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -168,6 +180,9 @@ for (const a of articles) {
   const iframe = (body.match(/<iframe[\s\S]*?<\/iframe>/i) || [])[0];
 
   let main;
+  /* Hoisted out of the else-branch: the head needs it for og:image. A
+     video-only post leaves it empty and falls back to the site hero. */
+  let heroSrc = '';
   if (text.length < 60 && iframe) {
     // No prose, just an embed — lead with the video at full width.
     main = `      <div class="article-video-lead reveal">\n        ${iframe.replace(/ style="[^"]*"/gi, '')}\n      </div>`;
@@ -179,7 +194,7 @@ for (const a of articles) {
      * with the post's first landscape image (~1774x887), removing that from
      * the body too so it is not repeated. */
     let inner = body;
-    let heroSrc = '', heroAlt = '';
+    let heroAlt = '';
 
     for (const tag of [...inner.matchAll(/<img[^>]*>/gi)].map(m => m[0])) {
       const src = (tag.match(/src="([^"]+)"/) || [, ''])[1];
@@ -203,7 +218,7 @@ for (const a of articles) {
     main = `${hero}      <div class="article-body">\n${inner.trim()}\n      </div>`;
   }
 
-  fs.writeFileSync(path.join(a.slug, 'index.html'), shell({ a, main }));
+  fs.writeFileSync(path.join(a.slug, 'index.html'), shell({ a, main, heroSrc }));
   console.log(`  ${a.slug.slice(0, 20).padEnd(22)} ${String(text.length).padStart(5)} 字  ${text.length < 60 ? '(影片)' : ''}`);
   built++;
 }
