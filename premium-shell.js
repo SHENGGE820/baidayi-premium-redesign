@@ -21,7 +21,7 @@
       '<div class="nav-panel" aria-label="解決方案選單">' +
         '<p>ONE-STOP ODM / OEM</p>' +
         '<div class="nav-panel-grid">' +
-          '<a href="' + url('全面性服務/一站式服務/index.html') + '"><span>01</span><strong>一條龍服務</strong><small>從市場定位、配方研發到量產交付</small></a>' +
+          '<a href="' + url('全面性服務/一站式服務/index.html') + '"><span>01</span><strong>一站式服務</strong><small>從市場定位、配方研發到量產交付</small></a>' +
           '<a href="' + url('全面性服務/功能配方/index.html') + '"><span>02</span><strong>功能配方</strong><small>依二十個產品方向探索開發可能</small></a>' +
           '<a href="' + url('全面性服務/劑型與包材/index.html') + '"><span>03</span><strong>劑型與包材</strong><small>查看可製作的產品形式與包裝</small></a>' +
         '</div>' +

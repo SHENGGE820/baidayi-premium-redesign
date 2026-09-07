@@ -142,9 +142,9 @@ button { color: inherit; font: inherit; }
   position: absolute;
   z-index: 30;
   top: calc(100% + 14px);
-  /* Anchored to the trigger's right edge, not its left: the nav is
-     right-aligned, so a 600px panel hung from the left ran off screen. */
-  right: 0;
+  /* Keep the main destinations under the trigger, so the pointer can travel
+     almost straight down instead of crossing the whole panel to the left. */
+  right: -210px;
   display: grid;
   grid-template-columns: minmax(0, 1fr) 186px;
   column-gap: 26px;
@@ -228,7 +228,7 @@ button { color: inherit; font: inherit; }
 .nav-panel-stages a:focus-visible { color: var(--white); background: rgba(185, 138, 61, .18); border: 0; }
 
 @media (max-width: 1080px) {
-  .nav-panel { grid-template-columns: minmax(0, 1fr); row-gap: 4px; }
+  .nav-panel { right: -70px; grid-template-columns: minmax(0, 1fr); row-gap: 4px; }
   .nav-panel-stages { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 4px; margin-top: 10px; padding: 12px 0 0; border-top: 1px solid rgba(255,255,255,.14); border-left: 0; }
   .nav-panel-stages > span { margin: 0 8px 0 2px; }
 }

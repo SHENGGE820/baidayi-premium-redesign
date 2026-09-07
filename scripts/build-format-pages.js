@@ -14,7 +14,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const V = '20260907-01';
+const V = '20260907-02';
 const SRC = '全面性服務/一站式服務';
 const HERO = '../../../assets/premium/service-packaging-studio.jpg';
 
