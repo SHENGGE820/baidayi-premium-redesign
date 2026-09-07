@@ -103,13 +103,34 @@
   });
 
   document.querySelectorAll('.hero h1, .inner-hero h1, .news-masthead h1, .contact-masthead h1').forEach(function (heading) {
-    var lines = heading.innerHTML.split(/<br\s*\/?\s*>/i);
+    /* Split on <br> by walking child nodes rather than round-tripping through
+     * innerHTML. The old version read innerHTML, split the string, then wrote
+     * it back concatenated — the classic mXSS shape. Nothing dynamic reaches a
+     * heading today (all 50 are authored text plus <br>, and the only URL
+     * params on the site land in textContent over in premium-contact.js), so
+     * this was not exploitable; it just meant the day a heading carried
+     * anything dynamic, it would silently have become a sink. Building the
+     * spans as DOM nodes removes that entirely and renders identically. */
+    var lines = [];
+    var buffer = '';
+    Array.prototype.forEach.call(heading.childNodes, function (node) {
+      if (node.nodeType === 1 && node.tagName === 'BR') { lines.push(buffer); buffer = ''; }
+      else buffer += node.textContent;
+    });
+    lines.push(buffer);
     if (!lines.length) return;
     heading.classList.remove('reveal', 'motion-item', 'is-visible');
     heading.classList.add('motion-headline');
-    heading.innerHTML = lines.map(function (line, index) {
-      return '<span class="motion-line" style="--motion-line:' + index + '"><span>' + line + '</span></span>';
-    }).join('');
+    heading.textContent = '';
+    lines.forEach(function (line, index) {
+      var outer = document.createElement('span');
+      outer.className = 'motion-line';
+      outer.style.setProperty('--motion-line', String(index));
+      var inner = document.createElement('span');
+      inner.textContent = line;
+      outer.appendChild(inner);
+      heading.appendChild(outer);
+    });
     window.setTimeout(function () { heading.classList.add('is-animated'); }, 90);
   });
 

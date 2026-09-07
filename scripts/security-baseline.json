@@ -1,0 +1,96 @@
+{
+  "accepted": [
+    {
+      "key": "sast_xss_inner_html :: premium-legacy.js :: .innerHTML = '<header class=\"legacy-premium-header\"><div class=\"legacy-premium-header-inner\">' +",
+      "file": "premium-legacy.js",
+      "rule": "sast_xss_inner_html",
+      "note": "Hardcoded template string for the legacy header/footer/consult shell. The only interpolation is href(), a same-origin path helper fed literals."
+    },
+    {
+      "key": "sast_xss_inner_html :: premium-legacy.js :: .innerHTML = '<div class=\"legacy-premium-footer-main\"><div class=\"legacy-premium-footer-brand\"><img src=\"' + href('wp-content/uploads/2025/09/BKE-logo-new.png') + '\" width=\"320\" height=\"99\" alt=\"BKE 百達醫\"><p>以研發、製造與市場洞察，協助品牌打造值得長期經營的保健產品。</p></div><div class=\"legacy-premium-footer-nav\"><div><strong>關於百達醫</strong><a href=\"' + href('認識百達醫/關於百達醫/index.html') + '\">品牌介紹</a><a href=\"' + href('認識百達醫/綠色永續/index.html') + '\">綠色永續</a></div><div><strong>研發製造</strong><a href=\"' + href('研發科技/index.html') + '\">研發科技</a><a href=\"' + href('全面性服務/一站式服務/index.html') + '\">一站式服務</a><a href=\"' + href('全面性服務/功能配方/index.html') + '\">功能配方</a><a href=\"' + href('全面性服務/劑型與包材/index.html') + '\">劑型與包材</a></div><div><strong>聯絡</strong><a href=\"tel:+886285219269\">+886 2 8521 9269</a><a href=\"' + href('contact/index.html') + '\">專案諮詢</a></div></div></div><div class=\"legacy-premium-footer-bottom\"><span>© 2026 BAIDAYI ENTERPRISE CO., LTD.</span><span>新北市新莊區新北大道四段 187 號 15 樓</span></div>'",
+      "file": "premium-legacy.js",
+      "rule": "sast_xss_inner_html",
+      "note": "Hardcoded template string for the legacy header/footer/consult shell. The only interpolation is href(), a same-origin path helper fed literals."
+    },
+    {
+      "key": "sast_xss_inner_html :: premium-legacy.js :: .innerHTML =\n      '<div class=\"legacy-page-exit-inner\">' +",
+      "file": "premium-legacy.js",
+      "rule": "sast_xss_inner_html",
+      "note": "Hardcoded template string for the legacy header/footer/consult shell. The only interpolation is href(), a same-origin path helper fed literals."
+    },
+    {
+      "key": "sast_xss_inner_html :: premium-legacy.js :: .innerHTML = '專案<br>諮詢'",
+      "file": "premium-legacy.js",
+      "rule": "sast_xss_inner_html",
+      "note": "Hardcoded template string for the legacy header/footer/consult shell. The only interpolation is href(), a same-origin path helper fed literals."
+    },
+    {
+      "key": "sast_xss_inner_html :: premium-motion.js :: .innerHTML = '<i></i>'",
+      "file": "premium-motion.js",
+      "rule": "sast_xss_inner_html",
+      "note": "Literal markup for the scroll-progress bar. No data of any kind."
+    },
+    {
+      "key": "sast_xss_inner_html :: premium-shell.js :: .outerHTML =\n      '<header class=\"site-header is-scrolled\" data-site-header>' +",
+      "file": "premium-shell.js",
+      "rule": "sast_xss_inner_html",
+      "note": "Hardcoded template string for the site header and footer. Interpolates only url(), a same-origin path helper fed literals."
+    },
+    {
+      "key": "sast_xss_inner_html :: premium-shell.js :: .outerHTML =\n      '<footer class=\"site-footer\">' +",
+      "file": "premium-shell.js",
+      "rule": "sast_xss_inner_html",
+      "note": "Hardcoded template string for the site header and footer. Interpolates only url(), a same-origin path helper fed literals."
+    },
+    {
+      "key": "sast_xss_inner_html :: premium-site.js :: .innerHTML = '以此方向諮詢 <span aria-hidden=\"true\">↗</span>'",
+      "file": "premium-site.js",
+      "rule": "sast_xss_inner_html",
+      "note": "Hardcoded label plus a decorative arrow span. No data."
+    },
+    {
+      "key": "sast_xss_inner_html :: static-compat.js :: .innerHTML = '<p class=\"bke-news-eyebrow\">News &amp",
+      "file": "static-compat.js",
+      "rule": "sast_xss_inner_html",
+      "note": "Legacy compatibility shim, loaded only by the 19 superseded WordPress pages that nothing in the premium site links to and that carry noindex. :582 is a literal; :599 re-emits a post title already present in the static HTML. Not user-reachable. Revisit if those pages are kept rather than retired."
+    },
+    {
+      "key": "sast_xss_inner_html :: static-compat.js :: .innerHTML = originalTitle ? originalTitle.innerHTML : (entry.getAttribute('title') || '查看消息')",
+      "file": "static-compat.js",
+      "rule": "sast_xss_inner_html",
+      "note": "Legacy compatibility shim, loaded only by the 19 superseded WordPress pages that nothing in the premium site links to and that carry noindex. :582 is a literal; :599 re-emits a post title already present in the static HTML. Not user-reachable. Revisit if those pages are kept rather than retired."
+    },
+    {
+      "key": "sast_xss_inner_html :: wp-content/cache/wpfc-minified/13kufgyi/4or0t.js :: .innerHTML=\"<a id='\"+S+\"' href='' disabled='disabled'></a><select id='\"+S+\"-\\r\\\\' disabled='disabled'><option selected=''></option></select>\",e.querySelectorAll(\"[selected]\").length||d.push(\"\\\\[\"+ge+\"*(?:value|\"+f+\")\"),e.querySelectorAll(\"[id~=\"+S+\"-]\").length||d.push(\"~=\"),e.querySelectorAll(\"a#\"+S+\"+*\").length||d.push(\".#.+[+~]\"),e.querySelectorAll(\":checked\").length||d.push(\":checked\"),(t=T.createElement(\"input\")).setAttribute(\"type\",\"hidden\"),e.appendChild(t).setAttribute(\"name\",\"D\"),r.appendChild(e).disabled=!0,2!==e.querySelectorAll(\":disabled\").length&&d.push(\":enabled\",\":disabled\"),(t=T.createElement(\"input\")).setAttribute(\"name\",\"\"),e.appendChild(t),e.querySelectorAll(\"[name='']\").length||d.push(\"\\\\[\"+ge+\"*name\"+ge+\"*=\"+ge+\"*(?:''|\\\"\\\")\")}),le.cssHas||d.push(\":has\"),d=d.length&&new RegExp(d.join(\"|\")),l=function(e,t){if(e===t)return a=!0,0",
+      "file": "wp-content/cache/wpfc-minified/13kufgyi/4or0t.js",
+      "rule": "sast_xss_inner_html",
+      "note": "Third-party vendor code (WordPress cache bundles, Enfold theme, html5shiv). Not authored here, and only loaded by the superseded legacy pages."
+    },
+    {
+      "key": "sast_xss_inner_html :: wp-content/cache/wpfc-minified/13kufgyi/4or0t.js :: .innerHTML=e,t.body&&t.body.innerHTML}var F=/<(?!area|br|col|embed|hr|img|input|link|meta|param)(([a-z][^\\/\\0>\\x20\\t\\r\\n\\f]*)[^>]*)\\/>/gi",
+      "file": "wp-content/cache/wpfc-minified/13kufgyi/4or0t.js",
+      "rule": "sast_xss_inner_html",
+      "note": "Third-party vendor code (WordPress cache bundles, Enfold theme, html5shiv). Not authored here, and only loaded by the superseded legacy pages."
+    },
+    {
+      "key": "sast_xss_inner_html :: wp-content/cache/wpfc-minified/2g2cl72/4or0t.js :: .innerHTML=t,clearTimeout(n)},2e3)}}function on_document_ready(){focus_populate_live_region(),refresh_sorted_by_live_region()}jQuery(function(e){e(\".woocommerce-ordering\").on(\"change\",\"select.orderby\",function(){e(this).closest(\"form\").trigger(\"submit\")}),e(\"input.qty:not(.product-quantity input.qty)\").each(function(){var o=parseFloat(e(this).attr(\"min\"))",
+      "file": "wp-content/cache/wpfc-minified/2g2cl72/4or0t.js",
+      "rule": "sast_xss_inner_html",
+      "note": "Third-party vendor code (WordPress cache bundles, Enfold theme, html5shiv). Not authored here, and only loaded by the superseded legacy pages."
+    },
+    {
+      "key": "sast_xss_inner_html :: wp-content/themes/enfold/js/html5shiv.js :: .innerHTML=\"x<style>article,aside,dialog,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}mark{background:#FF0",
+      "file": "wp-content/themes/enfold/js/html5shiv.js",
+      "rule": "sast_xss_inner_html",
+      "note": "Third-party vendor code (WordPress cache bundles, Enfold theme, html5shiv). Not authored here, and only loaded by the superseded legacy pages."
+    },
+    {
+      "key": "sast_xss_inner_html :: wp-content/themes/enfold/js/html5shiv.js :: .innerHTML=\"<xyz></xyz>\"",
+      "file": "wp-content/themes/enfold/js/html5shiv.js",
+      "rule": "sast_xss_inner_html",
+      "note": "Third-party vendor code (WordPress cache bundles, Enfold theme, html5shiv). Not authored here, and only loaded by the superseded legacy pages."
+    }
+  ],
+  "reviewed": "2026-09-07",
+  "summary": "All entries are the sast_xss_inner_html pattern. Each was checked by hand: none has a path from user input, a URL parameter, or a network response to the sink. The site reads URL parameters in exactly one place (premium-contact.js) and writes them out via textContent."
+}

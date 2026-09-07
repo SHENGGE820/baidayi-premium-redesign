@@ -6,3 +6,7 @@ desktop.ini
 
 # Local tooling
 node_modules/
+
+# DeepSec scan artefacts
+.deepsec-report.json
+.deepsec-scan/
