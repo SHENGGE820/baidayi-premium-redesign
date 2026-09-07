@@ -11,7 +11,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const V = '20260907-03';
+const V = '20260907-04';
 const LISTING = '最新消息/index.html';
 
 /* Read the listing once — it is the source of truth for what each post is. */

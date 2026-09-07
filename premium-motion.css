@@ -57,6 +57,32 @@
   --hv-spread: var(--dur-spread);
 }
 
+/* Same-origin page navigation uses the browser's captured old/new frames.
+   The next document is ready before the crossfade begins, so no bare browser
+   background or one-sided curtain can appear between pages. Unsupported
+   browsers simply keep their normal immediate navigation. */
+@view-transition { navigation: auto; }
+
+::view-transition-group(root) {
+  animation-duration: .64s;
+  animation-timing-function: var(--ease-wash);
+}
+::view-transition-old(root) {
+  animation: pageLeave .42s ease both;
+  mix-blend-mode: normal;
+}
+::view-transition-new(root) {
+  animation: pageEnter .64s var(--ease) both;
+  mix-blend-mode: normal;
+}
+@keyframes pageLeave {
+  to { opacity: 0; transform: scale(.995); }
+}
+@keyframes pageEnter {
+  from { opacity: 0; transform: translate3d(0, 10px, 0) scale(1.002); }
+  to { opacity: 1; transform: none; }
+}
+
 .motion-progress {
   position: fixed;
   z-index: 22000;
@@ -392,6 +418,8 @@ body.premium-legacy #main .avia-button {
     transform: none !important;
     clip-path: none !important;
   }
+  ::view-transition-old(root),
+  ::view-transition-new(root) { animation: none !important; }
 }
 
 /* ==========================================================================
