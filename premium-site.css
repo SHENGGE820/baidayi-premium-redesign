@@ -771,7 +771,10 @@ body.motion-ready .reveal.is-visible { opacity: 1; transform: translateY(0); }
   .inquiry-drawer-foot { padding-left: 20px; padding-right: 20px; }
   .inquiry-drawer-foot { flex-direction: column-reverse; align-items: stretch; }
   .inquiry-go { justify-content: center; }
-  .inquiry-toggle-overlay { top: 8px; right: 8px; }
+  /* Two cards abreast leave each image ~170px wide; an overlaid button would
+     cover half of it. Below the card it keeps its full touch height. */
+  .inquiry-host { flex-direction: column; }
+  .inquiry-toggle-overlay { position: static; width: 100%; margin-top: 8px; background: var(--paper); box-shadow: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .inquiry-tray.is-bumped { animation: none; }

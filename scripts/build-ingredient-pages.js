@@ -12,7 +12,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const V = '20260929-09';
+const V = '20260929-11';
 
 const categories = [
   { slug: 'beauty', en: 'SKIN MAINTENANCE', zh: '養顏美容',
@@ -220,7 +220,7 @@ function page(c) {
   <meta property="og:url" content="https://shengge820.github.io/baidayi-premium-redesign/全面性服務/功能配方/${c.slug}/">
   <meta property="og:title" content="${esc(c.zh)}原料｜功能配方｜百達醫 BKE">
   <meta property="og:description" content="${esc(c.zh)}方向常用的原料選項與規格形式，供品牌在配方規劃階段參考。">
-  <meta property="og:image" content="https://shengge820.github.io/baidayi-premium-redesign/assets/brand/function-${c.slug}.webp">
+  <meta property="og:image" content="https://shengge820.github.io/baidayi-premium-redesign/assets/brand/function-${c.slug}.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#171713">
   <link rel="icon" href="../../../wp-content/uploads/2025/09/BKE-favicon.png">
@@ -236,7 +236,7 @@ function page(c) {
       <div class="inner-hero-shade" aria-hidden="true"></div>
       <div class="container inner-hero-content">
         <div class="inner-hero-copy"><p class="eyebrow reveal">${esc(c.en)}</p><h1 class="reveal">${esc(c.zh)}</h1><p class="inner-hero-lead reveal">${esc(c.lead)}</p></div>
-        <figure class="inner-hero-card-media" aria-hidden="true"><img src="../../../assets/brand/function-${c.slug}.webp" alt="" width="720" height="1080"></figure>
+        <figure class="inner-hero-card-media" aria-hidden="true"><img src="../../../assets/brand/function-${c.slug}.jpg" srcset="../../../assets/brand/function-${c.slug}-640.jpg 640w, ../../../assets/brand/function-${c.slug}.jpg 1200w" sizes="(max-width: 900px) 100vw, 560px" alt="" width="1200" height="800"></figure>
       </div>
     </section>
     <section class="page-section page-section-ivory"><div class="container">

@@ -44,6 +44,9 @@ for (const f of walk(ROOT)) {
   for (const m of c.matchAll(/<a\b[^>]*\shref="([^"]*)"/gi)) check(m[1], 'link');
   for (const m of c.matchAll(/<(?:script|img|iframe|source|video)\b[^>]*\s(?:data-)?src="([^"]*)"/gi)) check(m[1], 'asset');
   for (const m of c.matchAll(/\sposter="([^"]*)"/gi)) check(m[1], 'asset');
+  for (const m of c.matchAll(/\ssrcset="([^"]*)"/gi)) {
+    for (const part of m[1].split(',')) check(part.trim().split(/\s+/)[0], 'asset');
+  }
   for (const m of c.matchAll(/<link\b[^>]*\shref="([^"]*)"/gi)) {
     if (!/rel="canonical"/i.test(m[0])) check(m[1], 'asset');
   }

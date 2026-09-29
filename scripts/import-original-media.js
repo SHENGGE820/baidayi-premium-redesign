@@ -80,40 +80,9 @@ for (const [name, rel] of Object.entries(PHOTOS)) {
   console.log(`  ${name}.jpg  ${kb(out)}`);
 }
 
-/* --- one card image per functional category -------------------------------
- * The client had an image made for each category, named after it, but never
- * published them — they sit in the media library unused. Portrait, with the
- * subject in the top half fading to a flat tone, and transparent rounded
- * corners: they are designed as cards, so they are used as cards (WebP keeps
- * the alpha). Where a name was uploaded twice, the later upload is taken. */
-const CARDS = {
-  action: '行動關鍵_圓角.png',
-  balance: '調節體質_圓角.png',
-  beauty: '養顏美容_圓角.png',
-  'body-care': '體質調理_圓角.png',
-  'body-functions': '調節生理機能_圓角.png',
-  child: '兒童保健_圓角-1.png',
-  digestive: '消化保健_圓角-1.png',
-  elderly: '銀髮保健_圓角.png',
-  energetic: '精神_圓角.png',
-  'generation-3c': '3C-世代_圓角.png',
-  gut: '維持腸道機能_圓角.png',
-  meal: '纖體餐包_圓角.png',
-  men: '男性調理_圓角-1.png',
-  metabolism: '促進新陳代謝_圓角.png',
-  protein: '蛋白補給_圓角.png',
-  'secret-garden': '秘密花園_圓角.png',
-  'skin-care': '膚質養護_圓角-1.png',
-  sleep: '幫助入睡_圓角.png',
-  slender: '窈窕清盈_圓角.png',
-  women: '女性調理_圓角-1.png',
-};
-for (const [slug, file] of Object.entries(CARDS)) {
-  const out = path.join(OUT, 'function-' + slug + '.webp');
-  ff(['-i', path.join(SRC, '2026/08', file), '-vf', 'scale=720:-2',
-    '-c:v', 'libwebp', '-quality', '80', '-compression_level', '6', out]);
-}
-const cardBytes = Object.keys(CARDS).reduce((s, k) => s + fs.statSync(path.join(OUT, 'function-' + k + '.webp')).size, 0);
-console.log(`  function-*.webp  ×${Object.keys(CARDS).length}  ${Math.round(cardBytes / 1024)}KB total`);
+/* --- functional-category cards ---------------------------------------------
+ * These used to come from the client's own category series (portrait, moody,
+ * one colour per category). They were replaced on 2026-09-29 by a single
+ * ivory-studio card set that matches the site; see import-card-images.js.
+ * Generating them here again would only recreate unreferenced files. */
 
-module.exports = { CARDS };

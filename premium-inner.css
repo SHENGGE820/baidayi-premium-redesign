@@ -22,17 +22,15 @@
 .inner-hero-lead { max-width: 680px; margin: 28px 0 0; color: rgba(255,255,255,.7); font-size: 18px; line-height: 1.9; }
 .inner-hero-index { position: absolute; z-index: 1; right: max(28px, calc((100vw - var(--container))/2)); bottom: 96px; color: rgba(255,255,255,.4); font-family: "Outfit",sans-serif; font-size: 12px; letter-spacing: .18em; }
 
-/* Card hero, for pages whose image is a portrait card rather than a wide
-   photograph (the functional-category art is 2:3, subject in the top half,
-   fading to a flat tone). Stretched full-bleed it would upscale ~1.5x and
-   crop away the subject, so on desktop it stands beside the copy as a card.
-   On a phone the screen is portrait too, and the same image fills the hero
-   as a background — see the 900px block below. */
+/* Card hero, for the functional-direction pages. Their image is a bright
+   ivory-studio still life (3:2), which a full-bleed hero would have to bury
+   under the dark shade the white headline needs; so it stands beside the
+   copy as a card on desktop and below it on a phone. */
 .inner-hero-card { align-items: center; }
 .inner-hero-card .inner-hero-shade { display: none; }
 .inner-hero-card .inner-hero-content { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: clamp(40px, 7vw, 112px); align-items: center; }
 .inner-hero-card-media { margin: 0; }
-.inner-hero-card-media img { display: block; width: auto; height: min(560px, 64vh); aspect-ratio: 2 / 3; object-fit: cover; object-position: top; border-radius: 4px; box-shadow: 0 40px 80px -30px rgba(0,0,0,.7); }
+.inner-hero-card-media img { display: block; width: min(560px, 42vw); height: auto; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 4px; box-shadow: 0 40px 80px -30px rgba(0,0,0,.7); }
 
 .page-section { padding: 112px 0; }
 .page-section-ivory { background: var(--ivory); }
@@ -71,10 +69,9 @@
 .service-overview-card span { color: var(--cell-kicker); font-family: "Outfit",sans-serif; font-size: 12px; }
 .service-overview-card h3 { margin: 72px 0 12px; color: var(--cell-title); font-size: 24px; }
 .service-overview-card p { margin: 0; color: var(--cell-body); font-size: 14px; }
-/* Category art as a card thumbnail. Cropped from the top, where each image
-   carries its subject; the lower half is a flat fade meant for overlaid text. */
+/* Direction image as a card thumbnail, at the images' own 3:2. */
 .service-overview-card.has-media { padding-top: 22px; }
-.function-card-media { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; margin-bottom: 22px; object-fit: cover; object-position: top; border-radius: 3px; background: var(--sand); }
+.function-card-media { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; margin-bottom: 22px; object-fit: cover; border-radius: 3px; background: var(--sand); }
 .service-overview-card.has-media h3 { margin-top: 12px; }
 .function-card-cta { display: inline-flex; align-items: center; gap: 12px; margin-top: 24px; padding-bottom: 3px; color: #8d672b; border-bottom: 1px solid rgba(141,103,43,.42); font-size: 12px; font-weight: 500; letter-spacing: .04em; transition: gap var(--dur-spread) var(--ease), color var(--dur-base) ease, border-color var(--dur-base) ease; }
 .function-card-cta:hover,
@@ -236,11 +233,9 @@ a.value-card { color: inherit; text-decoration: none; }
   height: 100%;
   object-fit: cover;
 }
-/* The dosage-form photos came from the old site with their lower third faded
-   into its cream. Cropped square from the top, the subject stays and the fade
-   — the last trace of the old palette in these cards — goes. */
-.catalogue-grid-photo .catalogue-media { aspect-ratio: 1; }
-.catalogue-grid-photo .catalogue-media img { object-position: top; }
+/* Cards holding the ivory-studio card set (dosage forms, finished products)
+   show it at its own 3:2 rather than the catalogue's tall default. */
+.catalogue-grid-photo .catalogue-media { aspect-ratio: 3 / 2; }
 .catalogue-copy {
   display: flex;
   flex: 1;
@@ -320,12 +315,8 @@ a.catalogue-card:focus-visible .catalogue-more::after { transform: scaleX(1); }
 
 @media (max-width: 900px) {
   .inner-hero { min-height: 620px; }
-  .inner-hero-card { align-items: flex-end; }
-  .inner-hero-card .inner-hero-content { display: block; position: static; }
-  .inner-hero-card .inner-hero-copy { position: relative; z-index: 2; }
-  .inner-hero-card .inner-hero-shade { display: block; z-index: 1; background: linear-gradient(0deg, rgba(18,18,15,.96) 0%, rgba(18,18,15,.8) 42%, rgba(18,18,15,.2) 78%, rgba(18,18,15,.45) 100%); }
-  .inner-hero-card-media { position: absolute; inset: 0; z-index: 0; }
-  .inner-hero-card-media img { width: 100%; height: 100%; aspect-ratio: auto; border-radius: 0; box-shadow: none; }
+  .inner-hero-card .inner-hero-content { grid-template-columns: 1fr; gap: 36px; }
+  .inner-hero-card-media img { width: 100%; }
   .page-heading,
   .story-grid,
   .quality-system,
