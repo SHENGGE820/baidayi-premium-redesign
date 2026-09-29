@@ -8,7 +8,7 @@
   // Never hide already-visible content to replay its entrance animation.
   // This also respects restored scroll positions when returning to a page.
   var initialViewport = new WeakSet();
-  document.querySelectorAll('.reveal, .hero-media, .inner-hero-media, .split-feature-media, .insight-image, .article-card-image, .proof-grid, .capability-grid, .solution-list, .process-grid, .certification-grid, .insight-grid, .value-grid, .service-overview, .format-grid, .research-pillars, .article-grid, .contact-detail-list').forEach(function (element) {
+  document.querySelectorAll('.reveal, .hero-media, .inner-hero-media, .split-feature-media, .insight-image, .article-card-image, .proof-grid, .process-grid, .certification-grid, .insight-grid, .value-grid, .service-overview, .format-grid, .research-pillars, .article-grid, .contact-detail-list').forEach(function (element) {
     var rect = element.getBoundingClientRect();
     if (rect.bottom > 0 && rect.top < window.innerHeight) {
       initialViewport.add(element);
@@ -93,7 +93,7 @@
   });
 
   var staggerGroups = [
-    '.proof-grid', '.capability-grid', '.solution-list', '.process-grid',
+    '.proof-grid', '.process-grid',
     '.certification-grid', '.insight-grid', '.value-grid', '.service-overview',
     '.format-grid', '.research-pillars', '.article-grid', '.contact-detail-list'
   ];
@@ -110,7 +110,7 @@
 
   var mediaSelectors = [
     '.hero-media', '.inner-hero-media', '.split-feature-media', '.insight-image',
-    '.article-card-image', '#main .avia-image-container', '#main .av-masonry-image-container'
+    '.article-card-image'
   ];
   document.querySelectorAll(mediaSelectors.join(',')).forEach(function (element) {
     if (initialViewport.has(element)) return;
@@ -212,7 +212,7 @@
   window.addEventListener('resize', requestScrollMotion, { passive: true });
 
   if (!reducedMotion) {
-    document.querySelectorAll('.button, .header-cta, .floating-consult, .legacy-premium-cta, .legacy-floating-consult').forEach(function (element) {
+    document.querySelectorAll('.button, .header-cta, .floating-consult').forEach(function (element) {
       element.addEventListener('pointermove', function (event) {
         var rect = element.getBoundingClientRect();
         element.style.setProperty('--magnet-x', ((event.clientX - rect.left) / rect.width - .5) * 3.5 + 'px');
@@ -224,7 +224,7 @@
       });
     });
 
-    document.querySelectorAll('.capability-card, .certification-card, .value-card, .service-overview-card, .format-card, .research-pillar, .process-step, .insight-card, .article-card, .solution-row').forEach(function (card) {
+    document.querySelectorAll('.certification-card, .value-card, .service-overview-card, .format-card, .research-pillar, .process-step, .insight-card, .article-card, .solution-row').forEach(function (card) {
       card.classList.add('motion-spotlight');
     });
 
@@ -243,7 +243,7 @@
       element.style.setProperty('--spot-x', (event.clientX - rect.left).toFixed(1) + 'px');
       element.style.setProperty('--spot-y', (event.clientY - rect.top).toFixed(1) + 'px');
     }
-    document.querySelectorAll('.motion-spotlight, .button, .header-cta, .floating-consult, .legacy-premium-cta, .legacy-floating-consult, #main .avia-button').forEach(function (element) {
+    document.querySelectorAll('.motion-spotlight, .button, .header-cta, .floating-consult').forEach(function (element) {
       element.addEventListener('pointerenter', anchorSpot);
     });
 

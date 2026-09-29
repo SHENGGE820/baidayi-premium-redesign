@@ -484,16 +484,11 @@ a.catalogue-card:focus-visible .catalogue-more::after { transform: scaleX(1); }
 .article-body figure { margin: 2em 0; }
 .article-body figcaption { margin-top: 10px; color: var(--muted); font-size: 13px; text-align: center; }
 
-/* A pulled-out line the posts use for their key takeaway. */
-.article-callout { margin: 2.2em 0; padding: 22px 26px; background: rgba(185,138,61,.08); border-left: 2px solid var(--gold); color: #6d675c; font-size: 16px; line-height: 1.9; }
-.article-callout p { margin: 0; }
-
 /* Local mp4s ship as a landscape and a portrait cut of the same video. */
 .article-body video,
 .article-body iframe { width: 100%; height: auto; display: block; margin: 2em 0; background: var(--ink); }
 .article-body iframe { aspect-ratio: 16 / 9; height: auto; border: 0; }
 .bke-video-wrap { margin: 2em 0; }
-.bke-video-wrap .wp-video,
 .bke-video-wrap video { width: 100% !important; height: auto !important; }
 /* Landscape cut on desktop, portrait cut on mobile. Targeted on the
    .desktop-video / .mobile-video classes alone rather than on a particular

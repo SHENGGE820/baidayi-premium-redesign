@@ -104,8 +104,7 @@ html.motion-arriving.motion-arrival-release::before {
   transition: transform var(--dur-base) var(--ease-wash);
 }
 
-.site-header,
-.legacy-premium-header { animation: none; }
+.site-header{ animation: none; }
 
 /* Below 820px the mobile menu is a full-screen `position: fixed; inset: 0`
    panel that lives inside the header. motionHeaderIn animates transform and,
@@ -115,8 +114,7 @@ html.motion-arriving.motion-arrival-release::before {
    up 136px tall with overflow-y:auto, and hid 10 of its 11 links. A header
    entrance is not worth an unusable menu on phones. */
 @media (max-width: 820px) {
-  .site-header,
-  .legacy-premium-header { animation: none; }
+  .site-header{ animation: none; }
 }
 
 .motion-item {
@@ -162,8 +160,7 @@ html.motion-arriving.motion-arrival-release::before {
 }
 .motion-media.is-visible img { transform: scale(1); }
 .insight-card:hover .motion-media.is-visible img,
-.article-card:hover .motion-media.is-visible img,
-.av-masonry-entry:hover .motion-media.is-visible img { transform: scale(1.04); }
+.article-card:hover .motion-media.is-visible img{ transform: scale(1.04); }
 
 .hero-media img,
 .inner-hero-media img {
@@ -194,10 +191,7 @@ html.motion-arriving.motion-arrival-release::before {
 
 .button,
 .header-cta,
-.floating-consult,
-.legacy-premium-cta,
-.legacy-floating-consult,
-body.premium-legacy #main .avia-button {
+.floating-consult{
   translate: var(--magnet-x, 0px) calc(var(--magnet-y, 0px) + var(--hover-lift, 0px));
   transition-property: color, background-color, border-color, box-shadow, translate;
   transition-duration: var(--dur-base), var(--dur-base), var(--dur-base), var(--dur-lift), var(--dur-lift);
@@ -207,8 +201,7 @@ body.premium-legacy #main .avia-button {
   translate: var(--magnet-x, 0px) calc(var(--magnet-y, 0px) + var(--hover-lift, 0px));
 }
 
-.floating-consult::after,
-.legacy-floating-consult::after {
+.floating-consult::after{
   content: "";
   position: absolute;
   inset: -7px;
@@ -222,8 +215,7 @@ body.premium-legacy #main .avia-button {
 
 /* Per-component hover states. The shared rules live in the Hover system
    section at the end of this file. */
-  .primary-nav a::after,
-  .legacy-premium-nav a::after {
+  .primary-nav a::after{
     transform-origin: center;
     transition-duration: var(--dur-spread);
     transition-timing-function: var(--ease-hover);
@@ -231,10 +223,7 @@ body.premium-legacy #main .avia-button {
 
   .button,
   .header-cta,
-  .legacy-premium-cta,
-  .floating-consult,
-  .legacy-floating-consult,
-  body.premium-legacy #main .avia-button {
+  .floating-consult{
     position: relative;
     isolation: isolate;
     overflow: hidden;
@@ -242,10 +231,7 @@ body.premium-legacy #main .avia-button {
   }
   .button::before,
   .header-cta::before,
-  .legacy-premium-cta::before,
-  .floating-consult::before,
-  .legacy-floating-consult::before,
-  body.premium-legacy #main .avia-button::before {
+  .floating-consult::before{
     content: "";
     position: absolute;
     z-index: -1;
@@ -258,10 +244,7 @@ body.premium-legacy #main .avia-button {
   }
   .button:hover::before,
   .header-cta:hover::before,
-  .legacy-premium-cta:hover::before,
-  .floating-consult:hover::before,
-  .legacy-floating-consult:hover::before,
-  body.premium-legacy #main .avia-button:hover::before {
+  .floating-consult:hover::before{
     opacity: 1;
     clip-path: circle(150% at var(--spot-x, 50%) var(--spot-y, 50%));
   }
@@ -271,18 +254,15 @@ body.premium-legacy #main .avia-button {
     transform: none;
     box-shadow: 0 22px 46px rgba(17,17,14,.12);
   }
-  .legacy-premium-cta:hover { --hover-lift: var(--lift-distance); box-shadow: 0 22px 46px rgba(17,17,14,.12); }
+  
   .button-gold { --hover-wash: linear-gradient(115deg, rgba(255,255,255,.02), rgba(255,245,211,.42)); }
   .button-gold:hover { background: var(--gold); }
-  .button-outline { --hover-wash: linear-gradient(115deg, #c59e5b, #dfc78f); }
-  .button-outline:hover { color: var(--ink); background: transparent; border-color: var(--gold-light); transition-delay: var(--delay-hover), 0s, 0s, 0s, 0s, 0s; }
+  
+  
   .button-dark { --hover-wash: linear-gradient(115deg, rgba(196,154,86,.07), rgba(255,255,255,.11)); }
   .button-dark:hover { background: var(--ink); }
-  .header-cta,
-  .legacy-premium-cta,
-  body.premium-legacy #main .avia-button { --hover-wash: linear-gradient(115deg, #b98a3d, #d9b875); }
-  .floating-consult,
-  .legacy-floating-consult { --hover-wash: radial-gradient(circle, rgba(255,250,231,.48), rgba(255,250,231,.08) 68%); }
+  .header-cta{ --hover-wash: linear-gradient(115deg, #b98a3d, #d9b875); }
+  .floating-consult{ --hover-wash: radial-gradient(circle, rgba(255,250,231,.48), rgba(255,250,231,.08) 68%); }
   .header-cta:hover { background: var(--gold); }
 
   .text-link {
@@ -295,20 +275,13 @@ body.premium-legacy #main .avia-button {
   .text-link:hover { gap: 20px; color: #8d672b; background-size: 100% 1px; border-bottom-color: transparent; }
   .text-link-light:hover { color: var(--gold-light); }
 
-  .capability-card {
-    transition: color var(--dur-base) ease, box-shadow var(--dur-lift) var(--ease-hover), transform var(--dur-lift) var(--ease-hover);
-  }
-  .capability-card::before {
-    background: linear-gradient(145deg, #2b2a24 0%, #171713 72%);
-    opacity: 1;
-    transform: none;
-    /* The reveal itself is the mask wipe in the Softening pass below. */
-  }
-  .capability-card:hover { transition-delay: var(--delay-hover), 0s, 0s, 0s, 0s; }
-  .capability-card p { transition: color var(--dur-base) ease; }
-  .capability-card:hover p { transition-delay: var(--delay-hover); }
-  .card-arrow { transition-duration: var(--dur-spread); transition-timing-function: var(--ease-hover); }
-  .capability-card:hover .card-arrow { transform: translate(2px,-2px); }
+  
+  
+  
+  
+  
+  
+  
 
   .solution-row { transition: color var(--dur-base) ease, padding var(--dur-spread) var(--ease-hover), border-color var(--dur-spread) ease; }
   .solution-row:hover { transition-delay: .3s, 0s, 0s; }
@@ -330,8 +303,7 @@ body.premium-legacy #main .avia-button {
   .insight-card:hover,
   .article-card:hover { transform: translateY(var(--lift-distance)); box-shadow: 0 24px 54px rgba(25,24,19,.075); border-color: rgba(185,138,61,.32); }
   .insight-card:hover .motion-media.is-visible img,
-  .article-card:hover .motion-media.is-visible img,
-  .av-masonry-entry:hover .motion-media.is-visible img { transform: scale(1.025); }
+  .article-card:hover .motion-media.is-visible img{ transform: scale(1.025); }
 
   .news-filter button {
     background-image: radial-gradient(circle, rgba(185,138,61,.11), rgba(185,138,61,.035) 54%, transparent 72%);
@@ -342,45 +314,20 @@ body.premium-legacy #main .avia-button {
   }
   .news-filter button:not(.is-active):hover { color: #8d672b; background-color: transparent; background-size: 260% 260%; border-color: rgba(141,103,43,.45); }
 
-  .footer-nav a,
-  .legacy-premium-footer-nav a { transition: color var(--dur-base) ease; }
-  .floating-consult:hover,
-  .legacy-floating-consult:hover {
+  .footer-nav a{ transition: color var(--dur-base) ease; }
+  .floating-consult:hover{
     --hover-lift: var(--lift-distance);
     transform: none;
     background: var(--gold);
     box-shadow: 0 28px 60px rgba(0,0,0,.15);
   }
 
-  body.premium-legacy #main .avia-button,
-  body.premium-legacy #main .button,
-  body.premium-legacy #main input[type="submit"] {
-    transition: color var(--dur-base) ease .32s, background-color var(--dur-spread) ease, border-color var(--dur-spread) ease, box-shadow var(--dur-lift) var(--ease-hover), translate var(--dur-lift) var(--ease-hover) !important;
-  }
-  body.premium-legacy #main .avia-button:hover,
-  body.premium-legacy #main .button:hover {
-    --hover-lift: var(--lift-distance);
-    color: #171713 !important;
-    background: #171713 !important;
-    border-color: #171713 !important;
-    box-shadow: 0 22px 46px rgba(17,17,14,.12) !important;
-  }
-  body.premium-legacy #main input[type="submit"] {
-    background-image: radial-gradient(circle, #d9b875, #b98a3d 68%) !important;
-    background-position: center !important;
-    background-repeat: no-repeat !important;
-    background-size: 0 0 !important;
-  }
-  body.premium-legacy #main input[type="submit"]:hover {
-    color: #171713 !important;
-    background-color: #171713 !important;
-    background-size: 280% 280% !important;
-    border-color: #171713 !important;
-  }
-  body.premium-legacy #main .avia-gallery-thumb img,
-  body.premium-legacy #main .av-horizontal-gallery-wrap img { transition-duration: var(--dur-wash) !important; transition-timing-function: var(--ease) !important; }
-  body.premium-legacy #main .avia-gallery-thumb a:hover img,
-  body.premium-legacy #main .av-horizontal-gallery-wrap:hover img { transform: scale(1.018); }
+  
+  
+  
+  
+  
+  
 
 @keyframes motionHeaderIn {
   from { opacity: 0; transform: translate3d(0, -22px, 0); }
@@ -405,9 +352,7 @@ body.premium-legacy #main .avia-button {
   .motion-progress,
   .motion-curtain { display: none !important; }
   .site-header,
-  .legacy-premium-header,
-  .floating-consult::after,
-  .legacy-floating-consult::after { animation: none !important; }
+  .floating-consult::after{ animation: none !important; }
   .motion-item,
   .motion-line > span,
   .motion-media,
@@ -452,28 +397,21 @@ body.premium-legacy #main .avia-button {
 /* --------------------------------------------------------------------------
    1. Centre-out underline
    -------------------------------------------------------------------------- */
-.primary-nav a::after,
-.legacy-premium-nav a::after {
+.primary-nav a::after{
   transform-origin: center !important;
 }
 .primary-nav a:hover::after,
-.primary-nav a:focus-visible::after,
-.legacy-premium-nav a:hover::after,
-.legacy-premium-nav a:focus-visible::after {
+.primary-nav a:focus-visible::after{
   transform: scaleX(1);
 }
-.primary-nav a,
-.legacy-premium-nav a { transition: color var(--dur-quick) ease; }
+.primary-nav a{ transition: color var(--dur-quick) ease; }
 .primary-nav a:hover,
 .primary-nav a:focus-visible { color: #d9b875; }
-.legacy-premium-nav a:hover,
-.legacy-premium-nav a:focus-visible { color: #d9b875 !important; }
 
 /* The same line, applied to links that previously only changed colour. The
    pseudo-element is added here rather than in the base sheets so the two
    footers (rebuilt and legacy) stay in step. */
 .footer-nav a,
-.legacy-premium-footer-nav a,
 .contact-detail strong a,
 .story-copy a {
   position: relative;
@@ -481,7 +419,6 @@ body.premium-legacy #main .avia-button {
   transition: color var(--dur-quick) ease;
 }
 .footer-nav a::after,
-.legacy-premium-footer-nav a::after,
 .contact-detail strong a::after,
 .story-copy a::after {
   content: "";
@@ -498,33 +435,24 @@ body.premium-legacy #main .avia-button {
 }
 .footer-nav a:hover::after,
 .footer-nav a:focus-visible::after,
-.legacy-premium-footer-nav a:hover::after,
-.legacy-premium-footer-nav a:focus-visible::after,
 .contact-detail strong a:hover::after,
 .story-copy a:hover::after { transform: scaleX(1); }
-.legacy-premium-footer-nav a:hover,
-.legacy-premium-footer-nav a:focus-visible { color: #fff !important; }
+
 .contact-detail strong a:hover { color: #8d672b; }
 
 /* --------------------------------------------------------------------------
    2. Header furniture - logo, menu button, scroll cue
    -------------------------------------------------------------------------- */
-.brand,
-.legacy-premium-brand { transition: opacity var(--dur-base) ease; }
+.brand{ transition: opacity var(--dur-base) ease; }
 .brand:hover,
-.brand:focus-visible,
-.legacy-premium-brand:hover,
-.legacy-premium-brand:focus-visible { opacity: .78; }
+.brand:focus-visible{ opacity: .78; }
 
-.menu-toggle,
-.legacy-premium-toggle {
+.menu-toggle{
   cursor: pointer;
   transition: color var(--dur-quick) ease;
 }
-.menu-toggle:hover,
-.legacy-premium-toggle:hover { color: #d9b875; }
-.menu-toggle-lines i,
-.legacy-premium-toggle i { transition: transform var(--dur-quick) var(--ease), background-color var(--dur-quick) ease; }
+.menu-toggle:hover{ color: #d9b875; }
+.menu-toggle-lines i{ transition: transform var(--dur-quick) var(--ease), background-color var(--dur-quick) ease; }
 
 .hero-scroll { transition: color var(--dur-base) ease, gap var(--dur-spread) var(--ease-hover); }
 .hero-scroll:hover,
@@ -662,24 +590,6 @@ body.premium-legacy #main .avia-button {
    43 of the 49 pages are the original theme markup inside the premium shell.
    Body links there had no hover treatment of any kind.
    -------------------------------------------------------------------------- */
-/* Scoped to #main rather than .entry-content-wrapper: on most of these pages
-   the body links sit outside the wrapper, so the narrower selector matched
-   nothing. Colour only, so an image or gallery link is unaffected. */
-body.premium-legacy #main a:not(.avia-button):not(.button):not(.avia-gallery-thumb):not([class*="lightbox"]) {
-  transition: color var(--dur-quick) ease;
-}
-body.premium-legacy #main a:not(.avia-button):not(.button):not(.avia-gallery-thumb):not([class*="lightbox"]):hover {
-  color: #8d672b;
-}
-body.premium-legacy #main .av-masonry-entry {
-  transition: transform var(--dur-spread) var(--ease-hover), box-shadow var(--dur-spread) ease;
-}
-body.premium-legacy #main .av-masonry-entry:hover {
-  transform: translateY(var(--lift-distance));
-  box-shadow: 0 24px 52px rgba(25,24,19,.09);
-}
-body.premium-legacy #main .av-masonry-entry-title { transition: color var(--dur-base) ease; }
-body.premium-legacy #main .av-masonry-entry:hover .av-masonry-entry-title { color: #8d672b; }
 
 /* --------------------------------------------------------------------------
    10. Keyboard parity
@@ -776,9 +686,7 @@ textarea:focus-visible {
 /* --- b) Button lift and magnet, split apart ----------------------------- */
 .button,
 .header-cta,
-.floating-consult,
-.legacy-premium-cta,
-.legacy-floating-consult {
+.floating-consult{
   translate: 0 var(--hover-lift, 0px);
   transform: translate3d(var(--magnet-x, 0px), var(--magnet-y, 0px), 0);
   transition: color var(--dur-base) ease,
@@ -794,9 +702,7 @@ textarea:focus-visible {
    to survive the hover. */
 .button:hover,
 .header-cta:hover,
-.floating-consult:hover,
-.legacy-premium-cta:hover,
-.legacy-floating-consult:hover {
+.floating-consult:hover{
   transform: translate3d(var(--magnet-x, 0px), var(--magnet-y, 0px), 0);
 }
 
@@ -805,18 +711,6 @@ textarea:focus-visible {
 .button.motion-item:not(.is-visible),
 .header-cta.motion-item:not(.is-visible) { translate: 0 34px; }
 .button.motion-item.is-visible { translate: 0 var(--hover-lift, 0px); }
-
-body.premium-legacy #main .avia-button,
-body.premium-legacy #main .button {
-  translate: 0 var(--hover-lift, 0px) !important;
-  transform: translate3d(var(--magnet-x, 0px), var(--magnet-y, 0px), 0) !important;
-  transition: color var(--dur-base) ease .32s,
-              background-color var(--dur-spread) ease,
-              border-color var(--dur-spread) ease,
-              box-shadow var(--dur-spread) var(--ease-wash),
-              translate var(--dur-lift) var(--ease-lift),
-              transform .22s ease-out !important;
-}
 
 /* --- c) Washes ---------------------------------------------------------- */
 /* The dark surface rises from the bottom edge, which is what premium-site.css
@@ -840,26 +734,6 @@ body.premium-legacy #main .button {
   inherits: false;
   initial-value: -34%;
 }
-
-.capability-card::before {
-  clip-path: none;
-  -webkit-mask-image: linear-gradient(to top,
-                      #000 var(--wash, -34%),
-                      transparent calc(var(--wash, -34%) + 34%));
-  mask-image: linear-gradient(to top,
-              #000 var(--wash, -34%),
-              transparent calc(var(--wash, -34%) + 34%));
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: 0 0;
-  mask-position: 0 0;
-  -webkit-mask-size: 100% 100%;
-  mask-size: 100% 100%;
-  transition: --wash 1.15s var(--ease-wash);
-}
-/* Set on the pseudo-element, not the card: --wash is registered with
-   inherits:false, so a value on the card would not reach ::before. */
-.capability-card:hover::before { --wash: 100%; }
 
 /* The gold spotlight on the other cards stops resizing and simply fades. It is
    a light source, not a shape, so a large soft ellipse centred on the pointer
@@ -914,15 +788,11 @@ body.premium-legacy #main .button {
    pixels of travel - but they get the same unhurried curve. */
 .button::before,
 .header-cta::before,
-.legacy-premium-cta::before,
-.floating-consult::before,
-.legacy-floating-consult::before,
-body.premium-legacy #main .avia-button::before {
+.floating-consult::before{
   transition: opacity var(--dur-base) var(--ease-wash), clip-path var(--dur-wash) var(--ease-wash);
 }
 
 /* Card lifts pick up the same give as the buttons. */
-.capability-card,
 .process-step,
 .format-card,
 .certification-card,
@@ -948,17 +818,11 @@ body.premium-legacy #main .avia-button::before {
               border-color var(--dur-base) ease;
 }
 
-@media (min-width: 821px) {
-  .primary-nav .nav-panel-grid > a:hover,
-  .primary-nav .nav-panel-grid > a:focus-visible { color: var(--white); }
-}
-
 /* A short fade on arrival. Without it the new page snaps in the instant the
    curtain clears, which reads as a second flash right after the first.
    Deliberately opacity-only and CSS-driven: no transform, so it cannot shift
    layout, and it still runs if the motion script fails to load. */
-body.premium-site,
-body.premium-legacy {
+body.premium-site{
   animation: motionPageIn var(--dur-base) var(--ease-rise) both;
 }
 
@@ -972,6 +836,5 @@ body.premium-legacy {
 body.motion-leaving { animation: none; }
 
 @media (prefers-reduced-motion: reduce) {
-  body.premium-site,
-  body.premium-legacy { animation: none !important; }
+  body.premium-site{ animation: none !important; }
 }
