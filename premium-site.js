@@ -71,4 +71,34 @@
 
   // Native fragment navigation preserves focus, URL history and modified clicks.
   // CSS supplies smooth scrolling, reduced-motion support and header clearance.
+
+  /* Homepage factory loop. The markup ships with preload="none" and the
+     source held in data-src, so nothing downloads until this decides to play
+     it. Visitors who asked for reduced motion, or for reduced data, keep the
+     poster — a still from the same shoot — and never fetch the 2MB file. If
+     this script never runs, the poster is what everyone sees, which is a
+     complete hero on its own. */
+  var heroVideo = document.querySelector('[data-hero-video]');
+  if (heroVideo) {
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var saveData = navigator.connection && navigator.connection.saveData;
+    if (!reduceMotion && !saveData) {
+      var source = heroVideo.querySelector('source[data-src]');
+      source.src = source.getAttribute('data-src');
+      heroVideo.load();
+      var start = function () {
+        var playing = heroVideo.play();
+        // Autoplay can still be refused (battery saver, some in-app browsers);
+        // the poster stays up, which is fine.
+        if (playing && playing.catch) playing.catch(function () {});
+      };
+      start();
+      /* A page opened in a background tab has its autoplay deferred or
+         refused, and some browsers pause video-only media while hidden. Try
+         again whenever the page comes back into view. */
+      document.addEventListener('visibilitychange', function () {
+        if (document.visibilityState === 'visible' && heroVideo.paused) start();
+      });
+    }
+  }
 })();

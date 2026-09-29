@@ -24,7 +24,7 @@ const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const WRITE = process.argv.includes('--write');
 const SITE = 'https://shengge820.github.io/baidayi-premium-redesign/';
-const FALLBACK_IMAGE = SITE + 'assets/premium/hero-formulation-lab.jpg';
+const FALLBACK_IMAGE = SITE + 'assets/brand/factory-cleanroom.jpg';
 
 function walk(dir, out = []) {
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {

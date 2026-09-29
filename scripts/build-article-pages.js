@@ -11,7 +11,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const V = '20260907-05';
+const V = '20260929-01';
 const LISTING = '最新消息/index.html';
 
 /* Read the listing once — it is the source of truth for what each post is. */
@@ -53,6 +53,8 @@ function readBody(slug) {
     .replace(/<script[\s\S]*?<\/script>/gi, '')
     .replace(/<style[\s\S]*?<\/style>/gi, '')
     .replace(/<!--[\s\S]*?-->/g, '')
+    // WordPress's read-more marker, which otherwise leaves an empty paragraph
+    .replace(/<span id="more-\d+"><\/span>/g, '')
     // lightbox / attachment links around images
     .replace(/<a[^>]*href="[^"]*\.(?:png|jpe?g|gif)"[^>]*>([\s\S]*?)<\/a>/gi, '$1')
     // the raw-url fallback link inside <video>
@@ -123,7 +125,7 @@ function shell({ a, main, heroSrc = '', extraClass = '' }) {
   const SITE = 'https://shengge820.github.io/baidayi-premium-redesign/';
   const ogImage = heroSrc
     ? SITE + heroSrc.replace(/^(?:\.\.\/)+/, '')
-    : SITE + 'assets/premium/hero-formulation-lab.jpg';
+    : SITE + 'assets/brand/factory-cleanroom.jpg';
   return `<!doctype html>
 <html lang="zh-Hant">
 <head>

@@ -14,9 +14,11 @@
 const fs = require('fs');
 const path = require('path');
 
-const V = '20260907-05';
+const V = '20260929-01';
 const SRC = '全面性服務/一站式服務';
-const HERO = '../../../assets/premium/service-packaging-studio.jpg';
+/* Hero per page, shared with scripts/apply-brand-heroes.js. */
+const HEROES = JSON.parse(fs.readFileSync(path.join(__dirname, 'brand-heroes.json'), 'utf8'));
+const hero = dir => '../../../assets/brand/' + (HEROES[SRC + '/' + dir] || 'factory-packaging.jpg');
 
 const pages = [
   'pe塑膠瓶', '玻璃瓶', '口栓袋', '夾鏈鋁袋', '折角鋁袋', '排裝',
@@ -150,7 +152,7 @@ function render(d) {
   <a class="skip-link" href="#main-content">跳到主要內容</a><div data-premium-header></div>
   <main id="main-content">
     <section class="inner-hero">
-      <div class="inner-hero-media" aria-hidden="true"><img src="${HERO}" alt=""></div><div class="inner-hero-shade" aria-hidden="true"></div>
+      <div class="inner-hero-media" aria-hidden="true"><img src="${hero(d.dir)}" alt=""></div><div class="inner-hero-shade" aria-hidden="true"></div>
       <div class="container inner-hero-content"><p class="eyebrow reveal">${esc(d.en)}</p><h1 class="reveal">${esc(d.zh)}</h1>${d.lead ? `<p class="inner-hero-lead reveal">${esc(d.lead)}</p>` : ''}</div>
       <span class="inner-hero-index">${total} 種樣式</span>
     </section>

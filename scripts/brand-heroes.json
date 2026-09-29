@@ -1,0 +1,23 @@
+{
+  "_note": "Hero image per page, as a path under assets/brand/. Read by scripts/apply-brand-heroes.js and scripts/build-format-pages.js so the two cannot drift. The homepage is not here: its hero is the factory loop video, wired by hand in index.html.",
+  "contact": "factory-cleanroom.jpg",
+  "認識百達醫/關於百達醫": "team-booth.jpg",
+  "最新消息": "booth-visitors.jpg",
+  "研發科技": "factory-coating.jpg",
+  "全面性服務/功能配方": "factory-powder.jpg",
+  "全面性服務/一站式服務": "factory-packaging.jpg",
+  "全面性服務/劑型與包材": "factory-capsules.jpg",
+  "全面性服務/一站式服務/動物膠囊": "banner-gelatin-capsules.jpg",
+  "全面性服務/一站式服務/植物膠囊": "banner-plant-capsules.jpg",
+  "全面性服務/一站式服務/錠劑": "banner-tablets.jpg",
+  "全面性服務/一站式服務/玻璃瓶": "banner-glass-bottles.jpg",
+  "全面性服務/一站式服務/多元劑型-膠囊": "factory-filling.jpg",
+  "全面性服務/一站式服務/果凍": "factory-powder.jpg",
+  "全面性服務/一站式服務/粉末鋁包": "factory-powder.jpg",
+  "全面性服務/一站式服務/排裝": "factory-packaging.jpg",
+  "全面性服務/一站式服務/口栓袋": "factory-packaging.jpg",
+  "全面性服務/一站式服務/夾鏈鋁袋": "factory-packaging.jpg",
+  "全面性服務/一站式服務/折角鋁袋": "factory-packaging.jpg",
+  "全面性服務/一站式服務/異型袋": "factory-packaging.jpg",
+  "全面性服務/一站式服務/pe塑膠瓶": "factory-packaging.jpg"
+}

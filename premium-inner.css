@@ -22,6 +22,18 @@
 .inner-hero-lead { max-width: 680px; margin: 28px 0 0; color: rgba(255,255,255,.7); font-size: 18px; line-height: 1.9; }
 .inner-hero-index { position: absolute; z-index: 1; right: max(28px, calc((100vw - var(--container))/2)); bottom: 96px; color: rgba(255,255,255,.4); font-family: "Outfit",sans-serif; font-size: 12px; letter-spacing: .18em; }
 
+/* Card hero, for pages whose image is a portrait card rather than a wide
+   photograph (the functional-category art is 2:3, subject in the top half,
+   fading to a flat tone). Stretched full-bleed it would upscale ~1.5x and
+   crop away the subject, so on desktop it stands beside the copy as a card.
+   On a phone the screen is portrait too, and the same image fills the hero
+   as a background — see the 900px block below. */
+.inner-hero-card { align-items: center; }
+.inner-hero-card .inner-hero-shade { display: none; }
+.inner-hero-card .inner-hero-content { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: clamp(40px, 7vw, 112px); align-items: center; }
+.inner-hero-card-media { margin: 0; }
+.inner-hero-card-media img { display: block; width: auto; height: min(560px, 64vh); aspect-ratio: 2 / 3; object-fit: cover; object-position: top; border-radius: 4px; box-shadow: 0 40px 80px -30px rgba(0,0,0,.7); }
+
 .page-section { padding: 112px 0; }
 .page-section-ivory { background: var(--ivory); }
 .page-section-sand { background: #e5ded2; }
@@ -59,6 +71,11 @@
 .service-overview-card span { color: #8d672b; font-family: "Outfit",sans-serif; font-size: 12px; }
 .service-overview-card h3 { margin: 72px 0 12px; font-size: 24px; }
 .service-overview-card p { margin: 0; color: var(--muted); font-size: 14px; }
+/* Category art as a card thumbnail. Cropped from the top, where each image
+   carries its subject; the lower half is a flat fade meant for overlaid text. */
+.service-overview-card.has-media { padding-top: 22px; }
+.function-card-media { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; margin-bottom: 22px; object-fit: cover; object-position: top; border-radius: 3px; background: var(--sand); }
+.service-overview-card.has-media h3 { margin-top: 12px; }
 .function-card-cta { display: inline-flex; align-items: center; gap: 12px; margin-top: 24px; padding-bottom: 3px; color: #8d672b; border-bottom: 1px solid rgba(141,103,43,.42); font-size: 12px; font-weight: 500; letter-spacing: .04em; transition: gap var(--dur-spread) var(--ease), color var(--dur-base) ease, border-color var(--dur-base) ease; }
 .function-card-cta:hover,
 .function-card-cta:focus-visible { gap: 18px; color: var(--ink); border-bottom-color: var(--gold); }
@@ -298,6 +315,12 @@ a.catalogue-card:focus-visible .catalogue-more::after { transform: scaleX(1); }
 
 @media (max-width: 900px) {
   .inner-hero { min-height: 620px; }
+  .inner-hero-card { align-items: flex-end; }
+  .inner-hero-card .inner-hero-content { display: block; position: static; }
+  .inner-hero-card .inner-hero-copy { position: relative; z-index: 2; }
+  .inner-hero-card .inner-hero-shade { display: block; z-index: 1; background: linear-gradient(0deg, rgba(18,18,15,.96) 0%, rgba(18,18,15,.8) 42%, rgba(18,18,15,.2) 78%, rgba(18,18,15,.45) 100%); }
+  .inner-hero-card-media { position: absolute; inset: 0; z-index: 0; }
+  .inner-hero-card-media img { width: 100%; height: 100%; aspect-ratio: auto; border-radius: 0; box-shadow: none; }
   .page-heading,
   .story-grid,
   .quality-system,
@@ -433,6 +456,10 @@ a.catalogue-card:focus-visible .catalogue-more::after { transform: scaleX(1); }
    local mp4s and a couple of Vimeo embeds — so the styling lives here rather
    than in per-post inline CSS, which is what the originals used. */
 .article-page .news-masthead { padding-bottom: 40px; }
+/* Post titles run 12–25 characters, against the listing's short two-line
+   headline, so they get a smaller size and balanced lines. At the listing's
+   96px a 13-character title broke with one word split across the lines. */
+.article-page .news-masthead h1 { max-width: 900px; font-size: clamp(36px, 4.6vw, 64px); line-height: 1.3; text-wrap: balance; }
 .article-meta { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; color: #8d672b; font-family: "Outfit", sans-serif; font-size: 12px; letter-spacing: .14em; }
 .article-meta time { color: var(--muted); letter-spacing: .06em; }
 .article-meta i { width: 3px; height: 3px; background: currentColor; border-radius: 50%; font-style: normal; }

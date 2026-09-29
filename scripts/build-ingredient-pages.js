@@ -12,7 +12,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const V = '20260907-05';
+const V = '20260929-01';
 
 const categories = [
   { slug: 'beauty', en: 'SKIN MAINTENANCE', zh: '養顏美容',
@@ -21,7 +21,7 @@ const categories = [
       // The one ingredient the client had already published, with their own
       // photo. Everything after it is placeholder.
       ['ICE CRYSTAL TOMATO', '冰晶番茄', '百達醫官網既有品項，果實原料。', '果實原料',
-        '../../../wp-content/uploads/2026/08/冰晶番茄-695x1030.png'],
+        '../../../wp-content/uploads/2026/08/冰晶番茄-695x1030.webp'],
       ['COLLAGEN PEPTIDE', '膠原蛋白胜肽', '水解型小分子胜肽，常見來源為魚鱗或魚皮。', '粉末｜水解'],
       ['GLUTATHIONE', '穀胱甘肽', '由酵母發酵取得的三肽成分。', '粉末｜發酵'],
       ['VITAMIN C', '維生素 C', '抗壞血酸，可選用一般型或緩釋型。', '粉末｜結晶'],
@@ -214,6 +214,14 @@ function page(c) {
   <meta name="description" content="${esc(c.zh)}方向常用的原料選項與規格形式，供品牌在配方規劃階段參考。">
   <meta name="robots" content="noindex">
   <link rel="canonical" href="https://shengge820.github.io/baidayi-premium-redesign/全面性服務/功能配方/${c.slug}/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_TW">
+  <meta property="og:site_name" content="百達醫 BKE">
+  <meta property="og:url" content="https://shengge820.github.io/baidayi-premium-redesign/全面性服務/功能配方/${c.slug}/">
+  <meta property="og:title" content="${esc(c.zh)}原料｜功能配方｜百達醫 BKE">
+  <meta property="og:description" content="${esc(c.zh)}方向常用的原料選項與規格形式，供品牌在配方規劃階段參考。">
+  <meta property="og:image" content="https://shengge820.github.io/baidayi-premium-redesign/assets/brand/function-${c.slug}.webp">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#171713">
   <link rel="icon" href="../../../wp-content/uploads/2025/09/BKE-favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -224,10 +232,12 @@ function page(c) {
 <body class="premium-site premium-inner" data-root="../../../" data-active="service">
   <a class="skip-link" href="#main-content">跳到主要內容</a><div data-premium-header></div>
   <main id="main-content">
-    <section class="inner-hero">
-      <div class="inner-hero-media" aria-hidden="true"><img src="../../../assets/premium/research-ingredient-lab.jpg" alt=""></div><div class="inner-hero-shade" aria-hidden="true"></div>
-      <div class="container inner-hero-content"><p class="eyebrow reveal">${esc(c.en)}</p><h1 class="reveal">${esc(c.zh)}</h1><p class="inner-hero-lead reveal">${esc(c.lead)}</p></div>
-      <span class="inner-hero-index">原料選項</span>
+    <section class="inner-hero inner-hero-card">
+      <div class="inner-hero-shade" aria-hidden="true"></div>
+      <div class="container inner-hero-content">
+        <div class="inner-hero-copy"><p class="eyebrow reveal">${esc(c.en)}</p><h1 class="reveal">${esc(c.zh)}</h1><p class="inner-hero-lead reveal">${esc(c.lead)}</p></div>
+        <figure class="inner-hero-card-media" aria-hidden="true"><img src="../../../assets/brand/function-${c.slug}.webp" alt="" width="720" height="1080"></figure>
+      </div>
     </section>
     <section class="page-section page-section-ivory"><div class="container">
       <p class="placeholder-note reveal"><strong>版面示意</strong>　本頁原料資料與圖片為暫代內容，僅供版面確認；實際品項、規格與說明待百達醫提供後替換。</p>
