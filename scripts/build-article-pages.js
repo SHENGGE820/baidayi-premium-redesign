@@ -11,7 +11,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const V = '20260929-01';
+const V = '20260929-02';
 const LISTING = '最新消息/index.html';
 
 /* Read the listing once — it is the source of truth for what each post is. */
@@ -55,6 +55,9 @@ function readBody(slug) {
     .replace(/<!--[\s\S]*?-->/g, '')
     // WordPress's read-more marker, which otherwise leaves an empty paragraph
     .replace(/<span id="more-\d+"><\/span>/g, '')
+    // The page title is the post's only <h1>. Some posts open their body with
+    // a second one as a subtitle, which then took the page-title size.
+    .replace(/<(\/?)h1\b/gi, '<$1h2')
     // lightbox / attachment links around images
     .replace(/<a[^>]*href="[^"]*\.(?:png|jpe?g|gif)"[^>]*>([\s\S]*?)<\/a>/gi, '$1')
     // the raw-url fallback link inside <video>

@@ -322,7 +322,6 @@ body.premium-legacy #main .avia-button {
   .format-card {
     transition: transform var(--dur-lift) var(--ease-hover), box-shadow var(--dur-lift) var(--ease-hover);
   }
-  .format-card:hover { background: #272721; transform: translateY(var(--lift-distance)); box-shadow: 0 26px 56px rgba(15,15,12,.12); }
 
   .insight-card,
   .article-card {
@@ -572,7 +571,12 @@ body.premium-legacy #main .avia-button {
               box-shadow var(--dur-spread) ease,
               border-color var(--dur-base) ease;
 }
-.certification-card:hover { transform: translateY(var(--lift-distance)); box-shadow: 0 24px 50px rgba(0,0,0,.22); }
+/* Every ruled cell lifts the same way and picks up a gold rule; the heading
+   takes the kicker colour, which is gold-dark on light ground and
+   gold-light on dark, so the hover reads on either. */
+.certification-card:hover,
+.format-card:hover,
+.research-pillar:hover,
 .value-card:hover,
 .service-overview-card:hover {
   transform: translateY(var(--lift-distance));
@@ -585,14 +589,14 @@ body.premium-legacy #main .avia-button {
 .certification-card strong { transition: color var(--dur-base) ease; }
 .value-card:hover h3,
 .service-overview-card:hover h3,
-.certification-card:hover strong { color: #8d672b; }
+.format-card:hover h3,
+.research-pillar:hover h3,
+.certification-card:hover strong { color: var(--cell-kicker); }
 
 .research-pillar {
   transition: background-color var(--dur-spread) ease,
               transform var(--dur-spread) var(--ease-hover);
 }
-.research-pillar:hover { background-color: #20201a; transform: translateY(var(--lift-distance)); }
-.research-pillar:hover h3 { color: #d9b875; }
 
 /* --------------------------------------------------------------------------
    5. List rows - timeline and quality list

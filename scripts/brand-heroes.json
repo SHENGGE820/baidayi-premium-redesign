@@ -1,7 +1,7 @@
 {
   "_note": "Hero image per page, as a path under assets/brand/. Read by scripts/apply-brand-heroes.js and scripts/build-format-pages.js so the two cannot drift. The homepage is not here: its hero is the factory loop video, wired by hand in index.html.",
   "contact": "factory-cleanroom.jpg",
-  "認識百達醫/關於百達醫": "team-booth.jpg",
+  "認識百達醫/關於百達醫": "factory-cleanroom.jpg",
   "最新消息": "booth-visitors.jpg",
   "研發科技": "factory-coating.jpg",
   "全面性服務/功能配方": "factory-powder.jpg",

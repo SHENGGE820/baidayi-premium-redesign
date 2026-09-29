@@ -21,6 +21,27 @@ html { background: #171713; }
   --white: #ffffff;
   --header-height: 88px;
   --container: 1240px;
+  /* Type scale. Every page title and every section heading on the site
+     draws from these, so a heading looks the same wherever it sits; the
+     breakpoints below change the tokens, not individual components.
+     Before this, page titles ran at 84, 92, 94 and 96px and section
+     headings at 64, 66 and 68px, and in half-width columns the larger
+     ones split words across lines. The homepage hero's proportions were
+     the ones that worked, so they became the reference. */
+  --fs-display: clamp(48px, 6vw, 84px);
+  --lh-display: 1.16;
+  --fs-h2: clamp(34px, 3.6vw, 52px);
+  --lh-h2: 1.28;
+  --fs-statement: clamp(28px, 3.2vw, 44px);
+  /* Cell grids: the hairline-ruled card grids used throughout. Their colours
+     are set once here for light ground and redefined for dark sections just
+     below, and every card component reads them - so no card can end up with
+     light-ground text on a dark section. One did: the sustainability cards
+     sat on ink with #605b50 body text, about 2.6:1. */
+  --cell-line: var(--line);
+  --cell-kicker: #8d672b;
+  --cell-title: var(--ink);
+  --cell-body: var(--muted);
   --ease: cubic-bezier(.22, 1, .36, 1);
 }
 
@@ -250,6 +271,13 @@ button { color: inherit; font: inherit; }
 
 .section { padding: 124px 0; }
 .section-dark { color: var(--white); background: var(--ink); }
+.section-dark,
+.page-section-dark {
+  --cell-line: rgba(255,255,255,.16);
+  --cell-kicker: var(--gold-light);
+  --cell-title: var(--white);
+  --cell-body: rgba(255,255,255,.58);
+}
 .eyebrow {
   margin: 0 0 20px;
   color: var(--gold-light);
@@ -267,7 +295,7 @@ h1, h2 {
   font-weight: 500;
   letter-spacing: -.035em;
 }
-h2 { font-size: clamp(40px, 4.5vw, 64px); line-height: 1.25; }
+h2 { font-size: var(--fs-h2); line-height: var(--lh-h2); }
 h3 { margin: 0; font-size: 22px; font-weight: 500; line-height: 1.45; }
 
 .hero {
@@ -292,8 +320,8 @@ h3 { margin: 0; font-size: 22px; font-weight: 500; line-height: 1.45; }
 .hero-content { position: relative; z-index: 2; padding-top: var(--header-height); }
 .hero h1 {
   max-width: 850px;
-  font-size: clamp(48px, 6vw, 84px);
-  line-height: 1.16;
+  font-size: var(--fs-display);
+  line-height: var(--lh-display);
 }
 .hero-lead {
   max-width: 650px;
@@ -481,13 +509,13 @@ h3 { margin: 0; font-size: 22px; font-weight: 500; line-height: 1.45; }
 .process-step small { margin-top: 7px; color: var(--muted); font-family: "Outfit", sans-serif; font-size: 10px; letter-spacing: .14em; }
 
 .quality { padding: 132px 0; }
-.quality-grid { display: grid; grid-template-columns: minmax(300px,.8fr) minmax(0,1.2fr); align-items: center; gap: clamp(60px, 11vw, 160px); }
+.quality-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); align-items: center; gap: clamp(48px, 7vw, 110px); }
 .quality-copy > p:not(.eyebrow) { max-width: 490px; margin: 30px 0; color: rgba(255,255,255,.62); }
-.certification-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-.certification-card { min-height: 230px; padding: 26px; color: var(--ink); background: var(--ivory); }
-.certification-card span { color: #8d672b; font-family: "Outfit", sans-serif; font-size: 12px; }
+.certification-grid { display: grid; grid-template-columns: repeat(2, 1fr); border-top: 1px solid var(--cell-line); border-left: 1px solid var(--cell-line); }
+.certification-card { min-height: 230px; padding: 26px; color: var(--cell-title); border-right: 1px solid var(--cell-line); border-bottom: 1px solid var(--cell-line); }
+.certification-card span { color: var(--cell-kicker); font-family: "Outfit", sans-serif; font-size: 12px; }
 .certification-card strong { display: block; margin-top: 54px; font-family: "Noto Serif TC", serif; font-size: clamp(24px,2.5vw,34px); font-weight: 500; }
-.certification-card p { margin: 6px 0 0; color: var(--muted); font-size: 13px; }
+.certification-card p { margin: 6px 0 0; color: var(--cell-body); font-size: 13px; }
 
 .insights { background: var(--paper); }
 .insights-head { display: flex; align-items: end; justify-content: space-between; gap: 40px; margin-bottom: 62px; }
@@ -505,7 +533,7 @@ h3 { margin: 0; font-size: 22px; font-weight: 500; line-height: 1.45; }
 
 .project-cta { padding: 100px 0; background: var(--gold); }
 .project-cta-inner { display: grid; grid-template-columns: 1.2fr .8fr; align-items: end; gap: clamp(50px, 10vw, 140px); }
-.project-cta h2 { font-size: clamp(40px, 5vw, 68px); }
+.project-cta h2 { font-size: var(--fs-h2); }
 /* This copy sits on the gold CTA panel, where .72 alpha measured 3.72:1.
    .9 gives 5.07:1. It is the conversion CTA — the last place that should be
    losing legibility. */
@@ -671,7 +699,7 @@ body.motion-ready .reveal.is-visible { opacity: 1; transform: translateY(0); }
   .hero-media img,
   .hero-media video { object-position: 50% center; }
   .hero-shade { background: linear-gradient(0deg, rgba(19,19,16,.98) 0%, rgba(19,19,16,.86) 38%, rgba(19,19,16,.18) 78%, rgba(19,19,16,.3) 100%); }
-  .hero h1 { font-size: clamp(42px, 10.5vw, 62px); }
+  :root { --fs-display: clamp(40px, 8vw, 60px); }
   .hero-lead { max-width: 560px; font-size: 16px; line-height: 1.8; }
   .hero-side-note { display: none; }
   .hero-scroll { left: 18px; right: auto; bottom: 24px; }
@@ -695,9 +723,10 @@ body.motion-ready .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
 @media (max-width: 560px) {
   .container { width: min(calc(100% - 32px), var(--container)); }
-  h2 { font-size: 38px; }
+  /* Fluid below 400px: at a fixed 38px a 9-character title line overflows a
+     360px phone and strands its last character. */
+  :root { --fs-display: clamp(32px, 9.6vw, 38px); --fs-h2: clamp(28px, 8.2vw, 32px); --fs-statement: clamp(23px, 6.6vw, 26px); }
   .hero { min-height: 720px; padding-bottom: 80px; }
-  .hero h1 { font-size: 43px; line-height: 1.18; }
   .hero-lead { margin-top: 22px; font-size: 15px; }
   .hero-service-line { display: grid; grid-template-columns: repeat(2,max-content); gap: 7px 22px; margin-top: 18px; font-size: 10px; }
   .hero-service-line span:not(:last-child)::after { display: none; }
@@ -715,7 +744,6 @@ body.motion-ready .reveal.is-visible { opacity: 1; transform: translateY(0); }
   .process-grid { grid-template-columns: repeat(2,1fr); }
   .process-step { min-height: 156px; padding: 18px 15px; }
   .process-step strong { font-size: 15px; line-height: 1.55; }
-  .certification-grid { gap: 8px; }
   .certification-card { min-height: 175px; padding: 18px; }
   .certification-card strong { margin-top: 35px; font-size: 21px; }
   .certification-card p { font-size: 11px; }
@@ -783,7 +811,6 @@ body.motion-ready .reveal.is-visible { opacity: 1; transform: translateY(0); }
 @media (max-width: 560px) {
   /* Heroes: split into spans by the motion script, so size to the break.
      9 chars x 0.965em must clear 343px -> 38px. */
-  .hero h1 { font-size: 38px; }
 
   /* Everything else: let the browser choose, and balance the result so no
      line is left with two characters on it. */
@@ -793,7 +820,6 @@ body.motion-ready .reveal.is-visible { opacity: 1; transform: translateY(0); }
   .project-cta h2 br,
   .split-feature-copy h2 br,
   .display-statement br { display: none; }
-  .project-cta h2 { font-size: 34px; }
 
   /* "ONE-STOP HEALTH SUPPLEMENT ODM / OEM" needed 344px at .22em tracking
      and dropped "OEM" onto its own 35px line. */
