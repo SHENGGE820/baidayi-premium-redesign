@@ -14,7 +14,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const V = '20260929-02';
+const V = '20260929-05';
 const SRC = '全面性服務/一站式服務';
 /* Hero per page, shared with scripts/apply-brand-heroes.js. */
 const HEROES = JSON.parse(fs.readFileSync(path.join(__dirname, 'brand-heroes.json'), 'utf8'));
@@ -148,7 +148,7 @@ function render(d) {
   <link rel="stylesheet" href="../../../premium-site.css?v=${V}"><link rel="stylesheet" href="../../../premium-inner.css?v=${V}">
   <script src="../../../premium-transition-init.js?v=${V}"></script><link rel="stylesheet" href="../../../premium-motion.css?v=${V}">
 </head>
-<body class="premium-site premium-inner" data-root="../../../" data-active="service">
+<body class="premium-site premium-inner" data-root="../../../" data-active="capability">
   <a class="skip-link" href="#main-content">跳到主要內容</a><div data-premium-header></div>
   <main id="main-content">
     <section class="inner-hero">

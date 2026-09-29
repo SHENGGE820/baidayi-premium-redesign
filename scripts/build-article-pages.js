@@ -11,7 +11,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const V = '20260929-02';
+const V = '20260929-05';
 const LISTING = '最新消息/index.html';
 
 /* Read the listing once — it is the source of truth for what each post is. */
@@ -151,7 +151,7 @@ function shell({ a, main, heroSrc = '', extraClass = '' }) {
   <link rel="stylesheet" href="../premium-site.css?v=${V}"><link rel="stylesheet" href="../premium-inner.css?v=${V}">
   <script src="../premium-transition-init.js?v=${V}"></script><link rel="stylesheet" href="../premium-motion.css?v=${V}">
 </head>
-<body class="premium-site premium-inner article-page${extraClass}" data-root="../" data-active="insights">
+<body class="premium-site premium-inner article-page${extraClass}" data-root="../" data-active="news">
   <a class="skip-link" href="#main-content">跳到主要內容</a><div data-premium-header></div>
   <main id="main-content">
     <header class="news-masthead">
@@ -165,7 +165,7 @@ function shell({ a, main, heroSrc = '', extraClass = '' }) {
 ${main}
       <a class="article-back reveal" href="../最新消息/index.html"><span aria-hidden="true">←</span> 回到最新消息</a>
     </div></section>
-    <section class="project-cta"><div class="container project-cta-inner"><div><p class="eyebrow eyebrow-dark reveal">START A PROJECT</p><h2 class="reveal">看到市場機會，<br>下一步是做對產品。</h2></div><div class="project-cta-copy reveal"><p>把您的產品構想與目標客群告訴我們，專案顧問會協助整理可行的開發路徑。</p><a class="button button-dark" href="../contact/index.html">與我們討論 <span aria-hidden="true">↗</span></a></div></div></section>
+    <section class="project-cta"><div class="container project-cta-inner"><div><p class="eyebrow eyebrow-dark reveal">START A PROJECT</p><h2 class="reveal">看到市場機會，<br>下一步是做對產品。</h2></div><div class="project-cta-copy reveal"><p>把您的產品構想與目標客群告訴我們，專案顧問會協助整理可行的開發路徑。</p><a class="button button-dark" href="../contact/index.html">代工諮詢 <span aria-hidden="true">↗</span></a></div></div></section>
   </main>
   <div data-premium-footer></div><script src="../premium-shell.js?v=${V}"></script><script src="../premium-site.js?v=${V}"></script>
   <script src="../premium-motion.js?v=${V}"></script>

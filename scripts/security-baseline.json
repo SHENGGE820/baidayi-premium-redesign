@@ -7,10 +7,10 @@
       "note": "Literal markup for the scroll-progress bar. No data of any kind."
     },
     {
-      "key": "sast_xss_inner_html :: premium-shell.js :: .outerHTML =\n      '<header class=\"site-header is-scrolled\" data-site-header>' +",
+      "key": "sast_xss_inner_html :: premium-shell.js :: .outerHTML =\n      '<header class=\"' + headerClass + '\" data-site-header>' +",
       "file": "premium-shell.js",
       "rule": "sast_xss_inner_html",
-      "note": "Hardcoded template string for the site header and footer. Interpolates only url(), a same-origin path helper fed literals."
+      "note": "Header markup built from string literals. headerClass is one of two fixed strings chosen by a classList check; url() prefixes the page author’s data-root attribute; the active key is only compared, never inserted raw. No visitor-controlled value reaches the sink."
     },
     {
       "key": "sast_xss_inner_html :: premium-shell.js :: .outerHTML =\n      '<footer class=\"site-footer\">' +",

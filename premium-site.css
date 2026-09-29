@@ -110,6 +110,7 @@ button { color: inherit; font: inherit; }
 }
 .brand { display: inline-flex; width: 146px; align-items: center; }
 .brand img { width: 100%; height: auto; }
+.primary-nav > a.nav-contact { display: none; }
 .primary-nav {
   display: flex;
   align-items: center;
@@ -681,6 +682,7 @@ body.motion-ready .reveal.is-visible { opacity: 1; transform: translateY(0); }
   .nav-cluster > a { width: 100%; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,.16); font-family: "Noto Serif TC", serif; font-size: 24px; letter-spacing: 0; }
   .primary-nav > a::after,
   .nav-cluster > a::after { display: none; }
+  .primary-nav > a.nav-contact { width: auto; display: inline-flex; gap: 10px; margin-top: 30px; padding: 14px 22px; border: 0; color: var(--ink); background: var(--gold); font-family: inherit; font-size: 15px; font-weight: 500; }
   .nav-cluster { width: 100%; }
   .nav-cluster::after { display: none; }
   .nav-cluster-trigger { justify-content: space-between; }
@@ -725,7 +727,7 @@ body.motion-ready .reveal.is-visible { opacity: 1; transform: translateY(0); }
   .container { width: min(calc(100% - 32px), var(--container)); }
   /* Fluid below 400px: at a fixed 38px a 9-character title line overflows a
      360px phone and strands its last character. */
-  :root { --fs-display: clamp(32px, 9.6vw, 38px); --fs-h2: clamp(28px, 8.2vw, 32px); --fs-statement: clamp(23px, 6.6vw, 26px); }
+  :root { --fs-display: clamp(30px, 9.3vw, 38px); --fs-h2: clamp(28px, 8.2vw, 32px); --fs-statement: clamp(23px, 6.6vw, 26px); }
   .hero { min-height: 720px; padding-bottom: 80px; }
   .hero-lead { margin-top: 22px; font-size: 15px; }
   .hero-service-line { display: grid; grid-template-columns: repeat(2,max-content); gap: 7px 22px; margin-top: 18px; font-size: 10px; }
