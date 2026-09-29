@@ -69,4 +69,13 @@
       '</footer>' +
       '<a class="floating-consult" href="' + url('contact/index.html') + '" aria-label="代工諮詢"><span>代工<br>諮詢</span><i aria-hidden="true">↗</i></a>';
   }
+
+  /* The inquiry list runs on every page. Loading it from here means none of
+     the pages needs its own script tag; it takes this file's cache key. */
+  var self = document.currentScript;
+  var version = self && self.src.indexOf('?') > -1 ? self.src.slice(self.src.indexOf('?')) : '';
+  var inquiry = document.createElement('script');
+  inquiry.src = url('premium-inquiry.js') + version;
+  inquiry.defer = true;
+  document.body.appendChild(inquiry);
 })();

@@ -53,6 +53,10 @@
     var channel = form.querySelector('#contact-channel');
     var message = form.querySelector('#contact-message');
     var details = [];
+    // Items collected on the site with premium-inquiry.js, one per line; a
+    // catalogue style carries its image URL, since its code is printed in it.
+    var inquiry = window.BKEInquiry ? window.BKEInquiry.summaryLines() : [];
+    if (inquiry.length) details.push('詢價清單：\n' + inquiry.join('\n'));
     if (selectedFormat) details.push('瀏覽的劑型／包材：' + selectedFormat[0]);
     if (company && company.value.trim()) details.push('公司／品牌名稱：' + company.value.trim());
     if (launch && launch.value.trim()) details.push('預計上市時間：' + launch.value.trim());

@@ -23,36 +23,6 @@
       "file": "premium-site.js",
       "rule": "sast_xss_inner_html",
       "note": "Hardcoded label plus a decorative arrow span. No data."
-    },
-    {
-      "key": "sast_xss_inner_html :: wp-content/cache/wpfc-minified/13kufgyi/4or0t.js :: .innerHTML=\"<a id='\"+S+\"' href='' disabled='disabled'></a><select id='\"+S+\"-\\r\\\\' disabled='disabled'><option selected=''></option></select>\",e.querySelectorAll(\"[selected]\").length||d.push(\"\\\\[\"+ge+\"*(?:value|\"+f+\")\"),e.querySelectorAll(\"[id~=\"+S+\"-]\").length||d.push(\"~=\"),e.querySelectorAll(\"a#\"+S+\"+*\").length||d.push(\".#.+[+~]\"),e.querySelectorAll(\":checked\").length||d.push(\":checked\"),(t=T.createElement(\"input\")).setAttribute(\"type\",\"hidden\"),e.appendChild(t).setAttribute(\"name\",\"D\"),r.appendChild(e).disabled=!0,2!==e.querySelectorAll(\":disabled\").length&&d.push(\":enabled\",\":disabled\"),(t=T.createElement(\"input\")).setAttribute(\"name\",\"\"),e.appendChild(t),e.querySelectorAll(\"[name='']\").length||d.push(\"\\\\[\"+ge+\"*name\"+ge+\"*=\"+ge+\"*(?:''|\\\"\\\")\")}),le.cssHas||d.push(\":has\"),d=d.length&&new RegExp(d.join(\"|\")),l=function(e,t){if(e===t)return a=!0,0",
-      "file": "wp-content/cache/wpfc-minified/13kufgyi/4or0t.js",
-      "rule": "sast_xss_inner_html",
-      "note": "Third-party vendor code (WordPress cache bundles, Enfold theme, html5shiv). Not authored here, and only loaded by the superseded legacy pages."
-    },
-    {
-      "key": "sast_xss_inner_html :: wp-content/cache/wpfc-minified/13kufgyi/4or0t.js :: .innerHTML=e,t.body&&t.body.innerHTML}var F=/<(?!area|br|col|embed|hr|img|input|link|meta|param)(([a-z][^\\/\\0>\\x20\\t\\r\\n\\f]*)[^>]*)\\/>/gi",
-      "file": "wp-content/cache/wpfc-minified/13kufgyi/4or0t.js",
-      "rule": "sast_xss_inner_html",
-      "note": "Third-party vendor code (WordPress cache bundles, Enfold theme, html5shiv). Not authored here, and only loaded by the superseded legacy pages."
-    },
-    {
-      "key": "sast_xss_inner_html :: wp-content/cache/wpfc-minified/2g2cl72/4or0t.js :: .innerHTML=t,clearTimeout(n)},2e3)}}function on_document_ready(){focus_populate_live_region(),refresh_sorted_by_live_region()}jQuery(function(e){e(\".woocommerce-ordering\").on(\"change\",\"select.orderby\",function(){e(this).closest(\"form\").trigger(\"submit\")}),e(\"input.qty:not(.product-quantity input.qty)\").each(function(){var o=parseFloat(e(this).attr(\"min\"))",
-      "file": "wp-content/cache/wpfc-minified/2g2cl72/4or0t.js",
-      "rule": "sast_xss_inner_html",
-      "note": "Third-party vendor code (WordPress cache bundles, Enfold theme, html5shiv). Not authored here, and only loaded by the superseded legacy pages."
-    },
-    {
-      "key": "sast_xss_inner_html :: wp-content/themes/enfold/js/html5shiv.js :: .innerHTML=\"x<style>article,aside,dialog,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}mark{background:#FF0",
-      "file": "wp-content/themes/enfold/js/html5shiv.js",
-      "rule": "sast_xss_inner_html",
-      "note": "Third-party vendor code (WordPress cache bundles, Enfold theme, html5shiv). Not authored here, and only loaded by the superseded legacy pages."
-    },
-    {
-      "key": "sast_xss_inner_html :: wp-content/themes/enfold/js/html5shiv.js :: .innerHTML=\"<xyz></xyz>\"",
-      "file": "wp-content/themes/enfold/js/html5shiv.js",
-      "rule": "sast_xss_inner_html",
-      "note": "Third-party vendor code (WordPress cache bundles, Enfold theme, html5shiv). Not authored here, and only loaded by the superseded legacy pages."
     }
   ]
 }

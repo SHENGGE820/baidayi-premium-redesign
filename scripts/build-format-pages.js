@@ -14,7 +14,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const V = '20260929-06';
+const V = '20260929-08';
 const SRC = '全面性服務/一站式服務';
 /* Hero per page, shared with scripts/apply-brand-heroes.js. */
 const HEROES = JSON.parse(fs.readFileSync(path.join(__dirname, 'brand-heroes.json'), 'utf8'));

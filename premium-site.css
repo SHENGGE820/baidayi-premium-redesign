@@ -649,3 +649,126 @@ body.motion-ready .reveal.is-visible { opacity: 1; transform: translateY(0); }
      and dropped "OEM" onto its own 35px line. */
   .eyebrow { letter-spacing: .14em; }
 }
+
+/* --------------------------------------------------------------------------
+   Inquiry list (premium-inquiry.js)
+   Toggles on catalogue styles, dosage/packaging cards and functional
+   directions; the floating button becomes the list once something is in it.
+   -------------------------------------------------------------------------- */
+.inquiry-live { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.inquiry-toggle {
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 14px;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .04em;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: background-color var(--dur-quick) ease, color var(--dur-quick) ease, border-color var(--dur-quick) ease;
+}
+.inquiry-toggle:hover { border-color: var(--gold); }
+.inquiry-toggle:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.inquiry-toggle[aria-pressed="true"] { color: var(--white); background: var(--ink); border-color: var(--ink); }
+.inquiry-toggle-block { width: 100%; margin-top: 10px; padding-left: 6px; padding-right: 6px; white-space: nowrap; }
+.inquiry-toggle-inline { margin-top: 18px; }
+.inquiry-host { position: relative; display: flex; }
+.inquiry-host > .catalogue-card { flex: 1; }
+.inquiry-toggle-overlay { position: absolute; z-index: 2; top: 10px; right: 10px; background: rgba(251,249,244,.94); box-shadow: 0 6px 18px rgba(23,23,19,.12); }
+.inquiry-toggle-hero { margin-top: 30px; color: var(--white); background: transparent; border-color: rgba(255,255,255,.42); }
+.inquiry-toggle-hero:hover { border-color: var(--gold-light); }
+.inquiry-toggle-hero[aria-pressed="true"] { color: var(--ink); background: var(--gold-light); border-color: var(--gold-light); }
+/* A picked card keeps a gold rule, so the page shows what is already in. */
+.is-inquiry-selected { box-shadow: 0 0 0 2px var(--gold); }
+.inquiry-hint { margin: 0 0 22px; color: var(--muted); font-size: 13px; }
+
+.inquiry-tray { display: none; border: 0; font: inherit; font-size: 12px; cursor: pointer; }
+.has-inquiry .inquiry-tray { display: flex; }
+.has-inquiry a.floating-consult { display: none; }
+.inquiry-tray-count {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  min-width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  padding: 0 7px;
+  color: var(--white);
+  background: var(--ink);
+  border: 2px solid var(--gold);
+  border-radius: 13px;
+  font-family: "Outfit", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+/* `scale`, not `transform`: the button's magnet effect owns transform. */
+.inquiry-tray.is-bumped { animation: inquiryBump .5s var(--ease); }
+@keyframes inquiryBump { 40% { scale: 1.12; } 100% { scale: 1; } }
+
+.inquiry-open { overflow: hidden; }
+.inquiry-drawer { position: fixed; inset: 0; z-index: 1200; }
+.inquiry-drawer[hidden] { display: none; }
+.inquiry-backdrop { position: absolute; inset: 0; background: rgba(23,23,19,.5); }
+.inquiry-panel-drawer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(440px, 100%);
+  display: flex;
+  flex-direction: column;
+  color: var(--ink);
+  background: var(--paper);
+  box-shadow: -24px 0 60px rgba(0,0,0,.25);
+}
+.inquiry-drawer-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding: 28px 28px 18px; border-bottom: 1px solid var(--line); }
+.inquiry-drawer-head .eyebrow { margin: 0 0 8px; }
+.inquiry-drawer-head h2 { font-size: 30px; }
+.inquiry-close { width: 44px; height: 44px; flex: none; color: var(--ink); background: transparent; border: 1px solid var(--line); font-size: 24px; line-height: 1; cursor: pointer; }
+.inquiry-list { flex: 1; margin: 0; padding: 8px 28px; overflow-y: auto; list-style: none; }
+.inquiry-row { display: grid; grid-template-columns: 56px minmax(0,1fr) auto; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.inquiry-thumb { width: 56px; height: 56px; display: block; object-fit: cover; object-position: top; background: var(--sand); border-radius: 2px; }
+.inquiry-row-text { min-width: 0; display: grid; gap: 3px; }
+.inquiry-row-text small { color: #8d672b; font-size: 11px; letter-spacing: .06em; }
+.inquiry-row-text a,
+.inquiry-row-text strong { color: var(--ink); font-size: 15px; font-weight: 500; text-decoration: none; overflow-wrap: anywhere; }
+.inquiry-row-text a:hover { text-decoration: underline; }
+.inquiry-remove,
+.inquiry-clear { min-height: 40px; padding: 6px 10px; color: var(--muted); background: transparent; border: 0; font: inherit; font-size: 13px; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.inquiry-remove:hover,
+.inquiry-clear:hover { color: var(--ink); }
+.inquiry-empty { padding: 30px 0; color: var(--muted); }
+.inquiry-drawer-foot { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 28px 24px; border-top: 1px solid var(--line); }
+
+.inquiry-inline { margin-bottom: 28px; padding: 20px 22px; background: var(--ivory); border: 1px solid var(--line); }
+.inquiry-inline[hidden] { display: none; }
+.inquiry-inline-head { display: flex; align-items: center; gap: 12px; }
+.inquiry-inline-head h3 { margin: 0; font-size: 18px; }
+.inquiry-inline-count { color: #8d672b; font-size: 13px; }
+.inquiry-inline-head .inquiry-clear { margin-left: auto; }
+.inquiry-inline-note { margin: 4px 0; color: var(--muted); font-size: 13px; }
+.inquiry-inline .inquiry-list { max-height: 360px; padding: 0; }
+
+@media (max-width: 560px) {
+  .inquiry-panel-drawer { top: auto; width: 100%; max-height: 86vh; }
+  .inquiry-drawer-head,
+  .inquiry-list,
+  .inquiry-drawer-foot { padding-left: 20px; padding-right: 20px; }
+  .inquiry-drawer-foot { flex-direction: column-reverse; align-items: stretch; }
+  .inquiry-go { justify-content: center; }
+  .inquiry-toggle-overlay { top: 8px; right: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .inquiry-tray.is-bumped { animation: none; }
+}
