@@ -266,7 +266,7 @@
   var trayCount = el('span', 'inquiry-tray-count');
   tray.appendChild(trayLabel);
   tray.appendChild(trayCount);
-  if (!isContact) body.appendChild(tray);
+  body.appendChild(tray);
 
   var drawer = el('div', 'inquiry-drawer');
   drawer.hidden = true;
@@ -354,7 +354,14 @@
     document.documentElement.classList.remove('inquiry-open');
     if (lastFocus && lastFocus.focus) lastFocus.focus();
   }
-  tray.addEventListener('click', openDrawer);
+  /* On the contact page the list is already beside the form, so the tray
+     takes the visitor to it instead of opening a second copy. */
+  tray.addEventListener('click', function () {
+    if (inline) {
+      inline.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+      inlineTitle.focus({ preventScroll: true });
+    } else openDrawer();
+  });
   close.addEventListener('click', closeDrawer);
   backdrop.addEventListener('click', closeDrawer);
   document.addEventListener('keydown', function (event) {
@@ -374,13 +381,15 @@
 
   /* ---------------- contact page: the list beside the form ---------------- */
   var form = document.querySelector('[data-premium-contact-form]');
-  var inline = null, inlineList = null, inlineCount = null, inlineNote = null;
+  var inline = null, inlineList = null, inlineCount = null, inlineNote = null, inlineTitle = null;
   if (isContact && form) {
     inline = el('section', 'inquiry-inline');
     inline.setAttribute('aria-labelledby', 'inquiry-inline-title');
     var ih = el('div', 'inquiry-inline-head');
     var ititle = el('h3', '', '你的詢價清單');
     ititle.id = 'inquiry-inline-title';
+    ititle.tabIndex = -1;
+    inlineTitle = ititle;
     inlineCount = el('span', 'inquiry-inline-count');
     ih.appendChild(ititle);
     ih.appendChild(inlineCount);
@@ -393,7 +402,10 @@
     inline.appendChild(ih);
     inline.appendChild(inlineNote);
     inline.appendChild(inlineList);
-    form.parentNode.insertBefore(inline, form);
+    /* Inside the form, spanning its two-column grid. Placed before the form it
+       became a third item in the page's two-column layout and pushed the form
+       under the sticky contact details, where the two overlapped on scroll. */
+    form.insertBefore(inline, form.firstChild);
 
     /* Prefill the two selects from the list, but never over a choice already
        made — by the visitor, or by a ?format= / ?function= link. */
@@ -414,7 +426,7 @@
 
   function refresh(items) {
     var n = items.length;
-    body.classList.toggle('has-inquiry', n > 0 && !isContact);
+    body.classList.toggle('has-inquiry', n > 0);
     trayCount.textContent = String(n);
     tray.setAttribute('aria-label', '開啟詢價清單，共 ' + n + ' 項');
     toggles.forEach(paintToggle);
@@ -427,7 +439,7 @@
   }
   api.onChange(function (items, detail) {
     refresh(items);
-    if (detail && detail.type === 'add' && !isContact) {
+    if (detail && detail.type === 'add') {
       tray.classList.remove('is-bumped');
       void tray.offsetWidth;
       tray.classList.add('is-bumped');

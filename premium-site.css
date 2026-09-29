@@ -753,6 +753,10 @@ body.motion-ready .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
 .inquiry-inline { margin-bottom: 28px; padding: 20px 22px; background: var(--ivory); border: 1px solid var(--line); }
 .inquiry-inline[hidden] { display: none; }
+/* Sits inside the two-column form, across both columns. */
+.premium-form > .inquiry-inline { grid-column: 1 / -1; margin-bottom: 0; }
+.inquiry-inline-head h3:focus { outline: none; }
+.inquiry-inline-head h3:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
 .inquiry-inline-head { display: flex; align-items: center; gap: 12px; }
 .inquiry-inline-head h3 { margin: 0; font-size: 18px; }
 .inquiry-inline-count { color: #8d672b; font-size: 13px; }
