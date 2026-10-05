@@ -13,7 +13,7 @@ const ROOT = path.resolve(__dirname, '..');
 
 function walk(d, o = []) {
   for (const e of fs.readdirSync(d, { withFileTypes: true })) {
-    if (['.git', 'node_modules', 'scripts'].includes(e.name)) continue;
+    if (['.git', 'node_modules', 'scripts', 'admin-next'].includes(e.name)) continue;
     const f = path.join(d, e.name);
     if (e.isDirectory()) walk(f, o);
     else if (e.name.endsWith('.html')) o.push(f);

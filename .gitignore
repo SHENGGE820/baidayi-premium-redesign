@@ -6,6 +6,7 @@ desktop.ini
 
 # Local tooling
 node_modules/
+admin-next/data.json
 
 # DeepSec scan artefacts
 .deepsec-report.json

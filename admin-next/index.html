@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <link rel="icon" href="../wp-content/uploads/2025/09/BKE-favicon.png">
+  <meta name="description" content="BKE 百達醫企業網站內容後台開發原型">
+  <title>BKE 網站內容後台｜開發預覽</title>
+  <link rel="stylesheet" href="./admin.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">跳到主要內容</a>
+
+  <div class="app-shell" id="app">
+    <div class="sidebar-scrim" id="sidebar-scrim" hidden></div>
+
+    <aside class="sidebar" id="sidebar" aria-label="後台主選單">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">BKE</div>
+        <div>
+          <strong>百達醫企業</strong>
+          <span>網站內容管理</span>
+        </div>
+        <button class="icon-button sidebar-close" id="sidebar-close" type="button" aria-label="關閉選單">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+
+      <nav class="primary-nav" aria-label="內容分類">
+        <p class="nav-label">管理內容</p>
+        <button class="nav-item is-active" type="button" data-section="news" aria-current="page">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"/></svg>
+          <span>最新消息</span>
+          <span class="nav-count" data-count="news">—</span>
+        </button>
+        <button class="nav-item" type="button" data-section="pages">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7 3h8l4 4v14H7zM15 3v5h4M10 12h6M10 16h6"/></svg>
+          <span>網站頁面</span>
+          <span class="nav-count" data-count="pages">—</span>
+        </button>
+        <button class="nav-item" type="button" data-section="catalogue">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16v12H4zM7 4h10v3M8 11h8M8 15h5"/></svg>
+          <span>劑型與包材</span>
+          <span class="nav-count" data-count="catalogue">—</span>
+        </button>
+        <button class="nav-item" type="button" data-section="media">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16v14H4zM8 10a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3ZM5 17l4-4 3 3 2-2 5 3"/></svg>
+          <span>媒體庫</span>
+          <span class="nav-count" data-count="media">—</span>
+        </button>
+        <button class="nav-item" type="button" data-section="company">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 21V8l8-5 8 5v13M8 21v-6h8v6M8 10h.01M12 10h.01M16 10h.01"/></svg>
+          <span>公司資訊</span>
+          <span class="nav-count" data-count="company">—</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-status" aria-label="開發狀態">
+        <span class="environment-dot" aria-hidden="true"></span>
+        <div>
+          <strong>開發預覽</strong>
+          <span>尚未連接正式發布</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main" id="main-content" tabindex="-1">
+      <header class="mobile-header">
+        <button class="icon-button" id="sidebar-open" type="button" aria-label="開啟選單" aria-controls="sidebar" aria-expanded="false">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+        <span>BKE 網站內容管理</span>
+        <span class="environment-label">開發預覽</span>
+      </header>
+
+      <section class="system-notice" aria-label="系統狀態">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 2.8 20h18.4L12 3ZM12 9v5M12 17.5v.1"/></svg>
+        <div>
+          <strong>開發預覽</strong>
+          <span>所有草稿只儲存在這台裝置的瀏覽器；後台尚未連接帳號、權限與正式發布流程。</span>
+        </div>
+      </section>
+
+      <section class="list-view" id="list-view" aria-labelledby="page-title">
+        <header class="page-heading">
+          <div>
+            <p class="eyebrow" id="page-eyebrow">網站內容</p>
+            <h1 id="page-title">最新消息</h1>
+            <p class="page-description" id="page-description">管理官網的市場趨勢、配方知識與企業動態。</p>
+          </div>
+          <button class="button button-primary" id="create-button" type="button">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            <span>新增消息</span>
+          </button>
+        </header>
+
+        <div class="data-meta" aria-live="polite">
+          <div class="source-state" id="source-state">
+            <span class="source-dot is-loading" aria-hidden="true"></span>
+            <span>正在讀取 data.json…</span>
+          </div>
+          <span id="generated-at"></span>
+        </div>
+
+        <div class="toolbar" aria-label="清單工具">
+          <label class="search-field" for="search-input">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m16 16 4 4"/></svg>
+            <span class="sr-only">搜尋內容</span>
+            <input id="search-input" type="search" autocomplete="off" placeholder="搜尋標題、分類或網址…">
+          </label>
+          <label class="filter-field" for="filter-select">
+            <span class="sr-only">篩選分類</span>
+            <select id="filter-select">
+              <option value="">全部分類</option>
+            </select>
+          </label>
+          <button class="button button-quiet" id="reload-button" type="button">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></svg>
+            重新讀取
+          </button>
+        </div>
+
+        <div class="content-list" id="content-list" aria-busy="true">
+          <div class="list-header" id="list-header" aria-hidden="true"></div>
+          <div class="list-body" id="list-body">
+            <div class="skeleton-row"><span></span><span></span><span></span></div>
+            <div class="skeleton-row"><span></span><span></span><span></span></div>
+            <div class="skeleton-row"><span></span><span></span><span></span></div>
+          </div>
+        </div>
+
+        <div class="load-error" id="load-error" hidden role="alert">
+          <div>
+            <strong>無法讀取內容資料</strong>
+            <p id="load-error-message">請確認 data.json 已建立，並透過本機網頁伺服器開啟這個頁面。</p>
+          </div>
+          <button class="button button-secondary" id="retry-button" type="button">再試一次</button>
+        </div>
+
+        <p class="result-summary" id="result-summary" aria-live="polite"></p>
+      </section>
+
+      <section class="editor-view" id="editor-view" aria-labelledby="editor-title" hidden>
+        <header class="editor-heading">
+          <div class="editor-heading-main">
+            <button class="back-button" id="back-button" type="button">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></svg>
+              <span id="back-label">回到最新消息</span>
+            </button>
+            <p class="eyebrow" id="editor-eyebrow">編輯內容</p>
+            <h1 id="editor-title">未命名內容</h1>
+            <p class="editor-path" id="editor-path"></p>
+          </div>
+          <div class="editor-actions" aria-label="編輯動作">
+            <span class="save-state" id="save-state" role="status">尚未修改</span>
+            <button class="button button-secondary" id="save-draft-button" type="button" disabled>儲存本機草稿</button>
+            <button class="button button-disabled" id="publish-button" type="button" disabled aria-describedby="publish-help">
+              發布（尚未連接）
+            </button>
+          </div>
+        </header>
+
+        <p class="publish-help" id="publish-help">這個原型不會寫入 GitHub 或正式網站。發布需等登入、權限與審核流程完成後才會開放。</p>
+
+        <div class="editor-layout">
+          <div class="form-column">
+            <div class="draft-banner" id="draft-banner" hidden>
+              <div>
+                <strong>已載入這台瀏覽器的草稿</strong>
+                <span id="draft-time"></span>
+              </div>
+              <button class="text-button" id="discard-draft-button" type="button">捨棄本機草稿</button>
+            </div>
+            <form id="editor-form" novalidate></form>
+          </div>
+
+          <aside class="preview-column" aria-labelledby="preview-title">
+            <div class="preview-toolbar">
+              <div>
+                <p class="eyebrow">即時預覽</p>
+                <h2 id="preview-title">前台內容摘要</h2>
+              </div>
+              <div class="preview-size" role="group" aria-label="預覽尺寸">
+                <button class="is-active" type="button" data-preview-size="desktop" aria-pressed="true" title="桌機預覽">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 4h18v13H3zM8 21h8M12 17v4"/></svg>
+                  <span class="sr-only">桌機</span>
+                </button>
+                <button type="button" data-preview-size="mobile" aria-pressed="false" title="手機預覽">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="1"/><path d="M11 18h2"/></svg>
+                  <span class="sr-only">手機</span>
+                </button>
+              </div>
+            </div>
+            <div class="preview-stage" id="preview-stage">
+              <iframe id="content-preview" title="內容即時預覽" sandbox="" loading="eager"></iframe>
+            </div>
+            <p class="preview-note">此處只預覽內容層級，正式網站的字型、動畫與完整版面需在建置預覽中確認。</p>
+          </aside>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true" hidden></div>
+
+  <script src="./admin.js" defer></script>
+</body>
+</html>

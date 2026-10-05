@@ -64,8 +64,13 @@ jobs:
         run: |
           rsync -a --delete \
             --exclude .git --exclude .github --exclude _site --exclude node_modules \
-            --exclude scripts --exclude content --exclude 'package*.json' \
+            --exclude scripts --exclude content --exclude admin-next --exclude ADMIN_NEXT.md --exclude 'package*.json' \
             ./ _site/
+
+      - name: Verify development-only admin is not public
+        run: |
+          test ! -e _site/admin-next
+          test ! -e _site/ADMIN_NEXT.md
 
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
