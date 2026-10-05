@@ -8,7 +8,13 @@
  *                                    (one styles page per dosage form or
  *                                    package type)
  *   content/pages/catalogue.md   →  全面性服務/劑型與包材/index.html (the
- *                                    overview's card grids)
+ *                                    overview's card grids, and the
+ *                                    homepage's dosage cards)
+ *   content/pages/<id>.md        →  the text and images tagged data-cms on
+ *                                    the hand-built pages listed in PAGES
+ *   content/settings.md          →  phone, address and footer blurb
+ *                                    (premium-shell.js, contact page,
+ *                                    homepage structured data)
  *                                    admin/config.yml (the list of pages and
  *                                    enquiry presets a card can link to)
  *
@@ -185,13 +191,13 @@ function homePicks(posts) {
 }
 
 /* Replace what sits between <!-- cms:NAME --> and <!-- /cms:NAME --> (or
-   "# cms:NAME" / "# /cms:NAME" in YAML). `html` ends with the indentation
-   the closing marker sits at. */
-function fill(file, name, html, yaml = false) {
+   "# cms:NAME" in YAML, "// cms:NAME" in JavaScript). `html` ends with the
+   indentation the closing marker sits at. */
+function fill(file, name, html, style = 'html') {
   const full = path.join(ROOT, file);
   const src = fs.readFileSync(full, 'utf8');
-  const open = yaml ? `# cms:${name}` : `<!-- cms:${name} -->`;
-  const close = yaml ? `# /cms:${name}` : `<!-- /cms:${name} -->`;
+  const [a, b] = { html: ['<!-- ', ' -->'], yaml: ['# ', ''], js: ['// ', ''] }[style];
+  const open = `${a}cms:${name}${b}`, close = `${a}/cms:${name}${b}`;
   const s = src.indexOf(open), e = src.indexOf(close);
   if (s < 0 || e < s) throw new Error(`${file}: markers for "${name}" not found`);
   const out = src.slice(0, s + open.length) + '\n' + html + src.slice(e);
@@ -261,7 +267,7 @@ function loadCatalogue() {
    relative to the page in `fromDir`. */
 function resolveLink(link, fromDir, targets, where) {
   const kind = String(link).split(':')[0], value = String(link).slice(kind.length + 1);
-  const to = dest => path.posix.relative(fromDir, dest) + '/index.html';
+  const to = dest => path.posix.relative(fromDir, dest).replace(/^(?!\.)/, './') + '/index.html';
   if (kind === 'page' && targets.pages.has(value)) return { kind, href: to(`${CAT_DIR}/${value}`) };
   if (kind === 'contact' && targets.contact.has(value)) return { kind, href: `${to('contact')}?format=${value}` };
   throw new Error(`${where} links to "${link}", which does not exist`);
@@ -354,12 +360,12 @@ function linkTargets(catalogue) {
   return { pages, contact };
 }
 
-function overviewCard(c, photo, targets, where) {
-  const prefix = '../../';
+function overviewCard(c, photo, targets, where, fromDir = path.posix.dirname(OVERVIEW)) {
+  const prefix = fromDir === '.' ? './' : '../'.repeat(fromDir.split('/').length);
   if (!c.title || !c.image) throw new Error(`content/pages/catalogue.md: a card in ${where} needs a title and an image`);
   let href = '', arrow = '', more = '';
   if (c.link) {
-    const link = resolveLink(c.link, path.posix.dirname(OVERVIEW), targets, `content/pages/catalogue.md: "${c.title}" in ${where}`);
+    const link = resolveLink(c.link, fromDir, targets, `content/pages/catalogue.md: "${c.title}" in ${where}`);
     href = link.href;
     [arrow, more] = link.kind === 'page' ? ['→', '查看樣式'] : ['↗', '與顧問討論'];
   }
@@ -387,6 +393,142 @@ function linkOptions(targets) {
     ...[...targets.pages].map(([slug, title]) => `- { label: ${q('樣式頁｜' + title)}, value: ${q('page:' + slug)} }`),
     ...[...targets.contact].map(([key, label]) => `- { label: ${q('諮詢表單｜' + label)}, value: ${q('contact:' + key)} }`)
   ];
+}
+
+/* ------------------------------------------------------------ page text */
+/* Hand-built pages whose text and images are editable: elements tagged
+   data-cms / data-cms-img (scripts/lib/html-fields.js), plus each page's
+   title and description. Values live in content/pages/<id>.md. */
+const fields = require('./lib/html-fields');
+const PAGES = [
+  { id: 'home', label: '首頁', file: 'index.html' },
+  { id: 'about', label: '關於百達醫', file: '認識百達醫/關於百達醫/index.html' },
+  { id: 'quality', label: '研發、品質與認證', file: '研發科技/index.html' },
+  { id: 'process', label: '合作流程', file: '全面性服務/一站式服務/index.html' },
+  { id: 'catalogue', label: '劑型與包材總覽', file: '全面性服務/劑型與包材/index.html', lists: ['dosage', 'package', 'finished', 'products'] },
+  { id: 'capsules', label: '動／植物膠囊', file: '全面性服務/一站式服務/多元劑型-膠囊/index.html' },
+  { id: 'functions', label: '功能配方方向', file: '全面性服務/功能配方/index.html' },
+  { id: 'esg', label: '綠色永續', file: '認識百達醫/綠色永續/index.html' },
+  { id: 'news', label: '最新消息（列表頁）', file: '最新消息/index.html' },
+  { id: 'contact', label: '代工諮詢', file: 'contact/index.html' }
+];
+const SEO = '搜尋與分享';
+
+/* 分享說明 (og:description) is only stored when a page's share preview says
+   something other than its search description; blank, it follows that. */
+function seoOf(html) {
+  const get = re => fields.decode((html.match(re) || [, ''])[1]).trim();
+  const seo = { 網頁標題: get(/<title>([^<]*)<\/title>/), 搜尋說明: get(/<meta name="description" content="([^"]*)">/) };
+  const og = get(/<meta property="og:description" content="([^"]*)">/);
+  if (og && og !== seo.搜尋說明) seo.分享說明 = og;
+  return seo;
+}
+function applySeo(html, seo) {
+  if (!seo) return html;
+  const now = seoOf(html);
+  const set = (re, value) => { html = html.replace(re, (m, a, b) => a + esc(value) + b); };
+  if (seo.網頁標題 && String(seo.網頁標題).trim() !== now.網頁標題) {
+    const t = String(seo.網頁標題).trim();
+    set(/(<title>)[^<]*(<\/title>)/, t);
+    set(/(<meta property="og:title" content=")[^"]*(">)/, t);
+  }
+  const line = v => String(v || '').trim().replace(/\s*\n\s*/g, ' ');
+  if (line(seo.搜尋說明) && line(seo.搜尋說明) !== now.搜尋說明) {
+    set(/(<meta name="description" content=")[^"]*(">)/, line(seo.搜尋說明));
+  }
+  const share = line(seo.分享說明) || line(seo.搜尋說明) || now.搜尋說明;
+  if (share !== (now.分享說明 || now.搜尋說明)) set(/(<meta property="og:description" content=")[^"]*(">)/, share);
+  return html;
+}
+
+/* The overview's card lists, edited on the same CMS page as its text. */
+const CARD_LISTS_YAML = `          - label: 多元劑型（卡片）
+            label_singular: 卡片
+            name: dosage
+            widget: list
+            summary: "{{fields.title}}"
+            hint: 首頁「可製作的劑型」也顯示這組卡片。
+            fields: &card
+              - { label: 標題, name: title, widget: string }
+              - { label: 英文小標, name: en, widget: string, required: false }
+              - { label: 說明, name: text, widget: string, required: false }
+              - { label: 圖片, name: image, widget: image }
+              - { label: 圖片說明, name: alt, widget: string, required: false, hint: 給看不到圖片的讀者；空白時使用標題。 }
+              - { label: 連結到, name: link, widget: select, required: false, options: *links, hint: 樣式頁或預先選好劑型的諮詢表單；空白則卡片不能點。新增的樣式頁約 2 分鐘後出現在選單。 }
+              - { label: 連結文字, name: more, widget: string, required: false, hint: 例如「查看樣式」；箭頭會自動加上。空白時依連結種類自動填。 }
+          - { label: 包材規劃（卡片）, label_singular: 卡片, name: package, widget: list, summary: "{{fields.title}}", fields: *card }
+          - { label: 成品包材（卡片）, label_singular: 卡片, name: finished, widget: list, summary: "{{fields.title}}", fields: *card }
+          - { label: 機能食品保健（卡片）, label_singular: 卡片, name: products, widget: list, summary: "{{fields.title}}", fields: *card }`;
+
+function pagesConfig(entries, indent) {
+  const seoField = { label: SEO, name: SEO, widget: 'object', collapsed: true, fields: [
+    { label: '網頁標題', name: '網頁標題', widget: 'string', hint: '瀏覽器分頁、搜尋結果與分享預覽的標題。' },
+    { label: '搜尋說明', name: '搜尋說明', widget: 'text', hint: '搜尋結果下方的說明，建議 80 字內。' },
+    { label: '分享說明', name: '分享說明', widget: 'text', required: false, hint: 'LINE、Facebook 分享預覽的說明；空白時與搜尋說明相同。' }
+  ] };
+  const lines = [];
+  for (const { page, html } of entries) {
+    lines.push(`- name: ${page.id}`, `  label: ${JSON.stringify(page.label)}`, `  file: content/pages/${page.id}.md`, '  format: frontmatter', '  fields:');
+    if (page.lists) lines.push(...CARD_LISTS_YAML.split('\n').map(l => l.slice(6)));
+    for (const f of [seoField, ...fields.cmsFields(html, path.posix.dirname(page.file))]) lines.push('    - ' + JSON.stringify(f));
+  }
+  return lines.map(l => indent + l).join('\n') + '\n' + indent;
+}
+
+/* ------------------------------------------------------------- settings */
+/* Company details shown in the footer of every page, on the contact page,
+   in the homepage's structured data and in the contact form's fallback
+   message. Kept in content/settings.md (網站設定 in the CMS). */
+function companyDetails() {
+  const s = matter(fs.readFileSync(path.join(ROOT, 'content', 'settings.md'), 'utf8')).data;
+  const phone = String(s.電話 || '').trim(), address = String(s.地址 || '').trim(), tagline = String(s.頁尾簡介 || '').trim();
+  if (!/^\+?\d[\d\s-]{6,}$/.test(phone)) throw new Error(`content/settings.md: 電話 "${phone}" is not a phone number`);
+  if (!address || !tagline) throw new Error('content/settings.md: 地址 and 頁尾簡介 are required');
+  const local = (phone.startsWith('+886') ? '0' + phone.replace(/^\+886[\s-]*/, '') : phone).replace(/\s+/g, '-');
+  const parts = address.match(/^(.{2}[市縣])(.{1,3}?[區鄉鎮市])(.+)$/);
+  return {
+    phone, address, tagline, local,
+    tel: (phone.startsWith('+') ? '+' : '') + phone.replace(/\D/g, ''),
+    intl: phone.replace(/\s+/g, '-'),
+    region: parts ? parts[1] : '', locality: parts ? parts[2] : '', street: parts ? parts[3].trim() : address
+  };
+}
+
+function applySettings(co) {
+  let changed = [];
+  const js = v => JSON.stringify(v).replace(/</g, '\\u003c');
+  // footer, on every page
+  const shell = { phone: esc(co.phone), tel: co.tel, address: esc(co.address), tagline: esc(co.tagline) };
+  if (fill('premium-shell.js', 'settings', `  var SITE = ${js(shell)};\n  `, 'js')) changed.push('premium-shell.js');
+  if (fill('premium-contact.js', 'phone', `  var PHONE = ${js(co.local)};\n  `, 'js')) changed.push('premium-contact.js');
+  // contact page
+  const cfile = path.join(ROOT, 'contact', 'index.html');
+  let c = fs.readFileSync(cfile, 'utf8');
+  const edits = [];
+  (function walk(n) {
+    const which = n.attrs && (n.attrs.match(/\sdata-cms-setting="([^"]+)"/) || [])[1];
+    if (which === '電話') edits.push([n.start, n.end, c.slice(n.start, n.openEnd).replace(/href="tel:[^"]*"/, `href="tel:${co.tel}"`) + esc(co.phone) + '</a>']);
+    else if (which === '地址') edits.push([n.openEnd, n.innerEnd, esc(co.address)]);
+    n.children.forEach(walk);
+  })(fields.parse(c));
+  const before = c;
+  for (const [s, e, r] of edits.sort((a, b) => b[0] - a[0])) c = c.slice(0, s) + r + c.slice(e);
+  if (c !== before) { fs.writeFileSync(cfile, c); changed.push('contact'); }
+  // homepage structured data
+  const hfile = path.join(ROOT, 'index.html');
+  const h = fs.readFileSync(hfile, 'utf8');
+  const ld = h.match(/(<script type="application\/ld\+json">)([^<]*)(<\/script>)/);
+  if (ld) {
+    const data = JSON.parse(ld[2]);
+    const next = JSON.parse(ld[2]);
+    next.telephone = co.intl;
+    if (next.address) Object.assign(next.address, { streetAddress: co.street, addressLocality: co.locality, addressRegion: co.region });
+    if (JSON.stringify(next) !== JSON.stringify(data)) {
+      fs.writeFileSync(hfile, h.replace(ld[0], ld[1] + js(next) + ld[3]));
+      changed.push('index.html');
+    }
+  }
+  return changed;
 }
 
 /* ----------------------------------------------------------------- run */
@@ -450,7 +592,45 @@ for (const [section, photo] of Object.entries(SECTIONS)) {
   const cards = (overview[section] || []).map(c => '        ' + overviewCard(c, photo, targets, section));
   overviewChanged = fill(OVERVIEW, 'catalogue-' + section, cards.join('\n') + '\n      ') || overviewChanged;
 }
+// the homepage shows the same dosage cards
+const homeFormats = (overview.dosage || []).map(c => '        ' + overviewCard(c, true, targets, 'dosage', '.'));
+overviewChanged = fill('index.html', 'home-formats', homeFormats.join('\n') + '\n        ') || overviewChanged;
 const indent = fs.readFileSync(path.join(ROOT, 'admin', 'config.yml'), 'utf8').match(/^( *)# cms:catalogue-links/m)[1];
-const optionsChanged = fill('admin/config.yml', 'catalogue-links', linkOptions(targets).map(o => indent + o).join('\n') + '\n' + indent, true);
+const optionsChanged = fill('admin/config.yml', 'catalogue-links', linkOptions(targets).map(o => indent + o).join('\n') + '\n' + indent, 'yaml');
 
 console.log(`catalogue: ${catalogue.length} pages (${catWritten} written, ${catRemoved} removed); overview ${overviewChanged ? 'updated' : 'unchanged'}; CMS link list ${optionsChanged ? 'updated' : 'unchanged'}`);
+
+// page text and images
+const pageOpts = dir => ({
+  pageDir: dir, site: SITE,
+  exists: p => fs.existsSync(path.join(ROOT, decodeURI(p).replace(/^\//, ''))),
+  imageSize: p => imageSize(path.join(ROOT, decodeURI(p).replace(/^\//, '')))
+});
+const pageEntries = [];
+let pagesWritten = 0, contentSynced = 0;
+for (const page of PAGES) {
+  const file = path.join(ROOT, page.file);
+  const dir = path.posix.dirname(page.file);
+  const cfile = path.join(ROOT, 'content', 'pages', page.id + '.md');
+  const stored = fs.existsSync(cfile) ? matter(fs.readFileSync(cfile, 'utf8')).data : {};
+  const src = fs.readFileSync(file, 'utf8');
+  let html = applySeo(src, stored[SEO]);
+  html = fields.applyFields(html, stored, pageOpts(dir));
+  if (html !== src) { fs.writeFileSync(file, html); pagesWritten++; }
+  /* The content file mirrors the page's fields: stored values where given,
+     the page's own text for anything new; fields no longer on the page go. */
+  const data = {};
+  for (const k of page.lists || []) data[k] = stored[k] || [];
+  Object.assign(data, { [SEO]: seoOf(html) }, fields.valuesOf(html, dir));
+  if (JSON.stringify(data) !== JSON.stringify(stored)) {
+    fs.mkdirSync(path.dirname(cfile), { recursive: true });
+    fs.writeFileSync(cfile, matter.stringify('', data, { lineWidth: -1 }));
+    contentSynced++;
+  }
+  pageEntries.push({ page, html });
+}
+const pagesIndent = fs.readFileSync(path.join(ROOT, 'admin', 'config.yml'), 'utf8').match(/^( *)# cms:pages/m)[1];
+const pagesConfigChanged = fill('admin/config.yml', 'pages', pagesConfig(pageEntries, pagesIndent), 'yaml');
+const settingsChanged = applySettings(companyDetails());
+
+console.log(`pages: ${PAGES.length} (${pagesWritten} written, ${contentSynced} content files synced); CMS page forms ${pagesConfigChanged ? 'updated' : 'unchanged'}; settings ${settingsChanged.length ? 'applied to ' + settingsChanged.join(', ') : 'unchanged'}`);

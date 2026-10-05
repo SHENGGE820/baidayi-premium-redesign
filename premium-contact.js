@@ -68,8 +68,13 @@
     }
   });
 
+  // the company phone, from content/settings.md via scripts/build-site.js
+  // cms:phone
+  var PHONE = "02-8521-9269";
+  // /cms:phone
+
   form.addEventListener('submit', function () {
     // A cross-origin page owns delivery confirmation; a timer cannot verify it.
-    status.textContent = '已嘗試開啟 Google 表單確認頁，請以新分頁顯示的結果為準。若未開啟或顯示錯誤，請重新送出，或來電 02-8521-9269。';
+    status.textContent = '已嘗試開啟 Google 表單確認頁，請以新分頁顯示的結果為準。若未開啟或顯示錯誤，請重新送出，或來電 ' + PHONE + '。';
   });
 })();

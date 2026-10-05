@@ -5,6 +5,13 @@
   var root = body.dataset.root || './';
   var active = body.dataset.active || '';
 
+  /* Company details from content/settings.md (網站設定 in the CMS);
+     scripts/build-site.js rewrites the line between the markers, with the
+     values already HTML-escaped. */
+  // cms:settings
+  var SITE = {"phone":"+886 2 8521 9269","tel":"+886285219269","address":"新北市新莊區新北大道四段 187 號 15 樓","tagline":"保健食品 ODM／OEM 代工：配方、劑型、包裝到量產。"};
+  // /cms:settings
+
   function url(path) {
     return root + path;
   }
@@ -57,15 +64,15 @@
         '<div class="container footer-main">' +
           '<div class="footer-brand">' +
             '<img src="' + url('wp-content/uploads/2025/09/BKE-logo-new.png') + '" width="320" height="99" alt="BKE 百達醫">' +
-            '<p>保健食品 ODM／OEM 代工：配方、劑型、包裝到量產。</p>' +
+            '<p>' + SITE.tagline + '</p>' +
           '</div>' +
           '<div class="footer-nav">' +
             '<div><strong>能做什麼</strong><a href="' + url('全面性服務/劑型與包材/index.html') + '">劑型與包材</a><a href="' + url('全面性服務/功能配方/index.html') + '">依保健方向找配方</a><a href="' + url('全面性服務/一站式服務/index.html') + '">合作流程</a></div>' +
             '<div><strong>關於百達醫</strong><a href="' + url('認識百達醫/關於百達醫/index.html') + '">關於我們</a><a href="' + url('研發科技/index.html') + '">品質與認證</a><a href="' + url('認識百達醫/綠色永續/index.html') + '">綠色永續</a><a href="' + url('最新消息/index.html') + '">最新消息</a></div>' +
-            '<div><strong>聯絡</strong><a href="tel:+886285219269">+886 2 8521 9269</a><a href="' + url('contact/index.html') + '">代工諮詢</a></div>' +
+            '<div><strong>聯絡</strong><a href="tel:' + SITE.tel + '">' + SITE.phone + '</a><a href="' + url('contact/index.html') + '">代工諮詢</a></div>' +
           '</div>' +
         '</div>' +
-        '<div class="container footer-bottom"><span>© 2026 BAIDAYI ENTERPRISE CO., LTD.</span><span>新北市新莊區新北大道四段 187 號 15 樓</span></div>' +
+        '<div class="container footer-bottom"><span>© 2026 BAIDAYI ENTERPRISE CO., LTD.</span><span>' + SITE.address + '</span></div>' +
       '</footer>' +
       '<a class="floating-consult" href="' + url('contact/index.html') + '" aria-label="代工諮詢"><span>代工<br>諮詢</span><i aria-hidden="true">↗</i></a>';
   }
