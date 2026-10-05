@@ -1,0 +1,80 @@
+# Sveltia CMS configuration — https://sveltiacms.app/en/docs
+# Every save is a commit to the repository; .github/workflows/deploy.yml then
+# runs scripts/build-site.js and publishes the site (about 1–2 minutes).
+
+backend:
+  name: github
+  repo: SHENGGE820/baidayi-premium-redesign
+  branch: main
+  # base_url: https://<authenticator>.workers.dev   # OAuth sign-in, once set up
+  commit_messages:
+    create: "內容：新增 {{collection}}「{{slug}}」"
+    update: "內容：更新 {{collection}}「{{slug}}」"
+    delete: "內容：刪除 {{collection}}「{{slug}}」"
+    uploadMedia: "內容：上傳 {{path}}"
+    deleteMedia: "內容：刪除 {{path}}"
+
+site_url: https://shengge820.github.io/baidayi-premium-redesign/
+display_url: https://shengge820.github.io/baidayi-premium-redesign/
+logo_url: https://shengge820.github.io/baidayi-premium-redesign/wp-content/uploads/2025/09/BKE-favicon.png
+
+# Uploads land here and are referenced as /assets/uploads/…; the build turns
+# that into the right relative path for each page.
+media_folder: assets/uploads
+public_folder: /assets/uploads
+
+media_libraries:
+  default:
+    config:
+      max_file_size: 30000000 # 30MB, enough for a short MP4
+      # Photos are converted to WebP and capped at 1600px in the browser before
+      # upload, so a phone photo never lands on the site at 4–8MB.
+      transformations:
+        raster_image:
+          format: webp
+          quality: 82
+          width: 1600
+          height: 1600
+
+collections:
+  - name: articles
+    label: 最新消息
+    label_singular: 文章
+    description: 文章儲存後約 1–2 分鐘出現在網站的「最新消息」；勾選「顯示在首頁」的文章會出現在首頁。
+    folder: content/articles
+    extension: md
+    format: frontmatter
+    create: true
+    delete: true
+    # The file name is the page's URL. Date first keeps new posts from ever
+    # colliding with an existing page folder.
+    slug: "{{year}}-{{month}}-{{day}}-{{title}}"
+    summary: "{{date}}｜{{category}}｜{{title}}"
+    sortable_fields: [date, title, category]
+    view_filters:
+      - { label: 品牌動態, field: category, pattern: 品牌動態 }
+      - { label: 市場趨勢, field: category, pattern: 市場趨勢 }
+      - { label: 配方研發, field: category, pattern: 配方研發 }
+    fields:
+      - { label: 標題, name: title, widget: string }
+      - { label: 發布時間, name: date, widget: datetime, hint: 列表依這個時間由新到舊排序。 }
+      - label: 分類
+        name: category
+        widget: select
+        options: [市場趨勢, 配方研發, 製造觀點, 供應觀察, 品牌動態]
+        hint: 選「品牌動態」的文章會歸在列表的「品牌動態」篩選；其他歸在「市場趨勢」。
+      - { label: 摘要, name: summary, widget: text, required: false, hint: 顯示在列表卡片、文章標題下方與分享預覽，建議 40 字內。 }
+      - { label: 封面圖, name: cover, widget: image, hint: 列表卡片與首頁用，建議方形（1:1）。 }
+      - { label: 封面圖說明, name: cover_alt, widget: string, required: false, hint: 給看不到圖片的讀者（例如螢幕閱讀器）；空白時使用標題。 }
+      - { label: 文章主圖, name: hero, widget: image, required: false, hint: 文章開頭的橫幅圖，建議橫式（約 2:1）；也會用作分享預覽圖。 }
+      - { label: 主圖說明, name: hero_alt, widget: string, required: false }
+      - { label: 橫式影片（電腦版）, name: video_landscape, widget: file, required: false, hint: MP4。和直式影片都有時，電腦顯示橫式、手機顯示直式。 }
+      - { label: 直式影片（手機版）, name: video_portrait, widget: file, required: false, hint: MP4，9:16。 }
+      - { label: 影片嵌入網址, name: video_embed, widget: string, required: false, hint: Vimeo 或 YouTube 的嵌入網址；文章沒有內文時，影片會放大置頂。 }
+      - { label: 顯示在首頁, name: home, widget: boolean, default: false, hint: 首頁顯示 3 篇；勾選不足 3 篇時，以最新的非品牌動態文章補足。 }
+      - { label: 內文, name: body, widget: markdown, required: false }
+      - label: 舊版內文（HTML）
+        name: body_html
+        widget: text
+        required: false
+        hint: 從舊網站搬過來的文章才有這欄，請小心修改；新文章請留空，使用上方「內文」。

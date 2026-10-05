@@ -14,6 +14,10 @@
  *   opaque      -> JPEG q82   (universal support)
  *   transparent -> WebP q82   (keeps alpha, far smaller than PNG)
  *
+ * Articles live in content/articles/*.md and their pages are rebuilt from
+ * there, so references are read from and rewritten in those files too —
+ * otherwise the next build would point the pages back at the originals.
+ *
  * Originals are left on disk. They stop being referenced, so they cost
  * nothing at page load; deleting them is a separate decision.
  *
@@ -42,6 +46,11 @@ function walkPages(dir, out = []) {
   }
   return out;
 }
+
+const contentFiles = (dir = 'content') => !fs.existsSync(dir) ? [] :
+  fs.readdirSync(dir, { withFileTypes: true }).flatMap(e => e.isDirectory()
+    ? contentFiles(path.join(dir, e.name))
+    : e.name.endsWith('.md') ? [path.join(dir, e.name)] : []);
 
 /* Composite over two very different backgrounds; identical output means the
    alpha channel carries nothing and the image is safe to flatten. */
@@ -74,6 +83,13 @@ for (const page of walkPages('.')) {
     refs.get(rel).add(page);
   }
 }
+for (const file of contentFiles()) {
+  for (const m of fs.readFileSync(file, 'utf8').matchAll(/\/(wp-content\/[^"'\s)]+\.(?:png|jpe?g))/gi)) {
+    const rel = decodeURIComponent(m[1]);
+    if (!refs.has(rel)) refs.set(rel, new Set());
+    refs.get(rel).add(file);
+  }
+}
 
 const jobs = [];
 for (const [rel, pages] of refs) {
@@ -94,6 +110,9 @@ for (const job of jobs) {
   const ext = alpha ? '.webp' : '.jpg';
   const out = job.rel.replace(/\.(png|jpe?g)$/i, ext);
   before += job.bytes;
+  // already a JPEG (often this script's own output): ffmpeg cannot write over
+  // its input, and a second lossy pass would only cost quality
+  if (out === job.rel) { after += job.bytes; continue; }
 
   if (!WRITE) {
     console.log(`  ${String(Math.round(job.bytes / 1024)).padStart(5)}KB  ${alpha ? 'webp' : 'jpg '}  ${path.basename(job.rel).slice(0, 40)}`);
@@ -119,7 +138,7 @@ for (const job of jobs) {
 
 if (WRITE && rename.size) {
   let touched = 0;
-  for (const page of walkPages('.')) {
+  for (const page of [...walkPages('.'), ...contentFiles()]) {
     let html = fs.readFileSync(page, 'utf8'), orig = html;
     for (const [from, to] of rename) {
       const fromName = path.basename(from), toName = path.basename(to);

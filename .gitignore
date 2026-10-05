@@ -10,3 +10,6 @@ node_modules/
 # DeepSec scan artefacts
 .deepsec-report.json
 .deepsec-scan/
+
+# Pages build output (CI)
+_site/

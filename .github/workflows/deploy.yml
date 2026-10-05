@@ -1,0 +1,75 @@
+# Builds the site from content/ and publishes it to GitHub Pages.
+#
+# Runs on every push to main — whether from a developer or from a save in
+# the CMS at /admin. The generated pages are committed back, so the
+# repository always matches what is live, and then deployed. A broken link
+# fails the run before anything is published.
+#
+# Requires Pages to be set to "GitHub Actions" (Settings → Pages → Source).
+name: Build and deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build pages from content/
+        run: node scripts/build-site.js
+
+      - name: Poster frames for newly uploaded videos
+        run: |
+          command -v ffmpeg >/dev/null || (sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg)
+          node scripts/add-video-posters.js --write
+
+      - name: Check every link and asset resolves
+        run: node scripts/check-links.js
+
+      - name: Commit generated pages
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add -A
+            git commit -q -m "建置：依內容更新頁面 [skip ci]"
+            git pull -q --rebase
+            git push -q
+          fi
+
+      - name: Stage the public site
+        run: |
+          rsync -a --delete \
+            --exclude .git --exclude .github --exclude _site --exclude node_modules \
+            --exclude scripts --exclude content --exclude 'package*.json' \
+            ./ _site/
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4
