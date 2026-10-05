@@ -126,9 +126,11 @@ function cleanBody(html) {
     let body = cleanBody(html);
 
     // download everything the body references, plus the featured image
+    // (unless a refresh keeps the cover already chosen here)
+    const existing = fs.existsSync(fileFor(p)) ? matter.read(fileFor(p)).data : null;
     const wanted = new Set([...body.matchAll(/\/wp-content\/uploads\/([^"'\s),?]+\.(?:jpe?g|png|webp|gif|mp4))/gi)].map(m => decode(m[1])));
     let cover = '';
-    if (p.featured_media) {
+    if (p.featured_media && !(REFRESH && existing)) {
       const media = JSON.parse(await get(`${ORIGIN}/wp-json/wp/v2/media/${p.featured_media}?_fields=source_url`));
       cover = decode(media.source_url.split('/wp-content/uploads/')[1]);
       wanted.add(cover);
@@ -163,7 +165,6 @@ function cleanBody(html) {
     const iframe = (body.match(/<iframe[^>]*src="([^"]+)"/i) || [])[1];
     const names = p.categories.map(catName);
 
-    const existing = fs.existsSync(fileFor(p)) ? matter.read(fileFor(p)).data : null;
     const data = existing && REFRESH ? { ...existing } : {
       title: plain(p.title.rendered),
       date: p.date.slice(0, 16),
