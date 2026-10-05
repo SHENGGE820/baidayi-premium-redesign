@@ -23,6 +23,10 @@ logo_url: https://shengge820.github.io/baidayi-premium-redesign/wp-content/uploa
 media_folder: assets/uploads
 public_folder: /assets/uploads
 
+# Leave blank optional fields out of the saved files instead of writing "".
+output:
+  omit_empty_optional_fields: true
+
 media_libraries:
   default:
     config:
@@ -78,3 +82,122 @@ collections:
         widget: text
         required: false
         hint: 從舊網站搬過來的文章才有這欄，請小心修改；新文章請留空，使用上方「內文」。
+
+  - name: catalogue
+    label: 劑型與包材
+    label_singular: 樣式頁
+    description: 每種劑型或包材各一頁，列出可選的樣式與尺寸。新增的頁面要到「頁面 › 劑型與包材總覽」放一張卡片連過去，訪客才找得到。
+    folder: content/catalogue
+    # Style shots live with the rest of the original site's uploads; pointing
+    # the media folder there lets the editor show their thumbnails, and new
+    # ones land beside them.
+    media_folder: /wp-content/uploads
+    public_folder: /wp-content/uploads
+    extension: md
+    format: frontmatter
+    create: true
+    # Other pages link to these by URL (the homepage, the capsule chooser), so
+    # removing one takes a developer; take its card off the overview instead.
+    delete: false
+    # The file name becomes the page's URL and does not change afterwards.
+    slug: "{{title}}"
+    summary: "{{title}}　{{title_en}}"
+    sortable_fields: [title]
+    fields:
+      - { label: 名稱, name: title, widget: string, hint: 頁面大標題，例如「錠劑」。新增時也會成為網址，之後改名稱網址不會變。 }
+      - { label: 英文標題, name: title_en, widget: string, required: false, hint: 顯示在大標題上方，例如 TABLETS。 }
+      - { label: 適用劑型／簡述, name: lead, widget: string, required: false, hint: 顯示在大標題下方，例如「適用劑型 – 粉劑」；也會用在搜尋結果的說明。 }
+      - { label: 頁首背景圖, name: hero, widget: image, required: false, media_folder: /assets/brand, public_folder: /assets/brand, hint: 橫式照片；空白時使用包裝產線照片。 }
+      - label: 樣式分組
+        label_singular: 分組
+        name: groups
+        widget: list
+        summary: "{{fields.name}}　{{fields.en}}"
+        fields:
+          - { label: 分組名稱, name: name, widget: string, required: false, hint: 例如「圓型」「瓶身」。 }
+          - { label: 英文分組名, name: en, widget: string, required: false, hint: 例如 ROUND。 }
+          - label: 樣式
+            label_singular: 樣式
+            name: items
+            widget: list
+            summary: "{{fields.caption}}"
+            fields:
+              - { label: 圖片, name: image, widget: image, hint: 去背的 PNG 最好，訪客可以把這個樣式加入詢價清單。 }
+              - { label: 說明, name: caption, widget: string, required: false, hint: 尺寸或型號，例如「圓型 8mm」；空白則不顯示說明。 }
+      - label: 頁尾諮詢區塊
+        name: cta
+        widget: object
+        required: false
+        collapsed: true
+        hint: 頁面最下方的「我們接著談規格」區塊。各欄空白時使用包材的通用文字。
+        fields:
+          - { label: 標題, name: title, widget: text, required: false, hint: 換行會照樣換行，例如「選好劑型，」換行「我們接著談規格。」 }
+          - { label: 說明, name: text, widget: text, required: false }
+          - { label: 按鈕文字, name: button, widget: string, required: false, hint: 例如「討論錠劑開發」。 }
+          - label: 按鈕連到
+            name: link
+            widget: select
+            required: false
+            hint: 空白時連到一般的諮詢表單。
+            options: &links
+              # The build rewrites this list from content/catalogue and
+              # premium-contact.js; edits between the markers are lost.
+              # cms:catalogue-links
+              - { label: "樣式頁｜PE塑膠瓶", value: "page:pe塑膠瓶" }
+              - { label: "樣式頁｜動物膠囊", value: "page:動物膠囊" }
+              - { label: "樣式頁｜飲品口栓袋", value: "page:口栓袋" }
+              - { label: "樣式頁｜夾鏈鋁袋", value: "page:夾鏈鋁袋" }
+              - { label: "樣式頁｜折角鋁袋", value: "page:折角鋁袋" }
+              - { label: "樣式頁｜排裝（片裝）", value: "page:排裝" }
+              - { label: "樣式頁｜果凍條鋁袋", value: "page:果凍" }
+              - { label: "樣式頁｜植物膠囊", value: "page:植物膠囊" }
+              - { label: "樣式頁｜飲品玻璃瓶", value: "page:玻璃瓶" }
+              - { label: "樣式頁｜飲品異型袋", value: "page:異型袋" }
+              - { label: "樣式頁｜粉末鋁袋", value: "page:粉末鋁包" }
+              - { label: "樣式頁｜錠劑", value: "page:錠劑" }
+              - { label: "樣式頁｜動／植物膠囊", value: "page:多元劑型-膠囊" }
+              - { label: "諮詢表單｜機能餅乾", value: "contact:biscuit" }
+              - { label: "諮詢表單｜搖搖隨身袋", value: "contact:shaker" }
+              - { label: "諮詢表單｜糖果劑型", value: "contact:candy" }
+              - { label: "諮詢表單｜動／植物膠囊", value: "contact:capsule" }
+              - { label: "諮詢表單｜錠狀顆粒", value: "contact:tablet" }
+              - { label: "諮詢表單｜粉末食品", value: "contact:powder" }
+              - { label: "諮詢表單｜營養代餐", value: "contact:meal" }
+              - { label: "諮詢表單｜果凍／茶包", value: "contact:jelly-tea" }
+              - { label: "諮詢表單｜包裝外盒", value: "contact:box" }
+              # /cms:catalogue-links
+
+  - name: pages
+    label: 頁面
+    label_singular: 頁面
+    # card images are the brand set in assets/brand
+    media_folder: /assets/brand
+    public_folder: /assets/brand
+    description: 「劑型與包材總覽」是劑型與包材頁上的四組卡片：拖曳可調整順序，刪除卡片只會把它從總覽拿掉，不會刪掉樣式頁。
+    files:
+      - name: catalogue
+        label: 劑型與包材總覽
+        file: content/pages/catalogue.md
+        format: frontmatter
+        fields:
+          - label: 多元劑型
+            label_singular: 卡片
+            name: dosage
+            widget: list
+            summary: "{{fields.title}}"
+            fields: &card
+              - { label: 標題, name: title, widget: string }
+              - { label: 英文小標, name: en, widget: string, required: false }
+              - { label: 說明, name: text, widget: string, required: false }
+              - { label: 圖片, name: image, widget: image }
+              - { label: 圖片說明, name: alt, widget: string, required: false, hint: 給看不到圖片的讀者；空白時使用標題。 }
+              - label: 連結到
+                name: link
+                widget: select
+                required: false
+                hint: 樣式頁或預先選好劑型的諮詢表單；空白則卡片不能點。新增的樣式頁約 2 分鐘後出現在選單。
+                options: *links
+              - { label: 連結文字, name: more, widget: string, required: false, hint: 例如「查看樣式」；箭頭會自動加上。空白時依連結種類自動填。 }
+          - { label: 包材規劃, label_singular: 卡片, name: package, widget: list, summary: "{{fields.title}}", fields: *card }
+          - { label: 成品包材, label_singular: 卡片, name: finished, widget: list, summary: "{{fields.title}}", fields: *card }
+          - { label: 機能食品保健, label_singular: 卡片, name: products, widget: list, summary: "{{fields.title}}", fields: *card }

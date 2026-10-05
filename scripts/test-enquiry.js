@@ -88,9 +88,12 @@ test('submit directs customers to the actual confirmation, not a guessed success
   assert.doesNotMatch(view.status.textContent, /謝謝你的詢問|已成功送出/);
 });
 
-test('all eight dosage cards have a next step and reading anchors resolve', () => {
+test('every dosage card has a next step and reading anchors resolve', () => {
   const catalogue = fs.readFileSync(path.join(root, '全面性服務/劑型與包材/index.html'), 'utf8');
   const dosage = catalogue.split('id="dosage"')[1].split('</section>')[0];
-  assert.equal((dosage.match(/<a class="catalogue-card reveal"/g) || []).length, 8);
+  // the cards are edited in the CMS, so the count can change; none may be a dead end
+  const cards = dosage.match(/<(?:a|div) class="catalogue-card reveal"/g) || [];
+  assert.ok(cards.length > 0);
+  assert.ok(cards.every(c => c.startsWith('<a ')), 'a dosage card has no link');
   for (const match of catalogue.matchAll(/href="#([^"]+)"/g)) assert.ok(catalogue.includes('id="' + match[1] + '"'));
 });

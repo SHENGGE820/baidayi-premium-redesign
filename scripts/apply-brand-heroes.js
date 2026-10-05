@@ -1,8 +1,9 @@
 /* Points each page's hero, and its og:image, at the client's own imagery.
  *
- * The map lives in scripts/brand-heroes.json (shared with
- * build-format-pages.js). Only the image path changes; the markup around it is
- * left alone. Idempotent — a second run reports nothing to change.
+ * The map lives in scripts/brand-heroes.json. Only the image path changes;
+ * the markup around it is left alone. Idempotent — a second run reports
+ * nothing to change. The 劑型與包材 styles pages are not in the map: their
+ * hero comes from content/catalogue, through scripts/build-site.js.
  *
  *   node scripts/apply-brand-heroes.js          report
  *   node scripts/apply-brand-heroes.js --write  apply
