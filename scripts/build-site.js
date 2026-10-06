@@ -3,11 +3,13 @@
  *
  *   content/articles/<slug>.md   →  <slug>/index.html (one page per post)
  *                                    最新消息/index.html (the card grid)
+ *                                    index.html (the homepage's three posts)
  *   content/catalogue/<name>.md  →  全面性服務/一站式服務/<name>/index.html
  *                                    (one styles page per dosage form or
  *                                    package type)
  *   content/pages/catalogue.md   →  全面性服務/劑型與包材/index.html (the
- *                                    overview's card grids)
+ *                                    overview's card grids, and the
+ *                                    homepage's row of dosage forms)
  *   content/functions/<slug>.md  →  全面性服務/功能配方/<slug>/index.html and
  *                                    that direction's card on the overview
  *   content/pages/<id>.md        →  the text and images tagged data-cms on
@@ -197,6 +199,36 @@ ${articleMain(a)}
 </body>
 </html>
 `;
+}
+
+/* ------------------------------------------------------------- homepage */
+function homeCard(a, featured) {
+  const ind = '          ';
+  return `<a class="insight-card${featured ? ' insight-card-featured' : ''} reveal" href="./${a.slug}/index.html">
+${ind}  <div class="insight-image"><img src="${esc(rel(a.cover, './'))}" alt="${esc(a.title)}" loading="lazy"></div>
+${ind}  <div class="insight-copy"><span>${esc(a.category)}</span><h3>${esc(a.title)}</h3>${featured && a.summary ? `<p>${esc(a.summary)}</p>` : ''}<time datetime="${a.date}">${dots(a.date)}</time></div>
+${ind}</a>`;
+}
+
+/* Posts flagged for the homepage come first; if fewer than three are, the
+   newest non-event posts fill the rest. */
+function homePicks(posts) {
+  const picks = posts.filter(p => p.home).slice(0, 3);
+  for (const p of posts) {
+    if (picks.length >= 3) break;
+    if (!picks.includes(p) && p.group !== 'event') picks.push(p);
+  }
+  return picks;
+}
+
+/* One dosage form on the homepage: the overview's card reduced to its photo
+   and name, linking where the overview card links. */
+function homeFormatCard(c, targets) {
+  const link = c.link ? resolveLink(c.link, '.', targets, `content/pages/catalogue.md: "${c.title}" in dosage`) : null;
+  const img = responsiveImg(c.image, './');
+  const inner = `<span class="home-format-media"><img src="${img.src}"${img.srcset}${img.srcset ? ' sizes="(max-width: 720px) 50vw, (max-width: 1100px) 25vw, 290px"' : ''} alt="${esc(c.alt || c.title)}"${img.dims} loading="lazy"></span>` +
+    `<span class="home-format-name">${esc(c.title)}${link ? `<i aria-hidden="true">${link.kind === 'contact' ? '↗' : '→'}</i>` : ''}</span>`;
+  return link ? `<a class="home-format reveal" href="${esc(link.href)}">${inner}</a>` : `<div class="home-format reveal">${inner}</div>`;
 }
 
 /* ------------------------------------------------------------- listing */
@@ -712,7 +744,9 @@ for (const e of fs.readdirSync(ROOT, { withFileTypes: true })) {
 }
 
 const listingChanged = fill('最新消息/index.html', 'article-cards', posts.map(a => '      ' + listingCard(a)).join('\n') + '\n      ');
-console.log(`articles: ${posts.length} (${written} written, ${removed} removed); listing ${listingChanged ? 'updated' : 'unchanged'}`);
+const homeChanged = fill('index.html', 'home-articles', homePicks(posts).map((a, i) => '          ' + homeCard(a, i === 0)).join('\n') + '\n          ');
+
+console.log(`articles: ${posts.length} (${written} written, ${removed} removed); listing ${listingChanged ? 'updated' : 'unchanged'}; homepage ${homeChanged ? 'updated' : 'unchanged'}`);
 
 const catalogue = loadCatalogue();
 const targets = linkTargets(catalogue);
@@ -765,6 +799,9 @@ for (const c of directions) {
   if (fill(`${FN_DIR}/index.html`, 'function-' + c.slug, '        ' + functionCard(c) + '\n        ')) fnCards++;
 }
 console.log(`functions: ${directions.length} pages (${fnWritten} written); overview cards ${fnCards ? fnCards + ' updated' : 'unchanged'}`);
+// the homepage's row of dosage forms
+overviewChanged = fill('index.html', 'home-formats', (overview.dosage || []).map(c => '          ' + homeFormatCard(c, targets)).join('\n') + '\n        ') || overviewChanged;
+
 const ingredientIndex = INGREDIENT_CATEGORIES.map((slug, index) => {
   const category = directions.find(c => c.slug === slug);
   if (!category) throw new Error(`Ingredient library category "${slug}" is missing from content/functions/`);
