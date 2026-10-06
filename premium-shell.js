@@ -29,7 +29,7 @@
        those under "解決方案" behind a three-way choice whose options
        overlapped, and its "start from your stage" links all led to the same
        form. */
-    var nav = navLink('capability', '能做什麼', '全面性服務/劑型與包材/index.html') +
+    var nav = navLink('capability', '能做什麼', '全面性服務/index.html') +
       navLink('process', '合作流程', '全面性服務/一站式服務/index.html') +
       navLink('quality', '品質與認證', '研發科技/index.html') +
       navLink('about', '關於我們', '認識百達醫/關於百達醫/index.html') +
@@ -67,7 +67,7 @@
             '<p>' + SITE.tagline + '</p>' +
           '</div>' +
           '<div class="footer-nav">' +
-            '<div><strong>能做什麼</strong><a href="' + url('全面性服務/劑型與包材/index.html') + '">劑型與包材</a><a href="' + url('全面性服務/功能配方/index.html') + '">依保健方向找配方</a><a href="' + url('全面性服務/一站式服務/index.html') + '">合作流程</a></div>' +
+            '<div><strong>能做什麼</strong><a href="' + url('全面性服務/index.html') + '">一站式服務</a><a href="' + url('全面性服務/原料成分/index.html') + '">原料成分</a><a href="' + url('全面性服務/功能配方/index.html') + '">功能配方</a><a href="' + url('全面性服務/劑型與包材/index.html') + '">劑型與包材</a><a href="' + url('全面性服務/機能食品保健/index.html') + '">機能食品保健</a></div>' +
             '<div><strong>關於百達醫</strong><a href="' + url('認識百達醫/關於百達醫/index.html') + '">關於我們</a><a href="' + url('研發科技/index.html') + '">品質與認證</a><a href="' + url('認識百達醫/綠色永續/index.html') + '">綠色永續</a><a href="' + url('最新消息/index.html') + '">最新消息</a></div>' +
             '<div><strong>聯絡</strong><a href="tel:' + SITE.tel + '">' + SITE.phone + '</a><a href="' + url('contact/index.html') + '">代工諮詢</a></div>' +
           '</div>' +

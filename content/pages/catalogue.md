@@ -113,15 +113,23 @@ products:
   - title: 新陳代謝
     en: METABOLIC HEALTH
     image: /assets/brand/function-metabolism.jpg
+    link: 'products:metabolism'
+    more: 查看商品
   - title: 體質調整
     en: PHYSICAL ADJUSTMENT
     image: /assets/brand/function-balance.jpg
+    link: 'products:balance'
+    more: 查看商品
   - title: 女性保健
     en: WOMEN’S HEALTH
     image: /assets/brand/function-women.jpg
+    link: 'products:women'
+    more: 查看商品
   - title: 銀髮保健
     en: ELDERLY HEALTH
     image: /assets/brand/function-elderly.jpg
+    link: 'products:elderly'
+    more: 查看商品
 搜尋與分享:
   網頁標題: 劑型與包材總覽｜百達醫 BKE 保健食品 ODM・OEM
   搜尋說明: 機能餅乾、搖搖隨身袋、糖果劑型、動植物膠囊、錠狀顆粒、粉末食品、營養代餐與果凍茶包，搭配鋁袋、瓶器、排裝與外盒等包材選擇，每一種都可查看實際樣式與適用劑型。
@@ -145,8 +153,8 @@ products:
 機能食品保健:
   英文小標: HEALTH CARE PRODUCTS
   標題: 機能食品保健
-  說明: 已經成形的產品類型，可以直接作為討論的起點，再依品牌需求調整配方、劑型與包裝。
-  說明2: 官網資料僅供參考，實際可行規格、容量與交期請洽百達醫專案顧問。
+  說明: 從現成商品開始，了解品牌貼牌的合作方式。選擇下方分類，前往獨立商品頁查看品項、成分與包裝規格。
+  說明2: 商品頁目前為版面示意；實際可供品項、成分、規格與貼牌條件待確認。
 接著可以看:
   英文小標: RELATED
   標題: 接著可以看

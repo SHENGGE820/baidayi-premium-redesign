@@ -44,7 +44,7 @@ collections:
   - name: articles
     label: 最新消息
     label_singular: 文章
-    description: 文章儲存後約 1–2 分鐘出現在網站的「最新消息」；勾選「顯示在首頁」的文章會出現在首頁。
+    description: 文章儲存後約 1–2 分鐘出現在網站的「最新消息」。首頁目前採用企業形象版面。
     folder: content/articles
     extension: md
     format: frontmatter
@@ -75,7 +75,7 @@ collections:
       - { label: 橫式影片（電腦版）, name: video_landscape, widget: file, required: false, hint: MP4。和直式影片都有時，電腦顯示橫式、手機顯示直式。 }
       - { label: 直式影片（手機版）, name: video_portrait, widget: file, required: false, hint: MP4，9:16。 }
       - { label: 影片嵌入網址, name: video_embed, widget: string, required: false, hint: Vimeo 或 YouTube 的嵌入網址；文章沒有內文時，影片會放大置頂。 }
-      - { label: 顯示在首頁, name: home, widget: boolean, default: false, hint: 首頁顯示 3 篇；勾選不足 3 篇時，以最新的非品牌動態文章補足。 }
+      - { label: 舊版首頁精選（保留欄位）, name: home, widget: boolean, default: false, hint: 目前首頁不顯示文章，此欄位保留既有資料。 }
       - { label: 內文, name: body, widget: markdown, required: false }
       - label: 舊版內文（HTML）
         name: body_html
@@ -165,6 +165,11 @@ collections:
               - { label: "諮詢表單｜營養代餐", value: "contact:meal" }
               - { label: "諮詢表單｜果凍／茶包", value: "contact:jelly-tea" }
               - { label: "諮詢表單｜包裝外盒", value: "contact:box" }
+              - { label: "機能食品保健｜全部商品", value: "products:all" }
+              - { label: "機能食品保健｜新陳代謝", value: "products:metabolism" }
+              - { label: "機能食品保健｜體質調整", value: "products:balance" }
+              - { label: "機能食品保健｜女性保健", value: "products:women" }
+              - { label: "機能食品保健｜銀髮保健", value: "products:elderly" }
               # /cms:catalogue-links
 
   - name: functions
@@ -219,13 +224,10 @@ collections:
         format: frontmatter
         fields:
           - {"label":"搜尋與分享","name":"搜尋與分享","widget":"object","collapsed":true,"fields":[{"label":"網頁標題","name":"網頁標題","widget":"string","hint":"瀏覽器分頁、搜尋結果與分享預覽的標題。"},{"label":"搜尋說明","name":"搜尋說明","widget":"text","hint":"搜尋結果下方的說明，建議 80 字內。"},{"label":"分享說明","name":"分享說明","widget":"text","required":false,"hint":"LINE、Facebook 分享預覽的說明；空白時與搜尋說明相同。"}]}
-          - {"label":"主視覺","name":"主視覺","widget":"object","collapsed":true,"fields":[{"label":"小標","name":"小標","widget":"string"},{"label":"標題","name":"標題","widget":"text","hint":"換行會照樣換行。"},{"label":"說明","name":"說明","widget":"text"},{"label":"連結文字","name":"連結文字","widget":"string"},{"label":"連結文字2","name":"連結文字2","widget":"string"}]}
-          - {"label":"百達醫概況","name":"百達醫概況","widget":"object","collapsed":true,"fields":[{"label":"數據1｜說明","name":"數據1｜說明","widget":"string"},{"label":"數據2｜說明","name":"數據2｜說明","widget":"string"},{"label":"數據3｜說明","name":"數據3｜說明","widget":"string"},{"label":"數據4｜說明","name":"數據4｜說明","widget":"string"}]}
-          - {"label":"可製作的劑型","name":"可製作的劑型","widget":"object","collapsed":true,"fields":[{"label":"英文小標","name":"英文小標","widget":"string"},{"label":"標題","name":"標題","widget":"text"},{"label":"說明","name":"說明","widget":"text"},{"label":"連結文字","name":"連結文字","widget":"string"}]}
-          - {"label":"合作流程","name":"合作流程","widget":"object","collapsed":true,"fields":[{"label":"英文小標","name":"英文小標","widget":"string"},{"label":"標題","name":"標題","widget":"text"},{"label":"說明","name":"說明","widget":"text"},{"label":"連結文字","name":"連結文字","widget":"string"},{"label":"步驟1｜標題","name":"步驟1｜標題","widget":"string"},{"label":"步驟1｜小字","name":"步驟1｜小字","widget":"text"},{"label":"步驟2｜標題","name":"步驟2｜標題","widget":"string"},{"label":"步驟2｜小字","name":"步驟2｜小字","widget":"text"},{"label":"步驟3｜標題","name":"步驟3｜標題","widget":"string"},{"label":"步驟3｜小字","name":"步驟3｜小字","widget":"text"},{"label":"步驟4｜標題","name":"步驟4｜標題","widget":"string"},{"label":"步驟4｜小字","name":"步驟4｜小字","widget":"text"},{"label":"步驟5｜標題","name":"步驟5｜標題","widget":"string"},{"label":"步驟5｜小字","name":"步驟5｜小字","widget":"text"},{"label":"步驟6｜標題","name":"步驟6｜標題","widget":"string"},{"label":"步驟6｜小字","name":"步驟6｜小字","widget":"text"},{"label":"步驟7｜標題","name":"步驟7｜標題","widget":"string"},{"label":"步驟7｜小字","name":"步驟7｜小字","widget":"text"},{"label":"步驟8｜標題","name":"步驟8｜標題","widget":"string"},{"label":"步驟8｜小字","name":"步驟8｜小字","widget":"text"}]}
-          - {"label":"品質與認證","name":"品質與認證","widget":"object","collapsed":true,"fields":[{"label":"英文小標","name":"英文小標","widget":"string"},{"label":"標題","name":"標題","widget":"text"},{"label":"說明","name":"說明","widget":"text"},{"label":"連結文字","name":"連結文字","widget":"string"},{"label":"認證1｜標題","name":"認證1｜標題","widget":"string"},{"label":"認證1｜說明","name":"認證1｜說明","widget":"text"},{"label":"認證2｜標題","name":"認證2｜標題","widget":"string"},{"label":"認證2｜說明","name":"認證2｜說明","widget":"text"},{"label":"認證3｜標題","name":"認證3｜標題","widget":"string"},{"label":"認證3｜說明","name":"認證3｜說明","widget":"text"},{"label":"認證4｜標題","name":"認證4｜標題","widget":"string"},{"label":"認證4｜說明","name":"認證4｜說明","widget":"text"}]}
-          - {"label":"最新消息","name":"最新消息","widget":"object","collapsed":true,"fields":[{"label":"英文小標","name":"英文小標","widget":"string"},{"label":"標題","name":"標題","widget":"text"},{"label":"連結文字","name":"連結文字","widget":"string"}]}
-          - {"label":"頁尾諮詢","name":"頁尾諮詢","widget":"object","collapsed":true,"fields":[{"label":"英文小標","name":"英文小標","widget":"string"},{"label":"標題","name":"標題","widget":"text"},{"label":"說明","name":"說明","widget":"text"},{"label":"連結文字","name":"連結文字","widget":"string"}]}
+          - {"label":"主視覺","name":"主視覺","widget":"object","collapsed":true,"fields":[{"label":"小標","name":"小標","widget":"string"},{"label":"標題","name":"標題","widget":"text","hint":"換行會照樣換行。"},{"label":"說明","name":"說明","widget":"text","hint":"換行會照樣換行。"},{"label":"連結文字","name":"連結文字","widget":"string"},{"label":"連結文字2","name":"連結文字2","widget":"string"},{"label":"頁底小字","name":"頁底小字","widget":"string"}]}
+          - {"label":"產品與服務","name":"產品與服務","widget":"object","collapsed":true,"fields":[{"label":"英文小標","name":"英文小標","widget":"string"},{"label":"標題","name":"標題","widget":"text"},{"label":"公司介紹","name":"公司介紹","widget":"text"},{"label":"連結文字","name":"連結文字","widget":"string"},{"label":"第1項｜圖片","name":"第1項｜圖片","widget":"image"},{"label":"第1項｜圖片說明","name":"第1項｜圖片說明","widget":"string","required":false,"hint":"給看不到圖片的讀者（例如螢幕閱讀器）。"},{"label":"第1項｜標題","name":"第1項｜標題","widget":"string"},{"label":"第1項｜說明","name":"第1項｜說明","widget":"text"},{"label":"第1項｜連結文字","name":"第1項｜連結文字","widget":"string"},{"label":"第2項｜圖片","name":"第2項｜圖片","widget":"image"},{"label":"第2項｜圖片說明","name":"第2項｜圖片說明","widget":"string","required":false,"hint":"給看不到圖片的讀者（例如螢幕閱讀器）。"},{"label":"第2項｜標題","name":"第2項｜標題","widget":"string"},{"label":"第2項｜說明","name":"第2項｜說明","widget":"text"},{"label":"第2項｜連結文字","name":"第2項｜連結文字","widget":"string"},{"label":"第3項｜圖片","name":"第3項｜圖片","widget":"image"},{"label":"第3項｜圖片說明","name":"第3項｜圖片說明","widget":"string","required":false,"hint":"給看不到圖片的讀者（例如螢幕閱讀器）。"},{"label":"第3項｜標題","name":"第3項｜標題","widget":"string"},{"label":"第3項｜說明","name":"第3項｜說明","widget":"text"},{"label":"第3項｜連結文字","name":"第3項｜連結文字","widget":"string"}]}
+          - {"label":"工廠與認證","name":"工廠與認證","widget":"object","collapsed":true,"fields":[{"label":"工廠圖片","name":"工廠圖片","widget":"image"},{"label":"工廠圖片說明","name":"工廠圖片說明","widget":"string","required":false,"hint":"給看不到圖片的讀者（例如螢幕閱讀器）。"},{"label":"照片小標","name":"照片小標","widget":"string"},{"label":"照片說明","name":"照片說明","widget":"string"},{"label":"英文小標","name":"英文小標","widget":"string"},{"label":"標題","name":"標題","widget":"text"},{"label":"說明","name":"說明","widget":"text","hint":"換行會照樣換行。"},{"label":"證書1｜圖片","name":"證書1｜圖片","widget":"image","media_folder":"/wp-content/uploads","public_folder":"/wp-content/uploads"},{"label":"證書1｜圖片說明","name":"證書1｜圖片說明","widget":"string","required":false,"hint":"給看不到圖片的讀者（例如螢幕閱讀器）。"},{"label":"證書1｜標題","name":"證書1｜標題","widget":"string"},{"label":"證書1｜範圍","name":"證書1｜範圍","widget":"text"},{"label":"證書2｜圖片","name":"證書2｜圖片","widget":"image","media_folder":"/wp-content/uploads","public_folder":"/wp-content/uploads"},{"label":"證書2｜圖片說明","name":"證書2｜圖片說明","widget":"string","required":false,"hint":"給看不到圖片的讀者（例如螢幕閱讀器）。"},{"label":"證書2｜標題","name":"證書2｜標題","widget":"string"},{"label":"證書2｜範圍","name":"證書2｜範圍","widget":"text"},{"label":"證書3｜圖片","name":"證書3｜圖片","widget":"image","media_folder":"/wp-content/uploads","public_folder":"/wp-content/uploads"},{"label":"證書3｜圖片說明","name":"證書3｜圖片說明","widget":"string","required":false,"hint":"給看不到圖片的讀者（例如螢幕閱讀器）。"},{"label":"證書3｜標題","name":"證書3｜標題","widget":"string"},{"label":"證書3｜範圍","name":"證書3｜範圍","widget":"text"},{"label":"證書說明","name":"證書說明","widget":"text"},{"label":"連結文字","name":"連結文字","widget":"string"}]}
+          - {"label":"聯絡合作","name":"聯絡合作","widget":"object","collapsed":true,"fields":[{"label":"英文小標","name":"英文小標","widget":"string"},{"label":"標題","name":"標題","widget":"text"},{"label":"說明","name":"說明","widget":"text"},{"label":"連結文字","name":"連結文字","widget":"string"}]}
       - name: about
         label: "關於百達醫"
         file: content/pages/about.md
@@ -272,7 +274,7 @@ collections:
             name: dosage
             widget: list
             summary: "{{fields.title}}"
-            hint: 首頁「可製作的劑型」也顯示這組卡片。
+            hint: 顯示於「劑型與包材」的多元劑型區塊。
             fields: &card
               - { label: 標題, name: title, widget: string }
               - { label: 英文小標, name: en, widget: string, required: false }

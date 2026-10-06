@@ -48,21 +48,21 @@ const MAP = {
   'author/bke-biz01': '最新消息',
   'author/supervisor01': '最新消息',
 
-  '全面性服務': '全面性服務/一站式服務',
+  // 全面性服務/index.html is now the service overview; preserve that page.
   '全面性服務/一站式服務/0806-2': '全面性服務/一站式服務',
-  'integrated-service': '全面性服務/一站式服務',
+  'integrated-service': '全面性服務',
 
   '認識百達醫': '認識百達醫/關於百達醫',
 
   /* 養顏美容 and 膠原蛋白 were single-topic pages; the functional-formula
      page is where that ground is covered now. */
   '養顏美容': '全面性服務/功能配方',
-  'product/膠原蛋白': '全面性服務/功能配方',
+  'product/膠原蛋白': '全面性服務/機能食品保健',
 
-  /* No shop on the new site — it sells nothing directly. Home is the honest
-     destination rather than pretending a replacement exists. */
-  'shop': '',
-  'product-category/未分類': '',
+  /* The private-label catalogue replaces the old shop entry. It currently
+     previews the catalogue layout; it does not provide checkout. */
+  'shop': '全面性服務/機能食品保健',
+  'product-category/未分類': '全面性服務/機能食品保健',
   '測試': '',
 
   'contact_thankyou': 'contact',
@@ -109,6 +109,8 @@ const LABELS = {
   '': '首頁',
   '最新消息': '最新消息',
   '全面性服務/一站式服務': '一站式服務',
+  '全面性服務': '一站式服務',
+  '全面性服務/機能食品保健': '機能食品保健',
   '認識百達醫/關於百達醫': '關於百達醫',
   '全面性服務/功能配方': '功能配方',
   'contact': '代工諮詢',
@@ -120,7 +122,6 @@ for (const [from, to] of Object.entries(MAP)) {
   if (!fs.existsSync(file)) { console.log(`  略過（找不到）  ${from}`); continue; }
 
   const current = fs.readFileSync(file, 'utf8');
-  if (current.includes('http-equiv="refresh"')) { console.log(`  已是轉址  ${from}`); continue; }
   if (current.includes('data-premium-header')) {
     console.log(`  !! 拒絕：${from} 是 premium 頁，不會覆寫`);
     continue;
@@ -131,8 +132,13 @@ for (const [from, to] of Object.entries(MAP)) {
   const up = depth ? '../'.repeat(depth) : './';
   const relHref = to ? up + to + '/' : up;
   const absHref = SITE + (to ? to + '/' : '');
+  const next = stub(relHref, absHref, LABELS[to] || to);
+  if (current.replace(/\r\n/g, '\n') === next.replace(/\r\n/g, '\n')) {
+    console.log(`  已是轉址  ${from}`);
+    continue;
+  }
 
-  if (WRITE) fs.writeFileSync(file, stub(relHref, absHref, LABELS[to] || to));
+  if (WRITE) fs.writeFileSync(file, next);
   done++;
   console.log(`  ${from.padEnd(34)} → ${to || '（首頁）'}`);
 }

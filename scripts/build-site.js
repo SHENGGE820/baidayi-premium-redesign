@@ -3,13 +3,11 @@
  *
  *   content/articles/<slug>.md   →  <slug>/index.html (one page per post)
  *                                    最新消息/index.html (the card grid)
- *                                    index.html (the homepage's three posts)
  *   content/catalogue/<name>.md  →  全面性服務/一站式服務/<name>/index.html
  *                                    (one styles page per dosage form or
  *                                    package type)
  *   content/pages/catalogue.md   →  全面性服務/劑型與包材/index.html (the
- *                                    overview's card grids, and the
- *                                    homepage's dosage cards)
+ *                                    overview's card grids)
  *   content/functions/<slug>.md  →  全面性服務/功能配方/<slug>/index.html and
  *                                    that direction's card on the overview
  *   content/pages/<id>.md        →  the text and images tagged data-cms on
@@ -201,30 +199,11 @@ ${articleMain(a)}
 `;
 }
 
-/* ------------------------------------------------------- listing / home */
+/* ------------------------------------------------------------- listing */
 const dots = d => d.replace(/-/g, '.');
 
 function listingCard(a) {
   return `<a class="article-card reveal" href="../${a.slug}/index.html" data-news-category="${a.group}"><div class="article-card-image"><img src="${esc(rel(a.cover, '../'))}" alt="${esc(a.coverAlt)}" loading="lazy"></div><div class="article-card-copy"><span>${esc(a.category)}</span><h2>${esc(a.title)}</h2>${a.summary ? `<p>${esc(a.summary)}</p>` : ''}<time datetime="${a.date}">${dots(a.date)}</time></div></a>`;
-}
-
-function homeCard(a, featured) {
-  const ind = '          ';
-  return `<a class="insight-card${featured ? ' insight-card-featured' : ''} reveal" href="./${a.slug}/index.html">
-${ind}  <div class="insight-image"><img src="${esc(rel(a.cover, './'))}" alt="${esc(a.title)}" loading="lazy"></div>
-${ind}  <div class="insight-copy"><span>${esc(a.category)}</span><h3>${esc(a.title)}</h3>${featured && a.summary ? `<p>${esc(a.summary)}</p>` : ''}<time datetime="${a.date}">${dots(a.date)}</time></div>
-${ind}</a>`;
-}
-
-/* Posts flagged for the homepage come first; if fewer than three are, the
-   newest non-event posts fill the rest. */
-function homePicks(posts) {
-  const picks = posts.filter(p => p.home).slice(0, 3);
-  for (const p of posts) {
-    if (picks.length >= 3) break;
-    if (!picks.includes(p) && p.group !== 'event') picks.push(p);
-  }
-  return picks;
 }
 
 /* Replace what sits between <!-- cms:NAME --> and <!-- /cms:NAME --> (or
@@ -306,6 +285,9 @@ function resolveLink(link, fromDir, targets, where) {
   const kind = String(link).split(':')[0], value = String(link).slice(kind.length + 1);
   const to = dest => path.posix.relative(fromDir, dest).replace(/^(?!\.)/, './') + '/index.html';
   if (kind === 'page' && targets.pages.has(value)) return { kind, href: to(`${CAT_DIR}/${value}`) };
+  if (kind === 'products' && ['all', 'metabolism', 'balance', 'women', 'elderly'].includes(value)) {
+    return { kind, href: to('全面性服務/機能食品保健') + (value === 'all' ? '' : `?category=${value}#products`) };
+  }
   if (kind === 'contact' && targets.contact.has(value)) return { kind, href: `${to('contact')}?format=${value}` };
   throw new Error(`${where} links to "${link}", which does not exist`);
 }
@@ -404,7 +386,7 @@ function overviewCard(c, photo, targets, where, fromDir = path.posix.dirname(OVE
   if (c.link) {
     const link = resolveLink(c.link, fromDir, targets, `content/pages/catalogue.md: "${c.title}" in ${where}`);
     href = link.href;
-    [arrow, more] = link.kind === 'page' ? ['→', '查看樣式'] : ['↗', '與顧問討論'];
+    [arrow, more] = link.kind === 'contact' ? ['↗', '與顧問討論'] : ['→', link.kind === 'products' ? '查看商品' : '查看樣式'];
   }
   const alt = esc(c.alt || c.title);
   const src = esc(rel(c.image, prefix));
@@ -428,7 +410,9 @@ function linkOptions(targets) {
   const q = s => JSON.stringify(s);
   return [
     ...[...targets.pages].map(([slug, title]) => `- { label: ${q('樣式頁｜' + title)}, value: ${q('page:' + slug)} }`),
-    ...[...targets.contact].map(([key, label]) => `- { label: ${q('諮詢表單｜' + label)}, value: ${q('contact:' + key)} }`)
+    ...[...targets.contact].map(([key, label]) => `- { label: ${q('諮詢表單｜' + label)}, value: ${q('contact:' + key)} }`),
+    ...[['all', '全部商品'], ['metabolism', '新陳代謝'], ['balance', '體質調整'], ['women', '女性保健'], ['elderly', '銀髮保健']]
+      .map(([key, label]) => `- { label: ${q('機能食品保健｜' + label)}, value: ${q('products:' + key)} }`)
   ];
 }
 
@@ -473,6 +457,34 @@ function ingredientCard(it, p) {
     `<div class="catalogue-media"><img src="${esc(rel(it.image || FN_PLACEHOLDER_IMG, p))}" alt="${it.image ? esc(it.name + '原料') : ''}" loading="lazy"></div>` +
     `<div class="catalogue-copy">${it.en ? `<span class="catalogue-en">${esc(it.en)}</span>` : ''}<h3>${esc(it.name)}</h3>` +
     `${it.text ? `<p>${esc(it.text)}</p>` : ''}${it.form ? `<p class="ingredient-meta"><b>形式</b>　${esc(it.form)}</p>` : ''}</div></article>`;
+}
+
+/* The ingredient library exposes the original eleven categories inline,
+   using the same source data as each direction page. */
+const INGREDIENT_CATEGORIES = ['beauty', 'secret-garden', 'metabolism', 'protein', 'body-functions', 'energetic', 'gut', 'generation-3c', 'balance', 'action', 'sleep'];
+function ingredientCategory(c, index) {
+  const p = '../../';
+  const image = responsiveImg(c.image, p);
+  const categorySearch = `${c.title} ${c.en}`;
+  const allSearch = [categorySearch, ...c.items.map(it => `${it.name} ${it.en} ${it.text} ${it.form}`)].join(' ');
+  const materials = c.items.map(it => {
+    const search = `${it.name} ${it.en} ${it.text} ${it.form}`;
+    return `<article class="ingredient-material${it.image ? ' has-image' : ''}" data-search="${esc(search)}"><div class="ingredient-material-copy">` +
+      (it.en ? `<p class="ingredient-material-en">${esc(it.en)}</p>` : '') + `<h3>${esc(it.name)}</h3>` +
+      (it.text ? `<p class="ingredient-material-description">${esc(it.text)}</p>` : '') +
+      (it.form ? `<p class="ingredient-material-form"><span>形式</span>${esc(it.form)}</p>` : '') + `</div>` +
+      (it.image ? `<img class="ingredient-material-image" src="${esc(rel(it.image, p))}" alt="${esc(it.name + '原料')}" loading="lazy">` : '') + `</article>`;
+  }).join('\n              ');
+  return `        <details class="ingredient-category" name="ingredient-category" id="category-${c.slug}" data-category-search="${esc(categorySearch)}" data-search="${esc(allSearch)}">
+          <summary aria-controls="materials-${c.slug}"><span class="ingredient-category-visual"><img class="ingredient-category-image" src="${image.src}"${image.srcset} sizes="(max-width: 600px) 50vw, (max-width: 1100px) 33vw, 290px" alt="" width="1200" height="800" loading="lazy"><span class="ingredient-category-number" aria-hidden="true">${String(index + 1).padStart(2, '0')}</span><span class="ingredient-category-selected" aria-hidden="true">已展開</span></span><span class="ingredient-category-copy"><span class="ingredient-category-title"><span>${esc(c.en)}</span><strong id="category-${c.slug}-title">${esc(c.title)}</strong></span><span class="ingredient-category-preview">${c.items.slice(0, 2).map(it => esc(it.name)).join('・')}</span><span class="ingredient-category-action"><span>${c.items.length} 項原料</span><span class="ingredient-category-action-label"><span class="ingredient-card-open-label">查看原料</span><span class="ingredient-card-close-label">收合原料</span><i aria-hidden="true"></i></span></span></span></summary>
+          <div class="ingredient-category-panel" id="materials-${c.slug}" role="region" aria-labelledby="category-${c.slug}-title">
+            <div class="ingredient-panel-heading"><div><p>INGREDIENT SELECTION</p><h3>${esc(c.title)}<span>原料清單</span></h3></div><button type="button" class="ingredient-panel-close" data-close-ingredients aria-label="收合${esc(c.title)}原料清單">收合 <span aria-hidden="true">×</span></button></div>
+            <div class="ingredient-material-grid">
+              ${materials || '<p>本分類原料資料整理中。</p>'}
+            </div>
+            <div class="ingredient-category-next"><p>有想使用的原料？提供名稱與預計劑型，與顧問一起確認規格。</p><a class="text-link" href="${p}contact/index.html">討論這類原料 <span aria-hidden="true">↗</span></a></div>
+          </div>
+        </details>`;
 }
 
 function functionPage(c) {
@@ -589,7 +601,7 @@ const CARD_LISTS_YAML = `          - label: 多元劑型（卡片）
             name: dosage
             widget: list
             summary: "{{fields.title}}"
-            hint: 首頁「可製作的劑型」也顯示這組卡片。
+            hint: 顯示於「劑型與包材」的多元劑型區塊。
             fields: &card
               - { label: 標題, name: title, widget: string }
               - { label: 英文小標, name: en, widget: string, required: false }
@@ -700,9 +712,7 @@ for (const e of fs.readdirSync(ROOT, { withFileTypes: true })) {
 }
 
 const listingChanged = fill('最新消息/index.html', 'article-cards', posts.map(a => '      ' + listingCard(a)).join('\n') + '\n      ');
-const homeChanged = fill('index.html', 'home-articles', homePicks(posts).map((a, i) => '          ' + homeCard(a, i === 0)).join('\n') + '\n          ');
-
-console.log(`articles: ${posts.length} (${written} written, ${removed} removed); listing ${listingChanged ? 'updated' : 'unchanged'}; homepage ${homeChanged ? 'updated' : 'unchanged'}`);
+console.log(`articles: ${posts.length} (${written} written, ${removed} removed); listing ${listingChanged ? 'updated' : 'unchanged'}`);
 
 const catalogue = loadCatalogue();
 const targets = linkTargets(catalogue);
@@ -734,9 +744,6 @@ for (const [section, photo] of Object.entries(SECTIONS)) {
   const cards = (overview[section] || []).map(c => '        ' + overviewCard(c, photo, targets, section));
   overviewChanged = fill(OVERVIEW, 'catalogue-' + section, cards.join('\n') + '\n      ') || overviewChanged;
 }
-// the homepage shows the same dosage cards
-const homeFormats = (overview.dosage || []).map(c => '        ' + overviewCard(c, true, targets, 'dosage', '.'));
-overviewChanged = fill('index.html', 'home-formats', homeFormats.join('\n') + '\n        ') || overviewChanged;
 const indent = fs.readFileSync(path.join(ROOT, 'admin', 'config.yml'), 'utf8').match(/^( *)# cms:catalogue-links/m)[1];
 const optionsChanged = fill('admin/config.yml', 'catalogue-links', linkOptions(targets).map(o => indent + o).join('\n') + '\n' + indent, 'yaml');
 
@@ -758,6 +765,13 @@ for (const c of directions) {
   if (fill(`${FN_DIR}/index.html`, 'function-' + c.slug, '        ' + functionCard(c) + '\n        ')) fnCards++;
 }
 console.log(`functions: ${directions.length} pages (${fnWritten} written); overview cards ${fnCards ? fnCards + ' updated' : 'unchanged'}`);
+const ingredientIndex = INGREDIENT_CATEGORIES.map((slug, index) => {
+  const category = directions.find(c => c.slug === slug);
+  if (!category) throw new Error(`Ingredient library category "${slug}" is missing from content/functions/`);
+  return ingredientCategory(category, index);
+}).join('\n');
+const ingredientIndexChanged = fill('全面性服務/原料成分/index.html', 'ingredient-categories', ingredientIndex + '\n        ');
+console.log(`ingredients: ${INGREDIENT_CATEGORIES.length} inline categories (${ingredientIndexChanged ? 'updated' : 'unchanged'})`);
 
 // page text and images
 const pageOpts = dir => ({

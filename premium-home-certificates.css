@@ -1,0 +1,116 @@
+/* Only the native certificate viewer is styled here; homepage cards are separate. */
+.certificate-viewer {
+  width: min(920px, calc(100% - 40px));
+  max-width: none;
+  max-height: calc(100vh - 40px);
+  max-height: calc(100dvh - 40px);
+  margin: auto;
+  padding: 0;
+  overflow: hidden;
+  color: var(--ink, #171713);
+  background: var(--paper, #fbf9f4);
+  border: 1px solid var(--line, #cfc7b8);
+  border-radius: 3px;
+  box-shadow: 0 24px 90px rgba(0,0,0,.45);
+}
+.certificate-viewer[open] { display: flex; flex-direction: column; }
+.certificate-viewer::backdrop { background: rgba(12,12,10,.82); backdrop-filter: blur(5px); }
+.certificate-viewer-header {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  padding: 20px 26px;
+  border-bottom: 1px solid var(--line, #cfc7b8);
+}
+.certificate-viewer-title {
+  min-width: 0;
+  margin: 0;
+  color: var(--ink, #171713);
+  font-family: "Noto Serif TC", serif;
+  font-size: clamp(19px, 2vw, 25px);
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: -.02em;
+}
+.certificate-viewer-close {
+  flex-shrink: 0;
+  min-width: 76px;
+  min-height: 42px;
+  padding: 8px 12px;
+  color: var(--ink, #171713);
+  background: transparent;
+  border: 1px solid var(--line, #cfc7b8);
+  border-radius: 2px;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.certificate-viewer-close:hover { color: var(--white, #fff); background: var(--ink, #171713); border-color: var(--ink, #171713); }
+.certificate-viewer-stage {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 24px;
+  background: #e5e1d9;
+  scrollbar-color: #8d8475 #e5e1d9;
+}
+.certificate-viewer-image {
+  display: block;
+  width: min(100%, 800px);
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  background: #fff;
+  box-shadow: 0 5px 22px rgba(23,23,19,.12);
+}
+.certificate-viewer-status {
+  margin: 0 0 18px;
+  color: var(--muted, #605b50);
+  font-family: "Noto Sans TC", sans-serif;
+  font-size: 13px;
+  line-height: 1.8;
+  text-align: center;
+}
+.certificate-viewer-status[hidden] { display: none; }
+.certificate-viewer-footer {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 26px;
+  border-top: 1px solid var(--line, #cfc7b8);
+}
+.certificate-viewer-note {
+  margin: 0;
+  color: var(--muted, #605b50);
+  font-family: "Noto Sans TC", sans-serif;
+  font-size: 11px;
+  line-height: 1.8;
+}
+.certificate-viewer-original {
+  flex-shrink: 0;
+  padding: 7px 0;
+  color: #76511f;
+  font-family: "Noto Sans TC", sans-serif;
+  font-size: 12px;
+  line-height: 1.8;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.certificate-viewer-original:hover { color: var(--ink, #171713); }
+.certificate-viewer :is(button,a):focus-visible { outline: 2px solid #8d672b; outline-offset: 4px; }
+.certificate-viewer-stage:focus-visible { outline: 2px solid #8d672b; outline-offset: -5px; }
+@media (max-width: 600px) {
+  .certificate-viewer { width: calc(100% - 20px); max-height: calc(100vh - 20px); max-height: calc(100dvh - 20px); }
+  .certificate-viewer-header { gap: 14px; padding: 15px 17px; }
+  .certificate-viewer-title { font-size: 18px; }
+  .certificate-viewer-close { min-width: 66px; min-height: 42px; padding-inline: 9px; font-size: 12px; }
+  .certificate-viewer-stage { padding: 14px 10px; }
+  .certificate-viewer-footer { align-items: flex-start; gap: 12px; padding: 13px 17px; }
+  .certificate-viewer-note { font-size: 10px; }
+  .certificate-viewer-original { padding-top: 0; font-size: 11px; }
+}

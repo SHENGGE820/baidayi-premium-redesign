@@ -466,7 +466,7 @@
         cells: [
           { value: item.category || "未分類" },
           { value: item.date ? formatDate(item.date) : "未設定" },
-          { value: item.home ? "首頁精選" : "一般文章", muted: !item.home }
+          { value: item.home ? "舊版精選" : "一般文章", muted: !item.home }
         ]
       };
     }
@@ -984,7 +984,7 @@
       field("發布日期", ["date"], item.date, { type: "datetime-local" }),
       field("分類", ["category"], item.category, { options: newsCategories(item.category) }),
       field("網址代號", ["slug"], item.slug, { help: "正式連線後將用來建立文章網址。" }),
-      field("首頁精選", ["home"], Boolean(item.home), { type: "checkbox", help: "開啟後才會出現在首頁最新消息。" })
+      field("舊版首頁精選（保留欄位）", ["home"], Boolean(item.home), { type: "checkbox", help: "目前首頁採用企業形象版面，此欄位保留既有資料。" })
     ]);
     appendSection("清單摘要與圖片", "簡短、可掃描的說明會讓讀者更快理解文章主題。", [
       field("摘要", ["summary"], item.summary, { type: "textarea", full: true }),

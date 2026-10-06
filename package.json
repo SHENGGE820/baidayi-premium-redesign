@@ -3,6 +3,7 @@
   "private": true,
   "description": "BKE 百達醫 website: static pages built from content/ files edited through the Sveltia CMS at /admin.",
   "scripts": {
+    "preview": "node scripts/serve-preview.js",
     "build": "node scripts/build-site.js",
     "build:admin-data": "node scripts/build-admin-data.js",
     "check": "node --test scripts/test-article-content.js && node scripts/check-links.js && node scripts/test-enquiry.js && node scripts/test-inquiry.js"
