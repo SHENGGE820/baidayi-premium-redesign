@@ -213,7 +213,7 @@
 
 /* The homepage footer keeps the brand and a single contact column. */
 .b2b-home .footer-main { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: start; gap: 48px; padding-top: 36px; padding-bottom: 29px; }
-.b2b-home .footer-brand img { width: 145px; }
+.b2b-home .footer-brand img { width: 145px; height: auto; }
 .b2b-home .footer-brand p { max-width: 390px; margin: 16px 0 0; color: #c7c9be; font-size: 13px; line-height: 1.8; }
 .b2b-home .footer-nav { display: grid; grid-template-columns: 1fr; gap: 0; }
 .b2b-home .footer-nav > div:not(:last-child) { display: none; }
