@@ -5,7 +5,8 @@
   'use strict';
   var VERSIONS = [
     { file: 'home-v1.html', label: '三格圖塊版' },
-    { file: 'home-v2.html', label: '大器沉穩版' }
+    { file: 'home-v2.html', label: '大器沉穩版' },
+    { file: 'home-v3.html', label: '改版前原版' }
   ];
   var here = location.pathname.split('/').pop();
   var bar = document.createElement('nav');
