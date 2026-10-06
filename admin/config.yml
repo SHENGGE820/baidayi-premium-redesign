@@ -167,6 +167,41 @@ collections:
               - { label: "諮詢表單｜包裝外盒", value: "contact:box" }
               # /cms:catalogue-links
 
+  - name: functions
+    label: 功能配方方向
+    label_singular: 方向
+    description: 二十個保健方向，各一頁列出常用原料，並在「功能配方」總覽有一張卡片。說明只寫原料是什麼（來源、形式、規格），不寫功效或療效：保健食品的宣稱受《食品標示宣稱之認定基準》規範。
+    folder: content/functions
+    extension: md
+    format: frontmatter
+    # The names are also the contact form's choices (and the Google Form's),
+    # so directions are not added, removed or renamed here.
+    create: false
+    delete: false
+    summary: "{{title}}　{{title_en}}"
+    sortable_fields: [title]
+    media_folder: /wp-content/uploads
+    public_folder: /wp-content/uploads
+    fields:
+      - { label: 名稱, name: title, widget: string, readonly: true, hint: 名稱也是代工諮詢表單的選項；要改名請聯絡網站管理者，一起調整表單。 }
+      - { label: 英文標題, name: title_en, widget: string, required: false }
+      - { label: 頁首說明, name: lead, widget: text, required: false, hint: 這個方向頁面標題下方的一段話。 }
+      - { label: 總覽卡片說明, name: summary, widget: text, required: false, hint: 顯示在「功能配方」總覽頁這個方向的卡片上。 }
+      - { label: 代表圖, name: image, widget: image, media_folder: /assets/brand, public_folder: /assets/brand, hint: 總覽卡片與頁首共用，橫式 3:2。 }
+      - { label: 原料內容仍是暫代, name: placeholder, widget: boolean, default: true, hint: 勾選時，頁面顯示「版面示意」提示，也不給搜尋引擎收錄。換成百達醫確認過的原料資料後，取消勾選。 }
+      - label: 常用原料
+        label_singular: 原料
+        name: items
+        widget: list
+        required: false
+        summary: "{{fields.name}}　{{fields.name_en}}"
+        fields:
+          - { label: 原料名稱, name: name, widget: string }
+          - { label: 英文名稱, name: name_en, widget: string, required: false }
+          - { label: 說明, name: text, widget: text, required: false, hint: 只寫原料是什麼：來源、萃取或製法、規格怎麼標示。請勿寫功效。 }
+          - { label: 形式, name: form, widget: string, required: false, hint: 例如「粉末｜植物萃取」。 }
+          - { label: 照片, name: image, widget: image, required: false, hint: 空白時顯示中性的示意圖。 }
+
   - name: pages
     label: 頁面
     label_singular: 頁面

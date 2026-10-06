@@ -10,6 +10,8 @@
  *   content/pages/catalogue.md   →  全面性服務/劑型與包材/index.html (the
  *                                    overview's card grids, and the
  *                                    homepage's dosage cards)
+ *   content/functions/<slug>.md  →  全面性服務/功能配方/<slug>/index.html and
+ *                                    that direction's card on the overview
  *   content/pages/<id>.md        →  the text and images tagged data-cms on
  *                                    the hand-built pages listed in PAGES
  *   content/settings.md          →  phone, address and footer blurb
@@ -395,6 +397,111 @@ function linkOptions(targets) {
   ];
 }
 
+/* ------------------------------------------------------------ functions */
+/* The 20 功能配方 directions: one page each listing common ingredients, and a
+   card each on the 功能配方 overview (filled between per-card markers, so the
+   overview keeps its grouping and order). Directions are not added or
+   removed in the CMS: their names are also the contact form's choices. */
+const FN_DIR = '全面性服務/功能配方';
+const FN_MARK = '<meta name="generator" content="bke-build function">';
+const FN_PLACEHOLDER_IMG = '/assets/premium/ingredient-placeholder.svg';
+
+function loadFunctions() {
+  const dir = path.join(ROOT, 'content', 'functions');
+  return fs.readdirSync(dir).filter(f => f.endsWith('.md')).sort().map(f => {
+    const d = matter(fs.readFileSync(path.join(dir, f), 'utf8')).data;
+    const slug = f.replace(/\.md$/, '');
+    if (!d.title || !d.image) throw new Error(`content/functions/${f}: title and image are required`);
+    if (!/^[a-z0-9-]+$/.test(slug)) throw new Error(`content/functions/${f}: file name must be lowercase letters, digits and dashes`);
+    return {
+      slug, title: String(d.title).trim(), en: String(d.title_en || '').trim(), lead: String(d.lead || '').trim(),
+      summary: String(d.summary || '').trim(), image: d.image, placeholder: d.placeholder !== false,
+      items: (d.items || []).filter(i => i && i.name).map(i => ({
+        name: String(i.name).trim(), en: String(i.name_en || '').trim(), text: String(i.text || '').trim(),
+        form: String(i.form || '').trim(), image: i.image || ''
+      }))
+    };
+  });
+}
+
+/* src, srcset (when a -640 copy sits beside it), width and height */
+function responsiveImg(image, prefix) {
+  const size = imageSize(path.join(ROOT, image.replace(/^\//, '')));
+  const small = image.replace(/(\.[a-z]+)$/i, '-640$1');
+  const src = esc(rel(image, prefix));
+  const srcset = size && fs.existsSync(path.join(ROOT, small.replace(/^\//, ''))) ? ` srcset="${esc(rel(small, prefix))} 640w, ${src} ${size[0]}w"` : '';
+  return { src, srcset, dims: size ? ` width="${size[0]}" height="${size[1]}"` : '' };
+}
+
+function ingredientCard(it, p) {
+  return `<article class="catalogue-card reveal">` +
+    `<div class="catalogue-media"><img src="${esc(rel(it.image || FN_PLACEHOLDER_IMG, p))}" alt="${it.image ? esc(it.name + '原料') : ''}" loading="lazy"></div>` +
+    `<div class="catalogue-copy">${it.en ? `<span class="catalogue-en">${esc(it.en)}</span>` : ''}<h3>${esc(it.name)}</h3>` +
+    `${it.text ? `<p>${esc(it.text)}</p>` : ''}${it.form ? `<p class="ingredient-meta"><b>形式</b>　${esc(it.form)}</p>` : ''}</div></article>`;
+}
+
+function functionPage(c) {
+  const p = '../../../';
+  const title = `${c.title}原料｜功能配方｜百達醫 BKE`;
+  const desc = `${c.title}方向常用的原料選項與規格形式，供品牌在配方規劃階段參考。`;
+  const url = `${SITE}${FN_DIR}/${c.slug}/`;
+  const hero = responsiveImg(c.image, p);
+  return `<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  ${FN_MARK}
+  <title>${esc(title)}</title>
+  <meta name="description" content="${esc(desc)}">
+${c.placeholder ? '  <meta name="robots" content="noindex">\n' : ''}  <link rel="canonical" href="${esc(url)}">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_TW">
+  <meta property="og:site_name" content="百達醫 BKE">
+  <meta property="og:url" content="${esc(url)}">
+  <meta property="og:title" content="${esc(title)}">
+  <meta property="og:description" content="${esc(desc)}">
+  <meta property="og:image" content="${esc(SITE + c.image.replace(/^\//, ''))}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#171713">
+  <link rel="icon" href="${p}wp-content/uploads/2025/09/BKE-favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600&family=Noto+Serif+TC:wght@500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="${p}premium-site.css?v=${V}"><link rel="stylesheet" href="${p}premium-inner.css?v=${V}">
+  <script src="${p}premium-transition-init.js?v=${V}"></script><link rel="stylesheet" href="${p}premium-motion.css?v=${V}">
+</head>
+<body class="premium-site premium-inner" data-root="${p}" data-active="capability">
+  <a class="skip-link" href="#main-content">跳到主要內容</a><div data-premium-header></div>
+  <main id="main-content">
+    <section class="inner-hero inner-hero-card">
+      <div class="inner-hero-shade" aria-hidden="true"></div>
+      <div class="container inner-hero-content">
+        <div class="inner-hero-copy">${c.en ? `<p class="eyebrow reveal">${esc(c.en)}</p>` : ''}<h1 class="reveal">${esc(c.title)}</h1>${c.lead ? `<p class="inner-hero-lead reveal">${esc(c.lead)}</p>` : ''}</div>
+        <figure class="inner-hero-card-media" aria-hidden="true"><img src="${hero.src}"${hero.srcset}${hero.srcset ? ' sizes="(max-width: 900px) 100vw, 560px"' : ''} alt=""${hero.dims}></figure>
+      </div>
+    </section>
+    <section class="page-section page-section-ivory"><div class="container">
+${c.placeholder ? '      <p class="placeholder-note reveal"><strong>版面示意</strong>　本頁原料資料與圖片為暫代內容，僅供版面確認；實際品項、規格與說明待百達醫提供後替換。</p>\n' : ''}      <div class="page-heading"><div><p class="eyebrow eyebrow-dark reveal">COMMON MATERIALS</p><h2 class="page-title reveal">這個方向<br>常用的原料。</h2></div><p class="reveal">以下列出此配方方向較常被指定的原料與其形式。實際可用品項、規格與最小採購量，會依配方設計與供應狀況調整。</p></div>
+      <div class="catalogue-grid catalogue-grid-ingredient">
+        ${c.items.map(it => ingredientCard(it, p)).join('\n        ')}
+      </div>
+    </div></section>
+    <section class="project-cta"><div class="container project-cta-inner"><div><p class="eyebrow eyebrow-dark reveal">DISCUSS YOUR FORMULA</p><h2 class="reveal">想用哪一支原料，<br>我們一起確認。</h2></div><div class="project-cta-copy reveal"><p>提供產品訴求與預計劑型，我們會協助評估原料選項、規格與可行的配方組合。</p><a class="button button-dark" href="${p}contact/index.html">與研發顧問討論 <span aria-hidden="true">↗</span></a></div></div></section>
+  </main>
+  <div data-premium-footer></div><script src="${p}premium-shell.js?v=${V}"></script><script src="${p}premium-site.js?v=${V}"></script>
+  <script src="${p}premium-motion.js?v=${V}"></script>
+</body>
+</html>
+`;
+}
+
+function functionCard(c) {
+  const img = responsiveImg(c.image, '../../');
+  return `<article class="service-overview-card has-media reveal" id="${c.slug}">` +
+    `<img class="function-card-media" src="${img.src}"${img.srcset}${img.srcset ? ' sizes="(max-width: 560px) 100vw, (max-width: 900px) 50vw, 380px"' : ''} alt=""${img.dims} loading="lazy">` +
+    `${c.en ? `<span>${esc(c.en)}</span>` : ''}<h3>${esc(c.title)}</h3>${c.summary ? `<p>${esc(c.summary)}</p>` : ''}` +
+    `<a class="function-card-cta" href="./${c.slug}/index.html">查看常用原料 <span aria-hidden="true">→</span></a></article>`;
+}
+
 /* ------------------------------------------------------------ page text */
 /* Hand-built pages whose text and images are editable: elements tagged
    data-cms / data-cms-img (scripts/lib/html-fields.js), plus each page's
@@ -599,6 +706,23 @@ const indent = fs.readFileSync(path.join(ROOT, 'admin', 'config.yml'), 'utf8').m
 const optionsChanged = fill('admin/config.yml', 'catalogue-links', linkOptions(targets).map(o => indent + o).join('\n') + '\n' + indent, 'yaml');
 
 console.log(`catalogue: ${catalogue.length} pages (${catWritten} written, ${catRemoved} removed); overview ${overviewChanged ? 'updated' : 'unchanged'}; CMS link list ${optionsChanged ? 'updated' : 'unchanged'}`);
+
+// 功能配方 directions
+const directions = loadFunctions();
+let fnWritten = 0, fnCards = 0;
+for (const c of directions) {
+  const dir = path.join(ROOT, FN_DIR, c.slug);
+  const file = path.join(dir, 'index.html');
+  const old = fs.existsSync(file) ? fs.readFileSync(file, 'utf8') : null;
+  if (old !== null && !old.includes(FN_MARK) && !old.includes('catalogue-grid-ingredient')) {
+    throw new Error(`${FN_DIR}/${c.slug}/ exists and is not a direction page`);
+  }
+  const html = functionPage(c);
+  fs.mkdirSync(dir, { recursive: true });
+  if (old !== html) { fs.writeFileSync(file, html); fnWritten++; }
+  if (fill(`${FN_DIR}/index.html`, 'function-' + c.slug, '        ' + functionCard(c) + '\n        ')) fnCards++;
+}
+console.log(`functions: ${directions.length} pages (${fnWritten} written); overview cards ${fnCards ? fnCards + ' updated' : 'unchanged'}`);
 
 // page text and images
 const pageOpts = dir => ({
