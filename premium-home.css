@@ -1,6 +1,6 @@
 /* Homepage. Dark hero over the factory film, then: services, the dosage forms
-   that can be made, the team and the certificates behind the work, the
-   latest posts, and the consultation call.
+   that can be made, the production floor and its certificates, the latest
+   posts, and the consultation call.
 
    Body copy is 16px (Chinese reads small below that); captions and meta
    never go under 13px. Photos keep a 3:2 frame so a machine still reads as
@@ -57,11 +57,11 @@
 .home-format-name i { color: #8d672b; font-style: normal; font-size: 15px; transition: transform .2s ease; }
 .home-format:hover .home-format-name i { transform: translateX(4px); }
 
-/* ---- team and quality: the photo leads, the copy sits beside it */
+/* ---- factory and quality: the production floor leads, the copy sits beside it */
 .home-team { padding: 96px 0; }
 .home-team-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 64px; align-items: center; }
 .home-team-photo { margin: 0; }
-.home-team-photo img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+.home-team-photo img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
 .home-team-photo figcaption { margin-top: 12px; color: rgba(255,255,255,.62); font-size: 14px; }
 .home-team-copy h2 { font-size: clamp(32px, 3.2vw, 44px); }
 .home-team-copy > p:not(.home-certificates-note) { margin: 16px 0 0; color: rgba(255,255,255,.76); font-size: 16px; line-height: 1.85; }
