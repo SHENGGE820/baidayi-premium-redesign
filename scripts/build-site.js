@@ -8,8 +8,7 @@
  *                                    (one styles page per dosage form or
  *                                    package type)
  *   content/pages/catalogue.md   →  全面性服務/劑型與包材/index.html (the
- *                                    overview's card grids, and the
- *                                    homepage's row of dosage forms)
+ *                                    overview's card grids)
  *   content/functions/<slug>.md  →  全面性服務/功能配方/<slug>/index.html and
  *                                    that direction's card on the overview
  *   content/pages/<id>.md        →  the text and images tagged data-cms on
@@ -219,16 +218,6 @@ function homePicks(posts) {
     if (!picks.includes(p) && p.group !== 'event') picks.push(p);
   }
   return picks;
-}
-
-/* One dosage form on the homepage: the overview's card reduced to its photo
-   and name, linking where the overview card links. */
-function homeFormatCard(c, targets) {
-  const link = c.link ? resolveLink(c.link, '.', targets, `content/pages/catalogue.md: "${c.title}" in dosage`) : null;
-  const img = responsiveImg(c.image, './');
-  const inner = `<span class="home-format-media"><img src="${img.src}"${img.srcset}${img.srcset ? ' sizes="(max-width: 720px) 50vw, (max-width: 1100px) 25vw, 290px"' : ''} alt="${esc(c.alt || c.title)}"${img.dims} loading="lazy"></span>` +
-    `<span class="home-format-name">${esc(c.title)}${link ? `<i aria-hidden="true">${link.kind === 'contact' ? '↗' : '→'}</i>` : ''}</span>`;
-  return link ? `<a class="home-format reveal" href="${esc(link.href)}">${inner}</a>` : `<div class="home-format reveal">${inner}</div>`;
 }
 
 /* ------------------------------------------------------------- listing */
@@ -799,9 +788,6 @@ for (const c of directions) {
   if (fill(`${FN_DIR}/index.html`, 'function-' + c.slug, '        ' + functionCard(c) + '\n        ')) fnCards++;
 }
 console.log(`functions: ${directions.length} pages (${fnWritten} written); overview cards ${fnCards ? fnCards + ' updated' : 'unchanged'}`);
-// the homepage's row of dosage forms
-overviewChanged = fill('index.html', 'home-formats', (overview.dosage || []).map(c => '          ' + homeFormatCard(c, targets)).join('\n') + '\n        ') || overviewChanged;
-
 const ingredientIndex = INGREDIENT_CATEGORIES.map((slug, index) => {
   const category = directions.find(c => c.slug === slug);
   if (!category) throw new Error(`Ingredient library category "${slug}" is missing from content/functions/`);

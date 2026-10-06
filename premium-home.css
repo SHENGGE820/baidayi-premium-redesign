@@ -1,82 +1,47 @@
-/* Homepage. Dark hero over the factory film, then: the dosage forms
-   that can be made, where a project can start, the production floor and its certificates, the latest
-   posts, and the consultation call.
+/* Homepage, in four blocks: the dark hero over the factory film; three
+   full-bleed photo tiles carrying the three things a brand owner needs to
+   know (what can be made, how formulas are worked out, the factory and its
+   certificates); the latest posts; the consultation call.
 
-   Body copy is 16px (Chinese reads small below that); captions and meta
-   never go under 13px. Photos keep a 3:2 frame so a machine still reads as
-   a machine at every width, and nothing is boxed unless it is a link. */
+   One message per block, big photos, big headlines, little else. Body copy
+   is 16px and no Chinese text goes under 13px. */
 
 /* ---- hero */
-.corporate-home .hero { min-height: 620px; height: clamp(620px, 82vh, 780px); }
+.corporate-home .hero { min-height: 600px; height: clamp(600px, 80vh, 760px); }
 .corporate-home .hero-shade {
   background:
     linear-gradient(90deg, rgba(19,19,16,.95) 0%, rgba(19,19,16,.86) 30%, rgba(19,19,16,.52) 62%, rgba(19,19,16,.30) 100%),
-    linear-gradient(0deg, rgba(19,19,16,.72), transparent 46%);
+    linear-gradient(0deg, rgba(19,19,16,.6), transparent 40%);
 }
 .corporate-home .hero-content { padding-top: 40px; }
 .corporate-home .hero .eyebrow { margin-bottom: 20px; }
 .corporate-home .hero h1 { max-width: 900px; font-size: clamp(44px, 5.4vw, 74px); line-height: 1.18; }
-.corporate-home .hero-lead { max-width: 640px; margin-top: 24px; font-size: 17px; line-height: 1.9; }
-.corporate-home .hero-actions { margin-top: 34px; }
-.home-hero-bottom { position: absolute; z-index: 2; left: 0; right: 0; bottom: 30px; }
-.home-hero-facts { display: grid; grid-template-columns: repeat(3, minmax(0, max-content)); gap: 0; margin: 0; padding: 20px 0 0; list-style: none; border-top: 1px solid rgba(255,255,255,.18); }
-.home-hero-facts li { display: flex; flex-direction: column; gap: 4px; padding-right: 44px; margin-right: 44px; border-right: 1px solid rgba(255,255,255,.18); }
-.home-hero-facts li:last-child { padding-right: 0; margin-right: 0; border-right: 0; }
-.home-hero-facts strong { color: var(--white); font-family: "Outfit", "Noto Sans TC", sans-serif; font-size: 20px; font-weight: 500; letter-spacing: .02em; }
-.home-hero-facts span { color: rgba(255,255,255,.7); font-size: 14px; }
+.corporate-home .hero-lead { max-width: 640px; margin-top: 24px; font-size: 17px; line-height: 1.9; text-wrap: pretty; }
+.corporate-home .hero-actions { margin-top: 36px; }
 
-/* ---- shared section heading: title and one line of context, link at the end */
-.home-section { padding: 96px 0; }
-.home-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; margin-bottom: 40px; }
-.home-heading > div { max-width: 720px; }
-.home-heading h2 { font-size: clamp(32px, 3.2vw, 44px); }
-.home-heading p { margin: 14px 0 0; color: var(--muted); font-size: 16px; line-height: 1.85; }
-.home-heading .text-link { flex-shrink: 0; font-size: 15px; }
-
-/* ---- where to start: three situations a visitor recognises, as text */
-.home-start { background: var(--ivory); }
-.home-start-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
-.home-start-list li { display: flex; flex-direction: column; padding: 30px 36px 6px 0; }
-.home-start-list li + li { padding-left: 36px; border-left: 1px solid var(--line); }
-.home-start-list h3 { font-family: "Noto Serif TC", serif; font-size: 26px; font-weight: 500; }
-.home-start-list p { margin: 12px 0 22px; color: var(--muted); font-size: 16px; line-height: 1.85; }
-.home-start-list .text-link { align-self: flex-start; margin-top: auto; font-size: 15px; }
-
-/* ---- dosage forms */
-.home-formats { background: var(--paper); }
-.home-format-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px 20px; }
-.home-format { display: block; min-width: 0; color: var(--ink); }
-.home-format-media { display: block; aspect-ratio: 3 / 2; overflow: hidden; background: var(--sand); }
-.home-format-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s var(--ease); }
-.home-format:hover .home-format-media img { transform: scale(1.04); }
-.home-format-name { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-top: 12px; font-size: 17px; font-weight: 500; }
-.home-format-name i { color: #8d672b; font-style: normal; font-size: 15px; transition: transform .2s ease; }
-.home-format:hover .home-format-name i { transform: translateX(4px); }
-
-/* ---- factory and quality: the production floor leads, the copy sits beside it */
-.home-team { padding: 96px 0; }
-.home-team-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 64px; align-items: center; }
-.home-team-photo { margin: 0; }
-.home-team-photo img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
-.home-team-photo figcaption { margin-top: 12px; color: rgba(255,255,255,.62); font-size: 14px; }
-.home-team-copy h2 { font-size: clamp(32px, 3.2vw, 44px); }
-.home-team-copy > p:not(.home-certificates-note) { margin: 16px 0 0; color: rgba(255,255,255,.76); font-size: 16px; line-height: 1.85; }
-.home-certificates { margin: 28px 0 0; padding: 0; list-style: none; border-top: 1px solid rgba(255,255,255,.18); }
-.home-certificates li { border-bottom: 1px solid rgba(255,255,255,.18); }
-.home-certificates a { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "name more" "scope more"; align-items: center; column-gap: 20px; padding: 14px 0; color: var(--white); }
-.home-certificates strong { grid-area: name; font-size: 17px; font-weight: 500; }
-.home-certificates span { grid-area: scope; color: rgba(255,255,255,.62); font-size: 14px; }
-.home-certificates i { grid-area: more; color: var(--gold-light); font-style: normal; font-size: 14px; }
-.home-certificates a:hover strong, .home-certificates a:hover i { color: var(--gold-light); }
-.home-certificates-note { margin: 12px 0 0; color: rgba(255,255,255,.56); font-size: 13px; line-height: 1.7; }
-.home-team-links { display: flex; flex-wrap: wrap; gap: 28px; margin-top: 28px; }
-.home-team-links .text-link { font-size: 15px; }
+/* ---- three photo tiles, edge to edge */
+.home-tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); background: var(--ink); }
+.home-tile { position: relative; display: block; min-height: 560px; overflow: hidden; color: var(--white); }
+.home-tile + .home-tile { border-left: 1px solid rgba(255,255,255,.14); }
+.home-tile > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
+.home-tile::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(19,19,16,.94) 0%, rgba(19,19,16,.62) 42%, rgba(19,19,16,.12) 78%); pointer-events: none; }
+.home-tile-copy { position: absolute; z-index: 1; left: 40px; right: 40px; bottom: 44px; }
+.home-tile h2 { font-size: clamp(28px, 2.4vw, 36px); line-height: 1.3; }
+.home-tile p { margin: 12px 0 22px; color: rgba(255,255,255,.8); font-size: 16px; line-height: 1.8; text-wrap: pretty; min-height: 3.6em; }
+/* two lines reserved, so the three headings line up whatever the copy length */
+.home-tile-more { display: inline-flex; align-items: center; gap: 12px; padding-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,.5); font-size: 15px; transition: gap .2s ease, color .2s ease, border-color .2s ease; }
+.home-tile:hover > img { transform: scale(1.04); }
+.home-tile:hover .home-tile-more { gap: 18px; color: var(--gold-light); border-color: var(--gold-light); }
 
 /* ---- latest posts: the shared insight cards, at homepage reading sizes */
+.home-section { padding: 96px 0; }
+.home-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; margin-bottom: 40px; }
+.home-heading h2 { font-size: clamp(32px, 3.2vw, 44px); }
+.home-heading .text-link { flex-shrink: 0; font-size: 15px; }
 .home-news { background: var(--ivory); }
 .home-news .insight-card { background: var(--paper); }
 .home-news .insight-copy > span { font-size: 13px; }
-.home-news .insight-copy h3 { font-size: 20px; line-height: 1.5; }
+.home-news .insight-copy h3 { font-size: 20px; line-height: 1.5; text-wrap: pretty; }
 .home-news .insight-copy p { font-size: 16px; line-height: 1.8; }
 .home-news .insight-copy time { font-size: 13px; }
 
@@ -87,14 +52,11 @@
 .home-contact p { margin: 10px 0 0; color: var(--muted); font-size: 16px; }
 .home-contact .button { flex-shrink: 0; }
 
-/* no single character stranded on the last line of a paragraph */
-.home-heading p, .home-start-list p, .home-team-copy > p, .home-contact p, .corporate-home .hero-lead, .home-news .insight-copy h3 { text-wrap: pretty; }
-@media (min-width: 721px) { .home-heading p { text-wrap: balance; } }
-
 /* the floating consult button waits until the hero, which has its own, is past */
 .corporate-home .floating-consult { position: fixed; transition: opacity .3s ease, visibility .3s ease; }
 .corporate-home.hero-in-view .floating-consult { opacity: 0; visibility: hidden; }
 .corporate-home a:focus-visible { outline: 2px solid var(--gold); outline-offset: 5px; }
+.home-tile:focus-visible { outline-offset: -4px; }
 
 /* ---- footer (homepage keeps only the contact column) */
 .corporate-home .footer-main { grid-template-columns: minmax(0,1fr) auto; gap: 32px; padding-top: 36px; padding-bottom: 30px; }
@@ -106,37 +68,28 @@
 .corporate-home .footer-nav strong { display: none; }
 
 @media (max-width: 1100px) {
-  .home-format-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px 14px; }
-  .home-team-grid { gap: 40px; }
-  .home-hero-facts li { padding-right: 28px; margin-right: 28px; }
+  .home-tile { min-height: 500px; }
+  .home-tile-copy { left: 28px; right: 28px; bottom: 34px; }
 }
 @media (max-width: 900px) {
-  .home-start-list li { padding-right: 24px; }
-  .home-start-list li + li { padding-left: 24px; }
-  .home-start-list h3 { font-size: 22px; }
-  .home-format-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .home-team-grid { grid-template-columns: 1fr; }
+  .home-tiles { grid-template-columns: 1fr; }
+  .home-tile { min-height: 420px; }
+  .home-tile + .home-tile { border-left: 0; border-top: 1px solid rgba(255,255,255,.14); }
 }
 @media (max-width: 720px) {
-  .corporate-home .hero { min-height: 0; height: auto; padding: 120px 0 0; display: block; }
+  .corporate-home .hero { min-height: 0; height: auto; padding: 120px 0 72px; display: block; }
   .corporate-home .hero-content { padding-top: 0; }
   .corporate-home .hero h1 { font-size: clamp(34px, 8.6vw, 46px); }
   .corporate-home .hero-lead { font-size: 16px; }
   .corporate-home .hero-lead br { display: none; }
   .corporate-home .hero-actions { flex-wrap: wrap; gap: 20px 24px; margin-top: 28px; }
-  .home-hero-bottom { position: relative; bottom: auto; margin-top: 44px; padding-bottom: 28px; }
-  .home-hero-facts { grid-template-columns: 1fr; gap: 14px; }
-  .home-hero-facts li { flex-direction: row; align-items: baseline; gap: 12px; padding: 0; margin: 0; border: 0; }
-  .home-hero-facts strong { font-size: 18px; }
-  .home-section, .home-team { padding: 64px 0; }
-  .home-heading { flex-direction: column; align-items: flex-start; gap: 18px; margin-bottom: 28px; }
-  .home-heading h2, .home-team-copy h2 { font-size: 30px; }
-  .home-start-list { grid-template-columns: 1fr; }
-  .home-start-list li, .home-start-list li + li { padding: 24px 0 26px; border-left: 0; border-bottom: 1px solid var(--line); }
-  .home-start-list h3 { font-size: 22px; }
-  .home-start-list p { margin: 10px 0 16px; }
-  .home-format-grid { gap: 22px 14px; }
-  .home-format-name { font-size: 16px; }
+  .home-tile { min-height: 380px; }
+  .home-tile-copy { left: 20px; right: 20px; bottom: 28px; }
+  .home-tile h2 { font-size: 28px; }
+  .home-tile p { min-height: 0; }
+  .home-section { padding: 64px 0; }
+  .home-heading { margin-bottom: 28px; }
+  .home-heading h2 { font-size: 30px; }
   .home-contact { padding: 44px 0; }
   .home-contact-inner { flex-direction: column; align-items: flex-start; gap: 22px; }
   .home-contact h2 { font-size: 26px; }
@@ -146,5 +99,5 @@
   .corporate-home .footer-brand p, .corporate-home .footer-nav a { font-size: 14px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .home-format-media img, .home-format-name i, .corporate-home .floating-consult { transition: none; }
+  .home-tile > img, .home-tile-more, .corporate-home .floating-consult { transition: none; }
 }
