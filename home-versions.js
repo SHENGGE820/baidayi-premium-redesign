@@ -4,7 +4,7 @@
 (function () {
   'use strict';
   var VERSIONS = [
-    { file: 'home-v1.html', label: '工廠實拍版' },
+    { file: 'home-v1.html', label: '三格圖塊版' },
     { file: 'home-v2.html', label: '大器沉穩版' }
   ];
   var here = location.pathname.split('/').pop();
