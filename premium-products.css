@@ -8,11 +8,12 @@
 .private-products-subtitle { margin: 16px 0 32px; color: var(--gold-light); font-size: 18px; letter-spacing: .1em; }
 .private-products-lead { margin: 0 0 18px; font-family: "Noto Serif TC",serif; font-size: clamp(23px,2.1vw,30px); font-weight: 500; line-height: 1.6; }
 .private-products-hero-text { max-width: 440px; margin: 0 0 30px; color: #c7c4bc; font-size: 14px; line-height: 1.95; }
-.private-products-hero-media { position: relative; margin: 0; padding: 0 0 40px 22px; }
-.private-products-hero-media::before { content: ""; position: absolute; inset: 22px 22px 24px 0; border: 1px solid rgba(217,184,117,.34); }
-.private-products-hero-media img { position: relative; width: 100%; height: auto; aspect-ratio: 1.12; object-fit: cover; }
-.private-products-hero-media figcaption { position: absolute; inset: auto 0 0 22px; display: flex; justify-content: space-between; align-items: center; gap: 16px; color: #c7c4bc; font-size: 10px; }
-.private-products-hero-media figcaption span:first-child { font-family: "Outfit",sans-serif; letter-spacing: .13em; }
+.private-products-hero-intro { display: flex; flex-direction: column; min-height: 390px; padding: 38px; background: var(--ink-soft); border: 1px solid rgba(217,184,117,.34); }
+.private-products-wordmark { color: #c7c4bc; font: 17px "Outfit",sans-serif; letter-spacing: .2em; }
+.private-products-intro-kicker { margin: 32px 0 12px; color: var(--gold-light); font: 10px "Outfit",sans-serif; letter-spacing: .16em; }
+.private-products-intro-title { margin: 0 0 24px; color: var(--ivory); font-family: "Noto Serif TC",serif; font-size: clamp(31px,3.4vw,46px); line-height: 1.45; }
+.private-products-intro-text { margin: 0 0 24px; color: #c7c4bc; font-size: 13px; line-height: 1.9; }
+.private-products-intro-footer { display: block; margin-top: auto; padding-top: 20px; color: #c7c4bc; border-top: 1px solid rgba(255,255,255,.17); font-size: 11px; }
 .private-products-catalogue { padding: 92px 0 88px; background: var(--paper); }
 .private-products-heading { display: grid; grid-template-columns: 1fr 1fr; align-items: end; gap: 60px; margin-bottom: 30px; }
 .private-products-heading h2 { margin: 12px 0 0; font-size: var(--fs-h2); }
@@ -78,10 +79,9 @@
   .private-products-hero-copy h1 { font-size: clamp(36px,7.5vw,48px); }
   .private-products-subtitle { margin: 12px 0 24px; font-size: 15px; }
   .private-products-lead { font-size: 24px; }
-  .private-products-hero-media { padding: 0 0 32px 14px; }
-  .private-products-hero-media::before { inset: 14px 14px 20px 0; }
-  .private-products-hero-media img { aspect-ratio: 1.45; }
-  .private-products-hero-media figcaption { left: 14px; font-size: 9px; }
+  .private-products-hero-intro { min-height: 320px; padding: 28px; }
+  .private-products-intro-kicker { margin-top: 24px; }
+  .private-products-intro-title { font-size: 34px; }
   .private-products-catalogue { padding: 56px 0; }
   .private-products-heading { grid-template-columns: 1fr; gap: 20px; margin-bottom: 25px; }
   .private-products-heading h2 { margin-top: 10px; }

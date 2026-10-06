@@ -72,7 +72,7 @@ const PHOTOS = {
   'banner-glass-bottles': '2026/04/玻璃瓶.jpg',
   'team-booth': '2026/08/699633.jpg',        // the team at the 2026 Asia beauty & biotech expo
   'booth-visitors': '2026/08/699632.jpg',    // visitors at the same booth
-  'booth-products': '2026/08/699649.jpg',    // finished packs made for clients, shown at the booth
+  'booth-products': '2026/08/699649.jpg',    // company own-brand products shown at the booth; not a private-label catalogue
 };
 for (const [name, rel] of Object.entries(PHOTOS)) {
   const out = path.join(OUT, name + '.jpg');
