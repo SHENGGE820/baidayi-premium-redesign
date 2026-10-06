@@ -474,6 +474,14 @@ a.catalogue-card:focus-visible .catalogue-more::after { transform: scaleX(1); }
 .article-body img { width: 100%; height: auto; display: block; margin: 2em 0; }
 .article-body figure { margin: 2em 0; }
 .article-body figcaption { margin-top: 10px; color: var(--muted); font-size: 13px; text-align: center; }
+.article-body blockquote { position: relative; margin: 2.4em 0; padding: 28px 30px 26px; border: 1px solid rgba(141,103,43,.22); background: rgba(255,255,255,.5); color: var(--ink); }
+.article-body blockquote::before { content: "“"; position: absolute; top: 6px; left: 14px; color: rgba(141,103,43,.26); font-family: Georgia,serif; font-size: 44px; line-height: 1; }
+.article-body blockquote p { margin: 0; padding-left: 16px; font-family: "Noto Serif TC",serif; font-size: 1.05em; }
+.article-body blockquote footer { margin-top: 12px; padding-left: 16px; color: var(--muted); font-size: 13px; }
+.article-body blockquote cite { font-style: normal; }
+.article-body .article-content-video .bke-video-wrap,
+.article-body .article-content-video iframe { margin-block: 0; }
+.article-video-embed iframe { width: 100%; aspect-ratio: 16 / 9; }
 
 /* Local mp4s ship as a landscape and a portrait cut of the same video. */
 .article-body video,
@@ -501,6 +509,7 @@ a.catalogue-card:focus-visible .catalogue-more::after { transform: scaleX(1); }
 
 @media (max-width: 700px) {
   .article-body { font-size: 16px; line-height: 1.95; }
+  .article-body blockquote { padding: 24px 20px 22px; }
 }
 
 /* Section headings keep their authored <br> on phones too. They used to drop

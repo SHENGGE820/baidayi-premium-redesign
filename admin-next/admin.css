@@ -1073,6 +1073,80 @@ h1 {
   padding-bottom: 6px;
 }
 
+.article-blocks-editor,
+.function-items-editor {
+  display: grid;
+  gap: 12px;
+}
+
+.article-block-empty,
+.compliance-note {
+  padding: 14px 16px;
+  color: var(--muted-strong);
+  background: #f4f6f3;
+  border-left: 3px solid var(--accent);
+}
+
+.article-block-empty strong,
+.compliance-note strong { color: var(--ink); font-size: 12px; }
+.article-block-empty p,
+.compliance-note p { margin: 3px 0 0; font-size: 11px; line-height: 1.65; }
+
+.article-block,
+.function-item {
+  background: var(--paper);
+  border: 1px solid var(--line-strong);
+}
+
+.article-block > summary,
+.function-item > summary {
+  display: flex;
+  min-height: 50px;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 13px;
+  cursor: pointer;
+}
+
+.article-block-position {
+  color: var(--muted);
+  font: 650 10px ui-monospace, monospace;
+}
+
+.article-block-summary { min-width: 0; }
+.article-block-summary strong,
+.article-block-summary small { display: block; }
+.article-block-summary strong { font-size: 12px; }
+.article-block-summary small { overflow: hidden; color: var(--muted); font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+
+.article-block-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  padding: 10px 13px;
+  border-top: 1px solid var(--line);
+}
+
+.article-block-fields,
+.function-item-fields { padding: 14px 13px 18px; }
+
+.article-block-add {
+  margin-top: 5px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.article-block-add > strong { font-size: 12px; }
+.article-block-add-actions { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; margin-top: 9px; }
+.block-add-button { min-height: 58px; padding: 9px 11px; color: var(--ink); background: var(--paper); border: 1px solid var(--line-strong); text-align: left; }
+.block-add-button:hover,
+.block-add-button:focus-visible { border-color: var(--accent); outline: 0; }
+.block-add-button strong,
+.block-add-button span { display: block; }
+.block-add-button strong { font-size: 11px; }
+.block-add-button span { margin-top: 2px; color: var(--muted); font-size: 9px; line-height: 1.45; }
+.function-item-add { justify-self: start; margin-top: 2px; }
+
 .preview-column {
   position: sticky;
   top: 24px;
@@ -1442,6 +1516,8 @@ h1 {
   .form-grid {
     grid-template-columns: 1fr;
   }
+
+  .article-block-add-actions { grid-template-columns: 1fr; }
 
   .field.is-full {
     grid-column: auto;

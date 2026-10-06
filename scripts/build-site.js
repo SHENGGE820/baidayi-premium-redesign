@@ -39,7 +39,7 @@
 const fs = require('fs');
 const path = require('path');
 const matter = require('gray-matter');
-const { marked } = require('marked');
+const { renderArticleBlocks, renderSafeMarkdown } = require('./lib/article-content');
 
 const ROOT = path.resolve(__dirname, '..');
 const V = '20260929-11';
@@ -88,6 +88,7 @@ function loadArticles() {
       videoEmbed: d.video_embed || '',
       videoLandscape: d.video_landscape || '', videoPortrait: d.video_portrait || '',
       home: d.home === true,
+      bodyBlocks: Array.isArray(d.body_blocks) ? d.body_blocks : [],
       bodyHtml: d.body_html || '',
       markdown: file.content.trim()
     };
@@ -104,12 +105,46 @@ function videoBlock(a, prefix) {
   return '';
 }
 
+/* Legacy WordPress HTML remains a temporary compatibility input while those
+   posts are migrated to body_blocks. Refuse executable markup at build time:
+   this field is never a general-purpose HTML escape hatch. */
+function assertSafeLegacyHtml(html, slug) {
+  const unsafe = [
+    /<(?:script|style|object|embed|form|input|button|textarea|select|svg|math)\b/i,
+    /\son[a-z]+\s*=/i,
+    /\s(?:srcdoc|style)\s*=/i,
+    /(?:javascript|vbscript)\s*:/i,
+    /data\s*:\s*text\/html/i
+  ];
+  if (unsafe.some(pattern => pattern.test(html))) {
+    throw new Error(`content/articles/${slug}.md: unsafe legacy body_html; migrate it to body_blocks`);
+  }
+  for (const match of html.matchAll(/<iframe\b[^>]*\bsrc="([^"]+)"/gi)) {
+    let url;
+    try { url = new URL(match[1]); } catch { throw new Error(`content/articles/${slug}.md: invalid iframe URL`); }
+    const allowed = url.protocol === 'https:' && ['www.youtube.com', 'www.youtube-nocookie.com', 'player.vimeo.com'].includes(url.hostname);
+    if (!allowed) throw new Error(`content/articles/${slug}.md: iframe host is not allowed`);
+  }
+}
+
+function embeddedVideo(a, prefix) {
+  const raw = String(a.videoEmbed || '');
+  const provider = /(?:youtube\.com|youtu\.be)/i.test(raw) ? 'youtube' : /vimeo\.com/i.test(raw) ? 'vimeo' : '';
+  if (!provider) throw new Error(`content/articles/${a.slug}.md: video_embed must be an HTTPS YouTube or Vimeo URL`);
+  return renderArticleBlocks([{ type: 'video', provider, url: raw, caption: a.title }], { prefix });
+}
+
 function articleMain(a) {
   const prefix = '../';
-  const body = a.bodyHtml ? relHtml(a.bodyHtml, prefix) : relHtml(marked.parse(a.markdown), prefix);
+  let body = '';
+  if (a.bodyBlocks.length) body = renderArticleBlocks(a.bodyBlocks, { prefix });
+  else if (a.bodyHtml) {
+    assertSafeLegacyHtml(a.bodyHtml, a.slug);
+    body = relHtml(a.bodyHtml, prefix);
+  } else if (a.markdown) body = renderSafeMarkdown(a.markdown, { prefix });
   if (a.videoEmbed && !body.trim()) {
     return `      <div class="article-video-lead reveal">
-        <iframe title="${esc(a.title)}" src="${esc(a.videoEmbed)}" width="1500" height="844" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        ${embeddedVideo(a, prefix)}
       </div>`;
   }
   const hero = a.hero ? `      <div class="article-hero reveal"><img src="${esc(rel(a.hero, prefix))}" alt="${esc(a.heroAlt)}"></div>\n` : '';

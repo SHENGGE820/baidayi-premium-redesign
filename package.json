@@ -5,7 +5,7 @@
   "scripts": {
     "build": "node scripts/build-site.js",
     "build:admin-data": "node scripts/build-admin-data.js",
-    "check": "node scripts/check-links.js && node scripts/test-enquiry.js && node scripts/test-inquiry.js"
+    "check": "node --test scripts/test-article-content.js && node scripts/check-links.js && node scripts/test-enquiry.js && node scripts/test-inquiry.js"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",

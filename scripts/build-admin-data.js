@@ -104,10 +104,33 @@ function loadArticles() {
       videoPortrait: asString(data.video_portrait),
       videoEmbed: asString(data.video_embed),
       home: data.home === true,
+      bodyBlocks: Array.isArray(data.body_blocks) ? data.body_blocks : [],
       body: parsed.content.trim(),
       bodyHtml: asString(data.body_html)
     };
   }).sort((a, b) => compareText(b.date, a.date) || compareText(a.slug, b.slug));
+}
+
+function loadFunctions() {
+  const directory = path.join(CONTENT_DIR, 'functions');
+  return markdownFiles(directory).map(fileName => {
+    const filePath = path.join(directory, fileName);
+    const data = readMatter(filePath).data || {};
+    const slug = fileName.replace(/\.md$/i, '');
+
+    return {
+      id: slug,
+      slug,
+      source: sourcePath(filePath),
+      title: asString(data.title),
+      titleEn: asString(data.title_en),
+      lead: asString(data.lead),
+      summary: asString(data.summary),
+      image: asString(data.image),
+      placeholder: data.placeholder === true,
+      items: Array.isArray(data.items) ? data.items : []
+    };
+  }).sort((a, b) => compareText(a.slug, b.slug));
 }
 
 function loadCatalogue() {
@@ -195,7 +218,7 @@ function appendField(base, key, isArray) {
   return base ? `${base}.${key}` : String(key);
 }
 
-function collectMedia(articles, catalogue, pages, settings) {
+function collectMedia(articles, catalogue, functions, pages, settings) {
   const assets = new Map();
 
   function add(value, reference) {
@@ -230,6 +253,7 @@ function collectMedia(articles, catalogue, pages, settings) {
 
   articles.forEach(article => walk(article, article.source));
   catalogue.forEach(entry => walk(entry, entry.source));
+  functions.forEach(entry => walk(entry, entry.source));
   pages.forEach(page => walk(page.data, page.source, 'data'));
   walk(settings, 'content/settings.md');
 
@@ -268,17 +292,19 @@ function sourceCommit() {
 function buildAdminData() {
   const articles = loadArticles();
   const catalogue = loadCatalogue();
+  const functions = loadFunctions();
   const pages = loadPages();
   const settings = loadSettings();
-  const media = collectMedia(articles, catalogue, pages, settings);
+  const media = collectMedia(articles, catalogue, functions, pages, settings);
 
   const payload = {
-    schemaVersion: 1,
+    schemaVersion: 2,
     generatedAt: new Date().toISOString(),
     sourceCommit: sourceCommit(),
     stats: {
       articles: articles.length,
       catalogue: catalogue.length,
+      functions: functions.length,
       pages: pages.length,
       media: media.length,
       mediaImages: media.filter(item => item.type.startsWith('image/')).length,
@@ -286,6 +312,7 @@ function buildAdminData() {
     },
     articles,
     catalogue,
+    functions,
     pages,
     settings,
     media
@@ -299,6 +326,7 @@ function buildAdminData() {
 const payload = buildAdminData();
 console.log(
   `admin data: ${payload.stats.articles} articles, ` +
-  `${payload.stats.catalogue} catalogue entries, ${payload.stats.pages} pages, ` +
+  `${payload.stats.catalogue} catalogue entries, ${payload.stats.functions} function directions, ` +
+  `${payload.stats.pages} pages, ` +
   `${payload.stats.media} media files -> ${sourcePath(OUTPUT_FILE)}`
 );
