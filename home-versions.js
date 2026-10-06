@@ -6,7 +6,8 @@
     { file: 'home-v2.html', key: '2' },
     { file: 'home-v3.html', key: '3' },
     { file: 'home-v4.html', key: '4' },
-    { file: 'home-v5.html', key: '5' }
+    { file: 'home-v5.html', key: '5' },
+    { file: 'home-v6.html', key: '6' }
   ];
   var here = location.pathname.split('/').pop();
   var bar = document.createElement('nav');
