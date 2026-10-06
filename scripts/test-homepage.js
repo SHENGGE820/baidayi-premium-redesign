@@ -12,7 +12,7 @@ const data = matter(fs.readFileSync(path.join(root, 'content/pages/home.md'), 'u
 
 test('homepage preserves the full-background factory film and company identity', () => {
   assert.equal((html.match(/<h1\b/g) || []).length, 1);
-  assert.match(html, /國家級營養師研發團隊，<br>專注保健食品近 20 年/);
+  assert.match(html, /百達醫，<br>保健食品研發與製造/);
   assert.match(html, /class="hero section-dark"/);
   assert.match(html, /<div class="hero-media"[^>]*><video data-hero-video muted loop playsinline preload="none"/);
   assert.match(html, /poster="\.\/assets\/brand\/factory-cleanroom.jpg"/);

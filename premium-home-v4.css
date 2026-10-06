@@ -1,0 +1,49 @@
+/* Proposal 4, editorial: a light page laid out like a brand book. Big
+   serif type, a lot of white, numbered sections, pictures and text
+   alternating at uneven widths, thin rules. */
+.v-editorial { background: var(--paper); }
+.v-editorial .site-header { background: rgba(23,23,19,.95); }
+.ed-wrap { width: min(1240px, 100% - 80px); margin: 0 auto; }
+.ed-hero { padding: calc(var(--header-height) + 90px) 0 110px; }
+.ed-hero-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, .65fr); gap: 64px; align-items: end; }
+.ed-kicker { margin: 0 0 26px; color: #8d672b; font: 500 13px "Outfit", sans-serif; letter-spacing: .2em; }
+.ed-hero h1 { margin: 0; font-family: "Noto Serif TC", serif; font-weight: 500; font-size: clamp(34px, 4vw, 56px); line-height: 1.28; text-wrap: balance; letter-spacing: -.03em; }
+.ed-hero p { max-width: 520px; margin: 30px 0 0; color: var(--muted); font-size: 17px; line-height: 1.9; }
+.ed-hero .button { margin-top: 38px; }
+.ed-hero-media { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--ink); }
+.ed-hero-media video { width: 100%; height: 100%; object-fit: cover; }
+.ed-hero-media figcaption { position: absolute; left: 0; bottom: -30px; color: var(--muted); font-size: 13px; }
+.ed-rule { border: 0; border-top: 1px solid var(--ink); margin: 0; }
+.ed-chapter { padding: 120px 0; }
+.ed-chapter + .ed-chapter { border-top: 1px solid var(--line); }
+.ed-row { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); gap: 80px; align-items: center; }
+.ed-row.flip { grid-template-columns: minmax(0, .75fr) minmax(0, 1.25fr); }
+.ed-row.flip .ed-photo { order: 2; }
+.ed-photo { margin: 0; }
+.ed-photo img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+.ed-num { display: block; color: #8d672b; font: 400 64px/1 "Outfit", sans-serif; letter-spacing: -.02em; }
+.ed-copy h2 { margin: 22px 0 0; font-family: "Noto Serif TC", serif; font-weight: 500; font-size: clamp(30px, 3vw, 42px); line-height: 1.32; }
+.ed-copy p { margin: 18px 0 0; color: var(--muted); font-size: 17px; line-height: 1.9; }
+.ed-copy .text-link { margin-top: 28px; font-size: 15px; }
+.ed-list { margin: 26px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+.ed-list li { display: flex; justify-content: space-between; gap: 20px; padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 16px; }
+.ed-list li span { color: var(--muted); font-size: 14px; }
+.ed-steps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 80px; margin: 50px 0 0; padding: 0; list-style: none; counter-reset: s; }
+.ed-steps li { display: grid; grid-template-columns: 56px 1fr; padding: 18px 0; border-bottom: 1px solid var(--line); font-size: 17px; }
+.ed-steps li span { color: #8d672b; font-family: "Outfit", sans-serif; }
+.ed-end { padding: 130px 0; text-align: center; border-top: 1px solid var(--ink); }
+.ed-end h2 { margin: 0; font-family: "Noto Serif TC", serif; font-weight: 500; font-size: clamp(30px, 3.6vw, 50px); }
+.ed-end p { margin: 18px 0 0; color: var(--muted); font-size: 17px; }
+.ed-end .button { margin-top: 36px; }
+@media (max-width: 900px) {
+  .ed-hero-grid, .ed-row, .ed-row.flip { grid-template-columns: 1fr; gap: 44px; }
+  .ed-row.flip .ed-photo { order: 0; }
+  .ed-steps { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .ed-wrap { width: calc(100% - 40px); }
+  .ed-hero { padding: calc(var(--header-height) + 48px) 0 80px; }
+  .ed-chapter, .ed-end { padding: 80px 0; }
+  .ed-num { font-size: 48px; }
+  .ed-hero p, .ed-copy p, .ed-end p { font-size: 16px; }
+}

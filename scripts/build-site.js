@@ -3,6 +3,7 @@
  *
  *   content/articles/<slug>.md   →  <slug>/index.html (one page per post)
  *                                    最新消息/index.html (the card grid)
+ *                                    index.html (the homepage's three posts)
  *   content/catalogue/<name>.md  →  全面性服務/一站式服務/<name>/index.html
  *                                    (one styles page per dosage form or
  *                                    package type)
@@ -197,6 +198,26 @@ ${articleMain(a)}
 </body>
 </html>
 `;
+}
+
+/* ------------------------------------------------------------- homepage */
+function homeCard(a, featured) {
+  const ind = '          ';
+  return `<a class="insight-card${featured ? ' insight-card-featured' : ''} reveal" href="./${a.slug}/index.html">
+${ind}  <div class="insight-image"><img src="${esc(rel(a.cover, './'))}" alt="${esc(a.title)}" loading="lazy"></div>
+${ind}  <div class="insight-copy"><span>${esc(a.category)}</span><h3>${esc(a.title)}</h3>${featured && a.summary ? `<p>${esc(a.summary)}</p>` : ''}<time datetime="${a.date}">${dots(a.date)}</time></div>
+${ind}</a>`;
+}
+
+/* Posts flagged for the homepage come first; if fewer than three are, the
+   newest non-event posts fill the rest. */
+function homePicks(posts) {
+  const picks = posts.filter(p => p.home).slice(0, 3);
+  for (const p of posts) {
+    if (picks.length >= 3) break;
+    if (!picks.includes(p) && p.group !== 'event') picks.push(p);
+  }
+  return picks;
 }
 
 /* ------------------------------------------------------------- listing */
@@ -712,7 +733,9 @@ for (const e of fs.readdirSync(ROOT, { withFileTypes: true })) {
 }
 
 const listingChanged = fill('最新消息/index.html', 'article-cards', posts.map(a => '      ' + listingCard(a)).join('\n') + '\n      ');
-console.log(`articles: ${posts.length} (${written} written, ${removed} removed); listing ${listingChanged ? 'updated' : 'unchanged'}`);
+const homeChanged = fill('index.html', 'home-articles', homePicks(posts).map((a, i) => '          ' + homeCard(a, i === 0)).join('\n') + '\n          ');
+
+console.log(`articles: ${posts.length} (${written} written, ${removed} removed); listing ${listingChanged ? 'updated' : 'unchanged'}; homepage ${homeChanged ? 'updated' : 'unchanged'}`);
 
 const catalogue = loadCatalogue();
 const targets = linkTargets(catalogue);

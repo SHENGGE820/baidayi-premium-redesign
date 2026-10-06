@@ -6,7 +6,9 @@
   var VERSIONS = [
     { file: 'home-v1.html', label: '三格圖塊版' },
     { file: 'home-v2.html', label: '大器沉穩版' },
-    { file: 'home-v3.html', label: '今天之前的原版' }
+    { file: 'home-v3.html', label: '今天之前的原版' },
+    { file: 'home-v4.html', label: '雜誌編輯風' },
+    { file: 'home-v5.html', label: '全深色質感風' }
   ];
   var here = location.pathname.split('/').pop();
   var bar = document.createElement('nav');
