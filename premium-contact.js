@@ -5,6 +5,22 @@
   if (!form || !status) return;
 
   var params = new URLSearchParams(window.location.search);
+  // Only the customer's explicit assistant handoff creates this short-lived
+  // same-tab draft. Keep any existing form text and consume it once.
+  if (params.get('source') === 'support') {
+    try {
+      var supportDraft = JSON.parse(window.sessionStorage.getItem('bke-support-draft-v1') || 'null');
+      var draftMessage = form.querySelector('#contact-message');
+      if (supportDraft && supportDraft.version === 1 && typeof supportDraft.text === 'string' &&
+          supportDraft.text.length <= 2400 && typeof supportDraft.createdAt === 'number' &&
+          Date.now() - supportDraft.createdAt >= 0 && Date.now() - supportDraft.createdAt < 30 * 60 * 1000 &&
+          draftMessage && !draftMessage.value.trim()) {
+        draftMessage.value = supportDraft.text;
+        status.textContent = '已帶入客服需求草稿。請核對規格、補上聯絡資料，再送出諮詢。';
+      }
+      window.sessionStorage.removeItem('bke-support-draft-v1');
+    } catch (e) { /* Storage may be blocked; the regular form remains usable. */ }
+  }
   var stageMap = {
     idea: '只有初步想法',
     formula: '已有配方方向',
@@ -74,6 +90,9 @@
   // /cms:phone
 
   form.addEventListener('submit', function () {
+    if (window.BKETracking) {
+      window.BKETracking.record('quote_submit_attempt', { inquiry_count: window.BKEInquiry ? window.BKEInquiry.list().length : 0 });
+    }
     // A cross-origin page owns delivery confirmation; a timer cannot verify it.
     status.textContent = '已嘗試開啟 Google 表單確認頁，請以新分頁顯示的結果為準。若未開啟或顯示錯誤，請重新送出，或來電 ' + PHONE + '。';
   });

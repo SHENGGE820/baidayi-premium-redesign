@@ -1,0 +1,35 @@
+.bke-support-launcher,.bke-support-panel { color:#242820; font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif; }
+.bke-support-launcher { position:fixed; z-index:950; right:24px; bottom:116px; min-height:48px; padding:12px 18px; border:1px solid #d8c49a; border-radius:24px; background:#242c24; color:#fffaf1; box-shadow:0 8px 24px #0002; font-size:14px; cursor:pointer; }
+.bke-support-launcher:hover { background:#3d483a; }
+.bke-support-panel { position:fixed; z-index:1150; right:24px; bottom:116px; width:min(400px,calc(100vw - 32px)); height:min(600px,calc(100dvh - 142px)); display:flex; flex-direction:column; background:#fffdf8; border:1px solid #d9d4c5; border-radius:14px; box-shadow:0 16px 60px #18201838; overflow:hidden; font-size:14px; line-height:1.6; }
+.bke-support-panel[hidden] { display:none; }
+.bke-support-head { display:flex; justify-content:space-between; align-items:center; flex:none; gap:12px; padding:16px 18px; color:#fff; background:#242c24; }
+.bke-support-head h2 { font:600 18px/1.5 "Noto Sans TC","Microsoft JhengHei",sans-serif; color:inherit; margin:0; }
+.bke-support-head p { margin:2px 0 0; font-size:12px; color:#ded7c5; }
+.bke-support-close { flex:none; width:44px; height:44px; border:0; color:#fff; background:transparent; font-size:30px; cursor:pointer; }
+.bke-support-log { flex:1; min-height:0; overflow:auto; overscroll-behavior:contain; padding:18px; background:#f6f4ed; }
+.bke-support-message { margin:0 20px 14px 0; padding:12px 14px; background:#fffdf8; border:1px solid #e5e1d5; border-radius:10px; overflow-wrap:anywhere; }
+.bke-support-message.is-user { margin-left:26px; margin-right:0; background:#e7ecdf; border-color:#dce3d2; }
+.bke-support-role { display:block; color:#626c59; font-size:11px; font-weight:600; }
+.bke-support-message p { margin:5px 0 0; white-space:pre-wrap; font:inherit; color:inherit; }
+.bke-support-quick { display:flex; gap:7px; padding:10px 14px; flex-wrap:wrap; border-top:1px solid #e5e1d5; }
+.bke-support-quick button { min-height:36px; padding:5px 10px; background:#f5f2e8; color:#394334; border:1px solid #d5d1c3; border-radius:18px; font:inherit; font-size:12px; cursor:pointer; }
+.bke-support-form { display:flex; align-items:stretch; flex:none; gap:8px; padding:0 14px 10px; }
+.bke-support-form textarea { flex:1; min-width:0; min-height:50px; max-height:112px; resize:vertical; padding:10px; color:#242820; background:#fff; border:1px solid #b8beaf; border-radius:6px; font:inherit; font-size:16px; line-height:1.4; }
+.bke-support-form button { padding:8px 14px; min-height:44px; color:#fff; background:#354431; border:0; border-radius:6px; font:inherit; cursor:pointer; }
+.bke-support-foot { display:flex; justify-content:space-between; align-items:center; flex:none; gap:8px; padding:0 14px 12px; }
+.bke-support-foot small { color:#67705f; font-size:10px; }
+.bke-support-foot button { flex:none; min-height:32px; padding:3px 0; border:0; color:#555f4e; background:transparent; font:inherit; font-size:11px; cursor:pointer; text-decoration:underline; }
+.bke-support-links { display:flex; flex-wrap:wrap; gap:6px 12px; margin-top:10px; }
+.bke-support-links a { color:#425a36; text-decoration:underline; text-underline-offset:3px; font-size:13px; }
+.bke-support-handoff,.bke-support-copy { display:block; margin-top:10px; min-height:40px; padding:7px 11px; color:#304429; background:#edf0e6; border:1px solid #c6ceba; border-radius:5px; font:inherit; font-size:13px; cursor:pointer; }
+.bke-support-sr { position:absolute; width:1px; height:1px; padding:0; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; }
+.bke-support-panel button:focus-visible,.bke-support-panel a:focus-visible,.bke-support-panel textarea:focus-visible,.bke-support-launcher:focus-visible { outline:3px solid #b78c3b; outline-offset:2px; }
+.bke-support-panel button:disabled { opacity:.5; cursor:default; }
+body.inquiry-open .bke-support-launcher,body.inquiry-open .bke-support-panel { visibility:hidden; }
+@media(max-width:560px) {
+  .bke-support-launcher { right:16px; bottom:110px; }
+  .bke-support-panel { right:10px; bottom:16px; width:calc(100vw - 20px); height:min(620px,calc(100dvh - 32px)); }
+  .bke-support-head { padding:12px 14px; }
+  .bke-support-log { padding:12px; }
+}

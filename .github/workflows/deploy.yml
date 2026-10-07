@@ -46,8 +46,8 @@ jobs:
           command -v ffmpeg >/dev/null || (sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg)
           node scripts/add-video-posters.js --write
 
-      - name: Check every link and asset resolves
-        run: node scripts/check-links.js
+      - name: Validate website features and links
+        run: npm run check
 
       - name: Commit generated pages
         run: |
@@ -63,8 +63,9 @@ jobs:
       - name: Stage the public site
         run: |
           rsync -a --delete \
-            --exclude .git --exclude .github --exclude _site --exclude node_modules \
+            --exclude .git --exclude .github --exclude .claude --exclude _site --exclude node_modules \
             --exclude scripts --exclude content --exclude admin-next --exclude ADMIN_NEXT.md --exclude 'package*.json' \
+            --exclude README.txt --exclude '開啟展示.cmd' \
             ./ _site/
 
       - name: Verify development-only admin is not public

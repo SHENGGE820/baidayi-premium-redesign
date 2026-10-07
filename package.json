@@ -6,7 +6,8 @@
     "preview": "node scripts/serve-preview.js",
     "build": "node scripts/build-site.js",
     "build:admin-data": "node scripts/build-admin-data.js",
-    "check": "node --test scripts/test-article-content.js scripts/test-homepage.js && node scripts/check-links.js && node scripts/test-enquiry.js && node scripts/test-inquiry.js"
+    "build:support": "node scripts/build-support-knowledge.js",
+    "check": "node scripts/build-support-knowledge.js --check && node --test scripts/test-article-content.js scripts/test-homepage.js scripts/test-tracking.js scripts/test-support.js scripts/test-support-build.js scripts/test-prompt-studio.js && node scripts/check-links.js && node scripts/test-enquiry.js && node scripts/test-inquiry.js"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",

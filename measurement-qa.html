@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow"><title>本機事件驗證｜百達醫 BKE</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#f5f3ee;color:#222;font:16px/1.7 system-ui,"Microsoft JhengHei",sans-serif}main{max-width:1120px;margin:40px auto;padding:0 24px}h1{line-height:1.3}h2{font-size:1.3rem}.note,.card{padding:20px;background:#fff;border:1px solid #d9d3c5;border-radius:8px;margin:20px 0}.note{border-left:5px solid #866628}a{color:#63460d}button{font:inherit;background:#fff;border:1px solid #a49a87;padding:8px 14px;border-radius:4px;cursor:pointer}nav,.actions{display:flex;gap:16px;flex-wrap:wrap}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;text-align:left;font-size:14px}th,td{padding:10px;border-bottom:1px solid #dedbd3;vertical-align:top}code{overflow-wrap:anywhere}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}.muted{color:#655f54}:focus-visible{outline:3px solid #866628;outline-offset:3px}
+  </style>
+</head>
+<body data-measurement-qa="true"><main>
+  <p class="muted">BKE / MEASUREMENT QA</p><h1>本機事件驗證</h1>
+  <p>檢查「進入諮詢 → 選擇規格 → 嘗試送出」的事件定義與紀錄。此頁共用同一瀏覽器、同一網址來源的本機資料。</p>
+  <aside class="note"><strong>可證明互動與送出嘗試；實際收到詢問仍須確認 Google 表單。</strong><br>沒有連接 GA4／GTM 帳號，不把進入表單、準備資料或開啟新分頁計為真正送達。不記錄姓名、Email、電話、需求文字、完整網址或來源網址。</aside>
+  <nav aria-label="驗證入口">
+    <a href="index.html" target="_blank" rel="noopener">1. 開啟官網</a>
+    <a href="全面性服務/劑型與包材/index.html" target="_blank" rel="noopener">2. 開啟劑型與包材</a>
+    <a href="contact/index.html" target="_blank" rel="noopener">3. 開啟代工諮詢</a>
+  </nav>
+  <section class="card"><h2>事件的定義</h2><div class="table-wrap"><table>
+    <thead><tr><th>事件</th><th>觸發時機</th><th>可證明的結果</th></tr></thead><tbody>
+      <tr><td><code>quote_start</code></td><td>點擊本站「代工諮詢」或帶清單去諮詢的連結</td><td>進入諮詢的意圖</td></tr>
+      <tr><td><code>select_packaging_spec</code></td><td>把劑型、包材或規格款式成功加入詢價清單</td><td>選擇已存入本機清單</td></tr>
+      <tr><td><code>quote_submit_attempt</code></td><td>必填欄位通過瀏覽器驗證，觸發表單送出</td><td>送出嘗試；<code>delivery_status: unverified</code></td></tr>
+      <tr><td><code>support_open</code></td><td>開啟智慧客服</td><td>客服入口使用</td></tr>
+      <tr><td><code>support_faq_answer</code></td><td>顯示知識庫FAQ回覆</td><td>已提供預先整理的回答</td></tr>
+      <tr><td><code>support_unanswered</code></td><td>問題未知或需人工確認</td><td>轉由顧問確認</td></tr>
+      <tr><td><code>support_draft_created</code></td><td>根據客戶輸入整理需求草稿</td><td>草稿建立；只有規格是否出現的布林值</td></tr>
+      <tr><td><code>support_handoff</code></td><td>選擇帶草稿去代工諮詢</td><td>轉入表單；送達仍未確認</td></tr>
+    </tbody></table></div><p class="muted">明天展示到需求整理與事件紀錄即可。只有取得 Google 表單確認及收件端佐證，才能將詢問認定為已送達。</p></section>
+  <section class="card"><div class="actions"><h2>最近事件</h2><button type="button" id="refresh">重新整理</button><button type="button" id="clear">清空本機紀錄</button></div>
+    <p id="status" aria-live="polite"></p><div class="table-wrap"><table><thead><tr><th>時間</th><th>事件</th><th>頁面類型</th><th>送達狀態</th><th>選擇數</th></tr></thead><tbody id="rows"></tbody></table></div>
+    <details><summary>查看原始事件 JSON</summary><pre id="json"></pre></details>
+  </section><p class="muted">本機最多保存最近 200 筆。清空只會刪除事件紀錄，不影響詢價清單。</p>
+</main><script src="premium-tracking.js?v=20261007-01"></script><script src="measurement-qa.js?v=20261007-01"></script></body>
+</html>

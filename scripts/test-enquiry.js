@@ -20,6 +20,7 @@ function setup(search = '') {
   const interest = { hidden: true, textContent: '' };
   const status = { textContent: '' };
   const events = {};
+  const tracking = [];
   const form = {
     querySelector: selector => selector === '[data-form-interest]' ? interest : fields[selector],
     addEventListener: (name, handler) => { events[name] = handler; }
@@ -27,7 +28,7 @@ function setup(search = '') {
   vm.runInNewContext(source, {
     URLSearchParams,
     document: { querySelector: selector => selector === '[data-premium-contact-form]' ? form : status },
-    window: { location: { search }, setTimeout: () => assert.fail('No timer may claim remote success') }
+    window: { location: { search }, BKETracking: { record: (event, details) => tracking.push({ event, details }) }, setTimeout: () => assert.fail('No timer may claim remote success') }
   });
   function payload() {
     const message = fields['#contact-message'];
@@ -35,7 +36,7 @@ function setup(search = '') {
     events.formdata({ formData });
     return formData.get(message.name);
   }
-  return { fields, interest, status, events, payload };
+  return { fields, interest, status, events, payload, tracking };
 }
 
 test('catalogue choices prefill only existing form options', () => {
@@ -86,6 +87,16 @@ test('submit directs customers to the actual confirmation, not a guessed success
   view.events.submit();
   assert.match(view.status.textContent, /以新分頁顯示的結果為準/);
   assert.doesNotMatch(view.status.textContent, /謝謝你的詢問|已成功送出/);
+});
+
+test('payload preparation records nothing and submission records only an attempt', () => {
+  const view = setup();
+  view.payload();
+  assert.equal(view.tracking.length, 0);
+  view.events.submit();
+  assert.equal(view.tracking.length, 1);
+  assert.equal(view.tracking[0].event, 'quote_submit_attempt');
+  assert.equal(view.tracking[0].details.inquiry_count, 0);
 });
 
 test('every dosage card has a next step and reading anchors resolve', () => {

@@ -830,3 +830,6 @@ const pagesConfigChanged = fill('admin/config.yml', 'pages', pagesConfig(pageEnt
 const settingsChanged = applySettings(companyDetails());
 
 console.log(`pages: ${PAGES.length} (${pagesWritten} written, ${contentSynced} content files synced); CMS page forms ${pagesConfigChanged ? 'updated' : 'unchanged'}; settings ${settingsChanged.length ? 'applied to ' + settingsChanged.join(', ') : 'unchanged'}`);
+
+// Keep the customer-facing FAQ asset aligned with its editable JSON source.
+require('./build-support-knowledge').buildSupportKnowledge();

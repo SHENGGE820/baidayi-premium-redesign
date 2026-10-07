@@ -28,3 +28,30 @@ Important limitations:
 - WordPress admin/editor functionality is not part of a static HTML mirror.
 - Cart and checkout are not included in this version. Add an e-commerce backend before restoring purchase controls.
 - Review third-party analytics/chat keys before publishing on the new domain.
+
+Local interaction evidence (added 2026-10-07):
+- Open measurement-qa.html on the same origin as the preview to inspect recent events.
+- quote_start = clicking a contact link (including marked support links).
+- select_packaging_spec = successfully adding a style, dosage or packaging choice.
+- quote_submit_attempt = a browser-validated native Google Form submission attempt.
+- Delivery remains unverified here. No submit_quote_inquiry success event is emitted.
+- window.BKETracking.read() reads the last 200 whitelisted local events; clear() clears only the event history.
+- Events are also pushed to window.dataLayer, but no external GA4/GTM account is configured.
+- No contact fields, customer text, full URL, query string or referrer enter these events.
+- The shared shell loads premium-support-knowledge.js, premium-support.js and premium-support.css at every modern page depth.
+
+FAQ maintenance:
+- Edit only content/support-faq.json, then run npm run build:support (also part of npm run build).
+- The builder validates the schema, unique FAQ IDs and existing safe HTML destinations. The existing external quote demo URL is explicitly allow-listed.
+- npm run check also checks that premium-support-knowledge.js exactly matches the JSON source; do not edit the generated JavaScript separately.
+
+Simple support assistant (added 2026-10-07):
+- Click 智慧客服 at the lower right for 12 checked FAQ topics and common wording.
+- Answers use the local knowledge base. There is no remote AI model or API key.
+- 整理詢價需求 turns supplied text into a draft, marks missing specifications,
+  and preserves the original request for the customer to review.
+- 帶入代工諮詢表單 carries that draft into the existing form in the same tab.
+  Drafts expire after 30 minutes and are consumed once; nothing is submitted automatically.
+- Questions the knowledge base cannot confirm link to the project consultation form.
+- Clear conversation removes the current chat and any pending support draft.
+- These changes are in the local project; the public site requires its usual deployment.

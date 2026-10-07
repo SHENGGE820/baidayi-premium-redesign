@@ -181,7 +181,12 @@
         announce('已移除：' + item.name + '。清單共 ' + list().length + ' 項。');
       } else {
         var result = add(item);
-        if (result.ok) announce('已加入：' + item.name + '。清單共 ' + result.items.length + ' 項。');
+        if (result.ok) {
+          announce('已加入：' + item.name + '。清單共 ' + result.items.length + ' 項。');
+          if (window.BKETracking && (item.kind === 'style' || item.kind === 'format')) {
+            window.BKETracking.record('select_packaging_spec', { item_kind: item.kind, inquiry_count: result.items.length });
+          }
+        }
         else if (result.reason === 'full') announce('清單最多 ' + MAX_ITEMS + ' 項，請先移除一些再加入。');
         else announce('這個瀏覽器無法儲存清單，請直接在需求說明中寫下想詢問的項目。');
       }

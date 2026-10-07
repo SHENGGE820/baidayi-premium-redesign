@@ -81,8 +81,34 @@
      the pages needs its own script tag; it takes this file's cache key. */
   var self = document.currentScript;
   var version = self && self.src.indexOf('?') > -1 ? self.src.slice(self.src.indexOf('?')) : '';
-  var inquiry = document.createElement('script');
-  inquiry.src = url('premium-inquiry.js') + version;
-  inquiry.defer = true;
-  document.body.appendChild(inquiry);
+  function loadInquiry() {
+    var inquiry = document.createElement('script');
+    inquiry.src = url('premium-inquiry.js') + version;
+    document.body.appendChild(inquiry);
+  }
+  // Load the local evidence logger first so the first catalogue pick is kept.
+  // Its failure must never prevent customers from using the inquiry list.
+  var tracking = document.createElement('script');
+  tracking.src = url('premium-tracking.js') + version;
+  tracking.onload = tracking.onerror = loadInquiry;
+  document.body.appendChild(tracking);
+
+  // The shared shell runs at every page depth. Keep the support assets
+  // independent of inquiry/tracking so either feature can fail gracefully.
+  if (!document.querySelector('[data-bke-support-assets]')) {
+    var supportCss = document.createElement('link');
+    supportCss.rel = 'stylesheet';
+    supportCss.href = url('premium-support.css') + version;
+    supportCss.setAttribute('data-bke-support-assets', 'true');
+    document.head.appendChild(supportCss);
+    function loadSupport() {
+      var support = document.createElement('script');
+      support.src = url('premium-support.js') + version;
+      document.body.appendChild(support);
+    }
+    var knowledge = document.createElement('script');
+    knowledge.src = url('premium-support-knowledge.js') + version;
+    knowledge.onload = knowledge.onerror = loadSupport;
+    document.body.appendChild(knowledge);
+  }
 })();
