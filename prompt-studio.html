@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>AI 詢價 Prompt 工具｜百達醫 BKE</title>
-  <meta name="description" content="將零散詢價文字放入固定的需求整理 Prompt，複製後貼入 ChatGPT 執行。">
+  <title>AI 輔助整理詢價資訊｜百達醫 BKE</title>
+  <meta name="description" content="業務選用：將 LINE、Email 零散需求或不完整詢價資料整理成 Prompt，貼入 ChatGPT 協助整理與草擬回覆。">
   <meta name="robots" content="noindex,nofollow">
   <meta name="theme-color" content="#171713">
   <link rel="icon" href="wp-content/uploads/2025/09/BKE-favicon.png">
@@ -17,14 +17,15 @@
   <main id="main-content" class="prompt-studio">
     <header class="prompt-studio-heading">
       <p class="eyebrow">BKE / INQUIRY PROMPT</p>
-      <h1>AI 詢價 Prompt 工具</h1>
-      <p>貼上零散需求，產生 Prompt 後貼入 ChatGPT 執行。</p>
+      <h1>AI 輔助整理詢價資訊</h1>
+      <p>業務選用：收到 LINE、Email 零散訊息或資料不完整時，再用 AI 協助整理與草擬追問回覆。</p>
+      <p>詢價單資料完整即可直接接手。需要整理時，貼上訊息產生 Prompt，再貼入 ChatGPT，最後由業務核對。</p>
       <p class="prompt-studio-note">本頁只組合文字，不呼叫 AI 或傳送詢價內容；輸入不儲存在本站。</p>
     </header>
     <div class="prompt-studio-grid">
       <form id="prompt-form" class="prompt-studio-panel">
         <div class="prompt-studio-panel-heading">
-          <label for="inquiry-text">1. 客戶詢價文字</label>
+          <label for="inquiry-text">1. 客戶零散訊息或不完整需求</label>
           <button id="load-example" class="prompt-studio-text-button" type="button">載入虛構範例</button>
         </div>
         <p id="inquiry-help" class="prompt-studio-help">配方、包裝或時程還沒決定，也可以保留「待確認」。貼入前先移除個資與機密內容。</p>
@@ -39,17 +40,17 @@
           <label id="prompt-output-title" for="prompt-output">2. 可複製的完整 Prompt</label>
           <button id="copy-prompt" class="prompt-studio-secondary" type="button" disabled>複製 Prompt</button>
         </div>
-        <p id="prompt-help" class="prompt-studio-help">輸出任務包含詢價表格、原文依據與待確認清單。正式價格與合規條件仍須人工核實。</p>
+        <p id="prompt-help" class="prompt-studio-help">輸出任務包含已知需求、待確認清單與追問回覆草稿。正式價格與合規條件仍須人工核實。</p>
         <textarea id="prompt-output" rows="13" readonly spellcheck="false" aria-describedby="prompt-help" placeholder="產生後會出現在這裡。"></textarea>
         <p id="prompt-status" class="prompt-studio-status" role="status" aria-live="polite"></p>
       </section>
     </div>
-    <p class="prompt-studio-footer-note">執行後先核對原文，再將已確認需求交給顧問。<a href="contact/index.html">前往代工諮詢 →</a>　<a href="demo.html">回成果展示入口</a></p>
+    <p class="prompt-studio-footer-note">業務核對原文與草稿後，再回覆客戶或接續報價流程。<a href="demo.html">回成果展示入口</a></p>
     <noscript><p class="prompt-studio-status">請啟用 JavaScript 使用 Prompt 工具，或直接前往代工諮詢。</p></noscript>
   </main>
   <div data-premium-footer></div>
   <script src="premium-shell.js?v=20261007-02"></script>
   <script src="premium-site.js?v=20260929-03"></script>
-  <script src="prompt-studio.js?v=20261007-01"></script>
+  <script src="prompt-studio.js?v=20261007-02"></script>
 </body>
 </html>
