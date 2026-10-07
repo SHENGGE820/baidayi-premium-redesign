@@ -10,7 +10,7 @@
   button.addEventListener('click', function () {
     if (!navigator.clipboard || !navigator.clipboard.writeText) { selectText(); return; }
     navigator.clipboard.writeText(text.value).then(function () {
-      status.textContent = '已複製示範需求。';
+      status.textContent = '已複製提示詞範本，貼入 ChatGPT 後替換客戶訊息。';
     }, selectText);
   });
 })();
