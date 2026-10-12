@@ -1,7 +1,7 @@
-/* 能做什麼 (全面性服務/index.html): a short dark hero, then one section per
-   way into a project (原料與配方, 劑型與包材, 現成商品貼牌), each a large
-   photo beside plain text with thumbnails of the actual items below, so the
-   page shows what can be made rather than repeating the homepage tiles. */
+/* 能做什麼 (全面性服務/index.html): the one-stop page. A dark hero, a sticky
+   bar of the five stages (原料, 配方, 劑型, 包材, 量產與品質), one section per
+   stage with the actual items below it, then a shortcut to ready-made
+   products and the consultation call. */
 
 /* ---- hero */
 .service-hub .cap-hero { position: relative; isolation: isolate; overflow: hidden; min-height: 620px; display: flex; align-items: center; color: var(--white); background: var(--ink); }
@@ -13,8 +13,18 @@
 .cap-hero-lead { max-width: 640px; margin: 24px 0 0; color: rgba(255,255,255,.76); font-size: 17px; line-height: 1.9; text-wrap: pretty; }
 .cap-hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 20px 30px; margin-top: 36px; }
 
-/* ---- three sections: a large photo beside plain text (nothing laid over
-   the picture), then thumbnails of what the section actually covers */
+/* ---- stage bar: sits under the hero, then sticks below the site header */
+.cap-steps { position: sticky; z-index: 50; top: 76px; background: var(--paper); border-bottom: 1px solid var(--line); }
+.cap-steps ol { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; }
+.cap-steps a { display: flex; align-items: baseline; gap: 10px; padding: 20px 4px 18px; color: var(--muted); font-size: 16px; font-weight: 500; border-bottom: 2px solid transparent; transition: color .2s ease, border-color .2s ease; }
+.cap-steps a span { color: #8d672b; font: 400 14px "Outfit", sans-serif; letter-spacing: .12em; }
+.cap-steps a:hover, .cap-steps a[aria-current] { color: var(--ink); }
+.cap-steps a[aria-current] { border-bottom-color: var(--gold); }
+.cap-steps a:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; }
+.service-hub main [id] { scroll-margin-top: 150px; }
+
+/* ---- stage sections: a large photo beside plain text (nothing laid over
+   the picture), then the actual items the stage covers */
 .cap-row { padding: 110px 0; background: var(--paper); }
 .cap-row + .cap-row { border-top: 1px solid var(--line); }
 .cap-row:nth-of-type(even) { background: var(--ivory); }
@@ -36,6 +46,25 @@
 .cap-thumbs a:hover img { transform: scale(1.05); }
 .cap-thumbs a:hover { color: #8d672b; }
 .cap-thumbs a:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+.cap-thumbs-tall { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 32px 18px; }
+.cap-thumbs-tall a > span { aspect-ratio: 4 / 5; background: #efe9dd; }
+.cap-thumbs-tall img { object-position: center 45%; }
+.cap-chips { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.cap-chips a { display: inline-block; padding: 10px 18px; color: var(--ink); font-size: 16px; border: 1px solid var(--line); background: var(--white); transition: border-color .2s ease, color .2s ease; }
+.cap-chips a:hover { color: #8d672b; border-color: var(--gold); }
+.cap-chips a:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.cap-row-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 72px; align-items: end; margin-bottom: 48px; }
+.cap-row-head h2 { margin: 14px 0 0; font-family: "Noto Serif TC", serif; font-weight: 500; font-size: clamp(34px, 3.6vw, 50px); line-height: 1.25; letter-spacing: -.03em; }
+.cap-row-head p { margin: 0; color: var(--muted); font-size: 17px; line-height: 1.9; text-wrap: pretty; }
+
+/* ---- ready-made products: a narrow side door, not a stage */
+.cap-shortcut { padding: 56px 0; background: var(--paper); border-top: 1px solid var(--line); }
+.cap-shortcut-inner { display: flex; align-items: center; justify-content: space-between; gap: 32px 56px; }
+.cap-shortcut h2 { margin: 0; font-family: "Noto Serif TC", serif; font-weight: 500; font-size: clamp(24px, 2.4vw, 32px); }
+.cap-shortcut p { margin: 10px 0 0; color: var(--muted); font-size: 16px; }
+.cap-shortcut ul { display: flex; flex-wrap: wrap; gap: 14px 28px; margin: 0; padding: 0; list-style: none; flex-shrink: 0; }
+.cap-shortcut a { color: var(--ink); font-size: 16px; font-weight: 500; }
+.cap-shortcut a:hover { color: #8d672b; }
 
 /* ---- consultation */
 .cap-cta { padding: 64px 0; background: var(--sand); }
@@ -45,11 +74,17 @@
 .cap-cta .button { flex-shrink: 0; }
 
 @media (max-width: 1100px) {
-  .cap-row-main { gap: 48px; }
+  .cap-row-main, .cap-row-head { gap: 48px; }
+  .cap-shortcut-inner { flex-direction: column; align-items: flex-start; }
   .cap-thumbs-6 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (max-width: 900px) {
-  .cap-row-main { grid-template-columns: 1fr; gap: 32px; }
+  .cap-steps { top: 66px; }
+  .cap-steps ol { display: flex; overflow-x: auto; scrollbar-width: none; }
+  .cap-steps li { flex-shrink: 0; }
+  .cap-steps a { padding: 16px 14px 14px; }
+  .cap-row-main, .cap-row-head { grid-template-columns: 1fr; gap: 32px; }
+  .cap-thumbs-tall { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .cap-row-flip .cap-row-photo { order: 0; }
   .cap-thumbs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .cap-thumbs-6 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -66,7 +101,11 @@
   .cap-row-label { margin-top: 44px; }
   .cap-thumbs-6 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .cap-thumbs a { font-size: 15px; }
+  .cap-thumbs-tall { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cap-row-head h2 { font-size: 32px; }
+  .cap-row-head p { font-size: 16px; }
+  .cap-chips a { font-size: 15px; padding: 9px 14px; }
   .cap-cta { padding: 48px 0; }
   .cap-cta-inner { flex-direction: column; align-items: flex-start; gap: 22px; }
 }
-@media (prefers-reduced-motion: reduce) { .cap-thumbs img { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .cap-thumbs img, .cap-steps a { transition: none; } }
