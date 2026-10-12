@@ -55,3 +55,5 @@ Simple support assistant (added 2026-10-07):
 - Questions the knowledge base cannot confirm link to the project consultation form.
 - Clear conversation removes the current chat and any pending support draft.
 - These changes are in the local project; the public site requires its usual deployment.
+
+Pending (2026-10-12): regenerate inner-page hero background images — see HERO_IMAGES_TODO.md.
