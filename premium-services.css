@@ -1,7 +1,6 @@
-/* 能做什麼 (全面性服務/index.html, plus proposals capability-b/c.html): the
+/* 能做什麼 (全面性服務/index.html, plus proposal capability-c.html): the
    one-stop page. A dark hero, the 產品開發 block (原料,
-   配方, 劑型, 包材) in one of three layouts — A tabs, B 2×2 cards, C sideways
-   strips — then 量產與品質, the eight 代工流程 steps, a shortcut to
+   配方, 劑型, 包材) as A tabs or C sideways strips — then 量產與品質, the eight 代工流程 steps, a shortcut to
    ready-made products and the consultation call. */
 
 /* ---- hero */
@@ -89,28 +88,33 @@
 
 .cap-group-label { margin: 0 0 14px; color: var(--ink); font-size: 15px; font-weight: 500; letter-spacing: .06em; }
 .cap-thumbs + .cap-group-label, .cap-chips + .cap-group-label { margin-top: 32px; }
-.cap-card-copy .cap-group-label { margin-bottom: 10px; }
-.cap-card-copy .cap-chips + .cap-group-label { margin-top: 0; }
 .cap-strip-items { min-width: 0; }
-.cap-strip-group + .cap-strip-group { margin-top: 24px; }
-
-/* B: four cards at once, item names instead of pictures */
-.cap-grid4-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 56px 40px; }
-.cap-card { display: flex; flex-direction: column; }
-.cap-card-photo { margin: 0; aspect-ratio: 3 / 2; overflow: hidden; background: #efe9dd; }
-.cap-card-photo img { width: 100%; height: 100%; object-fit: cover; }
-.cap-card-photo-pack img { object-fit: contain; object-position: center; }
-.cap-card-copy { display: flex; flex-direction: column; align-items: flex-start; padding-top: 26px; }
-.cap-card-copy h3 { margin: 10px 0 0; font-family: "Noto Serif TC", serif; font-size: 34px; font-weight: 500; }
-.cap-card-copy p { margin: 12px 0 20px; color: var(--muted); font-size: 17px; line-height: 1.85; }
-.cap-card-copy .cap-chips { margin-bottom: 24px; }
+.cap-strip-group + .cap-strip-group { margin-top: 32px; }
 
 /* C: one strip per stage; items scroll sideways */
 .cap-strip { display: grid; grid-template-columns: minmax(220px, 300px) minmax(0, 1fr); gap: 56px; align-items: center; padding: 44px 0; border-top: 1px solid var(--line); }
 .cap-strip:last-child { border-bottom: 1px solid var(--line); }
 .cap-strip-copy h3 { margin: 8px 0 0; font-family: "Noto Serif TC", serif; font-size: 34px; font-weight: 500; }
 .cap-strip-copy p { margin: 12px 0 18px; color: var(--muted); font-size: 16px; line-height: 1.85; }
-.cap-strip-track { overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: thin; padding-bottom: 14px; }
+.cap-strip-track { overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; cursor: grab; }
+.cap-strip-track::-webkit-scrollbar { display: none; }
+.cap-strip-track.is-dragging { cursor: grabbing; scroll-snap-type: none; }
+.cap-strip-track.is-dragging a { pointer-events: none; }
+.cap-strip-track img { -webkit-user-drag: none; user-select: none; }
+.cap-strip-frame { position: relative; }
+.cap-strip-frame::before, .cap-strip-frame::after { content: ""; position: absolute; z-index: 1; top: 0; bottom: 0; width: 72px; pointer-events: none; opacity: 0; transition: opacity .35s ease; }
+.cap-strip-frame::before { left: 0; background: linear-gradient(90deg, var(--paper), rgba(251,249,244,0)); }
+.cap-strip-frame::after { right: 0; background: linear-gradient(270deg, var(--paper), rgba(251,249,244,0)); }
+.cap-strip-frame.can-left::before, .cap-strip-frame.can-right::after { opacity: 1; }
+.cap-strip-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 40px; margin-bottom: 14px; }
+.cap-strip-bar .cap-group-label { margin: 0; }
+.cap-strip-nav { display: flex; gap: 8px; margin-left: auto; opacity: 0; visibility: hidden; transition: opacity .3s ease; }
+.has-overflow > .cap-strip-bar .cap-strip-nav { opacity: 1; visibility: visible; }
+.cap-strip-nav button { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; padding: 0; color: var(--ink); font: 400 16px "Outfit", sans-serif; background: transparent; border: 1px solid var(--line); border-radius: 50%; cursor: pointer; transition: background .25s ease, color .25s ease, border-color .25s ease, opacity .25s ease; }
+.cap-strip-nav button:hover { color: var(--white); background: var(--ink); border-color: var(--ink); }
+.cap-strip-nav button[aria-disabled="true"] { opacity: .3; cursor: default; }
+.cap-strip-nav button[aria-disabled="true"]:hover { color: var(--ink); background: transparent; border-color: var(--line); }
+.cap-strip-nav button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 .cap-strip-track:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
 .cap-strip-list { display: flex; gap: 16px; margin: 0; padding: 0; list-style: none; }
 .cap-strip-list li { flex: 0 0 230px; scroll-snap-align: start; }
@@ -176,7 +180,6 @@
   .cap-tabs-list button small { display: none; }
   .cap-tabs-list button[aria-selected="true"] { box-shadow: inset 0 -3px 0 var(--gold); padding-left: 18px; }
   .cap-tabs-list button[aria-selected="false"]:hover strong { transform: none; }
-  .cap-grid4-cards { grid-template-columns: 1fr; }
   .cap-thumbs-tall { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .cap-row-flip .cap-row-photo { order: 0; }
   .cap-thumbs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -189,8 +192,8 @@
   .cap-hero-lead br { display: none; }
   .cap-row, .cap-flow, .cap-develop { padding: 72px 0; }
   .cap-develop-head h2 { font-size: 34px; }
-  .cap-develop-head > p:last-child, .cap-panel-top p, .cap-card-copy p { font-size: 16px; }
-  .cap-panel-top h3, .cap-card-copy h3, .cap-strip-copy h3 { font-size: 28px; }
+  .cap-develop-head > p:last-child, .cap-panel-top p { font-size: 16px; }
+  .cap-panel-top h3, .cap-strip-copy h3 { font-size: 28px; }
   .cap-panel .cap-thumbs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .cap-panel .cap-thumbs-tall { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .cap-strip-list li { flex-basis: 64vw; }
@@ -209,6 +212,6 @@
   .cap-cta-inner { flex-direction: column; align-items: flex-start; gap: 22px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .cap-thumbs img, .cap-strip-list img, .cap-tabs-list button, .cap-tabs-list button *, .cap-tabs-indicator, .cap-tabs-panels.is-switching { transition: none; }
+  .cap-thumbs img, .cap-strip-list img, .cap-tabs-list button, .cap-tabs-list button *, .cap-tabs-indicator, .cap-tabs-panels.is-switching, .cap-strip-frame::before, .cap-strip-frame::after, .cap-strip-nav, .cap-strip-nav button { transition: none; }
   .cap-panel.is-entering *, .cap-panel.is-entering li img { animation: none; }
 }
