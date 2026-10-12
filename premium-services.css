@@ -40,7 +40,6 @@
 .cap-row-links .text-link { font-size: 15px; }
 .cap-row-label { margin: 64px 0 18px; padding-top: 18px; border-top: 1px solid var(--ink); color: var(--ink); font-size: 15px; font-weight: 500; letter-spacing: .06em; }
 .cap-thumbs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 26px 18px; margin: 0; padding: 0; list-style: none; }
-.cap-thumbs-6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
 .cap-thumbs a { display: block; color: var(--ink); font-size: 16px; font-weight: 500; }
 .cap-thumbs a > span { display: block; margin-bottom: 10px; aspect-ratio: 3 / 2; overflow: hidden; background: var(--sand); }
 .cap-thumbs img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s var(--ease); }
@@ -77,10 +76,14 @@
 .cap-panel-top h3 { margin: 0; font-family: "Noto Serif TC", serif; font-size: 34px; font-weight: 500; }
 .cap-panel-top p { max-width: 520px; margin: 12px 0 0; color: var(--muted); font-size: 17px; line-height: 1.85; }
 .cap-panel-top .button { flex-shrink: 0; }
-.cap-panel-photo { margin: 0 0 26px; }
-.cap-panel-photo img { display: block; width: 100%; height: auto; aspect-ratio: 21 / 9; object-fit: cover; }
-.cap-panel .cap-thumbs-6 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .cap-panel .cap-thumbs-tall { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+
+.cap-group-label { margin: 0 0 14px; color: var(--ink); font-size: 15px; font-weight: 500; letter-spacing: .06em; }
+.cap-thumbs + .cap-group-label, .cap-chips + .cap-group-label { margin-top: 32px; }
+.cap-card-copy .cap-group-label { margin-bottom: 10px; }
+.cap-card-copy .cap-chips + .cap-group-label { margin-top: 0; }
+.cap-strip-items { min-width: 0; }
+.cap-strip-group + .cap-strip-group { margin-top: 24px; }
 
 /* B: four cards at once, item names instead of pictures */
 .cap-grid4-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 56px 40px; }
@@ -154,7 +157,6 @@
   .cap-flow-steps { grid-template-columns: repeat(4, minmax(0, 1fr)); row-gap: 44px; border-top: 0; }
   .cap-flow-steps li { border-top: 1px solid rgba(255,255,255,.28); }
   .cap-shortcut-inner { flex-direction: column; align-items: flex-start; }
-  .cap-thumbs-6 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (max-width: 900px) {
   .cap-steps { top: 66px; }
@@ -172,7 +174,6 @@
   .cap-thumbs-tall { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .cap-row-flip .cap-row-photo { order: 0; }
   .cap-thumbs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .cap-thumbs-6 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (max-width: 720px) {
   .service-hub .cap-hero { min-height: 0; }
@@ -184,7 +185,7 @@
   .cap-develop-head h2 { font-size: 34px; }
   .cap-develop-head > p:last-child, .cap-panel-top p, .cap-card-copy p { font-size: 16px; }
   .cap-panel-top h3, .cap-card-copy h3, .cap-strip-copy h3 { font-size: 28px; }
-  .cap-panel .cap-thumbs, .cap-panel .cap-thumbs-6 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cap-panel .cap-thumbs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .cap-panel .cap-thumbs-tall { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .cap-strip-list li { flex-basis: 64vw; }
   .cap-strip-list.cap-thumbs-tall li { flex-basis: 44vw; }
@@ -195,7 +196,6 @@
   .cap-row-copy h2 { font-size: 32px; }
   .cap-row-copy p { font-size: 16px; }
   .cap-row-label { margin-top: 44px; }
-  .cap-thumbs-6 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .cap-thumbs a { font-size: 15px; }
   .cap-thumbs-tall { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .cap-chips a { font-size: 15px; padding: 9px 14px; }
