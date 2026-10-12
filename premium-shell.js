@@ -46,7 +46,7 @@
       '<header class="' + headerClass + '" data-site-header>' +
         '<div class="header-inner">' +
           '<a class="brand" href="' + url('index.html') + '" aria-label="百達醫 BKE 首頁">' +
-            '<img src="' + url('wp-content/uploads/2025/09/BKE-logo-new.png') + '" width="320" height="99" alt="BKE 百達醫">' +
+            '<img src="' + url('wp-content/uploads/2025/09/BKE-logo-new.png') + '" width="500" height="147" alt="BKE 百達醫">' +
           '</a>' +
           '<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" data-menu-toggle>' +
             '<span class="menu-toggle-label">選單</span><span class="menu-toggle-lines" aria-hidden="true"><i></i><i></i></span>' +
@@ -63,7 +63,7 @@
       '<footer class="site-footer">' +
         '<div class="container footer-main">' +
           '<div class="footer-brand">' +
-            '<img src="' + url('wp-content/uploads/2025/09/BKE-logo-new.png') + '" width="320" height="99" alt="BKE 百達醫">' +
+            '<img src="' + url('wp-content/uploads/2025/09/BKE-logo-new.png') + '" width="500" height="147" alt="BKE 百達醫">' +
             '<p>' + SITE.tagline + '</p>' +
           '</div>' +
           '<div class="footer-nav">' +

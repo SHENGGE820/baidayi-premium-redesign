@@ -374,7 +374,7 @@ h3 { margin: 0; font-size: 22px; font-weight: 500; line-height: 1.45; }
 
 .site-footer { color: var(--white); background: var(--ink); }
 .footer-main { display: grid; grid-template-columns: .9fr 1.1fr; gap: 80px; padding-top: 76px; padding-bottom: 68px; }
-.footer-brand img { width: 168px; }
+.footer-brand img { width: 168px; height: auto; }
 .footer-brand p { max-width: 390px; margin: 26px 0 0; color: rgba(255,255,255,.48); font-size: 14px; }
 .footer-nav { display: grid; grid-template-columns: repeat(3,1fr); gap: 30px; }
 .footer-nav > div { display: flex; flex-direction: column; align-items: flex-start; gap: 11px; }
