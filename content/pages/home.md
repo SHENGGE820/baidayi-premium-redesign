@@ -14,18 +14,18 @@
   連結文字: 代工諮詢
   連結文字2: 認識百達醫
 重點:
-  第1項｜圖片: /assets/brand/dosage-capsules.jpg
-  第1項｜圖片說明: 動植物膠囊
+  第1項｜圖片: /assets/brand/home-capsules.jpg
+  第1項｜圖片說明: 膠囊劑型樣品
   第1項｜標題: 可製作的劑型
   第1項｜說明: 膠囊、錠劑、粉末食品等，搭配瓶器、鋁袋與成品包裝。
   第1項｜連結文字: 看劑型與包材
-  第2項｜圖片: /assets/brand/function-metabolism.jpg
+  第2項｜圖片: /assets/brand/home-grapefruit.jpg
   第2項｜圖片說明: 葡萄柚與飲品
   第2項｜標題: 依保健方向找配方
   第2項｜說明: 從保健方向與原料選項出發，討論適合品牌的配方設計。
   第2項｜連結文字: 看配方方向
-  第3項｜圖片: /assets/brand/factory-coating.jpg
-  第3項｜圖片說明: 百達醫生產現場實拍，作業人員操作製程設備
+  第3項｜圖片: /assets/brand/home-tablets.jpg
+  第3項｜圖片說明: 錠劑樣品
   第3項｜標題: 工廠與品質認證
   第3項｜說明: ISO 22000 與 HACCP 驗證，粉包與膠囊生產。
   第3項｜連結文字: 看品質與認證
