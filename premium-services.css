@@ -1,7 +1,8 @@
-/* 能做什麼 (全面性服務/index.html): the one-stop page. A dark hero, a sticky
-   bar of the five stages (原料, 配方, 劑型, 包材, 量產與品質), one section per
-   stage with the actual items below it, then a shortcut to ready-made
-   products and the consultation call. */
+/* 能做什麼 (全面性服務/index.html, plus proposals capability-b/c.html): the
+   one-stop page. A dark hero, a sticky stage bar, the 產品開發 block (原料,
+   配方, 劑型, 包材) in one of three layouts — A tabs, B 2×2 cards, C sideways
+   strips — then 量產與品質, the eight 代工流程 steps, a shortcut to
+   ready-made products and the consultation call. */
 
 /* ---- hero */
 .service-hub .cap-hero { position: relative; isolation: isolate; overflow: hidden; min-height: 620px; display: flex; align-items: center; color: var(--white); background: var(--ink); }
@@ -15,7 +16,7 @@
 
 /* ---- stage bar: sits under the hero, then sticks below the site header */
 .cap-steps { position: sticky; z-index: 50; top: 76px; background: var(--paper); border-bottom: 1px solid var(--line); }
-.cap-steps ol { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; }
+.cap-steps ol { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; }
 .cap-steps a { display: flex; align-items: baseline; gap: 10px; padding: 20px 4px 18px; color: var(--muted); font-size: 16px; font-weight: 500; border-bottom: 2px solid transparent; transition: color .2s ease, border-color .2s ease; }
 .cap-steps a span { color: #8d672b; font: 400 14px "Outfit", sans-serif; letter-spacing: .12em; }
 .cap-steps a:hover, .cap-steps a[aria-current] { color: var(--ink); }
@@ -53,9 +54,80 @@
 .cap-chips a { display: inline-block; padding: 10px 18px; color: var(--ink); font-size: 16px; border: 1px solid var(--line); background: var(--white); transition: border-color .2s ease, color .2s ease; }
 .cap-chips a:hover { color: #8d672b; border-color: var(--gold); }
 .cap-chips a:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
-.cap-row-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 72px; align-items: end; margin-bottom: 48px; }
-.cap-row-head h2 { margin: 14px 0 0; font-family: "Noto Serif TC", serif; font-weight: 500; font-size: clamp(34px, 3.6vw, 50px); line-height: 1.25; letter-spacing: -.03em; }
-.cap-row-head p { margin: 0; color: var(--muted); font-size: 17px; line-height: 1.9; text-wrap: pretty; }
+
+/* ---- 產品開發: shared heading */
+.cap-develop { padding: 110px 0; background: var(--paper); }
+.cap-develop-head { max-width: 760px; margin-bottom: 52px; }
+.cap-develop-head h2 { margin: 12px 0 0; font-family: "Noto Serif TC", serif; font-weight: 500; font-size: clamp(36px, 4vw, 56px); line-height: 1.2; letter-spacing: -.03em; }
+.cap-develop-head > p:last-child { margin: 18px 0 0; color: var(--muted); font-size: 17px; line-height: 1.9; }
+
+/* A: tabs on the left, the chosen stage's items on the right */
+.cap-tabs-body { display: grid; grid-template-columns: minmax(220px, 300px) minmax(0, 1fr); gap: 64px; align-items: start; }
+.cap-tabs-list { position: sticky; top: 170px; display: flex; flex-direction: column; border-top: 1px solid var(--line); }
+.cap-tabs-list button { display: grid; grid-template-columns: 44px 1fr; align-items: baseline; padding: 22px 0; color: var(--muted); text-align: left; background: none; border: 0; border-bottom: 1px solid var(--line); cursor: pointer; font: inherit; transition: color .2s ease; }
+.cap-tabs-list button span { color: #8d672b; font: 400 15px "Outfit", sans-serif; letter-spacing: .12em; }
+.cap-tabs-list button strong { font-family: "Noto Serif TC", serif; font-size: 30px; font-weight: 500; }
+.cap-tabs-list button small { grid-column: 2; margin-top: 6px; font: 400 12px "Outfit", sans-serif; letter-spacing: .16em; }
+.cap-tabs-list button:hover, .cap-tabs-list button[aria-selected="true"] { color: var(--ink); }
+.cap-tabs-list button[aria-selected="true"] { box-shadow: inset 3px 0 0 var(--gold); padding-left: 18px; }
+.cap-tabs-list button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.cap-panel + .cap-panel { margin-top: 72px; }
+.cap-tabs.is-ready .cap-panel + .cap-panel { margin-top: 0; }
+.cap-panel-top { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px 40px; margin-bottom: 30px; }
+.cap-panel-top h3 { margin: 0; font-family: "Noto Serif TC", serif; font-size: 34px; font-weight: 500; }
+.cap-panel-top p { max-width: 520px; margin: 12px 0 0; color: var(--muted); font-size: 17px; line-height: 1.85; }
+.cap-panel-top .button { flex-shrink: 0; }
+.cap-panel-photo { margin: 0 0 26px; }
+.cap-panel-photo img { display: block; width: 100%; height: auto; aspect-ratio: 21 / 9; object-fit: cover; }
+.cap-panel .cap-thumbs-6 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.cap-panel .cap-thumbs-tall { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+
+/* B: four cards at once, item names instead of pictures */
+.cap-grid4-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 56px 40px; }
+.cap-card { display: flex; flex-direction: column; }
+.cap-card-photo { margin: 0; aspect-ratio: 3 / 2; overflow: hidden; background: #efe9dd; }
+.cap-card-photo img { width: 100%; height: 100%; object-fit: cover; }
+.cap-card-photo-pack img { object-fit: contain; object-position: center; }
+.cap-card-copy { display: flex; flex-direction: column; align-items: flex-start; padding-top: 26px; }
+.cap-card-copy h3 { margin: 10px 0 0; font-family: "Noto Serif TC", serif; font-size: 34px; font-weight: 500; }
+.cap-card-copy p { margin: 12px 0 20px; color: var(--muted); font-size: 17px; line-height: 1.85; }
+.cap-card-copy .cap-chips { margin-bottom: 24px; }
+
+/* C: one strip per stage; items scroll sideways */
+.cap-strip { display: grid; grid-template-columns: minmax(220px, 300px) minmax(0, 1fr); gap: 56px; align-items: center; padding: 44px 0; border-top: 1px solid var(--line); }
+.cap-strip:last-child { border-bottom: 1px solid var(--line); }
+.cap-strip-copy h3 { margin: 8px 0 0; font-family: "Noto Serif TC", serif; font-size: 34px; font-weight: 500; }
+.cap-strip-copy p { margin: 12px 0 18px; color: var(--muted); font-size: 16px; line-height: 1.85; }
+.cap-strip-track { overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: thin; padding-bottom: 14px; }
+.cap-strip-track:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+.cap-strip-list { display: flex; gap: 16px; margin: 0; padding: 0; list-style: none; }
+.cap-strip-list li { flex: 0 0 230px; scroll-snap-align: start; }
+.cap-strip-list.cap-thumbs-tall li { flex-basis: 180px; }
+.cap-strip-list a { display: block; color: var(--ink); font-size: 16px; font-weight: 500; }
+.cap-strip-list a > span { display: block; margin-bottom: 10px; aspect-ratio: 3 / 2; overflow: hidden; background: var(--sand); }
+.cap-strip-list.cap-thumbs-tall a > span { aspect-ratio: 4 / 5; background: #efe9dd; }
+.cap-strip-list img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s var(--ease); }
+.cap-strip-list a:hover img { transform: scale(1.05); }
+.cap-strip-list a:hover { color: #8d672b; }
+
+/* ---- proposal switcher, bottom centre (consult and chat buttons sit in the corners) */
+.cap-versions { position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 200; display: flex; gap: 6px; padding: 8px 10px; background: rgba(23,23,19,.92); border: 1px solid rgba(255,255,255,.2); }
+.cap-versions a { display: inline-flex; align-items: center; justify-content: center; min-width: 36px; min-height: 36px; color: #fff; font: 500 14px "Outfit", sans-serif; border: 1px solid rgba(255,255,255,.25); }
+.cap-versions a[aria-current] { background: var(--gold); border-color: var(--gold); }
+.cap-versions a:focus-visible { outline: 2px solid #d9b875; outline-offset: 2px; }
+
+/* ---- the original site's eight 代工流程 steps, on a dark band */
+.cap-flow { padding: 110px 0; color: var(--white); background: var(--ink); }
+.cap-flow .cap-row-num { color: var(--gold); }
+.cap-flow-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 72px; align-items: end; margin-bottom: 56px; }
+.cap-flow-head h2 { margin: 14px 0 0; font-family: "Noto Serif TC", serif; font-weight: 500; font-size: clamp(34px, 3.6vw, 50px); line-height: 1.25; letter-spacing: -.03em; }
+.cap-flow-head p { margin: 0 0 16px; color: rgba(255,255,255,.72); font-size: 17px; line-height: 1.9; }
+.cap-flow-steps { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; border-top: 1px solid rgba(255,255,255,.28); }
+.cap-flow-steps li { position: relative; display: flex; flex-direction: column; padding: 30px 14px 0 0; }
+.cap-flow-steps li::before { content: ""; position: absolute; top: -5px; left: 0; width: 9px; height: 9px; border-radius: 50%; background: var(--gold); }
+.cap-flow-steps span { color: var(--gold); font: 400 15px "Outfit", sans-serif; letter-spacing: .12em; }
+.cap-flow-steps strong { margin-top: 12px; font-size: 18px; font-weight: 500; line-height: 1.5; }
+.cap-flow-steps small { margin-top: 8px; color: rgba(255,255,255,.5); font: 400 11px "Outfit", sans-serif; letter-spacing: .12em; line-height: 1.5; }
 
 /* ---- ready-made products: a narrow side door, not a stage */
 .cap-shortcut { padding: 56px 0; background: var(--paper); border-top: 1px solid var(--line); }
@@ -74,7 +146,13 @@
 .cap-cta .button { flex-shrink: 0; }
 
 @media (max-width: 1100px) {
-  .cap-row-main, .cap-row-head { gap: 48px; }
+  .cap-row-main, .cap-flow-head { gap: 48px; }
+  .cap-tabs-body { gap: 40px; grid-template-columns: 220px minmax(0, 1fr); }
+  .cap-panel .cap-thumbs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .cap-panel .cap-thumbs-tall { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .cap-panel-top { flex-direction: column; align-items: flex-start; }
+  .cap-flow-steps { grid-template-columns: repeat(4, minmax(0, 1fr)); row-gap: 44px; border-top: 0; }
+  .cap-flow-steps li { border-top: 1px solid rgba(255,255,255,.28); }
   .cap-shortcut-inner { flex-direction: column; align-items: flex-start; }
   .cap-thumbs-6 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
@@ -83,7 +161,14 @@
   .cap-steps ol { display: flex; overflow-x: auto; scrollbar-width: none; }
   .cap-steps li { flex-shrink: 0; }
   .cap-steps a { padding: 16px 14px 14px; }
-  .cap-row-main, .cap-row-head { grid-template-columns: 1fr; gap: 32px; }
+  .cap-row-main, .cap-flow-head { grid-template-columns: 1fr; gap: 32px; }
+  .cap-tabs-body, .cap-strip { grid-template-columns: 1fr; gap: 28px; }
+  .cap-tabs-list { position: static; flex-direction: row; overflow-x: auto; border-top: 0; border-bottom: 1px solid var(--line); scrollbar-width: none; }
+  .cap-tabs-list button { flex-shrink: 0; grid-template-columns: auto auto; gap: 8px; padding: 14px 18px 12px; border-bottom: 0; }
+  .cap-tabs-list button strong { font-size: 22px; }
+  .cap-tabs-list button small { display: none; }
+  .cap-tabs-list button[aria-selected="true"] { box-shadow: inset 0 -3px 0 var(--gold); padding-left: 18px; }
+  .cap-grid4-cards { grid-template-columns: 1fr; }
   .cap-thumbs-tall { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .cap-row-flip .cap-row-photo { order: 0; }
   .cap-thumbs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -95,17 +180,26 @@
   .cap-hero h1 { font-size: clamp(36px, 9vw, 48px); }
   .cap-hero-lead { font-size: 16px; }
   .cap-hero-lead br { display: none; }
-  .cap-row { padding: 72px 0; }
+  .cap-row, .cap-flow, .cap-develop { padding: 72px 0; }
+  .cap-develop-head h2 { font-size: 34px; }
+  .cap-develop-head > p:last-child, .cap-panel-top p, .cap-card-copy p { font-size: 16px; }
+  .cap-panel-top h3, .cap-card-copy h3, .cap-strip-copy h3 { font-size: 28px; }
+  .cap-panel .cap-thumbs, .cap-panel .cap-thumbs-6 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cap-panel .cap-thumbs-tall { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cap-strip-list li { flex-basis: 64vw; }
+  .cap-strip-list.cap-thumbs-tall li { flex-basis: 44vw; }
+  .cap-flow-head h2 { font-size: 32px; }
+  .cap-flow-head p { font-size: 16px; }
+  .cap-flow-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 36px; }
+  .cap-flow-steps strong { font-size: 17px; }
   .cap-row-copy h2 { font-size: 32px; }
   .cap-row-copy p { font-size: 16px; }
   .cap-row-label { margin-top: 44px; }
   .cap-thumbs-6 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .cap-thumbs a { font-size: 15px; }
   .cap-thumbs-tall { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .cap-row-head h2 { font-size: 32px; }
-  .cap-row-head p { font-size: 16px; }
   .cap-chips a { font-size: 15px; padding: 9px 14px; }
   .cap-cta { padding: 48px 0; }
   .cap-cta-inner { flex-direction: column; align-items: flex-start; gap: 22px; }
 }
-@media (prefers-reduced-motion: reduce) { .cap-thumbs img, .cap-steps a { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .cap-thumbs img, .cap-strip-list img, .cap-steps a, .cap-tabs-list button { transition: none; } }
