@@ -1,5 +1,5 @@
 /* 能做什麼 (全面性服務/index.html, plus proposals capability-b/c.html): the
-   one-stop page. A dark hero, a sticky stage bar, the 產品開發 block (原料,
+   one-stop page. A dark hero, the 產品開發 block (原料,
    配方, 劑型, 包材) in one of three layouts — A tabs, B 2×2 cards, C sideways
    strips — then 量產與品質, the eight 代工流程 steps, a shortcut to
    ready-made products and the consultation call. */
@@ -14,15 +14,6 @@
 .cap-hero-lead { max-width: 640px; margin: 24px 0 0; color: rgba(255,255,255,.76); font-size: 17px; line-height: 1.9; text-wrap: pretty; }
 .cap-hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 20px 30px; margin-top: 36px; }
 
-/* ---- stage bar: sits under the hero, then sticks below the site header */
-.cap-steps { position: sticky; z-index: 50; top: 76px; background: var(--paper); border-bottom: 1px solid var(--line); }
-.cap-steps ol { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; }
-.cap-steps a { display: flex; align-items: baseline; gap: 10px; padding: 20px 4px 18px; color: var(--muted); font-size: 16px; font-weight: 500; border-bottom: 2px solid transparent; transition: color .2s ease, border-color .2s ease; }
-.cap-steps a span { color: #8d672b; font: 400 14px "Outfit", sans-serif; letter-spacing: .12em; }
-.cap-steps a:hover, .cap-steps a[aria-current] { color: var(--ink); }
-.cap-steps a[aria-current] { border-bottom-color: var(--gold); }
-.cap-steps a:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; }
-.service-hub main [id] { scroll-margin-top: 150px; }
 
 /* ---- stage sections: a large photo beside plain text (nothing laid over
    the picture), then the actual items the stage covers */
@@ -62,7 +53,7 @@
 
 /* A: tabs on the left, the chosen stage's items on the right */
 .cap-tabs-body { display: grid; grid-template-columns: minmax(220px, 300px) minmax(0, 1fr); gap: 64px; align-items: start; }
-.cap-tabs-list { position: sticky; top: 170px; display: flex; flex-direction: column; border-top: 1px solid var(--line); }
+.cap-tabs-list { position: sticky; top: 120px; display: flex; flex-direction: column; border-top: 1px solid var(--line); }
 .cap-tabs-list button { display: grid; grid-template-columns: 44px 1fr; align-items: baseline; padding: 22px 0; color: var(--muted); text-align: left; background: none; border: 0; border-bottom: 1px solid var(--line); cursor: pointer; font: inherit; transition: color .35s ease, padding-left .55s var(--ease); }
 .cap-tabs-list button span { color: #8d672b; font: 400 15px "Outfit", sans-serif; letter-spacing: .12em; }
 .cap-tabs-list button strong { font-family: "Noto Serif TC", serif; font-size: 30px; font-weight: 500; transition: transform .55s var(--ease), letter-spacing .55s var(--ease); }
@@ -177,10 +168,6 @@
   .cap-shortcut-inner { flex-direction: column; align-items: flex-start; }
 }
 @media (max-width: 900px) {
-  .cap-steps { top: 66px; }
-  .cap-steps ol { display: flex; overflow-x: auto; scrollbar-width: none; }
-  .cap-steps li { flex-shrink: 0; }
-  .cap-steps a { padding: 16px 14px 14px; }
   .cap-row-main, .cap-flow-head { grid-template-columns: 1fr; gap: 32px; }
   .cap-tabs-body, .cap-strip { grid-template-columns: 1fr; gap: 28px; }
   .cap-tabs-list { position: relative; flex-direction: row; overflow-x: auto; border-top: 0; border-bottom: 1px solid var(--line); scrollbar-width: none; }
@@ -222,6 +209,6 @@
   .cap-cta-inner { flex-direction: column; align-items: flex-start; gap: 22px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .cap-thumbs img, .cap-strip-list img, .cap-steps a, .cap-tabs-list button, .cap-tabs-list button *, .cap-tabs-indicator, .cap-tabs-panels.is-switching { transition: none; }
+  .cap-thumbs img, .cap-strip-list img, .cap-tabs-list button, .cap-tabs-list button *, .cap-tabs-indicator, .cap-tabs-panels.is-switching { transition: none; }
   .cap-panel.is-entering *, .cap-panel.is-entering li img { animation: none; }
 }
