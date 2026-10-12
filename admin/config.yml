@@ -145,7 +145,7 @@ collections:
               # cms:catalogue-links
               - { label: "樣式頁｜PE塑膠瓶", value: "page:pe塑膠瓶" }
               - { label: "樣式頁｜動物膠囊", value: "page:動物膠囊" }
-              - { label: "樣式頁｜飲品口栓袋", value: "page:口栓袋" }
+              - { label: "樣式頁｜飲品推袋", value: "page:口栓袋" }
               - { label: "樣式頁｜夾鏈鋁袋", value: "page:夾鏈鋁袋" }
               - { label: "樣式頁｜折角鋁袋", value: "page:折角鋁袋" }
               - { label: "樣式頁｜排裝（片裝）", value: "page:排裝" }

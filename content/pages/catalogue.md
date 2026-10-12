@@ -73,7 +73,7 @@ package:
     image: /assets/brand/pack-glass-bottle.jpg
     link: 'page:玻璃瓶'
     more: 查看樣式
-  - title: 飲品口栓袋
+  - title: 飲品推袋
     en: TOP CAP POUCH
     text: 適用劑型：液態劑型、粉劑
     image: /assets/brand/pack-spout-pouch.jpg
