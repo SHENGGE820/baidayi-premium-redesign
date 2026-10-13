@@ -456,9 +456,12 @@ function loadFunctions() {
     return {
       slug, title: String(d.title).trim(), en: String(d.title_en || '').trim(), lead: String(d.lead || '').trim(),
       summary: String(d.summary || '').trim(), image: d.image, placeholder: d.placeholder !== false,
+      notice: String(d.notice || '').trim(),
       items: (d.items || []).filter(i => i && i.name).map(i => ({
         name: String(i.name).trim(), en: String(i.name_en || '').trim(), text: String(i.text || '').trim(),
-        form: String(i.form || '').trim(), image: i.image || ''
+        form: String(i.form || '').trim(), image: i.image || '',
+        material: String(i.material || '').trim(), origin: String(i.origin || '').trim(),
+        patent: String(i.patent || '').trim(), imageNote: String(i.image_note || '').trim()
       }))
     };
   });
@@ -473,34 +476,60 @@ function responsiveImg(image, prefix) {
   return { src, srcset, dims: size ? ` width="${size[0]}" height="${size[1]}"` : '' };
 }
 
+// Official ingredient records may carry source/specification metadata. Keep
+// every legacy item byte-for-byte unchanged when those optional fields are absent.
+function ingredientSpecs(it) {
+  const specs = [['原料種類', it.material], ['來源', it.origin], ['專利紀錄', it.patent]].filter(([, value]) => value);
+  return specs.length ? `<dl class="ingredient-material-specs">${specs.map(([label, value]) => `<div><dt>${label}</dt><dd>${esc(value)}</dd></div>`).join('')}</dl>` : '';
+}
+function ingredientDescription(it) {
+  const backed = it.material || it.origin || it.patent;
+  // Keep original CMS/source values intact. Blank numbered placeholders in
+  // the workbook are not customer-facing specifications.
+  const visible = backed ? it.text.split(/\r?\n/).filter(line => !/^\s*\d+[.．、]?\s*$/.test(line)).join('\n') : it.text;
+  const text = esc(visible);
+  return backed ? text.replace(/\r?\n/g, '<br>') : text;
+}
+function ingredientSearch(it) {
+  const original = `${it.name} ${it.en} ${it.text} ${it.form}`;
+  const extra = [it.material, it.origin, it.patent].filter(Boolean).join(' ');
+  const search = original + (extra ? ` ${extra}` : '');
+  // Source descriptions retain their exact line breaks in visible content,
+  // but HTML search attributes need a single whitespace-normalized string.
+  return extra ? search.replace(/\s+/g, ' ').trim() : search;
+}
 function ingredientCard(it, p) {
-  return `<article class="catalogue-card reveal">` +
-    `<div class="catalogue-media"><img src="${esc(rel(it.image || FN_PLACEHOLDER_IMG, p))}" alt="${it.image ? esc(it.name + '原料') : ''}" loading="lazy"></div>` +
+  const concept = !!(it.image && it.imageNote);
+  return `<article class="catalogue-card reveal${concept ? ' has-concept-image' : ''}">` +
+    `<div class="catalogue-media"><img src="${esc(rel(it.image || FN_PLACEHOLDER_IMG, p))}" alt="${it.image ? esc(it.name + (concept ? '意象，非原料實物照' : '原料')) : ''}"${concept ? responsiveImg(it.image, p).dims : ''} loading="lazy"></div>` +
     `<div class="catalogue-copy">${it.en ? `<span class="catalogue-en">${esc(it.en)}</span>` : ''}<h3>${esc(it.name)}</h3>` +
-    `${it.text ? `<p>${esc(it.text)}</p>` : ''}${it.form ? `<p class="ingredient-meta"><b>形式</b>　${esc(it.form)}</p>` : ''}</div></article>`;
+    `${ingredientSpecs(it)}${it.text ? `<p>${ingredientDescription(it)}</p>` : ''}${it.form ? `<p class="ingredient-meta"><b>形式</b>　${esc(it.form)}</p>` : ''}` +
+    `${it.image && it.imageNote ? `<p class="ingredient-image-note">${esc(it.imageNote)}</p>` : ''}</div></article>`;
 }
 
 /* The ingredient library exposes the original eleven categories inline,
    using the same source data as each direction page. */
 const INGREDIENT_CATEGORIES = ['beauty', 'secret-garden', 'metabolism', 'protein', 'body-functions', 'energetic', 'gut', 'generation-3c', 'balance', 'action', 'sleep'];
-function ingredientCategory(c, index) {
-  const p = '../../';
+function ingredientCategory(c, index, p = '../../') {
   const image = responsiveImg(c.image, p);
   const categorySearch = `${c.title} ${c.en}`;
-  const allSearch = [categorySearch, ...c.items.map(it => `${it.name} ${it.en} ${it.text} ${it.form}`)].join(' ');
+  const allSearch = [categorySearch, ...c.items.map(ingredientSearch)].join(' ');
   const materials = c.items.map(it => {
-    const search = `${it.name} ${it.en} ${it.text} ${it.form}`;
-    return `<article class="ingredient-material${it.image ? ' has-image' : ''}" data-search="${esc(search)}"><div class="ingredient-material-copy">` +
+    const search = ingredientSearch(it);
+    const concept = !!(it.image && it.imageNote);
+    const image = it.image ? `<img class="ingredient-material-image" src="${esc(rel(it.image, p))}" alt="${esc(it.name + (concept ? '意象，非原料實物照' : '原料'))}"${concept ? responsiveImg(it.image, p).dims : ''} loading="lazy">` : '';
+    const visual = image && it.imageNote ? `<figure class="ingredient-material-visual">${image}<figcaption class="ingredient-material-image-note">${esc(it.imageNote)}</figcaption></figure>` : image;
+    return `<article class="ingredient-material${it.image ? ' has-image' : ''}${concept ? ' has-concept-image' : ''}" data-search="${esc(search)}"><div class="ingredient-material-copy">` +
       (it.en ? `<p class="ingredient-material-en">${esc(it.en)}</p>` : '') + `<h3>${esc(it.name)}</h3>` +
-      (it.text ? `<p class="ingredient-material-description">${esc(it.text)}</p>` : '') +
+      ingredientSpecs(it) + (it.text ? `<p class="ingredient-material-description">${ingredientDescription(it)}</p>` : '') +
       (it.form ? `<p class="ingredient-material-form"><span>形式</span>${esc(it.form)}</p>` : '') + `</div>` +
-      (it.image ? `<img class="ingredient-material-image" src="${esc(rel(it.image, p))}" alt="${esc(it.name + '原料')}" loading="lazy">` : '') + `</article>`;
+      visual + `</article>`;
   }).join('\n              ');
   return `        <details class="ingredient-category" name="ingredient-category" id="category-${c.slug}" data-category-search="${esc(categorySearch)}" data-search="${esc(allSearch)}">
           <summary aria-controls="materials-${c.slug}"><span class="ingredient-category-visual"><img class="ingredient-category-image" src="${image.src}"${image.srcset} sizes="(max-width: 600px) 50vw, (max-width: 1100px) 33vw, 290px" alt="" width="1200" height="800" loading="lazy"><span class="ingredient-category-number" aria-hidden="true">${String(index + 1).padStart(2, '0')}</span><span class="ingredient-category-selected" aria-hidden="true">已展開</span></span><span class="ingredient-category-copy"><span class="ingredient-category-title"><span>${esc(c.en)}</span><strong id="category-${c.slug}-title">${esc(c.title)}</strong></span><span class="ingredient-category-preview">${c.items.slice(0, 2).map(it => esc(it.name)).join('・')}</span><span class="ingredient-category-action"><span>${c.items.length} 項原料</span><span class="ingredient-category-action-label"><span class="ingredient-card-open-label">查看原料</span><span class="ingredient-card-close-label">收合原料</span><i aria-hidden="true"></i></span></span></span></summary>
           <div class="ingredient-category-panel" id="materials-${c.slug}" role="region" aria-labelledby="category-${c.slug}-title">
             <div class="ingredient-panel-heading"><div><p>INGREDIENT SELECTION</p><h3>${esc(c.title)}<span>原料清單</span></h3></div><button type="button" class="ingredient-panel-close" data-close-ingredients aria-label="收合${esc(c.title)}原料清單">收合 <span aria-hidden="true">×</span></button></div>
-            <div class="ingredient-material-grid">
+            ${c.notice ? `<p class="ingredient-source-note">${esc(c.notice)}</p>\n            ` : ''}<div class="ingredient-material-grid${c.notice ? ' has-source-records' : ''}">
               ${materials || '<p>本分類原料資料整理中。</p>'}
             </div>
             <div class="ingredient-category-next"><p>有想使用的原料？提供名稱與預計劑型，與顧問一起確認規格。</p><a class="text-link" href="${p}contact/index.html">討論這類原料 <span aria-hidden="true">↗</span></a></div>
@@ -535,7 +564,7 @@ ${c.placeholder ? '  <meta name="robots" content="noindex">\n' : ''}  <link rel=
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600&family=Noto+Serif+TC:wght@500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="${p}premium-site.css?v=${V}"><link rel="stylesheet" href="${p}premium-inner.css?v=${V}">
-  <script src="${p}premium-transition-init.js?v=${V}"></script><link rel="stylesheet" href="${p}premium-motion.css?v=${V}">
+${c.notice ? `  <link rel="stylesheet" href="${p}premium-ingredients.css?v=20261013-04">\n` : ''}  <script src="${p}premium-transition-init.js?v=${V}"></script><link rel="stylesheet" href="${p}premium-motion.css?v=${V}">
 </head>
 <body class="premium-site premium-inner" data-root="${p}" data-active="capability">
   <a class="skip-link" href="#main-content">跳到主要內容</a><div data-premium-header></div>
@@ -549,7 +578,7 @@ ${c.placeholder ? '  <meta name="robots" content="noindex">\n' : ''}  <link rel=
     </section>
     <section class="page-section page-section-ivory"><div class="container">
 ${c.placeholder ? '      <p class="placeholder-note reveal"><strong>版面示意</strong>　本頁原料資料與圖片為暫代內容，僅供版面確認；實際品項、規格與說明待百達醫提供後替換。</p>\n' : ''}      <div class="page-heading"><div><p class="eyebrow eyebrow-dark reveal">COMMON MATERIALS</p><h2 class="page-title reveal">這個方向<br>常用的原料。</h2></div><p class="reveal">以下列出此配方方向較常被指定的原料與其形式。實際可用品項、規格與最小採購量，會依配方設計與供應狀況調整。</p></div>
-      <div class="catalogue-grid catalogue-grid-ingredient">
+${c.notice ? `      <p class="ingredient-source-note">${esc(c.notice)}</p>\n` : ''}      <div class="catalogue-grid catalogue-grid-ingredient">
         ${c.items.map(it => ingredientCard(it, p)).join('\n        ')}
       </div>
     </div></section>
@@ -767,6 +796,10 @@ for (const [section, photo] of Object.entries(SECTIONS)) {
   const cards = (overview[section] || []).map(c => '        ' + overviewCard(c, photo, targets, section));
   overviewChanged = fill(OVERVIEW, 'catalogue-' + section, cards.join('\n') + '\n      ') || overviewChanged;
 }
+// Homepage variants with a dosage grid use the same ordered CMS source.
+// Resolve links from the homepage rather than reusing the nested overview's URLs.
+const homeFormats = (overview.dosage || []).map(c => '        ' + overviewCard(c, true, targets, 'dosage', '.')).join('\n') + '\n        ';
+for (const file of ['index.html', 'home-v3.html']) fill(file, 'home-formats', homeFormats);
 const indent = fs.readFileSync(path.join(ROOT, 'admin', 'config.yml'), 'utf8').match(/^( *)# cms:catalogue-links/m)[1];
 const optionsChanged = fill('admin/config.yml', 'catalogue-links', linkOptions(targets).map(o => indent + o).join('\n') + '\n' + indent, 'yaml');
 
@@ -788,13 +821,16 @@ for (const c of directions) {
   if (fill(`${FN_DIR}/index.html`, 'function-' + c.slug, '        ' + functionCard(c) + '\n        ')) fnCards++;
 }
 console.log(`functions: ${directions.length} pages (${fnWritten} written); overview cards ${fnCards ? fnCards + ' updated' : 'unchanged'}`);
-const ingredientIndex = INGREDIENT_CATEGORIES.map((slug, index) => {
+const ingredientCategories = INGREDIENT_CATEGORIES.map(slug => {
   const category = directions.find(c => c.slug === slug);
   if (!category) throw new Error(`Ingredient library category "${slug}" is missing from content/functions/`);
-  return ingredientCategory(category, index);
-}).join('\n');
+  return category;
+});
+const ingredientIndex = ingredientCategories.map((category, index) => ingredientCategory(category, index)).join('\n');
 const ingredientIndexChanged = fill('全面性服務/原料成分/index.html', 'ingredient-categories', ingredientIndex + '\n        ');
-console.log(`ingredients: ${INGREDIENT_CATEGORIES.length} inline categories (${ingredientIndexChanged ? 'updated' : 'unchanged'})`);
+const inlineIngredientIndex = ingredientCategories.map((category, index) => ingredientCategory(category, index, '../')).join('\n');
+const integratedIngredientsChanged = ['全面性服務/index.html', '全面性服務/capability-c.html'].filter(file => fill(file, 'cap-ingredient-categories', inlineIngredientIndex + '\n              ')).length;
+console.log(`ingredients: ${INGREDIENT_CATEGORIES.length} inline categories (library ${ingredientIndexChanged ? 'updated' : 'unchanged'}, ${integratedIngredientsChanged} integrated views updated)`);
 
 // page text and images
 const pageOpts = dir => ({

@@ -1,26 +1,50 @@
 ---
-title: 幫助入睡
-title_en: RELAX & SLEEP WELL
-lead: 風味與睡前服用形式（粉包、飲品、軟糖）是體驗上的主要差異。
-summary: 夜間服用場景，風味與服用形式的接受度直接決定回購。
-image: /assets/brand/function-sleep.jpg
-placeholder: true
+title: "幫助入睡"
+title_en: "RELAX & SLEEP WELL"
+lead: "依官網資訊表查看幫助入睡相關原料品項、來源與規格說明。"
+summary: "整理幫助入睡原料資料，供配方規劃與品項確認時參考。"
+image: "/assets/brand/function-sleep.jpg"
+placeholder: false
+notice: "本分類依百達醫官網資訊表整理；專利與認證資訊為個別原料資料紀錄，不代表百達醫公司資格。實際供貨規格、證明文件、專利有效期限及適用範圍，請洽業務確認。"
 items:
-  - name: γ-胺基丁酸
-    name_en: GABA
-    text: 多以發酵法製得的胺基酸類成分。
-    form: 粉末｜發酵
-  - name: 色胺酸
-    name_en: L-TRYPTOPHAN
-    text: 游離型必需胺基酸。
-    form: 粉末｜胺基酸
-  - name: 酸棗仁萃取
-    name_en: ZIZIPHUS
-    text: 傳統使用的種子萃取原料。
-    form: 粉末｜種子萃取
-  - name: 洋甘菊萃取
-    name_en: CHAMOMILE
-    text: 花部萃取，風味明顯需納入調味考量。
-    form: 粉末｜花部萃取
+  - name: "PharmaGABA™"
+    material: "GABA"
+    image: "/assets/brand/ingredient-pharmagaba-v1.jpg"
+    image_note: "AI材質意象，非實際供貨形態。"
+    origin: "日本"
+    patent: "日本專利"
+    text: "1.具原廠實驗\n2.GABA>95%\n3."
+  - name: "GABArelax"
+    material: "GABA"
+    image: "/assets/brand/ingredient-gabarelax-v1.jpg"
+    image_note: "AI材質意象，非實際供貨形態。"
+    origin: "中國"
+    patent: "製程專利"
+    text: "1.內部研究報告\n2.GABA>95%\n3.白色或近白色晶體或粉末"
+  - name: "GABAZzone"
+    material: "GABA"
+    image: "/assets/brand/ingredient-gabazzone-v1.jpg"
+    image_note: "AI材質意象，非實際供貨形態。"
+    origin: "韓國"
+    patent: "韓國專利"
+    text: "1.\n2.GABA>20%\n3.白色粉末"
+  - name: "穀胱甘肽"
+    material: "穀胱甘肽"
+    image: "/assets/brand/ingredient-beauty-glutathione-v4.jpg"
+    image_note: "AI材質意象，非實際供貨形態。"
+    text: "規格資料整理中，請洽詢確認。"
+  - name: "黑芝麻"
+    material: "黑芝麻"
+    image: "/assets/brand/ingredient-black-sesame-v1.jpg"
+    image_note: "AI來源意象，非原廠實拍。"
+    text: "規格資料整理中，請洽詢確認。"
+  - name: "酸棗仁"
+    material: "酸棗仁"
+    image: "/assets/brand/ingredient-jujube-seed-v1.jpg"
+    image_note: "AI來源意象，非原廠實拍。"
+    text: "規格資料整理中，請洽詢確認。"
+  - name: "胺基酸"
+    material: "胺基酸"
+    text: "資訊表目前僅列此原料類別，具體品項與規格請洽詢確認。"
 ---
 

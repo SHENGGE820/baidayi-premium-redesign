@@ -1,0 +1,737 @@
+{
+  "sourceSheet": "原料成份-官網原料整理表",
+  "sourceRange": "A3:I92",
+  "categories": {
+    "generation-3c": [
+      {
+        "name": "FloraGLO葉黃素",
+        "material": "葉黃素",
+        "image": "/assets/brand/ingredient-floraglo-v1.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "origin": "西班牙-DSM",
+        "patent": "3 花種專利 1 製程專利 1 功效專利 80篇以上臨床",
+        "text": "1.屬於食添，須依法規添加及標示 \n2.粉體: 游離葉黃素10%；油體: 游離葉黃素20%\n3.粉體: 橘紅色；油體: 棕橘紅色；不水溶、不建議用於果凍及水劑飲品"
+      },
+      {
+        "name": "Lute-gen專利金盞花萃取物",
+        "material": "葉黃素",
+        "image": "/assets/brand/ingredient-lute-gen-v1.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "origin": "印度-Bio-gen Extracts",
+        "patent": "1 世界製程專利",
+        "text": "1.符合GMP、HACCP︑OHSAS︑FSSAI︑\nISO、HALAL 、KOSHER認證\n2.粉體:游離葉黃素20%)；油體:游離葉黃素20%，玉米黃素4%\n3.粉體:橘色，可冷水微水溶；油體:深橘紅色"
+      },
+      {
+        "name": "Lutol 金盞花萃取物",
+        "material": "葉黃素",
+        "image": "/assets/brand/ingredient-lutol-v1.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "origin": "印度-Katra Phytochem",
+        "patent": "5 製程專利",
+        "text": "1..符合NSF –GMP、ISO 9001:2008、 HACCP 、KOSHER、HALAL\n2.液體 :葉黃素15%，玉米黃素3%\n3.液體 :橘紅色；可用於果凍及水劑飲品"
+      },
+      {
+        "name": "Lutemax 顆粒狀金盞花萃取物",
+        "material": "葉黃素",
+        "image": "/assets/brand/ingredient-lutemax-v1.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "origin": "印度-OmniActive",
+        "patent": "5 製程專利",
+        "text": "1.符合Kosher, HALAL, BRC, FSMA,GMP認證\n2.粉體:游離葉黃素10%、玉米黃素2%\n3.橘紅色粉體；特殊製程增強分散性，更多應用的靈活性"
+      },
+      {
+        "name": "XanMax  金盞花萃取物",
+        "material": "葉黃素",
+        "image": "/assets/brand/ingredient-xanmax-v1.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "origin": "印度-Katra Phytochem",
+        "patent": "4 製程專利",
+        "text": "1.符合GMP、ISO9001-2008、HACCP、KOSHER、HALAL\n2.粉體:葉黃素20%，玉米黃素4%；油體:葉黃素20%，玉米黃素4%\n3.粉體 :橘紅色，冷水可溶；油體 :橘紅色"
+      },
+      {
+        "name": "Mirtoselect",
+        "material": "山桑子",
+        "image": "/assets/brand/ingredient-mirtoselect-v1.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "origin": "義大利",
+        "patent": "取得美國減壓功效專利",
+        "text": "1.植物萃取，原廠文獻發表，具備Halal、Kosher認證\n2.花青素≥36%，游離花青素 ≤1%\n3.暗紅紫色粉末\n4.如需其他規格請聯絡我們"
+      },
+      {
+        "name": "Super Antho",
+        "material": "山桑子",
+        "image": "/assets/brand/ingredient-super-antho-v1.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "origin": "波蘭",
+        "patent": "無專利",
+        "text": "1.植物萃取，無過敏原，具備Halal、Kosher認證\n2.總花青素(以 Cyanidin 3-O-glucoside chloride(C3G)計) >= 36%\n3.深紫色粉末，可水溶\n4.如需其他規格請聯絡我們"
+      },
+      {
+        "name": "Bilright 艾晶莓",
+        "material": "山桑子",
+        "image": "/assets/brand/ingredient-bilright-v1.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "origin": "歐洲",
+        "patent": "多國專利",
+        "text": "1.30+臨床文獻\n2.總花青素 ≧ 36%以上，去糖基花青素 (Anthocyanidin) ≦ 1%\n3.黑藍色粉體\n4.如需其他規格請聯絡我們"
+      },
+      {
+        "name": "智利酒果",
+        "material": "智利酒果",
+        "image": "/assets/brand/ingredient-beauty-maqui-v4.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "text": "規格資料整理中，請洽詢確認。"
+      },
+      {
+        "name": "蝦紅素",
+        "material": "蝦紅素",
+        "image": "/assets/brand/ingredient-astaxanthin-v1.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "text": "規格資料整理中，請洽詢確認。"
+      },
+      {
+        "name": "Hyabest 流行鏈球菌發酵物(含透明質酸鈉)",
+        "material": "流行鏈球菌發酵物(含透明質酸鈉)",
+        "image": "/assets/brand/ingredient-beauty-hyabest-v4.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "origin": "日本",
+        "patent": "多項專利",
+        "text": "1.多項原廠研究，哈拉問卷\n2.純度 >95%\n3.白色至淡黃色粉末"
+      },
+      {
+        "name": "Hyapol 流行鏈球菌發酵物(含透明質酸鈉)",
+        "material": "流行鏈球菌發酵物(含透明質酸鈉)",
+        "image": "/assets/brand/ingredient-beauty-hyapol-v4.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "origin": "中國",
+        "patent": "無專利",
+        "text": "1.具HALAL、KOSHER\n2.純度 >95%\n3.白色粉末"
+      },
+      {
+        "name": "HAPLEX PLUS 流行鏈球菌發酵物(含透明質酸鈉)",
+        "material": "流行鏈球菌發酵物(含透明質酸鈉)",
+        "image": "/assets/brand/ingredient-beauty-haplex-plus-v4.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "origin": "中國",
+        "patent": "製程專利",
+        "text": "1.多項原廠研究\n2.純度 >95%\n3.白色粉末微顆粒"
+      },
+      {
+        "name": "Mobilee 3D 玻尿酸_雞冠抽出物",
+        "material": "流行鏈球菌發酵物(含透明質酸鈉)",
+        "image": "/assets/brand/ingredient-beauty-mobilee-v4.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "origin": "西班牙",
+        "patent": "功效專利",
+        "text": "1.多項原廠研究、具HALAL\n2.Sodium Hyaluronate ( HA）天然玻尿酸60-75%、Polysaccharides（多醣類）10%、Hydrolized Proteins ( 膠原蛋白 ) 5%\n3.白色的吸濕性粉末"
+      }
+    ],
+    "energetic": [
+      {
+        "name": "Macapro 馬卡萃取物",
+        "material": "馬卡",
+        "image": "/assets/brand/ingredient-macapro-v1.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "origin": "祕魯-MasterAsia",
+        "patent": "無專利",
+        "text": "1.符合GMP及HALAL問卷\n2.萃取比6:1；黑馬卡80%, 紫紅馬卡15%,黃馬卡5% \n3.粉體深咖啡色"
+      },
+      {
+        "name": "MACA-IN 馬卡抽出物",
+        "material": "馬卡",
+        "image": "/assets/brand/ingredient-maca-in-v1.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "origin": "祕魯-Symphony Natural Health",
+        "patent": "無專利",
+        "text": "1.符合 non-GMO、Kosher、USDA Organic、JAS Organic認證\n2.10倍濃縮； 硫代葡萄糖苷>0.3%\n3.淺褐色至深棕色"
+      },
+      {
+        "name": "MACAXTRA 有機濃縮瑪卡根粉",
+        "material": "馬卡",
+        "image": "/assets/brand/ingredient-macaxtra-v1.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "origin": "祕魯-NP Nutra",
+        "patent": "無專利",
+        "text": "1.具有機認證，猶太潔食、食品級、GMP、BRC等認證\n2.硫代葡萄糖苷>1%\n3.粉體為⽶⾊至淺棕⾊粉末，水中部分溶解"
+      },
+      {
+        "name": "LiposoMax微脂體維生素B群",
+        "material": "B群",
+        "image": "/assets/brand/ingredient-liposomax-b-v1.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "origin": "美國",
+        "patent": "無專利",
+        "text": "1.具HALAL、KOSHER認證\n2.定量B群\n3.適合水溶、脂溶的原料\n4.如需其他規格請聯絡我們"
+      },
+      {
+        "name": "Lynside 酵母B",
+        "material": "B群",
+        "image": "/assets/brand/ingredient-lynside-b-v1.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "origin": "美國",
+        "patent": "無專利",
+        "text": "1.啤酒酵母發酵，具HALAL、KOSHER認證\n2.定量B群\n3.黃色粉末、可水溶、有沉澱\n4.如需其他規格請聯絡我們"
+      },
+      {
+        "name": "PANMOL藜麥",
+        "material": "B群",
+        "image": "/assets/brand/ingredient-panmol-v1.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "origin": "奧地利",
+        "patent": "專利製程",
+        "text": "1.緩慢釋放、生物利用率實驗\n2.定量B群\n3.灰白色至淡黃色粉末，不溶於水\n4.如需其他規格請聯絡我們"
+      },
+      {
+        "name": "蔘類",
+        "material": "蔘類",
+        "text": "資訊表目前僅列此原料類別，具體品項與規格請洽詢確認。"
+      },
+      {
+        "name": "含咖啡因",
+        "material": "含咖啡因",
+        "text": "資訊表目前僅列此原料類別，具體品項與規格請洽詢確認。"
+      }
+    ],
+    "gut": [
+      {
+        "name": "Fibersol-2 難消化性麥芽糊精(玉米來源可溶性纖維)",
+        "material": "膳食纖維",
+        "image": "/assets/brand/ingredient-fibersol-v1.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "origin": "中國-MATSUTAN/ADM",
+        "patent": "11 專利",
+        "text": "1.符合ISO9001 &FSSC22000、non-GMO.Halal. Kosher認證\n2.膳食纖維>90%\n3.粉體:白色到米黃色；水溶佳、耐高溫耐酸"
+      },
+      {
+        "name": "Fibryxa玉米來源可溶性纖維(異麥芽糊精)",
+        "material": "膳食纖維",
+        "image": "/assets/brand/ingredient-fibryxa-v1.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "origin": "日本-HAYASHBARA",
+        "patent": "13專利",
+        "text": "1.符合FSSC22000、Halal. Kosher認證\n2.膳食纖維>80%\n3.粉體:純白至米白色；水溶佳、耐高溫耐酸、耐高溫耐酸"
+      },
+      {
+        "name": "Orafti Synergy1 強化型菊苣纖維",
+        "material": "膳食纖維",
+        "image": "/assets/brand/ingredient-orafti-v1.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "origin": "歐洲-BENEO",
+        "patent": "專利過期原廠尚未更新",
+        "text": "1.符合GMP、ISO9001-2008、HACCP、KOSHER、HALAL，已累積約 4 篇臨床試驗\n2.膳食纖維87%\n3.粉體:白色到米黃色；長鏈菊苣纖維、均勻分散在水溶液中\n4.可產生類似脂肪口感(creaminess)"
+      },
+      {
+        "name": "益生菌",
+        "material": "益生菌",
+        "image": "/assets/brand/ingredient-probiotic-v1.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "text": "規格資料整理中，請洽詢確認。"
+      },
+      {
+        "name": "後生元",
+        "material": "後生元",
+        "image": "/assets/brand/ingredient-postbiotic-v1.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "text": "規格資料整理中，請洽詢確認。"
+      },
+      {
+        "name": "酵素",
+        "material": "酵素",
+        "image": "/assets/brand/ingredient-enzyme-v1.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "text": "規格資料整理中，請洽詢確認。"
+      },
+      {
+        "name": "排便順暢",
+        "material": "排便順暢",
+        "text": "資訊表目前僅列此原料類別，具體品項與規格請洽詢確認。"
+      }
+    ],
+    "metabolism": [
+      {
+        "name": "CAFFSHOCK綠咖啡混合物",
+        "material": "綠咖啡",
+        "image": "/assets/brand/ingredient-caffshock-v1.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "origin": "義大利",
+        "patent": "配方專利",
+        "text": "1.據臨床研究、Halal, Kosher\n2.綠原酸>15% 、多酚>20%\n3.水溶性佳\n4.如需其他規格請聯絡我們"
+      },
+      {
+        "name": "GRECOBE 綠咖啡萃取物",
+        "material": "綠咖啡",
+        "image": "/assets/brand/ingredient-grecobe-v1.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "origin": "印度",
+        "patent": "無",
+        "text": "1.Halal, Kosher\n2.綠原酸>45%、5-CQA咖啡奎寧酸>20%\n3.水溶性佳\n4.如需其他規格請聯絡我們"
+      },
+      {
+        "name": "Svetol® 綠咖啡萃取物",
+        "material": "綠咖啡",
+        "image": "/assets/brand/ingredient-svetol-v1.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "origin": "法國",
+        "patent": "功效專利",
+        "text": "1.據臨床研究、Halal, Kosher\n2.綠原酸含量：>45%、 5-CQA咖啡奎寧酸 10%\n3.粉體咖啡棕色，可以水溶\n4.如需其他規格請聯絡我們"
+      },
+      {
+        "name": "瓜拿納",
+        "material": "瓜拿納",
+        "image": "/assets/brand/ingredient-guarana-v1.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "text": "規格資料整理中，請洽詢確認。"
+      },
+      {
+        "name": "藤黃果",
+        "material": "藤黃果",
+        "image": "/assets/brand/ingredient-garcinia-v1.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "text": "規格資料整理中，請洽詢確認。"
+      },
+      {
+        "name": "柑橘多酚",
+        "material": "柑橘多酚",
+        "image": "/assets/brand/ingredient-citrus-polyphenol-v1.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "text": "規格資料整理中，請洽詢確認。"
+      },
+      {
+        "name": "BBM-20 黑苦瓜萃取粉(含胜肽)",
+        "material": "苦瓜萃取",
+        "image": "/assets/brand/ingredient-bbm-20-v1.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "origin": "台灣",
+        "patent": "製程專利",
+        "text": "1.\n2.濃縮比20:1，含胜肽\n3.淺黑色-深綠色晶粉"
+      },
+      {
+        "name": "weetEase 山苦瓜萃取物",
+        "material": "苦瓜萃取",
+        "image": "/assets/brand/ingredient-weetease-v1.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "origin": "台灣",
+        "patent": "製程專利",
+        "text": "1\n2.濃縮比20:1，含胜肽\n3.棕黃色"
+      },
+      {
+        "name": "GLYCOSTAT\" 山苦瓜萃取物",
+        "material": "苦瓜萃取",
+        "image": "/assets/brand/ingredient-glycostat-v1.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "origin": "印度",
+        "patent": "功效專利",
+        "text": "1.據臨床研究發表，\n2.Charantin（苦瓜素）>5%，苦瓜多肽>1.5%\n3.綠色到淺綠色，細顆粒粉末"
+      },
+      {
+        "name": "smartPEP 苦瓜胜肽",
+        "material": "苦瓜萃取",
+        "image": "/assets/brand/ingredient-smartpep-v1.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "origin": "加拿大",
+        "text": "規格資料整理中，請洽詢確認。"
+      },
+      {
+        "name": "礦物質",
+        "material": "礦物質",
+        "text": "資訊表目前僅列此原料類別，具體品項與規格請洽詢確認。"
+      }
+    ],
+    "protein": [
+      {
+        "name": "SUPRO 大豆分離蛋白",
+        "material": "植物蛋白",
+        "image": "/assets/brand/ingredient-supro-v1.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "origin": "美國、中國- IFF（原杜邦 Solae / DANISCO）",
+        "patent": "無",
+        "text": "1.\n2.蛋白質(As-Is)>85%(不同型號會略有不同)\n3.粉體:米白至米黃色，水溶\n4.PDCAAS= 1.00，極佳的蛋白質來源。"
+      },
+      {
+        "name": "PisaneC9 豌豆蛋白",
+        "material": "植物蛋白",
+        "image": "/assets/brand/ingredient-pisane-v1.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "origin": "比利時-COSUCRA",
+        "patent": "無",
+        "text": "1.符合HACCP、ISO22000、PAS220、Halal, Kosher\n2.蛋白質(As-Is)>80%；\n3.粉體:黃米色，水溶\n4.AAS=0.96"
+      },
+      {
+        "name": "rizipro濃縮米蛋白",
+        "material": "植物蛋白",
+        "image": "/assets/brand/ingredient-rizipro-v1.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "origin": "越南",
+        "text": "1.\n2.蛋白質(As-Is)>74%；\n3.粉體:\n4."
+      },
+      {
+        "name": "Absolute Pumpkin 南瓜籽蛋白粉",
+        "material": "植物蛋白",
+        "image": "/assets/brand/ingredient-absolute-pumpkin-v1.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "text": "1.\n2.蛋白質(As-Is)>74%；\n3.粉體:亮綠色，高水溶\n4.低溫液壓保持最佳的營養活性"
+      },
+      {
+        "name": "專利水解小麥蛋白",
+        "material": "植物蛋白",
+        "image": "/assets/brand/ingredient-wheat-protein-v1.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "origin": "台灣",
+        "patent": "1 專利",
+        "text": "1.\n2.粗蛋白質>75%\n3.粉體:白色、微黃色至棕黃色；水溶"
+      },
+      {
+        "name": "膠原蛋白",
+        "material": "膠原蛋白",
+        "image": "/assets/brand/ingredient-collagen-generic-v1.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "text": "規格資料整理中，請洽詢確認。"
+      }
+    ],
+    "beauty": [
+      {
+        "name": "Hyabest 流行鏈球菌發酵物(含透明質酸鈉)",
+        "image": "/assets/brand/ingredient-beauty-hyabest-v4.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "material": "玻尿酸(鈉)",
+        "origin": "日本",
+        "patent": "多項專利",
+        "text": "1.多項原廠研究，哈拉問卷\n2.純度 >95%\n3.白色至淡黃色粉末"
+      },
+      {
+        "name": "Hyapol 流行鏈球菌發酵物(含透明質酸鈉)",
+        "image": "/assets/brand/ingredient-beauty-hyapol-v4.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "material": "玻尿酸(鈉)",
+        "origin": "中國",
+        "patent": "無專利",
+        "text": "1.具HALAL、KOSHER\n2.純度 >95%\n3.白色粉末"
+      },
+      {
+        "name": "HAPLEX PLUS 流行鏈球菌發酵物(含透明質酸鈉)",
+        "image": "/assets/brand/ingredient-beauty-haplex-plus-v4.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "material": "玻尿酸(鈉)",
+        "origin": "中國",
+        "patent": "製程專利",
+        "text": "1.多項原廠研究\n2.純度 >95%\n3.白色粉末微顆粒"
+      },
+      {
+        "name": "Mobilee 3D 玻尿酸_雞冠抽出物",
+        "image": "/assets/brand/ingredient-beauty-mobilee-v4.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "material": "玻尿酸(鈉)",
+        "origin": "西班牙",
+        "patent": "功效專利",
+        "text": "1.多項原廠研究、具HALAL\n2.Sodium Hyaluronate ( HA）天然玻尿酸60-75%、Polysaccharides（多醣類）10%、Hydrolized Proteins ( 膠原蛋白 ) 5%\n3.白色的吸濕性粉末"
+      },
+      {
+        "name": "Miracolla 水解魚膠原蛋白",
+        "image": "/assets/brand/ingredient-beauty-miracolla-v4.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "material": "膠原蛋白",
+        "origin": "日本",
+        "patent": "無專利",
+        "text": "1.多項原廠研究\n2.分子量<2,500Da\n3.溶水極度澄清(透光率>95%)"
+      },
+      {
+        "name": "TRIPEPIII 魚膠原蛋白三胜肽",
+        "image": "/assets/brand/ingredient-beauty-tripepiii-v4.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "material": "膠原蛋白",
+        "origin": "越南",
+        "patent": "無專利",
+        "text": "1.多項原廠研究、具HALAL\n2.蛋白質>90%、CTP> 15%、GPH>3%(膠原蛋白指標成分)\n3.白粉、高水溶"
+      },
+      {
+        "name": "CollaSel 魚膠原三肽",
+        "image": "/assets/brand/ingredient-beauty-collasel-v4.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "material": "膠原蛋白",
+        "origin": "土耳其",
+        "patent": "無專利",
+        "text": "1.多項原廠研究，哈拉、kosher\n2.蛋白質>90%、CTP> 80%，平均分子量500+-200 Da\n3.淡黃色至白色粉末、高水溶"
+      },
+      {
+        "name": "MOISTIDE 魚鱗膠原三肽",
+        "image": "/assets/brand/ingredient-beauty-moistide-v4.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "material": "膠原蛋白",
+        "origin": "印度",
+        "patent": "無專利",
+        "text": "1.具HALAL、KOSHER\n2. 40%高含量活性膠原胜肽\n3.完全水溶無色"
+      },
+      {
+        "name": "穀胱甘肽",
+        "image": "/assets/brand/ingredient-beauty-glutathione-v4.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "material": "穀胱甘肽",
+        "text": "規格資料整理中，請洽詢確認。"
+      },
+      {
+        "name": "PhytoflORAL 專利冰晶番茄",
+        "image": "/assets/brand/ingredient-beauty-phytofloral-v4.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "material": "冰晶番茄",
+        "text": "規格資料整理中，請洽詢確認。"
+      },
+      {
+        "name": "Pearl Tomato 白番茄萃取物",
+        "image": "/assets/brand/ingredient-beauty-pearl-tomato-v4.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "material": "冰晶番茄",
+        "text": "規格資料整理中，請洽詢確認。"
+      },
+      {
+        "name": "智利酒果",
+        "image": "/assets/brand/ingredient-beauty-maqui-v4.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "material": "智利酒果",
+        "text": "規格資料整理中，請洽詢確認。"
+      },
+      {
+        "name": "紅石榴",
+        "image": "/assets/brand/ingredient-beauty-pomegranate-v4.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "material": "紅石榴",
+        "text": "規格資料整理中，請洽詢確認。"
+      }
+    ],
+    "sleep": [
+      {
+        "name": "PharmaGABA™",
+        "material": "GABA",
+        "image": "/assets/brand/ingredient-pharmagaba-v1.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "origin": "日本",
+        "patent": "日本專利",
+        "text": "1.具原廠實驗\n2.GABA>95%\n3."
+      },
+      {
+        "name": "GABArelax",
+        "material": "GABA",
+        "image": "/assets/brand/ingredient-gabarelax-v1.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "origin": "中國",
+        "patent": "製程專利",
+        "text": "1.內部研究報告\n2.GABA>95%\n3.白色或近白色晶體或粉末"
+      },
+      {
+        "name": "GABAZzone",
+        "material": "GABA",
+        "image": "/assets/brand/ingredient-gabazzone-v1.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "origin": "韓國",
+        "patent": "韓國專利",
+        "text": "1.\n2.GABA>20%\n3.白色粉末"
+      },
+      {
+        "name": "穀胱甘肽",
+        "material": "穀胱甘肽",
+        "image": "/assets/brand/ingredient-beauty-glutathione-v4.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "text": "規格資料整理中，請洽詢確認。"
+      },
+      {
+        "name": "黑芝麻",
+        "material": "黑芝麻",
+        "image": "/assets/brand/ingredient-black-sesame-v1.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "text": "規格資料整理中，請洽詢確認。"
+      },
+      {
+        "name": "酸棗仁",
+        "material": "酸棗仁",
+        "image": "/assets/brand/ingredient-jujube-seed-v1.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "text": "規格資料整理中，請洽詢確認。"
+      },
+      {
+        "name": "胺基酸",
+        "material": "胺基酸",
+        "text": "資訊表目前僅列此原料類別，具體品項與規格請洽詢確認。"
+      }
+    ],
+    "action": [
+      {
+        "name": "膠原蛋白",
+        "material": "膠原蛋白",
+        "image": "/assets/brand/ingredient-collagen-generic-v1.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "text": "規格資料整理中，請洽詢確認。"
+      },
+      {
+        "name": "Hyabest 流行鏈球菌發酵物(含透明質酸鈉)",
+        "material": "玻尿酸(鈉)",
+        "image": "/assets/brand/ingredient-beauty-hyabest-v4.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "origin": "日本",
+        "patent": "多項專利",
+        "text": "1.多項原廠研究，哈拉問卷\n2.純度 >95%\n3.白色至淡黃色粉末"
+      },
+      {
+        "name": "Hyapol 流行鏈球菌發酵物(含透明質酸鈉)",
+        "material": "玻尿酸(鈉)",
+        "image": "/assets/brand/ingredient-beauty-hyapol-v4.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "origin": "中國",
+        "patent": "無專利",
+        "text": "1.具HALAL、KOSHER\n2.純度 >95%\n3.白色粉末"
+      },
+      {
+        "name": "HAPLEX PLUS 流行鏈球菌發酵物(含透明質酸鈉)",
+        "material": "玻尿酸(鈉)",
+        "image": "/assets/brand/ingredient-beauty-haplex-plus-v4.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "origin": "中國",
+        "patent": "製程專利",
+        "text": "1.多項原廠研究\n2.純度 >95%\n3.白色粉末微顆粒"
+      },
+      {
+        "name": "Mobilee 3D 玻尿酸_雞冠抽出物",
+        "material": "玻尿酸(鈉)",
+        "image": "/assets/brand/ingredient-beauty-mobilee-v4.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "origin": "西班牙",
+        "patent": "功效專利",
+        "text": "1.多項原廠研究、具HALAL\n2.Sodium Hyaluronate ( HA）天然玻尿酸60-75%、Polysaccharides（多醣類）10%、Hydrolized Proteins ( 膠原蛋白 ) 5%\n3.白色的吸濕性粉末"
+      },
+      {
+        "name": "行動植萃群",
+        "material": "行動植萃群",
+        "text": "資訊表目前僅列此原料類別，具體品項與規格請洽詢確認。"
+      },
+      {
+        "name": "蛋殼膜",
+        "material": "蛋殼膜",
+        "image": "/assets/brand/ingredient-eggshell-membrane-v1.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "text": "規格資料整理中，請洽詢確認。"
+      }
+    ],
+    "secret-garden": [
+      {
+        "name": "女性益生菌",
+        "material": "女性益生菌",
+        "image": "/assets/brand/ingredient-women-probiotic-v1.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "text": "規格資料整理中，請洽詢確認。"
+      },
+      {
+        "name": "蔓越莓",
+        "material": "蔓越莓",
+        "image": "/assets/brand/ingredient-cranberry-v1.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "text": "規格資料整理中，請洽詢確認。"
+      },
+      {
+        "name": "洛神花",
+        "material": "洛神花",
+        "image": "/assets/brand/ingredient-roselle-v1.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "text": "規格資料整理中，請洽詢確認。"
+      },
+      {
+        "name": "Hyabest 流行鏈球菌發酵物(含透明質酸鈉)",
+        "material": "玻尿酸(鈉)",
+        "image": "/assets/brand/ingredient-beauty-hyabest-v4.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "origin": "日本",
+        "patent": "多項專利",
+        "text": "1.多項原廠研究，哈拉問卷\n2.純度 >95%\n3.白色至淡黃色粉末"
+      },
+      {
+        "name": "Hyapol 流行鏈球菌發酵物(含透明質酸鈉)",
+        "material": "玻尿酸(鈉)",
+        "image": "/assets/brand/ingredient-beauty-hyapol-v4.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "origin": "中國",
+        "patent": "無專利",
+        "text": "1.具HALAL、KOSHER\n2.純度 >95%\n3.白色粉末"
+      },
+      {
+        "name": "HAPLEX PLUS 流行鏈球菌發酵物(含透明質酸鈉)",
+        "material": "玻尿酸(鈉)",
+        "image": "/assets/brand/ingredient-beauty-haplex-plus-v4.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "origin": "中國",
+        "patent": "製程專利",
+        "text": "1.多項原廠研究\n2.純度 >95%\n3.白色粉末微顆粒"
+      },
+      {
+        "name": "Mobilee 3D 玻尿酸_雞冠抽出物",
+        "material": "玻尿酸(鈉)",
+        "image": "/assets/brand/ingredient-beauty-mobilee-v4.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "origin": "西班牙",
+        "patent": "功效專利",
+        "text": "1.多項原廠研究、具HALAL\n2.Sodium Hyaluronate ( HA）天然玻尿酸60-75%、Polysaccharides（多醣類）10%、Hydrolized Proteins ( 膠原蛋白 ) 5%\n3.白色的吸濕性粉末"
+      },
+      {
+        "name": "大豆異黃酮",
+        "material": "大豆異黃酮",
+        "image": "/assets/brand/ingredient-soy-isoflavone-v1.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "text": "規格資料整理中，請洽詢確認。"
+      }
+    ],
+    "balance": [
+      {
+        "name": "益生菌",
+        "material": "益生菌",
+        "image": "/assets/brand/ingredient-probiotic-v1.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "text": "規格資料整理中，請洽詢確認。"
+      },
+      {
+        "name": "植物萃取",
+        "material": "植物萃取",
+        "text": "資訊表目前僅列此原料類別，具體品項與規格請洽詢確認。"
+      },
+      {
+        "name": "蕈菇類機能",
+        "material": "蕈菇類機能",
+        "text": "資訊表目前僅列此原料類別，具體品項與規格請洽詢確認。"
+      },
+      {
+        "name": "維生素",
+        "material": "維生素",
+        "text": "資訊表目前僅列此原料類別，具體品項與規格請洽詢確認。"
+      }
+    ],
+    "body-functions": [
+      {
+        "name": "Q10",
+        "material": "Q10",
+        "image": "/assets/brand/ingredient-q10-v1.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "text": "規格資料整理中，請洽詢確認。"
+      },
+      {
+        "name": "魚油Omega-3",
+        "material": "魚油Omega-3",
+        "image": "/assets/brand/ingredient-fish-oil-v1.jpg",
+        "image_note": "AI材質意象，非實際供貨形態。",
+        "text": "規格資料整理中，請洽詢確認。"
+      },
+      {
+        "name": "納豆發酵物",
+        "material": "納豆發酵物",
+        "image": "/assets/brand/ingredient-natto-v1.jpg",
+        "image_note": "AI來源意象，非原廠實拍。",
+        "text": "規格資料整理中，請洽詢確認。"
+      }
+    ]
+  },
+  "pending": [
+    "蔘類",
+    "含咖啡因",
+    "排便順暢",
+    "礦物質",
+    "胺基酸",
+    "行動植萃群",
+    "植物萃取",
+    "蕈菇類機能",
+    "維生素"
+  ]
+}

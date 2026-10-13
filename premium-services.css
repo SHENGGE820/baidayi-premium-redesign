@@ -86,6 +86,16 @@
 .cap-panel-top .button { flex-shrink: 0; }
 .cap-panel .cap-thumbs-tall { grid-template-columns: repeat(5, minmax(0, 1fr)); }
 
+/* The ingredient library lives inside the development view, not behind an
+   extra page. Its columns follow the available right-hand content width. */
+.cap-ingredient-library, .cap-strip-ingredients .cap-strip-items { min-width: 0; }
+.service-hub .cap-ingredient-library .ingredient-accordion { --ingredient-columns: 3; --ingredient-row-gap: 20px; column-gap: 20px; }
+.service-hub .cap-ingredient-library .ingredient-category-copy { padding: 18px; }
+.service-hub .cap-ingredient-library .ingredient-category-title > strong { font-size: 22px; }
+.service-hub .cap-ingredient-library .ingredient-preview-note { margin-bottom: 24px; }
+.service-hub .cap-ingredient-library .ingredient-tools { gap: 18px; margin-bottom: 28px; }
+.cap-ingredient-library, .ingredient-category { scroll-margin-top: calc(var(--header-height) + 28px); }
+
 .cap-group-label { margin: 0 0 14px; color: var(--ink); font-size: 15px; font-weight: 500; letter-spacing: .06em; }
 .cap-thumbs + .cap-group-label, .cap-chips + .cap-group-label { margin-top: 32px; }
 .cap-strip-items { min-width: 0; }
@@ -162,6 +172,7 @@
 .cap-cta .button { flex-shrink: 0; }
 
 @media (max-width: 1100px) {
+  .service-hub .cap-ingredient-library .ingredient-accordion { --ingredient-columns: 2; }
   .cap-row-main, .cap-flow-head { gap: 48px; }
   .cap-tabs-body { gap: 40px; grid-template-columns: 220px minmax(0, 1fr); }
   .cap-panel .cap-thumbs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -172,6 +183,7 @@
   .cap-shortcut-inner { flex-direction: column; align-items: flex-start; }
 }
 @media (max-width: 900px) {
+  .service-hub .cap-ingredient-library .ingredient-accordion { --ingredient-columns: 3; }
   .cap-row-main, .cap-flow-head { grid-template-columns: 1fr; gap: 32px; }
   .cap-tabs-body, .cap-strip { grid-template-columns: 1fr; gap: 28px; }
   .cap-tabs-list { position: relative; flex-direction: row; overflow-x: auto; border-top: 0; border-bottom: 1px solid var(--line); scrollbar-width: none; }
@@ -186,6 +198,9 @@
 }
 @media (max-width: 720px) {
   .service-hub .cap-hero { min-height: 0; }
+  /* Only the generated one-stop hero: keep the shared plan and hands in view. */
+  .cap-hero-media[data-generated-hero="capability"] img { object-position: 84% 55%; }
+  .cap-hero-media[data-generated-hero="capability"] + .cap-hero-shade { background: linear-gradient(90deg, rgba(19,19,16,.92), rgba(19,19,16,.8) 48%, rgba(19,19,16,.7)); }
   .cap-hero-content { padding-top: calc(var(--header-height) + 48px); padding-bottom: 64px; }
   .cap-hero h1 { font-size: clamp(36px, 9vw, 48px); }
   .cap-hero-lead { font-size: 16px; }
@@ -214,4 +229,10 @@
 @media (prefers-reduced-motion: reduce) {
   .cap-thumbs img, .cap-strip-list img, .cap-tabs-list button, .cap-tabs-list button *, .cap-tabs-indicator, .cap-tabs-panels.is-switching, .cap-strip-frame::before, .cap-strip-frame::after, .cap-strip-nav, .cap-strip-nav button { transition: none; }
   .cap-panel.is-entering *, .cap-panel.is-entering li img { animation: none; }
+}
+@media (max-width: 600px) {
+  .service-hub .cap-ingredient-library .ingredient-accordion { --ingredient-columns: 2; --ingredient-row-gap: 18px; column-gap: 14px; }
+  .service-hub .cap-ingredient-library .ingredient-category-copy { padding: 14px; }
+  .service-hub .cap-ingredient-library .ingredient-category-title > strong { font-size: 18px; }
+  .service-hub .cap-ingredient-library .ingredient-tools { gap: 12px; margin-bottom: 24px; }
 }

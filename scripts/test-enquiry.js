@@ -4,6 +4,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
+const matter = require('gray-matter');
 const root = path.resolve(__dirname, '..');
 const source = fs.readFileSync(path.join(root, 'premium-contact.js'), 'utf8');
 const html = fs.readFileSync(path.join(root, 'contact/index.html'), 'utf8');
@@ -107,4 +108,28 @@ test('every dosage card has a next step and reading anchors resolve', () => {
   assert.ok(cards.length > 0);
   assert.ok(cards.every(c => c.startsWith('<a ')), 'a dosage card has no link');
   for (const match of catalogue.matchAll(/href="#([^"]+)"/g)) assert.ok(catalogue.includes('id="' + match[1] + '"'));
+});
+
+test('dosage priorities and all generated grids share the ordered CMS source', () => {
+  const content = matter(fs.readFileSync(path.join(root, 'content/pages/catalogue.md'), 'utf8')).data;
+  const titles = content.dosage.map(card => card.title);
+  assert.deepEqual(titles.slice(0, 3), ['錠狀顆粒', '粉末食品', '動／植物膠囊']);
+  for (const [file, marker] of [['index.html', 'home-formats'], ['home-v3.html', 'home-formats'], ['全面性服務/劑型與包材/index.html', 'catalogue-dosage']]) {
+    const page = fs.readFileSync(path.join(root, file), 'utf8');
+    const grid = page.split('<!-- cms:' + marker + ' -->')[1]?.split('<!-- /cms:' + marker + ' -->')[0];
+    assert.ok(grid, file + ' must keep its build marker');
+    const rendered = [...grid.matchAll(/<h3>([^<]+)<\/h3>/g)].map(match => match[1]);
+    assert.deepEqual(rendered, titles, file + ' must preserve source order without omissions or duplicates');
+    assert.match(grid, /href="[^"]*一站式服務\/錠劑\/index.html"/);
+    assert.match(grid, /href="[^"]*contact\/index.html\?format=powder"/);
+    assert.match(grid, /href="[^"]*一站式服務\/多元劑型-膠囊\/index.html"/);
+  }
+});
+
+test('product form priorities preserve existing option values and the blank prompt', () => {
+  const view = setup();
+  const options = view.fields['#contact-type'].options.map(option => option.value);
+  assert.deepEqual(options.slice(0, 4), ['', '錠劑', '粉包／顆粒', '膠囊']);
+  assert.deepEqual(options.slice(4), ['飲品', '果凍', '其他／需要建議']);
+  assert.equal(view.fields['#contact-type'].value, '', 'reordering must not silently preselect a product');
 });

@@ -25,10 +25,18 @@
 
   function show(tab) {
     tabs.forEach(function (t) { panelOf(t).hidden = t !== tab; });
+    window.dispatchEvent(new CustomEvent('bke:cap-panel-visible', { detail: { id: tab.getAttribute('aria-controls') } }));
   }
 
   function select(tab, focus, animate) {
-    var previous = activeTab;
+    // A rapid second choice must use the panel actually on screen, not the
+    // selected tab whose delayed transition has not displayed its panel yet.
+    var previous = tabs.find(function (t) { return !panelOf(t).hidden; });
+    var currentHeight = panelsWrap.offsetHeight;
+    var token = ++switchToken;
+    tabs.forEach(function (t) { panelOf(t).classList.remove('is-entering', 'is-leaving'); });
+    panelsWrap.style.height = '';
+    panelsWrap.classList.remove('is-switching');
     tabs.forEach(function (t) {
       var on = t === tab;
       t.setAttribute('aria-selected', on);
@@ -41,11 +49,9 @@
 
     // the old panel fades up and out, the box eases to the new height,
     // then the new panel's heading and items rise in one after another
-    var token = ++switchToken;
     var oldPanel = panelOf(previous);
     var newPanel = panelOf(tab);
-    tabs.forEach(function (t) { panelOf(t).classList.remove('is-entering', 'is-leaving'); });
-    panelsWrap.style.height = panelsWrap.offsetHeight + 'px';
+    panelsWrap.style.height = currentHeight + 'px';
     panelsWrap.classList.add('is-switching');
     oldPanel.classList.add('is-leaving');
     setTimeout(function () {
@@ -63,6 +69,7 @@
     }, 190);
   }
   function tabFor(id) {
+    if (/^(?:category-|materials-)/.test(id) || id === 'ingredient-library') id = 'ingredients';
     for (var i = 0; i < tabs.length; i++) if (tabs[i].getAttribute('aria-controls') === id) return tabs[i];
     return null;
   }
@@ -91,6 +98,32 @@
         select(t, true, true);
       });
     });
+    window.addEventListener('hashchange', function () {
+      var target = tabFor(location.hash.slice(1));
+      if (target) select(target, false, false);
+    });
+    function releasePanelHeight() {
+      panelsWrap.style.height = '';
+      panelsWrap.classList.remove('is-switching');
+    }
+    // Let the ingredient accordion own its height while it is expanding.
+    // Two nested height transitions would make the outer box lag and clip it.
+    ['click', 'input'].forEach(function (event) {
+      panelsWrap.addEventListener(event, function (e) {
+        if (e.target.closest('.cap-ingredient-library')) releasePanelHeight();
+      }, true);
+    });
+    // Searching or opening ingredients can change the entering panel's
+    // height while the tab transition is still running; do not clip it.
+    if ('ResizeObserver' in window) {
+      var panelObserver = new ResizeObserver(function () {
+        if (panelsWrap.classList.contains('is-switching') && activeTab && !panelOf(activeTab).hidden) {
+          if (panelOf(activeTab).querySelector('.ingredient-panel-slot.is-moving')) releasePanelHeight();
+          else panelsWrap.style.height = panelOf(activeTab).offsetHeight + 'px';
+        }
+      });
+      tabs.forEach(function (tab) { panelObserver.observe(panelOf(tab)); });
+    }
   }
 
   // ---- layout C: strips. The native scrollbar is hidden; arrows, edge

@@ -1,30 +1,77 @@
 ---
-title: 促進新陳代謝
-title_en: BOOST METABOLISM
-lead: 常與運動、體重管理型產品搭配，需留意刺激性成分的劑量規劃。
-summary: 近年成長最快、法規敏感度也最高的一塊。配方與文案必須一起規劃，避免打樣後才發現訴求受限。
-image: /assets/brand/function-metabolism.jpg
-placeholder: true
+title: "促進新陳代謝"
+title_en: "BOOST METABOLISM"
+lead: "依官網資訊表查看促進新陳代謝相關原料品項、來源與規格說明。"
+summary: "整理促進新陳代謝原料資料，供配方規劃與品項確認時參考。"
+image: "/assets/brand/function-metabolism.jpg"
+placeholder: false
+notice: "本分類依百達醫官網資訊表整理；專利與認證資訊為個別原料資料紀錄，不代表百達醫公司資格。實際供貨規格、證明文件、專利有效期限及適用範圍，請洽業務確認。"
 items:
-  - name: 綠茶兒茶素
-    name_en: GREEN TEA
-    text: 以 EGCG 含量標示規格的茶葉萃取。
-    form: 粉末｜植物萃取
-  - name: L-肉鹼
-    name_en: L-CARNITINE
-    text: 常見為酒石酸鹽型式，水溶性佳。
-    form: 粉末｜胺基酸衍生
-  - name: 藤黃果萃取
-    name_en: GARCINIA
-    text: 以 HCA 含量標示的果實萃取。
-    form: 粉末｜果實萃取
-  - name: 鉻酵母
-    name_en: CHROMIUM
-    text: 以酵母為載體的微量礦物質。
-    form: 粉末｜酵母
-  - name: 辣椒萃取
-    name_en: CAPSAICIN
-    text: 取自辣椒果實，需注意風味與刺激性。
-    form: 粉末｜植物萃取
+  - name: "CAFFSHOCK綠咖啡混合物"
+    material: "綠咖啡"
+    image: "/assets/brand/ingredient-caffshock-v1.jpg"
+    image_note: "AI來源意象，非原廠實拍。"
+    origin: "義大利"
+    patent: "配方專利"
+    text: "1.據臨床研究、Halal, Kosher\n2.綠原酸>15% 、多酚>20%\n3.水溶性佳\n4.如需其他規格請聯絡我們"
+  - name: "GRECOBE 綠咖啡萃取物"
+    material: "綠咖啡"
+    image: "/assets/brand/ingredient-grecobe-v1.jpg"
+    image_note: "AI來源意象，非原廠實拍。"
+    origin: "印度"
+    patent: "無"
+    text: "1.Halal, Kosher\n2.綠原酸>45%、5-CQA咖啡奎寧酸>20%\n3.水溶性佳\n4.如需其他規格請聯絡我們"
+  - name: "Svetol® 綠咖啡萃取物"
+    material: "綠咖啡"
+    image: "/assets/brand/ingredient-svetol-v1.jpg"
+    image_note: "AI來源意象，非原廠實拍。"
+    origin: "法國"
+    patent: "功效專利"
+    text: "1.據臨床研究、Halal, Kosher\n2.綠原酸含量：>45%、 5-CQA咖啡奎寧酸 10%\n3.粉體咖啡棕色，可以水溶\n4.如需其他規格請聯絡我們"
+  - name: "瓜拿納"
+    material: "瓜拿納"
+    image: "/assets/brand/ingredient-guarana-v1.jpg"
+    image_note: "AI來源意象，非原廠實拍。"
+    text: "規格資料整理中，請洽詢確認。"
+  - name: "藤黃果"
+    material: "藤黃果"
+    image: "/assets/brand/ingredient-garcinia-v1.jpg"
+    image_note: "AI來源意象，非原廠實拍。"
+    text: "規格資料整理中，請洽詢確認。"
+  - name: "柑橘多酚"
+    material: "柑橘多酚"
+    image: "/assets/brand/ingredient-citrus-polyphenol-v1.jpg"
+    image_note: "AI來源意象，非原廠實拍。"
+    text: "規格資料整理中，請洽詢確認。"
+  - name: "BBM-20 黑苦瓜萃取粉(含胜肽)"
+    material: "苦瓜萃取"
+    image: "/assets/brand/ingredient-bbm-20-v1.jpg"
+    image_note: "AI來源意象，非原廠實拍。"
+    origin: "台灣"
+    patent: "製程專利"
+    text: "1.\n2.濃縮比20:1，含胜肽\n3.淺黑色-深綠色晶粉"
+  - name: "weetEase 山苦瓜萃取物"
+    material: "苦瓜萃取"
+    image: "/assets/brand/ingredient-weetease-v1.jpg"
+    image_note: "AI來源意象，非原廠實拍。"
+    origin: "台灣"
+    patent: "製程專利"
+    text: "1\n2.濃縮比20:1，含胜肽\n3.棕黃色"
+  - name: "GLYCOSTAT\" 山苦瓜萃取物"
+    material: "苦瓜萃取"
+    image: "/assets/brand/ingredient-glycostat-v1.jpg"
+    image_note: "AI來源意象，非原廠實拍。"
+    origin: "印度"
+    patent: "功效專利"
+    text: "1.據臨床研究發表，\n2.Charantin（苦瓜素）>5%，苦瓜多肽>1.5%\n3.綠色到淺綠色，細顆粒粉末"
+  - name: "smartPEP 苦瓜胜肽"
+    material: "苦瓜萃取"
+    image: "/assets/brand/ingredient-smartpep-v1.jpg"
+    image_note: "AI來源意象，非原廠實拍。"
+    origin: "加拿大"
+    text: "規格資料整理中，請洽詢確認。"
+  - name: "礦物質"
+    material: "礦物質"
+    text: "資訊表目前僅列此原料類別，具體品項與規格請洽詢確認。"
 ---
 

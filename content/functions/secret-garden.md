@@ -1,26 +1,59 @@
 ---
-title: 秘密花園
-title_en: SECRET GARDEN
-lead: 以私密照護為訴求的配方方向，選料著重菌株規格與酸鹼耐受性。
-summary: 女性私密保養的專屬方向，對菌株選擇與包材阻隔性特別敏感，包裝與溝通都需要更謹慎的設計。
-image: /assets/brand/function-secret-garden.jpg
-placeholder: true
+title: "秘密花園"
+title_en: "SECRET GARDEN"
+lead: "依官網資訊表查看秘密花園相關原料品項、來源與規格說明。"
+summary: "整理秘密花園原料資料，供配方規劃與品項確認時參考。"
+image: "/assets/brand/function-secret-garden.jpg"
+placeholder: false
+notice: "本分類依百達醫官網資訊表整理；專利與認證資訊為個別原料資料紀錄，不代表百達醫公司資格。實際供貨規格、證明文件、專利有效期限及適用範圍，請洽業務確認。"
 items:
-  - name: 蔓越莓萃取
-    name_en: CRANBERRY
-    text: 含原花青素（PACs）的果實萃取，規格以 PACs 含量標示。
-    form: 粉末｜果實萃取
-  - name: 鼠李糖乳桿菌
-    name_en: LACTOBACILLUS
-    text: 常用於私密保健的菌株，以 CFU 標示活菌數。
-    form: 粉末｜益生菌
-  - name: 洛神花萃取
-    name_en: ROSELLE
-    text: 取自洛神花萼片的植物萃取。
-    form: 粉末｜植物萃取
-  - name: 月見草油
-    name_en: EVENING PRIMROSE
-    text: 富含 GLA 的植物油脂，多以軟膠囊呈現。
-    form: 油脂｜冷壓
+  - name: "女性益生菌"
+    material: "女性益生菌"
+    image: "/assets/brand/ingredient-women-probiotic-v1.jpg"
+    image_note: "AI材質意象，非實際供貨形態。"
+    text: "規格資料整理中，請洽詢確認。"
+  - name: "蔓越莓"
+    material: "蔓越莓"
+    image: "/assets/brand/ingredient-cranberry-v1.jpg"
+    image_note: "AI來源意象，非原廠實拍。"
+    text: "規格資料整理中，請洽詢確認。"
+  - name: "洛神花"
+    material: "洛神花"
+    image: "/assets/brand/ingredient-roselle-v1.jpg"
+    image_note: "AI來源意象，非原廠實拍。"
+    text: "規格資料整理中，請洽詢確認。"
+  - name: "Hyabest 流行鏈球菌發酵物(含透明質酸鈉)"
+    material: "玻尿酸(鈉)"
+    image: "/assets/brand/ingredient-beauty-hyabest-v4.jpg"
+    image_note: "AI材質意象，非實際供貨形態。"
+    origin: "日本"
+    patent: "多項專利"
+    text: "1.多項原廠研究，哈拉問卷\n2.純度 >95%\n3.白色至淡黃色粉末"
+  - name: "Hyapol 流行鏈球菌發酵物(含透明質酸鈉)"
+    material: "玻尿酸(鈉)"
+    image: "/assets/brand/ingredient-beauty-hyapol-v4.jpg"
+    image_note: "AI材質意象，非實際供貨形態。"
+    origin: "中國"
+    patent: "無專利"
+    text: "1.具HALAL、KOSHER\n2.純度 >95%\n3.白色粉末"
+  - name: "HAPLEX PLUS 流行鏈球菌發酵物(含透明質酸鈉)"
+    material: "玻尿酸(鈉)"
+    image: "/assets/brand/ingredient-beauty-haplex-plus-v4.jpg"
+    image_note: "AI材質意象，非實際供貨形態。"
+    origin: "中國"
+    patent: "製程專利"
+    text: "1.多項原廠研究\n2.純度 >95%\n3.白色粉末微顆粒"
+  - name: "Mobilee 3D 玻尿酸_雞冠抽出物"
+    material: "玻尿酸(鈉)"
+    image: "/assets/brand/ingredient-beauty-mobilee-v4.jpg"
+    image_note: "AI材質意象，非實際供貨形態。"
+    origin: "西班牙"
+    patent: "功效專利"
+    text: "1.多項原廠研究、具HALAL\n2.Sodium Hyaluronate ( HA）天然玻尿酸60-75%、Polysaccharides（多醣類）10%、Hydrolized Proteins ( 膠原蛋白 ) 5%\n3.白色的吸濕性粉末"
+  - name: "大豆異黃酮"
+    material: "大豆異黃酮"
+    image: "/assets/brand/ingredient-soy-isoflavone-v1.jpg"
+    image_note: "AI來源意象，非原廠實拍。"
+    text: "規格資料整理中，請洽詢確認。"
 ---
 

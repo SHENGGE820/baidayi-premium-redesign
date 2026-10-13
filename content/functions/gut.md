@@ -1,30 +1,50 @@
 ---
-title: 維持腸道機能
-title_en: MAINTAIN GUT HEALTH
-lead: 菌株專利、活菌數與包埋技術是這個方向最主要的規格差異。
-summary: 從單一益生菌走向菌株明確、劑量標示清楚的複方。菌數是入場券，菌株編號與保存穩定性才是差異。
-image: /assets/brand/function-gut.jpg
-placeholder: true
+title: "維持腸道機能"
+title_en: "MAINTAIN GUT HEALTH"
+lead: "依官網資訊表查看維持腸道機能相關原料品項、來源與規格說明。"
+summary: "整理維持腸道機能原料資料，供配方規劃與品項確認時參考。"
+image: "/assets/brand/function-gut.jpg"
+placeholder: false
+notice: "本分類依百達醫官網資訊表整理；專利與認證資訊為個別原料資料紀錄，不代表百達醫公司資格。實際供貨規格、證明文件、專利有效期限及適用範圍，請洽業務確認。"
 items:
-  - name: 益生菌複方
-    name_en: PROBIOTICS
-    text: 多菌株組合，以 CFU 標示並注意保存條件。
-    form: 粉末｜益生菌
-  - name: 菊苣纖維
-    name_en: INULIN
-    text: 取自菊苣根的水溶性膳食纖維。
-    form: 粉末｜膳食纖維
-  - name: 洋車前子殼
-    name_en: PSYLLIUM
-    text: 高吸水性的膳食纖維原料。
-    form: 粉末｜膳食纖維
-  - name: 後生元
-    name_en: POSTBIOTICS
-    text: 菌體經滅活處理後的代謝產物。
-    form: 粉末｜發酵
-  - name: 木寡糖
-    name_en: XOS
-    text: 常與益生菌搭配的寡醣類。
-    form: 粉末｜寡醣
+  - name: "Fibersol-2 難消化性麥芽糊精(玉米來源可溶性纖維)"
+    material: "膳食纖維"
+    image: "/assets/brand/ingredient-fibersol-v1.jpg"
+    image_note: "AI來源意象，非原廠實拍。"
+    origin: "中國-MATSUTAN/ADM"
+    patent: "11 專利"
+    text: "1.符合ISO9001 &FSSC22000、non-GMO.Halal. Kosher認證\n2.膳食纖維>90%\n3.粉體:白色到米黃色；水溶佳、耐高溫耐酸"
+  - name: "Fibryxa玉米來源可溶性纖維(異麥芽糊精)"
+    material: "膳食纖維"
+    image: "/assets/brand/ingredient-fibryxa-v1.jpg"
+    image_note: "AI來源意象，非原廠實拍。"
+    origin: "日本-HAYASHBARA"
+    patent: "13專利"
+    text: "1.符合FSSC22000、Halal. Kosher認證\n2.膳食纖維>80%\n3.粉體:純白至米白色；水溶佳、耐高溫耐酸、耐高溫耐酸"
+  - name: "Orafti Synergy1 強化型菊苣纖維"
+    material: "膳食纖維"
+    image: "/assets/brand/ingredient-orafti-v1.jpg"
+    image_note: "AI來源意象，非原廠實拍。"
+    origin: "歐洲-BENEO"
+    patent: "專利過期原廠尚未更新"
+    text: "1.符合GMP、ISO9001-2008、HACCP、KOSHER、HALAL，已累積約 4 篇臨床試驗\n2.膳食纖維87%\n3.粉體:白色到米黃色；長鏈菊苣纖維、均勻分散在水溶液中\n4.可產生類似脂肪口感(creaminess)"
+  - name: "益生菌"
+    material: "益生菌"
+    image: "/assets/brand/ingredient-probiotic-v1.jpg"
+    image_note: "AI材質意象，非實際供貨形態。"
+    text: "規格資料整理中，請洽詢確認。"
+  - name: "後生元"
+    material: "後生元"
+    image: "/assets/brand/ingredient-postbiotic-v1.jpg"
+    image_note: "AI材質意象，非實際供貨形態。"
+    text: "規格資料整理中，請洽詢確認。"
+  - name: "酵素"
+    material: "酵素"
+    image: "/assets/brand/ingredient-enzyme-v1.jpg"
+    image_note: "AI材質意象，非實際供貨形態。"
+    text: "規格資料整理中，請洽詢確認。"
+  - name: "排便順暢"
+    material: "排便順暢"
+    text: "資訊表目前僅列此原料類別，具體品項與規格請洽詢確認。"
 ---
 

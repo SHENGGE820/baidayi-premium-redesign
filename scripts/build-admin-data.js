@@ -126,6 +126,7 @@ function loadFunctions() {
       titleEn: asString(data.title_en),
       lead: asString(data.lead),
       summary: asString(data.summary),
+      notice: asString(data.notice),
       image: asString(data.image),
       placeholder: data.placeholder === true,
       items: Array.isArray(data.items) ? data.items : []

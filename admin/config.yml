@@ -194,6 +194,7 @@ collections:
       - { label: 總覽卡片說明, name: summary, widget: text, required: false, hint: 顯示在「功能配方」總覽頁這個方向的卡片上。 }
       - { label: 代表圖, name: image, widget: image, media_folder: /assets/brand, public_folder: /assets/brand, hint: 總覽卡片與頁首共用，橫式 3:2。 }
       - { label: 原料內容仍是暫代, name: placeholder, widget: boolean, default: true, hint: 勾選時，頁面顯示「版面示意」提示，也不給搜尋引擎收錄。換成百達醫確認過的原料資料後，取消勾選。 }
+      - { label: 資料來源與確認提醒, name: notice, widget: text, required: false, hint: 說明此分類資料來源、供貨規格及個別原料專利或證明文件待確認的事項；不能把原料資料寫成公司資格。 }
       - label: 常用原料
         label_singular: 原料
         name: items
@@ -203,9 +204,13 @@ collections:
         fields:
           - { label: 原料名稱, name: name, widget: string }
           - { label: 英文名稱, name: name_en, widget: string, required: false }
+          - { label: 原料種類, name: material, widget: string, required: false, hint: 依資訊表填寫，例如玻尿酸（鈉）或膠原蛋白。 }
+          - { label: 來源, name: origin, widget: string, required: false, hint: 依原料資料記載填寫，不推測未提供的產地。 }
+          - { label: 專利紀錄, name: patent, widget: string, required: false, hint: 僅記錄個別原料資料；有效期限及適用範圍另行確認，不代表百達醫公司認證。 }
           - { label: 說明, name: text, widget: text, required: false, hint: 只寫原料是什麼：來源、萃取或製法、規格怎麼標示。請勿寫功效。 }
           - { label: 形式, name: form, widget: string, required: false, hint: 例如「粉末｜植物萃取」。 }
           - { label: 照片, name: image, widget: image, required: false, hint: 空白時顯示中性的示意圖。 }
+          - { label: 圖片說明, name: image_note, widget: string, required: false, hint: 清楚區分原料概念示意與原廠實物圖；有配圖時顯示在圖旁。 }
 
   - name: pages
     label: 頁面

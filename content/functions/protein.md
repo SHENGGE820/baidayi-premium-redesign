@@ -1,30 +1,48 @@
 ---
-title: 蛋白補給
-title_en: PROTEIN SUPPLEMENT
-lead: 風味與沖泡性是體驗關鍵，蛋白來源也直接影響素食可用性。
-summary: 客群最會比較規格。每份含量、蛋白來源與沖泡溶解度會被直接拿來對照競品。
-image: /assets/brand/function-protein.jpg
-placeholder: true
+title: "蛋白補給"
+title_en: "PROTEIN SUPPLEMENT"
+lead: "依官網資訊表查看蛋白補給相關原料品項、來源與規格說明。"
+summary: "整理蛋白補給原料資料，供配方規劃與品項確認時參考。"
+image: "/assets/brand/function-protein.jpg"
+placeholder: false
+notice: "本分類依百達醫官網資訊表整理；專利與認證資訊為個別原料資料紀錄，不代表百達醫公司資格。實際供貨規格、證明文件、專利有效期限及適用範圍，請洽業務確認。"
 items:
-  - name: 乳清蛋白
-    name_en: WHEY PROTEIN
-    text: 乳製品來源，有濃縮與分離兩種規格。
-    form: 粉末｜乳源
-  - name: 大豆分離蛋白
-    name_en: SOY PROTEIN
-    text: 植物性蛋白，適用素食配方。
-    form: 粉末｜植物
-  - name: 豌豆蛋白
-    name_en: PEA PROTEIN
-    text: 低致敏植物蛋白，風味需另行調整。
-    form: 粉末｜植物
-  - name: 支鏈胺基酸
-    name_en: BCAA
-    text: 白胺酸、異白胺酸與纈胺酸的組合。
-    form: 粉末｜胺基酸
-  - name: 麩醯胺酸
-    name_en: GLUTAMINE
-    text: 游離型胺基酸，常見於運動配方。
-    form: 粉末｜胺基酸
+  - name: "SUPRO 大豆分離蛋白"
+    material: "植物蛋白"
+    image: "/assets/brand/ingredient-supro-v1.jpg"
+    image_note: "AI來源意象，非原廠實拍。"
+    origin: "美國、中國- IFF（原杜邦 Solae / DANISCO）"
+    patent: "無"
+    text: "1.\n2.蛋白質(As-Is)>85%(不同型號會略有不同)\n3.粉體:米白至米黃色，水溶\n4.PDCAAS= 1.00，極佳的蛋白質來源。"
+  - name: "PisaneC9 豌豆蛋白"
+    material: "植物蛋白"
+    image: "/assets/brand/ingredient-pisane-v1.jpg"
+    image_note: "AI來源意象，非原廠實拍。"
+    origin: "比利時-COSUCRA"
+    patent: "無"
+    text: "1.符合HACCP、ISO22000、PAS220、Halal, Kosher\n2.蛋白質(As-Is)>80%；\n3.粉體:黃米色，水溶\n4.AAS=0.96"
+  - name: "rizipro濃縮米蛋白"
+    material: "植物蛋白"
+    image: "/assets/brand/ingredient-rizipro-v1.jpg"
+    image_note: "AI來源意象，非原廠實拍。"
+    origin: "越南"
+    text: "1.\n2.蛋白質(As-Is)>74%；\n3.粉體:\n4."
+  - name: "Absolute Pumpkin 南瓜籽蛋白粉"
+    material: "植物蛋白"
+    image: "/assets/brand/ingredient-absolute-pumpkin-v1.jpg"
+    image_note: "AI來源意象，非原廠實拍。"
+    text: "1.\n2.蛋白質(As-Is)>74%；\n3.粉體:亮綠色，高水溶\n4.低溫液壓保持最佳的營養活性"
+  - name: "專利水解小麥蛋白"
+    material: "植物蛋白"
+    image: "/assets/brand/ingredient-wheat-protein-v1.jpg"
+    image_note: "AI來源意象，非原廠實拍。"
+    origin: "台灣"
+    patent: "1 專利"
+    text: "1.\n2.粗蛋白質>75%\n3.粉體:白色、微黃色至棕黃色；水溶"
+  - name: "膠原蛋白"
+    material: "膠原蛋白"
+    image: "/assets/brand/ingredient-collagen-generic-v1.jpg"
+    image_note: "AI材質意象，非實際供貨形態。"
+    text: "規格資料整理中，請洽詢確認。"
 ---
 

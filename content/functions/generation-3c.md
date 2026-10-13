@@ -1,30 +1,105 @@
 ---
-title: 3C 世代
-title_en: 3C GENERATION
-lead: 葉黃素的游離型與酯化型規格差異，是這個方向最常被詢問的問題。
-summary: 長時間使用螢幕的族群，訴求多以日常保養與營養補給切入。
-image: /assets/brand/function-generation-3c.jpg
-placeholder: true
+title: "3C 世代"
+title_en: "3C GENERATION"
+lead: "依官網資訊表查看3C 世代相關原料品項、來源與規格說明。"
+summary: "整理3C 世代原料資料，供配方規劃與品項確認時參考。"
+image: "/assets/brand/function-generation-3c.jpg"
+placeholder: false
+notice: "本分類依百達醫官網資訊表整理；專利與認證資訊為個別原料資料紀錄，不代表百達醫公司資格。實際供貨規格、證明文件、專利有效期限及適用範圍，請洽業務確認。"
 items:
-  - name: 葉黃素
-    name_en: LUTEIN
-    text: 多萃取自金盞花，分游離型與酯化型。
-    form: 粉末／油脂
-  - name: 玉米黃素
-    name_en: ZEAXANTHIN
-    text: 常與葉黃素以固定比例搭配。
-    form: 粉末｜植物萃取
-  - name: 山桑子萃取
-    name_en: BILBERRY
-    text: 以花青素含量標示規格。
-    form: 粉末｜果實萃取
-  - name: 蝦紅素
-    name_en: ASTAXANTHIN
-    text: 多來自雨生紅球藻的類胡蘿蔔素。
-    form: 油脂｜藻類
-  - name: 藻油 DHA
-    name_en: DHA
-    text: 植物性來源的 omega-3 脂肪酸。
-    form: 油脂｜藻類
+  - name: "FloraGLO葉黃素"
+    material: "葉黃素"
+    image: "/assets/brand/ingredient-floraglo-v1.jpg"
+    image_note: "AI來源意象，非原廠實拍。"
+    origin: "西班牙-DSM"
+    patent: "3 花種專利 1 製程專利 1 功效專利 80篇以上臨床"
+    text: "1.屬於食添，須依法規添加及標示 \n2.粉體: 游離葉黃素10%；油體: 游離葉黃素20%\n3.粉體: 橘紅色；油體: 棕橘紅色；不水溶、不建議用於果凍及水劑飲品"
+  - name: "Lute-gen專利金盞花萃取物"
+    material: "葉黃素"
+    image: "/assets/brand/ingredient-lute-gen-v1.jpg"
+    image_note: "AI來源意象，非原廠實拍。"
+    origin: "印度-Bio-gen Extracts"
+    patent: "1 世界製程專利"
+    text: "1.符合GMP、HACCP︑OHSAS︑FSSAI︑\nISO、HALAL 、KOSHER認證\n2.粉體:游離葉黃素20%)；油體:游離葉黃素20%，玉米黃素4%\n3.粉體:橘色，可冷水微水溶；油體:深橘紅色"
+  - name: "Lutol 金盞花萃取物"
+    material: "葉黃素"
+    image: "/assets/brand/ingredient-lutol-v1.jpg"
+    image_note: "AI來源意象，非原廠實拍。"
+    origin: "印度-Katra Phytochem"
+    patent: "5 製程專利"
+    text: "1..符合NSF –GMP、ISO 9001:2008、 HACCP 、KOSHER、HALAL\n2.液體 :葉黃素15%，玉米黃素3%\n3.液體 :橘紅色；可用於果凍及水劑飲品"
+  - name: "Lutemax 顆粒狀金盞花萃取物"
+    material: "葉黃素"
+    image: "/assets/brand/ingredient-lutemax-v1.jpg"
+    image_note: "AI來源意象，非原廠實拍。"
+    origin: "印度-OmniActive"
+    patent: "5 製程專利"
+    text: "1.符合Kosher, HALAL, BRC, FSMA,GMP認證\n2.粉體:游離葉黃素10%、玉米黃素2%\n3.橘紅色粉體；特殊製程增強分散性，更多應用的靈活性"
+  - name: "XanMax  金盞花萃取物"
+    material: "葉黃素"
+    image: "/assets/brand/ingredient-xanmax-v1.jpg"
+    image_note: "AI來源意象，非原廠實拍。"
+    origin: "印度-Katra Phytochem"
+    patent: "4 製程專利"
+    text: "1.符合GMP、ISO9001-2008、HACCP、KOSHER、HALAL\n2.粉體:葉黃素20%，玉米黃素4%；油體:葉黃素20%，玉米黃素4%\n3.粉體 :橘紅色，冷水可溶；油體 :橘紅色"
+  - name: "Mirtoselect"
+    material: "山桑子"
+    image: "/assets/brand/ingredient-mirtoselect-v1.jpg"
+    image_note: "AI來源意象，非原廠實拍。"
+    origin: "義大利"
+    patent: "取得美國減壓功效專利"
+    text: "1.植物萃取，原廠文獻發表，具備Halal、Kosher認證\n2.花青素≥36%，游離花青素 ≤1%\n3.暗紅紫色粉末\n4.如需其他規格請聯絡我們"
+  - name: "Super Antho"
+    material: "山桑子"
+    image: "/assets/brand/ingredient-super-antho-v1.jpg"
+    image_note: "AI來源意象，非原廠實拍。"
+    origin: "波蘭"
+    patent: "無專利"
+    text: "1.植物萃取，無過敏原，具備Halal、Kosher認證\n2.總花青素(以 Cyanidin 3-O-glucoside chloride(C3G)計) >= 36%\n3.深紫色粉末，可水溶\n4.如需其他規格請聯絡我們"
+  - name: "Bilright 艾晶莓"
+    material: "山桑子"
+    image: "/assets/brand/ingredient-bilright-v1.jpg"
+    image_note: "AI來源意象，非原廠實拍。"
+    origin: "歐洲"
+    patent: "多國專利"
+    text: "1.30+臨床文獻\n2.總花青素 ≧ 36%以上，去糖基花青素 (Anthocyanidin) ≦ 1%\n3.黑藍色粉體\n4.如需其他規格請聯絡我們"
+  - name: "智利酒果"
+    material: "智利酒果"
+    image: "/assets/brand/ingredient-beauty-maqui-v4.jpg"
+    image_note: "AI來源意象，非原廠實拍。"
+    text: "規格資料整理中，請洽詢確認。"
+  - name: "蝦紅素"
+    material: "蝦紅素"
+    image: "/assets/brand/ingredient-astaxanthin-v1.jpg"
+    image_note: "AI材質意象，非實際供貨形態。"
+    text: "規格資料整理中，請洽詢確認。"
+  - name: "Hyabest 流行鏈球菌發酵物(含透明質酸鈉)"
+    material: "流行鏈球菌發酵物(含透明質酸鈉)"
+    image: "/assets/brand/ingredient-beauty-hyabest-v4.jpg"
+    image_note: "AI材質意象，非實際供貨形態。"
+    origin: "日本"
+    patent: "多項專利"
+    text: "1.多項原廠研究，哈拉問卷\n2.純度 >95%\n3.白色至淡黃色粉末"
+  - name: "Hyapol 流行鏈球菌發酵物(含透明質酸鈉)"
+    material: "流行鏈球菌發酵物(含透明質酸鈉)"
+    image: "/assets/brand/ingredient-beauty-hyapol-v4.jpg"
+    image_note: "AI材質意象，非實際供貨形態。"
+    origin: "中國"
+    patent: "無專利"
+    text: "1.具HALAL、KOSHER\n2.純度 >95%\n3.白色粉末"
+  - name: "HAPLEX PLUS 流行鏈球菌發酵物(含透明質酸鈉)"
+    material: "流行鏈球菌發酵物(含透明質酸鈉)"
+    image: "/assets/brand/ingredient-beauty-haplex-plus-v4.jpg"
+    image_note: "AI材質意象，非實際供貨形態。"
+    origin: "中國"
+    patent: "製程專利"
+    text: "1.多項原廠研究\n2.純度 >95%\n3.白色粉末微顆粒"
+  - name: "Mobilee 3D 玻尿酸_雞冠抽出物"
+    material: "流行鏈球菌發酵物(含透明質酸鈉)"
+    image: "/assets/brand/ingredient-beauty-mobilee-v4.jpg"
+    image_note: "AI材質意象，非實際供貨形態。"
+    origin: "西班牙"
+    patent: "功效專利"
+    text: "1.多項原廠研究、具HALAL\n2.Sodium Hyaluronate ( HA）天然玻尿酸60-75%、Polysaccharides（多醣類）10%、Hydrolized Proteins ( 膠原蛋白 ) 5%\n3.白色的吸濕性粉末"
 ---
 

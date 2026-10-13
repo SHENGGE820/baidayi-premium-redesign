@@ -1,26 +1,25 @@
 ---
-title: 調節體質
-title_en: BALANCE BODY CONDITION
-lead: 多為真菌與植物萃取，需特別留意原料的來源證明與重金屬檢驗。
-summary: 長期服用的基礎型產品，價格帶與服用便利性比單次體感更關鍵。
-image: /assets/brand/function-balance.jpg
-placeholder: true
+title: "調節體質"
+title_en: "BALANCE BODY CONDITION"
+lead: "依官網資訊表查看調節體質相關原料品項、來源與規格說明。"
+summary: "整理調節體質原料資料，供配方規劃與品項確認時參考。"
+image: "/assets/brand/function-balance.jpg"
+placeholder: false
+notice: "本分類依百達醫官網資訊表整理；專利與認證資訊為個別原料資料紀錄，不代表百達醫公司資格。實際供貨規格、證明文件、專利有效期限及適用範圍，請洽業務確認。"
 items:
-  - name: 樟芝
-    name_en: ANTRODIA
-    text: 台灣特有真菌，以三萜類標示規格。
-    form: 粉末｜菌絲體
-  - name: 靈芝萃取
-    name_en: REISHI
-    text: 以多醣體含量標示規格。
-    form: 粉末｜子實體萃取
-  - name: 接骨木莓
-    name_en: ELDERBERRY
-    text: 含花青素的果實萃取。
-    form: 粉末｜果實萃取
-  - name: 維生素 D3
-    name_en: VITAMIN D3
-    text: 有羊毛脂與地衣兩種來源可選。
-    form: 粉末／油脂
+  - name: "益生菌"
+    material: "益生菌"
+    image: "/assets/brand/ingredient-probiotic-v1.jpg"
+    image_note: "AI材質意象，非實際供貨形態。"
+    text: "規格資料整理中，請洽詢確認。"
+  - name: "植物萃取"
+    material: "植物萃取"
+    text: "資訊表目前僅列此原料類別，具體品項與規格請洽詢確認。"
+  - name: "蕈菇類機能"
+    material: "蕈菇類機能"
+    text: "資訊表目前僅列此原料類別，具體品項與規格請洽詢確認。"
+  - name: "維生素"
+    material: "維生素"
+    text: "資訊表目前僅列此原料類別，具體品項與規格請洽詢確認。"
 ---
 

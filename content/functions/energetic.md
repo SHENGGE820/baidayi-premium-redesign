@@ -1,26 +1,59 @@
 ---
-title: 精神旺盛
-title_en: HIGHLY ENERGETIC
-lead: 需明確規劃咖啡因總量，並考量與其他提神成分的疊加。
-summary: 上班族與學生族群的日常需求，攜帶性與單次份量的辨識度會影響實際服用率。
-image: /assets/brand/function-energetic.jpg
-placeholder: true
+title: "精神旺盛"
+title_en: "HIGHLY ENERGETIC"
+lead: "依官網資訊表查看精神旺盛相關原料品項、來源與規格說明。"
+summary: "整理精神旺盛原料資料，供配方規劃與品項確認時參考。"
+image: "/assets/brand/function-energetic.jpg"
+placeholder: false
+notice: "本分類依百達醫官網資訊表整理；專利與認證資訊為個別原料資料紀錄，不代表百達醫公司資格。實際供貨規格、證明文件、專利有效期限及適用範圍，請洽業務確認。"
 items:
-  - name: 瓜拿納萃取
-    name_en: GUARANA
-    text: 天然含咖啡因的果實萃取。
-    form: 粉末｜果實萃取
-  - name: 人參萃取
-    name_en: GINSENG
-    text: 以人參皂苷含量標示規格。
-    form: 粉末｜根部萃取
-  - name: 維生素 B12
-    name_en: VITAMIN B12
-    text: 氰鈷胺或甲鈷胺型式。
-    form: 粉末｜結晶
-  - name: 紅景天萃取
-    name_en: RHODIOLA
-    text: 以紅景天苷標示規格的根部萃取。
-    form: 粉末｜根部萃取
+  - name: "Macapro 馬卡萃取物"
+    material: "馬卡"
+    image: "/assets/brand/ingredient-macapro-v1.jpg"
+    image_note: "AI來源意象，非原廠實拍。"
+    origin: "祕魯-MasterAsia"
+    patent: "無專利"
+    text: "1.符合GMP及HALAL問卷\n2.萃取比6:1；黑馬卡80%, 紫紅馬卡15%,黃馬卡5% \n3.粉體深咖啡色"
+  - name: "MACA-IN 馬卡抽出物"
+    material: "馬卡"
+    image: "/assets/brand/ingredient-maca-in-v1.jpg"
+    image_note: "AI來源意象，非原廠實拍。"
+    origin: "祕魯-Symphony Natural Health"
+    patent: "無專利"
+    text: "1.符合 non-GMO、Kosher、USDA Organic、JAS Organic認證\n2.10倍濃縮； 硫代葡萄糖苷>0.3%\n3.淺褐色至深棕色"
+  - name: "MACAXTRA 有機濃縮瑪卡根粉"
+    material: "馬卡"
+    image: "/assets/brand/ingredient-macaxtra-v1.jpg"
+    image_note: "AI來源意象，非原廠實拍。"
+    origin: "祕魯-NP Nutra"
+    patent: "無專利"
+    text: "1.具有機認證，猶太潔食、食品級、GMP、BRC等認證\n2.硫代葡萄糖苷>1%\n3.粉體為⽶⾊至淺棕⾊粉末，水中部分溶解"
+  - name: "LiposoMax微脂體維生素B群"
+    material: "B群"
+    image: "/assets/brand/ingredient-liposomax-b-v1.jpg"
+    image_note: "AI材質意象，非實際供貨形態。"
+    origin: "美國"
+    patent: "無專利"
+    text: "1.具HALAL、KOSHER認證\n2.定量B群\n3.適合水溶、脂溶的原料\n4.如需其他規格請聯絡我們"
+  - name: "Lynside 酵母B"
+    material: "B群"
+    image: "/assets/brand/ingredient-lynside-b-v1.jpg"
+    image_note: "AI材質意象，非實際供貨形態。"
+    origin: "美國"
+    patent: "無專利"
+    text: "1.啤酒酵母發酵，具HALAL、KOSHER認證\n2.定量B群\n3.黃色粉末、可水溶、有沉澱\n4.如需其他規格請聯絡我們"
+  - name: "PANMOL藜麥"
+    material: "B群"
+    image: "/assets/brand/ingredient-panmol-v1.jpg"
+    image_note: "AI來源意象，非原廠實拍。"
+    origin: "奧地利"
+    patent: "專利製程"
+    text: "1.緩慢釋放、生物利用率實驗\n2.定量B群\n3.灰白色至淡黃色粉末，不溶於水\n4.如需其他規格請聯絡我們"
+  - name: "蔘類"
+    material: "蔘類"
+    text: "資訊表目前僅列此原料類別，具體品項與規格請洽詢確認。"
+  - name: "含咖啡因"
+    material: "含咖啡因"
+    text: "資訊表目前僅列此原料類別，具體品項與規格請洽詢確認。"
 ---
 

@@ -1,5 +1,21 @@
 ---
 dosage:
+  - title: 錠狀顆粒
+    text: 從外型與尺寸開始，進一步確認配方壓錠與食用方式。
+    image: /assets/brand/dosage-tablets-granules.jpg
+    link: 'page:錠劑'
+    more: 查看樣式與尺寸
+  - title: 粉末食品
+    text: 先釐清直接食用或沖泡需求，再搭配風味、份量與包材。
+    image: /assets/brand/dosage-powder.jpg
+    link: 'contact:powder'
+    more: 討論粉末開發
+  - title: 動／植物膠囊
+    text: 依內容物、填充量與素食需求，評估膠囊基材和尺寸。
+    image: /assets/brand/dosage-capsules.jpg
+    alt: 動植物膠囊
+    link: 'page:多元劑型-膠囊'
+    more: 查看樣式與尺寸
   - title: 機能餅乾
     text: 從日常點心切入，開發時一起討論口感、份量與配方搭配。
     image: /assets/brand/dosage-biscuit.jpg
@@ -15,22 +31,6 @@ dosage:
     image: /assets/brand/dosage-gummy.jpg
     link: 'contact:candy'
     more: 討論糖果開發
-  - title: 動／植物膠囊
-    text: 依內容物、填充量與素食需求，評估膠囊基材和尺寸。
-    image: /assets/brand/dosage-capsules.jpg
-    alt: 動植物膠囊
-    link: 'page:多元劑型-膠囊'
-    more: 查看樣式與尺寸
-  - title: 錠狀顆粒
-    text: 從外型與尺寸開始，進一步確認配方壓錠與食用方式。
-    image: /assets/brand/dosage-tablets-granules.jpg
-    link: 'page:錠劑'
-    more: 查看樣式與尺寸
-  - title: 粉末食品
-    text: 先釐清直接食用或沖泡需求，再搭配風味、份量與包材。
-    image: /assets/brand/dosage-powder.jpg
-    link: 'contact:powder'
-    more: 討論粉末開發
   - title: 營養代餐
     text: 以目標客群與食用情境出發，討論營養組成、份量與口味。
     image: /assets/brand/dosage-meal-replacement.jpg
