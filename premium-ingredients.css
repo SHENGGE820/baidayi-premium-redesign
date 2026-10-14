@@ -69,7 +69,7 @@
 .ingredient-accordion:not(.ingredient-grid-ready) > .ingredient-category[open] { grid-column: 1 / -1; }
 .ingredient-accordion:not(.ingredient-grid-ready) > .ingredient-category[open] > summary { display: grid; grid-template-columns: minmax(0,.5fr) minmax(0,1fr); align-items: center; }
 .ingredient-material-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; }
-.ingredient-material-grid.has-source-records { grid-template-columns: minmax(0,1fr); }
+.ingredient-material-grid.has-source-records { grid-template-columns: repeat(2,minmax(0,1fr)); }
 .ingredient-material { min-width: 0; padding: 24px; border: 1px solid #e0d7c7; background: #fdfbf7; }
 .ingredient-material.has-image { display: grid; grid-template-columns: minmax(0,1fr) 90px; align-items: start; gap: 20px; }
 .ingredient-material[hidden], .ingredient-panel-storage[hidden] { display: none; }
@@ -91,9 +91,36 @@
 .ingredient-material-specs dt { color: #8d672b; }
 .ingredient-material-specs dd { margin: 0; color: #555148; overflow-wrap: anywhere; }
 .ingredient-material.has-concept-image h3 { overflow-wrap: anywhere; }
+/* An ingredient image belongs to its identity, not to a separate full-height
+   sidebar. Let the specifications use the whole card width in a two-up grid. */
+.ingredient-material.is-source-card { display: flex; flex-direction: column; align-items: stretch; gap: 0; padding: 0; overflow: hidden; isolation: isolate; }
+.ingredient-material-header { min-width: 0; }
+.ingredient-material-header.has-visual { display: block; }
+.ingredient-material-identity { min-width: 0; }
+.is-source-card h3 { font-size: 23px; line-height: 1.45; text-wrap: pretty; }
+.is-source-card .ingredient-material-visual { position: relative; display: block; width: 100%; aspect-ratio: 1.8 / 1; overflow: hidden; background: #e4e0da; }
+.is-source-card .ingredient-material-image { display: block; width: 100%; height: 100%; max-height: none; aspect-ratio: auto; object-fit: cover; object-position: center; mix-blend-mode: normal; mask-image: none; -webkit-mask-image: none; }
+.is-source-card .ingredient-material-visual::after, .catalogue-grid-ingredient .has-concept-image .catalogue-media::after { content: ""; position: absolute; inset: 90% 0 0; background: linear-gradient(0deg,#fdfbf7,transparent); pointer-events: none; }
+.is-source-card .ingredient-material-identity { padding: 16px 24px 21px; }
+.ingredient-title-brand { display: block; margin-bottom: 7px; }
+.ingredient-title-name { display: block; font-size: 16px; line-height: 1.65; }
+.ingredient-title-qualifier { display: block; margin-top: 2px; color: #686050; font-size: 13px; }
+.is-source-card .ingredient-material-copy { padding: 0 24px; }
+.is-source-card .ingredient-material-specs, .catalogue-grid-ingredient .has-concept-image .ingredient-material-specs { grid-template-columns: 1.2fr .7fr 1fr; gap: 16px; margin-top: 0; padding-top: 17px; }
+.is-source-card .ingredient-material-specs > div, .catalogue-grid-ingredient .has-concept-image .ingredient-material-specs > div { display: block; }
+.is-source-card .ingredient-material-specs dd, .catalogue-grid-ingredient .has-concept-image .ingredient-material-specs dd { margin-top: 6px; font-size: 13px; }
+.is-source-card .ingredient-material-image-note { margin: auto 0 0; padding: 18px 24px 22px; font-size: 10px; }
+.is-source-card:not(.has-image) { padding-block: 8px 22px; }
+.is-source-card.has-natural-art .ingredient-material-visual::after, .catalogue-grid-ingredient .has-natural-art .catalogue-media::after { display: none; }
 .ingredient-source-note { margin: 0 0 24px; color: #625c50; font-size: 12px; line-height: 1.9; }
-.catalogue-grid-ingredient .has-concept-image .catalogue-media { aspect-ratio: 2 / 3; }
-.catalogue-grid-ingredient .has-concept-image .catalogue-media img { object-fit: contain; }
+.premium-inner:has(.ingredient-source-note) .catalogue-grid-ingredient { grid-template-columns: repeat(2,minmax(0,1fr)); }
+.catalogue-grid-ingredient .has-concept-image { background: #fdfbf7; }
+.catalogue-grid-ingredient .has-concept-image .catalogue-media { position: relative; aspect-ratio: 1.8 / 1; }
+.catalogue-grid-ingredient .has-concept-image .catalogue-media img { object-fit: cover; }
+.catalogue-grid-ingredient .has-concept-image .catalogue-copy { padding: 16px 24px 22px; }
+.catalogue-grid-ingredient .has-concept-image h3 { margin-bottom: 21px; font-size: 23px; line-height: 1.45; }
+.catalogue-grid-ingredient .has-concept-image .catalogue-copy > p:not(.ingredient-image-note) { font-size: 13px; line-height: 1.9; }
+.catalogue-grid-ingredient .is-source-summary .catalogue-copy { padding: 24px; }
 .catalogue-grid-ingredient .has-concept-image h3 { overflow-wrap: anywhere; }
 .catalogue-grid-ingredient .has-concept-image .ingredient-image-note { margin-top: 16px; color: #686050; font-size: 11px; line-height: 1.7; }
 .ingredient-category-next { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-top: 24px; padding-top: 20px; border-top: 1px solid #ded3c0; }
@@ -110,6 +137,7 @@
 @media (max-width: 780px) {
   .ingredient-accordion { --ingredient-columns: 2; }
   .ingredient-material.has-concept-image { grid-template-columns: minmax(0,1fr) 112px; gap: 18px; }
+  .ingredient-material.is-source-card { gap: 0; }
 }
 @media (max-width: 600px) {
   .ingredient-page .ingredient-hero { min-height: 460px; padding-top: calc(var(--header-height) + 28px); padding-bottom: 48px; }
@@ -141,12 +169,21 @@
   .ingredient-panel-heading h3 > span { display: block; margin: 7px 0 0; font-size: 11px; }
   .ingredient-panel-close { gap: 10px; padding-inline: 10px; }
   .ingredient-material-grid { grid-template-columns: 1fr; gap: 12px; }
+  .ingredient-material-grid.has-source-records { grid-template-columns: minmax(0,1fr); }
   .ingredient-material { padding: 20px; }
   .ingredient-material h3 { font-size: 21px; }
   .ingredient-material.has-image { grid-template-columns: minmax(0,1fr) 66px; gap: 14px; }
   .ingredient-material-image { width: 66px; max-height: 110px; }
   .ingredient-material.has-concept-image { grid-template-columns: minmax(0,1fr) 88px; gap: 16px; }
   .ingredient-material.has-concept-image h3 { font-size: 19px; }
+  .ingredient-material.is-source-card { gap: 0; padding: 0; }
+  .is-source-card .ingredient-material-identity { padding: 16px 20px 20px; }
+  .is-source-card .ingredient-material-copy { padding: 0 20px; }
+  .is-source-card .ingredient-material-image-note { padding: 16px 20px 20px; }
+  .ingredient-material.is-source-card h3 { font-size: 22px; }
+  .is-source-card .ingredient-material-specs, .catalogue-grid-ingredient .has-concept-image .ingredient-material-specs { gap: 12px; }
+  .is-source-card .ingredient-material-specs dd, .catalogue-grid-ingredient .has-concept-image .ingredient-material-specs dd { font-size: 12px; }
+  .premium-inner:has(.ingredient-source-note) .catalogue-grid-ingredient { grid-template-columns: minmax(0,1fr); }
   .ingredient-material-specs { font-size: 11px; }
   .ingredient-material-specs > div { gap: 8px; }
 }

@@ -1,0 +1,254 @@
+{
+  "/assets/brand/ingredient-beauty-maqui-v4.jpg": {
+    "image": "/assets/brand/ingredient-wide-maqui-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-beauty-hyabest-v4.jpg": {
+    "image": "/assets/brand/ingredient-wide-hyabest-v1.jpg",
+    "natural": false
+  },
+  "/assets/brand/ingredient-beauty-hyapol-v4.jpg": {
+    "image": "/assets/brand/ingredient-wide-hyapol-v1.jpg",
+    "natural": false
+  },
+  "/assets/brand/ingredient-beauty-haplex-plus-v4.jpg": {
+    "image": "/assets/brand/ingredient-wide-haplex-plus-v1.jpg",
+    "natural": false
+  },
+  "/assets/brand/ingredient-beauty-mobilee-v4.jpg": {
+    "image": "/assets/brand/ingredient-wide-mobilee-v1.jpg",
+    "natural": false
+  },
+  "/assets/brand/ingredient-beauty-miracolla-v4.jpg": {
+    "image": "/assets/brand/ingredient-wide-miracolla-v1.jpg",
+    "natural": false
+  },
+  "/assets/brand/ingredient-beauty-tripepiii-v4.jpg": {
+    "image": "/assets/brand/ingredient-wide-tripepiii-v1.jpg",
+    "natural": false
+  },
+  "/assets/brand/ingredient-beauty-collasel-v4.jpg": {
+    "image": "/assets/brand/ingredient-wide-collasel-v1.jpg",
+    "natural": false
+  },
+  "/assets/brand/ingredient-beauty-moistide-v4.jpg": {
+    "image": "/assets/brand/ingredient-wide-moistide-v1.jpg",
+    "natural": false
+  },
+  "/assets/brand/ingredient-beauty-glutathione-v4.jpg": {
+    "image": "/assets/brand/ingredient-wide-glutathione-v1.jpg",
+    "natural": false
+  },
+  "/assets/brand/ingredient-beauty-phytofloral-v4.jpg": {
+    "image": "/assets/brand/ingredient-wide-phytofloral-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-beauty-pearl-tomato-v4.jpg": {
+    "image": "/assets/brand/ingredient-wide-pearl-tomato-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-beauty-pomegranate-v4.jpg": {
+    "image": "/assets/brand/ingredient-wide-pomegranate-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-floraglo-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-floraglo-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-lute-gen-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-lute-gen-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-lutol-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-lutol-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-lutemax-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-lutemax-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-xanmax-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-xanmax-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-mirtoselect-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-mirtoselect-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-super-antho-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-super-antho-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-bilright-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-bilright-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-astaxanthin-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-astaxanthin-v1.jpg",
+    "natural": false
+  },
+  "/assets/brand/ingredient-macapro-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-macapro-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-maca-in-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-maca-in-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-macaxtra-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-macaxtra-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-liposomax-b-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-liposomax-b-v1.jpg",
+    "natural": false
+  },
+  "/assets/brand/ingredient-lynside-b-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-lynside-b-v1.jpg",
+    "natural": false
+  },
+  "/assets/brand/ingredient-panmol-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-panmol-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-fibersol-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-fibersol-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-fibryxa-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-fibryxa-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-orafti-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-orafti-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-probiotic-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-probiotic-v1.jpg",
+    "natural": false
+  },
+  "/assets/brand/ingredient-postbiotic-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-postbiotic-v1.jpg",
+    "natural": false
+  },
+  "/assets/brand/ingredient-enzyme-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-enzyme-v1.jpg",
+    "natural": false
+  },
+  "/assets/brand/ingredient-caffshock-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-caffshock-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-grecobe-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-grecobe-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-svetol-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-svetol-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-guarana-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-guarana-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-garcinia-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-garcinia-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-citrus-polyphenol-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-citrus-polyphenol-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-bbm-20-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-bbm-20-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-weetease-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-weetease-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-glycostat-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-glycostat-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-smartpep-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-smartpep-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-supro-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-supro-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-pisane-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-pisane-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-rizipro-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-rizipro-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-absolute-pumpkin-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-absolute-pumpkin-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-wheat-protein-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-wheat-protein-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-collagen-generic-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-collagen-generic-v1.jpg",
+    "natural": false
+  },
+  "/assets/brand/ingredient-pharmagaba-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-pharmagaba-v1.jpg",
+    "natural": false
+  },
+  "/assets/brand/ingredient-gabarelax-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-gabarelax-v1.jpg",
+    "natural": false
+  },
+  "/assets/brand/ingredient-gabazzone-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-gabazzone-v1.jpg",
+    "natural": false
+  },
+  "/assets/brand/ingredient-black-sesame-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-black-sesame-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-jujube-seed-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-jujube-seed-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-eggshell-membrane-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-eggshell-membrane-v1.jpg",
+    "natural": false
+  },
+  "/assets/brand/ingredient-women-probiotic-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-women-probiotic-v1.jpg",
+    "natural": false
+  },
+  "/assets/brand/ingredient-cranberry-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-cranberry-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-roselle-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-roselle-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-soy-isoflavone-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-soy-isoflavone-v1.jpg",
+    "natural": true
+  },
+  "/assets/brand/ingredient-q10-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-q10-v1.jpg",
+    "natural": false
+  },
+  "/assets/brand/ingredient-fish-oil-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-fish-oil-v1.jpg",
+    "natural": false
+  },
+  "/assets/brand/ingredient-natto-v1.jpg": {
+    "image": "/assets/brand/ingredient-wide-natto-v1.jpg",
+    "natural": true
+  }
+}

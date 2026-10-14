@@ -445,6 +445,21 @@ function linkOptions(targets) {
 const FN_DIR = '全面性服務/功能配方';
 const FN_MARK = '<meta name="generator" content="bke-build function">';
 const FN_PLACEHOLDER_IMG = '/assets/premium/ingredient-placeholder.svg';
+const FN_CARD_ART = JSON.parse(fs.readFileSync(path.join(ROOT, 'scripts', 'ingredient-card-art.json'), 'utf8'));
+function ingredientArt(image) {
+  const candidate = FN_CARD_ART[image]?.image;
+  return candidate && fs.existsSync(path.join(ROOT, candidate.slice(1))) ? candidate : image;
+}
+function ingredientTitle(name) {
+  const parts = name.match(/^([A-Za-z][^\u3400-\u9fff]*)([\u3400-\u9fff].*)$/u);
+  const qualifier = text => {
+    const split = text.match(/^(.*?)([（(].*[）)])$/u);
+    return split ? esc(split[1]) + `<span class="ingredient-title-qualifier">${esc(split[2])}</span>` : esc(text);
+  };
+  if (!parts) return qualifier(name);
+  const brand = parts[1].trimEnd(), gap = parts[1].slice(brand.length);
+  return `<span class="ingredient-title-brand">${esc(brand)}</span>${esc(gap)}<span class="ingredient-title-name">${qualifier(parts[2])}</span>`;
+}
 
 function loadFunctions() {
   const dir = path.join(ROOT, 'content', 'functions');
@@ -500,9 +515,14 @@ function ingredientSearch(it) {
 }
 function ingredientCard(it, p) {
   const concept = !!(it.image && it.imageNote);
-  return `<article class="catalogue-card reveal${concept ? ' has-concept-image' : ''}">` +
-    `<div class="catalogue-media"><img src="${esc(rel(it.image || FN_PLACEHOLDER_IMG, p))}" alt="${it.image ? esc(it.name + (concept ? '意象，非原料實物照' : '原料')) : ''}"${concept ? responsiveImg(it.image, p).dims : ''} loading="lazy"></div>` +
-    `<div class="catalogue-copy">${it.en ? `<span class="catalogue-en">${esc(it.en)}</span>` : ''}<h3>${esc(it.name)}</h3>` +
+  const art = concept ? ingredientArt(it.image) : it.image;
+  if (!it.image && (it.material || it.origin || it.patent)) {
+    return `<article class="catalogue-card reveal is-source-summary"><div class="catalogue-copy"><h3>${ingredientTitle(it.name)}</h3>` +
+      ingredientSpecs(it) + (it.text ? `<p>${ingredientDescription(it)}</p>` : '') + '</div></article>';
+  }
+  return `<article class="catalogue-card reveal${concept ? ' has-concept-image' : ''}${concept && FN_CARD_ART[it.image]?.natural ? ' has-natural-art' : ''}">` +
+    `<div class="catalogue-media"><img src="${esc(rel(art || FN_PLACEHOLDER_IMG, p))}" alt="${it.image ? esc(it.name + (concept ? '意象，非原料實物照' : '原料')) : ''}"${concept ? responsiveImg(art, p).dims : ''} loading="lazy"></div>` +
+    `<div class="catalogue-copy">${it.en ? `<span class="catalogue-en">${esc(it.en)}</span>` : ''}<h3>${concept ? ingredientTitle(it.name) : esc(it.name)}</h3>` +
     `${ingredientSpecs(it)}${it.text ? `<p>${ingredientDescription(it)}</p>` : ''}${it.form ? `<p class="ingredient-meta"><b>形式</b>　${esc(it.form)}</p>` : ''}` +
     `${it.image && it.imageNote ? `<p class="ingredient-image-note">${esc(it.imageNote)}</p>` : ''}</div></article>`;
 }
@@ -514,10 +534,20 @@ function ingredientCategory(c, index, p = '../../') {
   const image = responsiveImg(c.image, p);
   const categorySearch = `${c.title} ${c.en}`;
   const allSearch = [categorySearch, ...c.items.map(ingredientSearch)].join(' ');
-  const materials = c.items.map(it => {
+  const materials = c.items.map((it, itemIndex) => {
     const search = ingredientSearch(it);
     const concept = !!(it.image && it.imageNote);
-    const image = it.image ? `<img class="ingredient-material-image" src="${esc(rel(it.image, p))}" alt="${esc(it.name + (concept ? '意象，非原料實物照' : '原料'))}"${concept ? responsiveImg(it.image, p).dims : ''} loading="lazy">` : '';
+    const noteId = `ingredient-note-${c.slug}-${itemIndex}`;
+    const art = concept && c.notice ? ingredientArt(it.image) : it.image;
+    const image = it.image ? `<img class="ingredient-material-image" src="${esc(rel(art, p))}" alt="${esc(it.name + (concept ? '意象，非原料實物照' : '原料'))}"${concept ? responsiveImg(art, p).dims : ''}${concept && c.notice ? ` aria-describedby="${esc(noteId)}"` : ''} loading="lazy">` : '';
+    if (c.notice) {
+      return `<article class="ingredient-material is-source-card${it.image ? ' has-image' : ''}${concept ? ' has-concept-image' : ''}${concept && FN_CARD_ART[it.image]?.natural ? ' has-natural-art' : ''}" data-search="${esc(search)}">` +
+        `<header class="ingredient-material-header${image ? ' has-visual' : ''}">${image ? `<figure class="ingredient-material-visual">${image}</figure>` : ''}<div class="ingredient-material-identity">` +
+        (it.en ? `<p class="ingredient-material-en">${esc(it.en)}</p>` : '') + `<h3>${ingredientTitle(it.name)}</h3></div></header>` +
+        `<div class="ingredient-material-copy">${ingredientSpecs(it)}${it.text ? `<p class="ingredient-material-description">${ingredientDescription(it)}</p>` : ''}` +
+        (it.form ? `<p class="ingredient-material-form"><span>形式</span>${esc(it.form)}</p>` : '') + `</div>` +
+        (concept ? `<p class="ingredient-material-image-note" id="${esc(noteId)}">${esc(it.imageNote)}</p>` : '') + `</article>`;
+    }
     const visual = image && it.imageNote ? `<figure class="ingredient-material-visual">${image}<figcaption class="ingredient-material-image-note">${esc(it.imageNote)}</figcaption></figure>` : image;
     return `<article class="ingredient-material${it.image ? ' has-image' : ''}${concept ? ' has-concept-image' : ''}" data-search="${esc(search)}"><div class="ingredient-material-copy">` +
       (it.en ? `<p class="ingredient-material-en">${esc(it.en)}</p>` : '') + `<h3>${esc(it.name)}</h3>` +
@@ -564,7 +594,7 @@ ${c.placeholder ? '  <meta name="robots" content="noindex">\n' : ''}  <link rel=
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600&family=Noto+Serif+TC:wght@500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="${p}premium-site.css?v=${V}"><link rel="stylesheet" href="${p}premium-inner.css?v=${V}">
-${c.notice ? `  <link rel="stylesheet" href="${p}premium-ingredients.css?v=20261013-04">\n` : ''}  <script src="${p}premium-transition-init.js?v=${V}"></script><link rel="stylesheet" href="${p}premium-motion.css?v=${V}">
+${c.notice ? `  <link rel="stylesheet" href="${p}premium-ingredients.css?v=20261014-02">\n` : ''}  <script src="${p}premium-transition-init.js?v=${V}"></script><link rel="stylesheet" href="${p}premium-motion.css?v=${V}">
 </head>
 <body class="premium-site premium-inner" data-root="${p}" data-active="capability">
   <a class="skip-link" href="#main-content">跳到主要內容</a><div data-premium-header></div>

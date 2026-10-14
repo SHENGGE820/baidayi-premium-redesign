@@ -17,7 +17,7 @@ const rel = (value, prefix) => typeof value !== 'string' || !value ? '' : value.
 const sandbox = { fs, path, matter, ROOT: root, V: 'test', SITE: 'https://example.test/baidayi/', esc, rel, imageSize: () => [1200, 800], module: { exports: {} } };
 // Evaluate only pure loaders/renderers, not the build entry point: these tests
 // read source data and return HTML without rewriting any generated page.
-vm.runInNewContext(source.slice(start, end) + '\nmodule.exports = { loadFunctions, ingredientCard, ingredientCategory, functionPage };', sandbox);
+vm.runInNewContext(source.slice(start, end) + '\nmodule.exports = { loadFunctions, ingredientCard, ingredientCategory, functionPage, ingredientTitle };', sandbox);
 const render = sandbox.module.exports;
 const directions = render.loadFunctions();
 const beauty = directions.find(c => c.slug === 'beauty');
@@ -101,9 +101,49 @@ test('both ingredient views show metadata, line breaks and a single source cavea
   assert.equal((legacy.match(/has-concept-image/g)||[]).length,13);
   assert.match(inline,/意象，非原料實物照/);
   assert.doesNotMatch(legacy, /name="robots" content="noindex"|class="placeholder-note/);
-  assert.match(legacy, /href="\.\.\/\.\.\/\.\.\/premium-ingredients\.css\?v=20261013-04"/);
+  assert.match(legacy, /href="\.\.\/\.\.\/\.\.\/premium-ingredients\.css\?v=20261014-02"/);
   assert.match(inline, /data-search="[^"]*玻尿酸\(鈉\) 日本 多項專利/);
   assert.match(inline, /aria-controls="materials-beauty"/);
+});
+
+test('inline source cards group the image with the name and keep specs outside the identity row',()=>{
+  for(const [slug,expected]of Object.entries(official.categories)){
+    const category=directions.find(c=>c.slug===slug),html=render.ingredientCategory(category,0,'../');
+    assert.equal((html.match(/class="ingredient-material-header/g)||[]).length,expected.length);
+    assert.equal((html.match(/class="ingredient-material-identity"/g)||[]).length,expected.length);
+    const headers=[...html.matchAll(/<header class="ingredient-material-header[^>]*>([\s\S]*?)<\/header>/g)].map(x=>x[1]);
+    assert.equal(headers.filter(x=>x.includes('<img')).length,expected.filter(x=>x.image).length);
+    for(const header of headers){assert.match(header,/<h3>/);assert.doesNotMatch(header,/ingredient-material-specs|ingredient-material-description/);}
+    assert.equal((html.match(/aria-describedby="ingredient-note-/g)||[]).length,expected.filter(x=>x.image).length);
+  }
+});
+
+test('semantic title breaks keep every original character and safely escape all parts',()=>{
+  for(const category of directions.filter(c=>c.notice))for(const it of category.items){
+    const title=render.ingredientTitle(it.name);
+    assert.equal(title.replace(/<[^>]*>/g,''),esc(it.name),it.name);
+    if(/^[A-Za-z].*[\u3400-\u9fff]/u.test(it.name))assert.match(title,/ingredient-title-brand[\s\S]*ingredient-title-name/);
+  }
+  const unsafe=render.ingredientTitle('Brand <img onerror="bad()"> 中文原料(補充)');
+  assert.doesNotMatch(unsafe,/<img|onerror="bad/);
+  assert.match(unsafe,/&lt;img onerror=&quot;bad\(\)&quot;>/);
+  assert.match(render.ingredientTitle('FloraGLO葉黃素'),/FloraGLO<\/span><span class="ingredient-title-name">葉黃素/);
+});
+
+test('every named source item uses its own local wide art without changing original CMS images',()=>{
+  const art=JSON.parse(fs.readFileSync(path.join(__dirname,'ingredient-card-art.json'),'utf8'));
+  const sources=new Set(),paths=new Set(),hashes=new Set();
+  for(const category of directions.filter(c=>c.notice))for(const it of category.items.filter(x=>x.image)){
+    sources.add(it.image);assert.ok(art[it.image],it.name);
+    const chosen=art[it.image].image;assert.match(chosen,/^\/assets\/brand\/ingredient-wide-[a-z0-9-]+-v1\.jpg$/);
+    const bytes=fs.readFileSync(path.join(root,chosen.slice(1)));paths.add(chosen);hashes.add(crypto.createHash('sha256').update(bytes).digest('hex'));
+    const gallery=render.ingredientCard(it,'../');assert.ok(gallery.includes('src="'+rel(chosen,'../')+'"'),it.name);
+  }
+  assert.equal(Object.keys(art).length,63);assert.equal(sources.size,63);assert.equal(paths.size,63);assert.equal(hashes.size,63);
+  for(const file of ['全面性服務/index.html','全面性服務/capability-c.html','全面性服務/原料成分/index.html']){
+    const html=fs.readFileSync(path.join(root,file),'utf8');
+    assert.equal((html.match(/class="ingredient-material-image" src="[^"]*ingredient-wide-/g)||[]).length,79);
+  }
 });
 
 test('optional fields do not change the nine unrelated direction pages or legacy item markup', () => {
