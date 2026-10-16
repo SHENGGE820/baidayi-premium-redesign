@@ -3,7 +3,7 @@
   網頁標題: 合作流程｜保健食品一站式 ODM・OEM 代工｜百達醫 BKE
   搜尋說明: 從需求定位、配方研發、多元劑型、包裝規劃到量產交付，百達醫提供完整保健食品 ODM・OEM 開發服務。
 主視覺:
-  背景圖: /assets/brand/factory-packaging.jpg
+  背景圖: /assets/brand/hero-process-video-reference-v1.jpg
   英文小標: HOW WE WORK
   標題: 合作流程
   說明: 從第一次諮詢到交貨的八個步驟、合作前最常被問到的問題，以及百達醫在開發中負責的範圍。

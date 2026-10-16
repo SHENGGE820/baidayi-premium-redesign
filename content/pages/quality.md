@@ -3,7 +3,7 @@
   網頁標題: 研發科技與品質管理｜百達醫 BKE
   搜尋說明: 百達醫以跨領域研發、原料評估、配方設計、製程驗證與食品安全管理，為保健品牌建立可靠的產品開發基礎。
 主視覺:
-  背景圖: /assets/brand/factory-coating.jpg
+  背景圖: /assets/brand/hero-quality-video-reference-v1.jpg
   英文小標: R&D AND QUALITY
   標題: 研發、品質與認證
   說明: 從原料資料、配方邏輯到製程穩定性，百達醫以跨領域研發與品質系統，降低產品開發的不確定性。
