@@ -11,6 +11,14 @@ const root = path.resolve(__dirname, '..');
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const data = matter(fs.readFileSync(path.join(root, 'content/pages/home.md'), 'utf8')).data;
 
+test('the shared navigation exposes home instead of relying on the logo convention', () => {
+  const shell = fs.readFileSync(path.join(root, 'premium-shell.js'), 'utf8');
+  const home = shell.indexOf("navLink('home', '首頁', 'index.html')");
+  const capability = shell.indexOf("navLink('capability', '能做什麼', '全面性服務/index.html')");
+  assert.ok(home > -1, '共用導覽需有明確的首頁入口');
+  assert.ok(home < capability, '首頁應位於主導覽第一項');
+});
+
 test('homepage preserves the full-background factory film and company identity', () => {
   assert.equal((html.match(/<h1\b/g) || []).length, 1);
   assert.match(html, /國家級營養師研發團隊，<br>專注保健食品近 20 年。/);

@@ -23,13 +23,13 @@
 
   var headerMount = document.querySelector('[data-premium-header]');
   if (headerMount) {
-    /* Five plain destinations, in the order a brand owner's questions come:
-       what can you make, how would we work together, can I trust the
-       quality, who are you, what's new. The previous menu hid the first of
-       those under "解決方案" behind a three-way choice whose options
-       overlapped, and its "start from your stage" links all led to the same
-       form. */
-    var nav = navLink('capability', '能做什麼', '全面性服務/index.html') +
+    /* Keep the homepage explicit. The logo still returns home, but visitors
+       should not have to know that convention before they can recover from
+       an inner page. The remaining destinations follow a brand owner's
+       questions: what can you make, how would we work together, can I trust
+       the quality, who are you, what's new. */
+    var nav = navLink('home', '首頁', 'index.html') +
+      navLink('capability', '能做什麼', '全面性服務/index.html') +
       navLink('process', '合作流程', '全面性服務/一站式服務/index.html') +
       navLink('quality', '品質與認證', '研發科技/index.html') +
       navLink('about', '關於我們', '認識百達醫/關於百達醫/index.html') +

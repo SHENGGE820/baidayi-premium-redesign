@@ -138,6 +138,7 @@ button { color: inherit; font: inherit; }
 }
 .primary-nav > a:hover::after,
 .primary-nav > a:focus-visible::after{ transform: scaleX(1); }
+.primary-nav > a.is-current::after { transform: scaleX(1); }
 
           
 

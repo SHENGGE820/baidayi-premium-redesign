@@ -73,7 +73,7 @@ test('capability dosage cards keep the three requested priorities in DOM reading
   }
 });
 
-test('packaging has only two cover cards and exposes every original style directly inside them', () => {
+test('packaging has two cover cards and keeps every original style behind compact type cards', () => {
   const source = matter(read('content/pages/catalogue.md')).data;
   const expected = [
     { id: 'packaging-semi-finished', title: '半成品包材', section: 'package', count: 48, kinds: 8 },
@@ -112,16 +112,31 @@ test('packaging has only two cover cards and exposes every original style direct
         const figures = descendants(kind, node => node.tag === 'figure');
         assert.equal(figures.length, images.length, file + '/' + item.title + ' every original style must remain visible');
         for (const [modelIndex, figure] of figures.entries()) {
-          const image = descendants(figure, node => node.tag === 'img')[0];
+          const image = descendants(figure, node => node.tag === 'img' || node.tag === 'image')[0];
           const link = descendants(figure, node => node.tag === 'a')[0];
           const imagePath = '../' + images[modelIndex].replace(/^\//, '');
-          assert.equal(attr(image, 'src'), imagePath, file + '/' + item.title + ' original style order');
+          assert.equal(attr(image, image.tag==='image'?'href':'src'), imagePath, file + '/' + item.title + ' original style order');
           assert.equal(attr(link, 'href'), imagePath, file + '/' + item.title + ' full-size image remains accessible');
         }
         imageCount += figures.length;
       }
       assert.equal(imageCount, group.count, file + '/' + group.title + ' original style count');
-      assert.equal(descendants(card, node => node.tag === 'img').length, group.count + 1, file + ' no replacement art is added inside packaging styles');
+      assert.equal(descendants(card, node => node.tag === 'select' && hasAttr(node, 'data-packaging-choice')).length, 0, file + ' model selection belongs in the dialog, not the long page');
+      assert.equal(descendants(card, node => node.tag === 'button' && hasAttr(node, 'data-packaging-full')).length, group.kinds, file + ' every packaging type exposes one view styles dialog action');
+      assert.equal(descendants(card, node => hasClass(node, 'packaging-card-overview')).length, group.kinds, file + ' every packaging type has one compact overview');
+      assert.equal(descendants(card, node => node.tag === 'img' || node.tag === 'image').length, group.count + 1, file + ' original art is preserved without duplicating thumbnail rows');
+      for (const kind of kinds) {
+        assert.ok(hasClass(kind,'is-source-card'),file + ' packaging retains the same white item-card framework');
+        for (const figure of descendants(kind,node=>node.tag==='figure')) {
+          const media=descendants(figure,node=>node.tag==='img'||node.tag==='image')[0];
+          const sourcePath = attr(media,media.tag==='image'?'href':'src').replace(/^\.\.\//,'/');
+          const record = JSON.parse(read('content/packaging-models.json')).models[sourcePath];
+          if (!record) continue;
+          const specs = descendants(figure,node=>node.tag==='dl'&&hasClass(node,'packaging-specs'))[0];
+          assert.ok(specs,file+' source-sheet text must be real HTML');
+          for (const value of Object.values(record.specs)) assert.ok(textOf(html,specs).includes(value),file+' missing source specification '+value);
+        }
+      }
     }
   }
 });

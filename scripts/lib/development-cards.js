@@ -3,6 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const matter = require('gray-matter');
 const demo = require('../catalogue-preview-data.json');
+const packagingModels = require('./packaging-models');
 const root = path.resolve(__dirname, '../..');
 const esc = value => String(value || '').replace(/[&<>\"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
@@ -46,13 +47,12 @@ module.exports = function developmentCards({ directions, ingredientCategory, res
     {id:'semi-finished',title:'半成品包材',en:'PRIMARY PACKAGING',items:data.package},
     {id:'finished',title:'成品包材',en:'FINISHED PACKAGING',items:data.finished}
   ].map((group, i) => {
-    const entries = group.items.map(item => {
+    const entries = group.items.map((item, kindIndex) => {
       const slug = item.link?.startsWith('page:') ? item.link.slice(5) : null;
       const file = slug ? path.join(root,'content/catalogue',slug+'.md') : null;
       const source = file && fs.existsSync(file) ? matter(fs.readFileSync(file,'utf8')).data : null;
       const groups = source?.groups?.length ? source.groups : [{name:'包裝方向',items:[{image:item.image,name:item.title}]}];
-      const models = groups.map(modelGroup => `<div class="development-model-group"><h4>${esc(modelGroup.name)} <span>${modelGroup.items.length} 款</span></h4><div class="development-models">${modelGroup.items.map((model,i) => `<figure><a href="${esc('../'+model.image.replace(/^\//,''))}" target="_blank" rel="noopener" aria-label="放大${esc(item.title+' '+(model.name||modelGroup.name+' '+(i+1)))}原圖">${image(model.image, model.name || item.title+' '+modelGroup.name+' '+(i+1))}</a><figcaption>${esc(model.name || modelGroup.name+' '+String(i+1).padStart(2,'0'))}</figcaption></figure>`).join('')}</div></div>`).join('');
-      return `<section class="ingredient-material development-group" data-search="${esc(item.title+' '+(item.text||'')+' '+groups.map(g=>g.name).join(' '))}"><div class="development-group-heading"><div><p class="ingredient-material-en">${esc(item.en || 'PACKAGING')}</p><h3>${esc(item.title)}</h3><p class="ingredient-material-description">${esc(item.text || '依品牌需求規劃款式與規格。')}</p></div><a class="text-link" href="${destination(item)}">${item.link?'完整規格介紹':'討論包裝需求'} <span aria-hidden="true">↗</span></a></div>${models}</section>`;
+      return packagingModels({item,groups,image,destination,id:'pack-'+group.id+'-'+kindIndex});
     });
     return category({id:'packaging-'+group.id,group:'packaging',title:group.title,en:group.en,cover:'/assets/brand/pack-category-'+group.id+'-v1.jpg',preview:group.items.slice(0,3).map(c=>c.title).join('・'),entries,index:i,unit:'包材',note:'點選圖片可放大查看；尺寸與製作條件請洽詢確認。',link:'./劑型與包材/index.html#'+(i?'finished':'package')});
   });

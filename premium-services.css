@@ -241,17 +241,72 @@
 .service-hub .development-library .ingredient-category-copy { min-height:0; }
 .cap-strip > .development-library { min-width:0; }
 .development-library .ingredient-material-copy > .text-link { margin:16px 0 22px; }
-.development-library[data-library-kind="packaging"] .ingredient-material-grid { grid-template-columns:minmax(0,1fr); gap:0; }
-.development-library .ingredient-material.development-group { border:0; border-top:1px solid #d7ccba; background:transparent; padding:26px 0; }
-.development-group-heading { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; margin-bottom:20px; }
-.development-group-heading h3 { font-size:25px; }
-.development-group-heading .text-link { font-size:12px; }
-.development-model-group + .development-model-group { margin-top:24px; }
-.development-model-group h4 { margin:0 0 12px; font-size:15px; font-weight:500; }
-.development-model-group h4 span { margin-left:10px; color:var(--muted); font-size:12px; }
-.development-models { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
-.development-models figure { min-width:0; margin:0; }
-.development-models a { display:block; background:#fff; }
-.development-models img { width:100%; height:180px; object-fit:contain; }
-.development-models figcaption { padding:8px 0 0; color:#665e51; font-size:12px; }
-@media(max-width:620px) { .service-hub .development-library[data-library-kind="packaging"] .ingredient-accordion { --ingredient-columns:1; max-width:340px; } .development-models { grid-template-columns:repeat(2,minmax(0,1fr)); } .development-models img { height:160px; } }
+.development-library[data-library-kind="packaging"] .ingredient-material-grid { grid-template-columns:repeat(2,minmax(0,1fr)); grid-auto-rows:1fr; align-items:stretch; gap:16px; }
+.development-library .ingredient-material.development-group { padding:0; border:1px solid #e0d7c7; background:#fdfbf7; }
+.development-library .ingredient-material.development-group[hidden] { display:none; }
+.development-models,.packaging-model { min-width:0; margin:0; }
+.packaging-model[hidden],.packaging-card-overview[hidden],.packaging-full-button[hidden] { display:none; }
+.packaging-product { position:relative; display:block; flex-shrink:0; height:180px; overflow:hidden; background:#f4f6f6; }
+.packaging-product img,.packaging-product-image { display:block; width:100%; height:100%; object-fit:contain; }
+.packaging-product:focus-visible { outline:2px solid #8d672b; outline-offset:-4px; }
+.packaging-model-copy { padding:18px 20px 0; }
+.packaging-model-copy .ingredient-material-en { margin-bottom:6px; }
+.packaging-model-copy h3 { margin:0; font-size:23px; line-height:1.4; }
+.packaging-model-copy .ingredient-material-description { margin-top:9px; min-height:46px; font-size:12px; line-height:1.8; }
+.packaging-model-copy h4 { min-height:42px; margin:12px 0 0; color:#514b40; font-size:14px; line-height:1.5; font-weight:500; overflow-wrap:anywhere; }
+.packaging-summary { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px 16px; margin:12px 0 0; padding-top:15px; border-top:1px solid #e0d7c7; font-size:12px; line-height:1.8; }
+.packaging-summary > div { min-height:88px; }
+.packaging-summary dt { color:#79531f; font-size:10px; margin-bottom:4px; }
+.packaging-summary dd { margin:0; color:#514b40; overflow-wrap:anywhere; }
+.packaging-summary-empty { min-height:220px; margin:12px 0 0; color:#686050; font-size:12px; line-height:1.8; }
+.packaging-gallery-ready .development-models,.packaging-gallery-ready .packaging-model:not([hidden]) { display:contents; }
+.packaging-gallery-ready .packaging-product { order:0; }
+.packaging-gallery-ready .packaging-model-copy { display:none; }
+.packaging-gallery-ready .packaging-card-overview { order:1; }
+.packaging-gallery-ready .packaging-card-actions { order:2; margin-top:auto; }
+.packaging-gallery-ready:not(.packaging-no-dialog) .packaging-full-record { display:none; }
+.packaging-card-overview { padding:20px 20px 18px; }
+.packaging-card-overview .ingredient-material-en { margin:0 0 6px; }
+.packaging-card-overview h3 { margin:0; font-size:23px; line-height:1.4; }
+.packaging-card-overview > p:not(.ingredient-material-en) { min-height:46px; margin:9px 0 0; color:#686050; font-size:12px; line-height:1.8; }
+.packaging-style-count { display:block; margin-top:15px; padding-top:13px; border-top:1px solid #e0d7c7; color:#79531f; font-size:11px; }
+.packaging-style-count strong { margin-right:3px; font:500 18px/1 "Outfit",sans-serif; }
+.packaging-dialog-controls select { display:block; width:100%; min-width:0; height:44px; padding:0 8px; border:1px solid #cdbfa8; border-radius:0; background:#fdfbf7; color:#514b40; font:12px "Noto Sans TC",sans-serif; }
+.packaging-step { width:44px; height:44px; padding:0; border:1px solid #cdbfa8; background:transparent; color:#79531f; cursor:pointer; font-size:18px; transition:background-color .6s,border-color .6s; }
+.packaging-step:hover { background:#eee6d8; border-color:#8d672b; }
+.packaging-step:disabled { opacity:.4; cursor:default; }
+.packaging-step:focus-visible,.packaging-dialog-controls select:focus-visible,.packaging-full-button:focus-visible { outline:2px solid #8d672b; outline-offset:3px; }
+.packaging-dialog-status { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+.packaging-card-actions { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; padding:20px; }
+.packaging-card-actions .text-link { font-size:11px; }
+.packaging-full-button { min-height:42px; padding:0 13px 4px; border:1px solid #9b7540; background:transparent; font:inherit; cursor:pointer; }
+.packaging-specs { display:grid; gap:12px; margin:16px 0 0; padding-top:18px; border-top:1px solid #e0d7c7; font-size:13px; line-height:1.8; }
+.packaging-specs > div { display:grid; grid-template-columns:5em minmax(0,1fr); gap:14px; }
+.packaging-specs dt { color:#79531f; }
+.packaging-specs dd { margin:0; color:#514b40; overflow-wrap:anywhere; }
+.packaging-source-note { margin:18px 0 0; color:#686050; font-size:11px; line-height:1.8; }
+.packaging-dialog-open { overflow:hidden; }
+.packaging-detail-dialog { width:min(820px,calc(100vw - 40px)); max-width:none; max-height:calc(100dvh - 48px); padding:0; border:1px solid #cdbfa8; background:#fdfbf7; color:#24231e; overflow:hidden; }
+.packaging-detail-dialog[open] { display:grid; grid-template-rows:auto auto minmax(0,1fr); }
+.packaging-detail-dialog::backdrop { background:rgba(21,22,18,.6); }
+.packaging-dialog-header { display:flex; justify-content:space-between; align-items:center; gap:20px; padding:20px 24px 16px; border-bottom:1px solid #e0d7c7; }
+.packaging-dialog-header p { margin:0 0 6px; font:10px "Outfit",sans-serif; letter-spacing:.14em; color:#79531f; }
+.packaging-dialog-header h2 { margin:0; font:500 24px/1.4 "Noto Serif TC",serif; }
+.packaging-dialog-header button { width:44px; height:44px; flex-shrink:0; border:1px solid #cdbfa8; background:transparent; color:#79531f; font-size:26px; cursor:pointer; }
+.packaging-dialog-controls { display:grid; grid-template-columns:44px minmax(0,1fr) 44px; align-items:end; gap:12px; padding:12px 24px 16px; background:#f7f2e9; }
+.packaging-dialog-controls label { min-width:0; color:#79531f; font-size:11px; }
+.packaging-dialog-controls select { margin-top:5px; }
+.packaging-dialog-body { min-height:0; overflow:auto; overscroll-behavior:contain; padding:24px; display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); align-items:start; gap:26px; }
+.packaging-dialog-body .packaging-product { height:240px; }
+.packaging-dialog-copy { min-width:0; }
+.packaging-dialog-copy h3 { margin:0; font:500 18px/1.7 "Noto Serif TC",serif; overflow-wrap:anywhere; }
+@media(max-width:620px) {
+  .service-hub .development-library[data-library-kind="packaging"] .ingredient-accordion { --ingredient-columns:1; max-width:340px; }
+  .development-library[data-library-kind="packaging"] .ingredient-material-grid { grid-template-columns:minmax(0,1fr); }
+  .packaging-detail-dialog { width:calc(100vw - 24px); max-height:calc(100dvh - 24px); }
+  .packaging-dialog-header { padding:16px; }
+  .packaging-dialog-controls { padding:10px 16px 14px; gap:8px; }
+  .packaging-dialog-body { display:block; padding:16px; }
+  .packaging-dialog-body .packaging-product { height:180px; margin-bottom:20px; }
+}
+@media(prefers-reduced-motion:reduce) { .packaging-step { transition:none!important; } }

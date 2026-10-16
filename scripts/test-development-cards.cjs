@@ -21,7 +21,7 @@ const pause = page => page.waitForTimeout(800);
     if(screenshots){fs.mkdirSync(screenshots,{recursive:true}); await page.locator('#develop').screenshot({path:path.join(screenshots,'packaging-category-cards.jpg')});}
     await page.locator('#packaging-semi-finished > summary').click(); await pause(page);
     assert.equal(await packaging.locator('.development-group:visible').count(),8);
-    assert.equal(await packaging.locator('#packaging-semi-finished-items .development-models img').count(),48);
+    assert.equal(await packaging.locator('#packaging-semi-finished-items [data-packaging-slide]').count(),48);
     assert.equal(await packaging.locator('details details').count(),0);
     await packaging.locator('[data-library-search]').fill('PE塑膠瓶'); await pause(page);
     assert.equal(await packaging.locator('.development-group:visible').count(),1);
@@ -29,7 +29,7 @@ const pause = page => page.waitForTimeout(800);
     await page.locator('#packaging-finished > summary').focus();
     await page.locator('#packaging-finished > summary').press('Enter'); await pause(page);
     assert.equal(await packaging.locator('details[open]').getAttribute('id'),'packaging-finished');
-    assert.equal(await packaging.locator('#packaging-finished-items .development-models img').count(),6);
+    assert.equal(await packaging.locator('#packaging-finished-items [data-packaging-slide]').count(),6);
     if(screenshots)await page.screenshot({path:path.join(screenshots,'packaging-expanded.jpg')});
     await page.locator('#tab-formats').click(); await pause(page);
     await page.locator('#format-powder > summary').click(); await page.waitForTimeout(130);
