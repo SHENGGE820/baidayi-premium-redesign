@@ -13,7 +13,7 @@ const data = matter(fs.readFileSync(path.join(root, 'content/pages/home.md'), 'u
 
 test('homepage preserves the full-background factory film and company identity', () => {
   assert.equal((html.match(/<h1\b/g) || []).length, 1);
-  assert.match(html, /保健食品代工，<br>配方到包裝一站完成。/);
+  assert.match(html, /國家級營養師研發團隊，<br>專注保健食品近 20 年。/);
   assert.match(html, /class="hero section-dark"/);
   assert.match(html, /<div class="hero-media"[^>]*>\s*<video data-hero-video muted loop playsinline preload="none"/);
   assert.match(html, /poster="\.\/assets\/brand\/factory-cleanroom.jpg"/);
@@ -40,6 +40,22 @@ test('homepage preserves accessible landmarks, descriptions and fragment destina
     if (m[0].startsWith('aria-labelledby=') || m[1].startsWith('#')) assert.ok(ids.includes(m[1].replace(/^#/, '')), m[0]);
   }
   for (const m of html.matchAll(/<img\b[^>]+>/g)) assert.match(m[0], /\balt="[^"]+"/);
+});
+
+test('the approved third layout keeps the second headline and leads with certification after the film', () => {
+  const second = fs.readFileSync(path.join(root, 'home-v2.html'), 'utf8');
+  const headline = second.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)[1];
+  for (const file of ['index.html', 'home-v3.html']) {
+    const page = fs.readFileSync(path.join(root, file), 'utf8');
+    assert.equal(page.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)[1], headline, file);
+    const sections = [...page.matchAll(/<section\b[^>]*>/g)].map(match => match[0]);
+    assert.match(sections[0], /class="hero section-dark"/);
+    assert.match(sections[1], /id="quality"/);
+    assert.match(sections[2], /id="proof"/);
+    assert.equal((page.match(/id="quality"/g) || []).length, 1);
+    assert.match(page, /class="hero-scroll" href="#quality"/);
+    assert.match(page, /premium-home-v3\.css/);
+  }
 });
 
 test('factory media remain local', () => {
