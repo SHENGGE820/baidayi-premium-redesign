@@ -7,8 +7,9 @@ const { chromium } = require('playwright');
 
 const origin = process.env.BKE_PREVIEW_URL || 'http://127.0.0.1:4173';
 const route = process.env.BKE_INGREDIENT_ROUTE || '/全面性服務/原料成分/index.html';
+const ingredientLibrary = page => page.locator('#ingredient-library');
 const readPanel = (page, id = 'materials-beauty') => page.evaluate(id => {
-  const panel = document.getElementById(id);
+  const panel = document.getElementById('ingredient-library').querySelector(`#${id}`);
   const shell = panel.parentElement;
   return {
     height: shell.getBoundingClientRect().height,
@@ -21,7 +22,7 @@ const readPanel = (page, id = 'materials-beauty') => page.evaluate(id => {
     clipped: getComputedStyle(shell).overflow === 'hidden'
   };
 }, id);
-const activate = (page, id) => page.locator(`#${id} > summary`).evaluate(el => el.click());
+const activate = (page, id) => ingredientLibrary(page).locator(`#${id} > summary`).evaluate(el => el.click());
 const settle = page => page.waitForTimeout(740);
 
 (async () => {
@@ -32,18 +33,19 @@ const settle = page => page.waitForTimeout(740);
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
     await page.goto(`${origin}${route}`, { waitUntil: 'networkidle' });
-    await page.locator('.ingredient-grid-ready').waitFor({ state: 'attached' });
+    await ingredientLibrary(page).locator('.ingredient-grid-ready').waitFor({ state: 'attached' });
     if (route.endsWith('/全面性服務/index.html')) {
       await page.locator('#tab-ingredients').click();
-      await page.locator('.ingredient-grid-ready').waitFor({ state: 'visible' });
+      await ingredientLibrary(page).locator('.ingredient-grid-ready').waitFor({ state: 'visible' });
     }
     await page.evaluate(() => document.fonts.ready);
 
     // An inserted zero-height row must not immediately add an extra grid gap.
     const initialPositions = await page.evaluate(() => {
-      const nextRow = document.getElementById('category-body-functions');
+      const root = document.getElementById('ingredient-library');
+      const nextRow = root.querySelector('#category-body-functions');
       const before = nextRow.getBoundingClientRect().top;
-      document.querySelector('#category-beauty > summary').click();
+      root.querySelector('#category-beauty > summary').click();
       return { before, after: nextRow.getBoundingClientRect().top };
     });
     const start = await readPanel(page);
@@ -74,34 +76,34 @@ const settle = page => page.waitForTimeout(740);
       await page.waitForTimeout(65);
     }
     await settle(page);
-    const final = await page.evaluate(() => ({
-      open: [...document.querySelectorAll('.ingredient-category[open]')].map(el => el.id),
-      mounted: [...document.querySelectorAll('.ingredient-grid-ready > .ingredient-panel-slot:not([hidden])')].map(el => el.firstElementChild.id),
-      expanded: [...document.querySelectorAll('.ingredient-category > summary[aria-expanded="true"]')].length
+    const final = await ingredientLibrary(page).evaluate(root => ({
+      open: [...root.querySelectorAll('.ingredient-category[open]')].map(el => el.id),
+      mounted: [...root.querySelectorAll('.ingredient-grid-ready > .ingredient-panel-slot:not([hidden])')].map(el => el.firstElementChild.id),
+      expanded: [...root.querySelectorAll('.ingredient-category > summary[aria-expanded="true"]')].length
     }));
     assert.deepEqual(final.open, ['category-secret-garden']);
     assert.deepEqual(final.mounted, ['materials-secret-garden']);
     assert.equal(final.expanded, 1);
     results.push({ test: 'rapid alternation', ...final });
 
-    await page.locator('#ingredient-search').fill('葉黃素');
+    await ingredientLibrary(page).locator('#ingredient-search').fill('葉黃素');
     await settle(page);
-    assert.equal(await page.locator('#category-generation-3c').getAttribute('open'), '');
-    assert.equal(await page.locator('#ingredient-count').textContent(), '1');
-    await page.locator('#ingredient-search').fill('no-such-material-999');
+    assert.equal(await ingredientLibrary(page).locator('#category-generation-3c').getAttribute('open'), '');
+    assert.equal(await ingredientLibrary(page).locator('#ingredient-count').textContent(), '1');
+    await ingredientLibrary(page).locator('#ingredient-search').fill('no-such-material-999');
     await settle(page);
-    assert.equal(await page.locator('.ingredient-empty').isVisible(), true);
-    assert.equal(await page.locator('.ingredient-grid-ready > .ingredient-panel-slot:not([hidden])').count(), 0);
-    await page.locator('#ingredient-reset').click();
+    assert.equal(await ingredientLibrary(page).locator('.ingredient-empty').isVisible(), true);
+    assert.equal(await ingredientLibrary(page).locator('.ingredient-grid-ready > .ingredient-panel-slot:not([hidden])').count(), 0);
+    await ingredientLibrary(page).locator('#ingredient-reset').click();
     await settle(page);
-    assert.equal(await page.locator('#category-secret-garden').getAttribute('open'), '');
+    assert.equal(await ingredientLibrary(page).locator('#category-secret-garden').getAttribute('open'), '');
     results.push({ test: 'search + empty + reset', passed: true });
 
-    await page.locator('#category-beauty > summary').focus();
+    await ingredientLibrary(page).locator('#category-beauty > summary').focus();
     await page.keyboard.press('Enter');
     await settle(page);
-    await page.locator('#materials-beauty [data-close-ingredients]').click();
-    assert.equal(await page.locator('#category-beauty > summary').evaluate(el => el === document.activeElement), true);
+    await ingredientLibrary(page).locator('#materials-beauty [data-close-ingredients]').click();
+    assert.equal(await ingredientLibrary(page).locator('#category-beauty > summary').evaluate(el => el === document.activeElement), true);
     await settle(page);
     results.push({ test: 'keyboard activation + close focus', passed: true });
 
@@ -159,10 +161,10 @@ const settle = page => page.waitForTimeout(740);
       window.scrollBy = window.__ingredientOriginalScrollBy;
     });
     await settle(page);
-    const revealed = await page.evaluate(() => {
-      const category = document.getElementById('category-sleep');
-      const panel = document.getElementById('materials-sleep');
-      const grid = document.querySelector('.ingredient-grid-ready');
+    const revealed = await ingredientLibrary(page).evaluate(root => {
+      const category = root.querySelector('#category-sleep');
+      const panel = root.querySelector('#materials-sleep');
+      const grid = root.querySelector('.ingredient-grid-ready');
       const expected = category.getBoundingClientRect().left - grid.getBoundingClientRect().left + category.getBoundingClientRect().width / 2;
       return { open: category.open, pointer: Number.parseFloat(panel.style.getPropertyValue('--ingredient-pointer-left')), expected, clipped: panel.parentElement.getBoundingClientRect().height < panel.getBoundingClientRect().height };
     });
@@ -184,18 +186,18 @@ const settle = page => page.waitForTimeout(740);
 
     await page.goto(`${origin}${route}#category-gut`, { waitUntil: 'networkidle' });
     await settle(page);
-    assert.equal(await page.locator('#category-gut').getAttribute('open'), '');
-    assert.equal(await page.locator('#materials-gut').isVisible(), true);
+    assert.equal(await ingredientLibrary(page).locator('#category-gut').getAttribute('open'), '');
+    assert.equal(await ingredientLibrary(page).locator('#materials-gut').isVisible(), true);
     await page.evaluate(() => { location.hash = '#materials-generation-3c'; });
     await settle(page);
-    assert.equal(await page.locator('#materials-generation-3c').isVisible(), true);
+    assert.equal(await ingredientLibrary(page).locator('#materials-generation-3c').isVisible(), true);
     assert.deepEqual(errors, []);
     results.push({ test: 'initial category hash + materials alias + no script errors', passed: true });
 
     const noJS = await browser.newPage({ javaScriptEnabled: false });
     await noJS.goto(`${origin}/全面性服務/原料成分/index.html`);
-    await noJS.locator('#category-beauty > summary').click();
-    assert.equal(await noJS.locator('#materials-beauty').isVisible(), true);
+    await ingredientLibrary(noJS).locator('#category-beauty > summary').click();
+    assert.equal(await ingredientLibrary(noJS).locator('#materials-beauty').isVisible(), true);
     results.push({ test: 'native details fallback without JavaScript', passed: true });
     console.log(JSON.stringify({ route, checks: results.length, results }, null, 2));
   } finally {

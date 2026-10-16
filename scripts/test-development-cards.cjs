@@ -1,0 +1,58 @@
+'use strict';
+const assert = require('node:assert/strict');
+const path = require('node:path');
+const fs = require('node:fs');
+const {chromium} = require('playwright');
+const origin = process.env.BKE_PREVIEW_URL || 'http://127.0.0.1:4173';
+const route = '/全面性服務/index.html';
+const pause = page => page.waitForTimeout(800);
+(async()=>{
+  const browser = await chromium.launch({channel:'msedge',headless:true});
+  try {
+    const page = await browser.newPage({viewport:{width:1440,height:1000}});
+    const errors=[];
+    page.on('pageerror',e=>errors.push(e.message));
+    await page.goto(origin+route,{waitUntil:'networkidle'});
+    assert.equal(await page.locator('[data-ingredient-library] .ingredient-grid-ready').count(),4);
+    await page.locator('#tab-packaging').click(); await pause(page);
+    const packaging=page.locator('[data-library-kind="packaging"]');
+    assert.equal(await packaging.locator('details.ingredient-category').count(),2);
+    const screenshots=process.env.BKE_SCREENSHOT_DIR;
+    if(screenshots){fs.mkdirSync(screenshots,{recursive:true}); await page.locator('#develop').screenshot({path:path.join(screenshots,'packaging-category-cards.jpg')});}
+    await page.locator('#packaging-semi-finished > summary').click(); await pause(page);
+    assert.equal(await packaging.locator('.development-group:visible').count(),8);
+    assert.equal(await packaging.locator('#packaging-semi-finished-items .development-models img').count(),48);
+    assert.equal(await packaging.locator('details details').count(),0);
+    await packaging.locator('[data-library-search]').fill('PE塑膠瓶'); await pause(page);
+    assert.equal(await packaging.locator('.development-group:visible').count(),1);
+    await packaging.locator('[data-library-search]').fill(''); await pause(page);
+    await page.locator('#packaging-finished > summary').focus();
+    await page.locator('#packaging-finished > summary').press('Enter'); await pause(page);
+    assert.equal(await packaging.locator('details[open]').getAttribute('id'),'packaging-finished');
+    assert.equal(await packaging.locator('#packaging-finished-items .development-models img').count(),6);
+    if(screenshots)await page.screenshot({path:path.join(screenshots,'packaging-expanded.jpg')});
+    await page.locator('#tab-formats').click(); await pause(page);
+    await page.locator('#format-powder > summary').click(); await page.waitForTimeout(130);
+    await page.locator('#format-capsule > summary').click(); await page.waitForTimeout(130);
+    await page.locator('#format-powder > summary').click(); await pause(page);
+    const formats=page.locator('[data-library-kind="formats"]');
+    assert.equal(await formats.locator('details[open]').count(),1);
+    assert.equal(await formats.locator('details[open]').getAttribute('id'),'format-powder');
+    assert.equal(await formats.locator('#format-powder-items .ingredient-material:visible').count(),2);
+    await page.locator('#tab-formula').click(); await pause(page);
+    await page.locator('#formula-slender > summary').click(); await pause(page);
+    assert.equal(await page.locator('[data-library-kind="formula"] details[open]').count(),1);
+    assert.ok(await page.locator('#formula-materials-slender .ingredient-material:visible').count());
+    await page.locator('#tab-packaging').click(); await pause(page);
+    assert.equal(await packaging.locator('details[open]').getAttribute('id'),'packaging-finished');
+    assert.equal(await packaging.locator('.ingredient-panel-slot:visible').count(),1);
+    await page.goto(origin+route+'#packaging-semi-finished',{waitUntil:'networkidle'}); await pause(page);
+    assert.equal(await page.locator('#tab-packaging').getAttribute('aria-selected'),'true');
+    assert.equal(await page.locator('#packaging-semi-finished').getAttribute('open'),'');
+    await page.setViewportSize({width:390,height:844}); await pause(page);
+    assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth+1),'mobile page overflows');
+    if(screenshots)await page.screenshot({path:path.join(screenshots,'packaging-mobile.jpg')});
+    assert.deepEqual(errors,[]);
+    console.log('Development cards: 4 independent libraries, 2 packaging categories, 54 original models, search, keyboard, reversal, hidden-tab restore, hash and mobile passed.');
+  } finally {await browser.close();}
+})().catch(error=>{console.error(error);process.exitCode=1;});

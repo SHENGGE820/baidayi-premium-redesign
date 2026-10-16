@@ -190,7 +190,10 @@ test('all eleven raw-material categories retain source order and exact public fi
 
 test('all three inline views expose all source records, concept labels and only local asset paths',()=>{
   for(const file of ['全面性服務/index.html','全面性服務/capability-c.html','全面性服務/原料成分/index.html']){
-    const html=fs.readFileSync(path.join(root,file),'utf8');
+    const page=fs.readFileSync(path.join(root,file),'utf8');
+    const marker=file.includes('/原料成分/')?'ingredient-categories':'cap-ingredient-categories';
+    const html=page.split(`<!-- cms:${marker} -->`)[1]?.split(`<!-- /cms:${marker} -->`)[0];
+    assert.ok(html,file+' must preserve its raw ingredient library');
     assert.equal((html.match(/<article class="ingredient-material/g)||[]).length,88,file);
     assert.equal((html.match(/class="ingredient-material-image-note"/g)||[]).length,79,file);
     assert.equal((html.match(/class="ingredient-source-note"/g)||[]).length,11,file);

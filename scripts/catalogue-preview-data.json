@@ -1,0 +1,356 @@
+{
+  "formats": [
+    {
+      "title": "錠狀顆粒",
+      "slug": "tablet",
+      "examples": [
+        {
+          "name": "圓形錠展示款",
+          "demo": true,
+          "description": "可試看圓形外觀與瓶裝組合的呈現。 僅供版面展示，不作供貨規格。",
+          "fields": [
+            {
+              "label": "示意外觀",
+              "value": "圓形・直徑 8 mm"
+            },
+            {
+              "label": "示意單錠重量",
+              "value": "250 mg"
+            },
+            {
+              "label": "示意裝量",
+              "value": "60 錠／瓶"
+            }
+          ]
+        },
+        {
+          "name": "長橢圓錠展示款",
+          "demo": true,
+          "description": "可試看長橢圓外觀與較大錠型的呈現。 僅供版面展示，不作供貨規格。",
+          "fields": [
+            {
+              "label": "示意外觀",
+              "value": "長橢圓・18 × 7 mm"
+            },
+            {
+              "label": "示意單錠重量",
+              "value": "500 mg"
+            },
+            {
+              "label": "示意裝量",
+              "value": "30 錠／瓶"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "粉末食品",
+      "slug": "powder",
+      "examples": [
+        {
+          "name": "即食粉包展示款",
+          "demo": true,
+          "description": "可試看小份量粉包與外盒的搭配。 僅供版面展示，不作供貨規格。",
+          "fields": [
+            {
+              "label": "示意單包重量",
+              "value": "3 g"
+            },
+            {
+              "label": "示意袋型",
+              "value": "三邊封粉包"
+            },
+            {
+              "label": "示意裝量",
+              "value": "30 包／盒"
+            }
+          ]
+        },
+        {
+          "name": "沖泡粉包展示款",
+          "demo": true,
+          "description": "可試看較大份量粉包與盒裝的搭配。 僅供版面展示，不作供貨規格。",
+          "fields": [
+            {
+              "label": "示意單包重量",
+              "value": "15 g"
+            },
+            {
+              "label": "示意袋型",
+              "value": "條狀粉包"
+            },
+            {
+              "label": "示意裝量",
+              "value": "15 包／盒"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "動／植物膠囊",
+      "slug": "capsule",
+      "examples": [
+        {
+          "name": "植物膠囊展示款",
+          "demo": true,
+          "description": "可試看植物基材膠囊與瓶裝的呈現。 僅供版面展示，不作供貨規格。",
+          "fields": [
+            {
+              "label": "示意基材",
+              "value": "植物基材"
+            },
+            {
+              "label": "示意尺寸",
+              "value": "0 號"
+            },
+            {
+              "label": "示意裝量",
+              "value": "60 粒／瓶"
+            }
+          ]
+        },
+        {
+          "name": "動物膠囊展示款",
+          "demo": true,
+          "description": "可試看動物基材膠囊與排裝的呈現。 僅供版面展示，不作供貨規格。",
+          "fields": [
+            {
+              "label": "示意基材",
+              "value": "動物基材"
+            },
+            {
+              "label": "示意尺寸",
+              "value": "1 號"
+            },
+            {
+              "label": "示意裝量",
+              "value": "10 粒／片・3 片／盒"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "搖搖隨身袋",
+      "slug": "shaker",
+      "examples": [
+        {
+          "name": "單份隨身袋展示款",
+          "demo": true,
+          "description": "可試看小袋型與單份粉末的呈現。 僅供版面展示，不作供貨規格。",
+          "fields": [
+            {
+              "label": "示意單袋重量",
+              "value": "15 g"
+            },
+            {
+              "label": "示意袋型",
+              "value": "立式隨身袋"
+            },
+            {
+              "label": "示意裝量",
+              "value": "10 袋／盒"
+            }
+          ]
+        },
+        {
+          "name": "加大隨身袋展示款",
+          "demo": true,
+          "description": "可試看加大袋型與盒裝的呈現。 僅供版面展示，不作供貨規格。",
+          "fields": [
+            {
+              "label": "示意單袋重量",
+              "value": "25 g"
+            },
+            {
+              "label": "示意袋型",
+              "value": "加寬隨身袋"
+            },
+            {
+              "label": "示意裝量",
+              "value": "7 袋／盒"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "果凍／茶包",
+      "slug": "jelly-tea",
+      "examples": [
+        {
+          "name": "條狀果凍展示款",
+          "demo": true,
+          "description": "可試看即食果凍條與外盒的呈現。 僅供版面展示，不作供貨規格。",
+          "fields": [
+            {
+              "label": "示意單條重量",
+              "value": "20 g"
+            },
+            {
+              "label": "示意包裝",
+              "value": "條狀鋁袋"
+            },
+            {
+              "label": "示意裝量",
+              "value": "12 條／盒"
+            }
+          ]
+        },
+        {
+          "name": "沖泡茶包展示款",
+          "demo": true,
+          "description": "可試看茶包與獨立外袋的搭配。 僅供版面展示，不作供貨規格。",
+          "fields": [
+            {
+              "label": "示意單包重量",
+              "value": "3 g"
+            },
+            {
+              "label": "示意包裝",
+              "value": "茶包＋獨立外袋"
+            },
+            {
+              "label": "示意裝量",
+              "value": "20 包／盒"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "糖果劑型",
+      "slug": "candy",
+      "examples": [
+        {
+          "name": "軟糖展示款",
+          "demo": true,
+          "description": "可試看軟糖外型與瓶裝的呈現。 僅供版面展示，不作供貨規格。",
+          "fields": [
+            {
+              "label": "示意外觀",
+              "value": "圓角方形"
+            },
+            {
+              "label": "示意單顆重量",
+              "value": "3 g"
+            },
+            {
+              "label": "示意裝量",
+              "value": "30 顆／瓶"
+            }
+          ]
+        },
+        {
+          "name": "錠狀糖果展示款",
+          "demo": true,
+          "description": "可試看錠狀糖果與袋裝的呈現。 僅供版面展示，不作供貨規格。",
+          "fields": [
+            {
+              "label": "示意外觀",
+              "value": "圓形"
+            },
+            {
+              "label": "示意單顆重量",
+              "value": "1.5 g"
+            },
+            {
+              "label": "示意裝量",
+              "value": "60 顆／袋"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "機能餅乾",
+      "slug": "biscuit",
+      "examples": [
+        {
+          "name": "單片餅乾展示款",
+          "demo": true,
+          "description": "可試看單片獨立包裝與盒裝的搭配。 僅供版面展示，不作供貨規格。",
+          "fields": [
+            {
+              "label": "示意單片重量",
+              "value": "5 g"
+            },
+            {
+              "label": "示意包裝",
+              "value": "1 片／袋"
+            },
+            {
+              "label": "示意裝量",
+              "value": "12 袋／盒"
+            }
+          ]
+        },
+        {
+          "name": "雙片餅乾展示款",
+          "demo": true,
+          "description": "可試看雙片袋裝與外盒的搭配。 僅供版面展示，不作供貨規格。",
+          "fields": [
+            {
+              "label": "示意單袋重量",
+              "value": "10 g"
+            },
+            {
+              "label": "示意包裝",
+              "value": "2 片／袋"
+            },
+            {
+              "label": "示意裝量",
+              "value": "10 袋／盒"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "營養代餐",
+      "slug": "meal",
+      "examples": [
+        {
+          "name": "粉包代餐展示款",
+          "demo": true,
+          "description": "可試看沖泡粉末與單份粉包的呈現。 僅供版面展示，不作供貨規格。",
+          "fields": [
+            {
+              "label": "示意單包重量",
+              "value": "30 g"
+            },
+            {
+              "label": "示意包裝",
+              "value": "單份粉包"
+            },
+            {
+              "label": "示意裝量",
+              "value": "10 包／盒"
+            }
+          ]
+        },
+        {
+          "name": "袋裝代餐展示款",
+          "demo": true,
+          "description": "可試看較大份量與自立袋的呈現。 僅供版面展示，不作供貨規格。",
+          "fields": [
+            {
+              "label": "示意單袋重量",
+              "value": "45 g"
+            },
+            {
+              "label": "示意包裝",
+              "value": "自立袋"
+            },
+            {
+              "label": "示意裝量",
+              "value": "7 袋／盒"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

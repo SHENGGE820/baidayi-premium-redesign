@@ -69,6 +69,9 @@
     }, 190);
   }
   function tabFor(id) {
+    if (/^formula-/.test(id)) id = 'formula';
+    if (/^format-/.test(id)) id = 'formats';
+    if (/^packaging-/.test(id)) id = 'packaging';
     if (/^(?:category-|materials-)/.test(id) || id === 'ingredient-library') id = 'ingredients';
     for (var i = 0; i < tabs.length; i++) if (tabs[i].getAttribute('aria-controls') === id) return tabs[i];
     return null;
@@ -81,7 +84,7 @@
     list.appendChild(indicator);
     // stagger order for the items in each panel
     tabs.forEach(function (t) {
-      panelOf(t).querySelectorAll('.cap-group-label, li').forEach(function (el, n) { el.style.setProperty('--i', Math.min(n, 14)); });
+      panelOf(t).querySelectorAll('.cap-group-label, li, details.ingredient-category').forEach(function (el, n) { el.style.setProperty('--i', Math.min(n, 14)); });
     });
     var fromHash = tabFor(location.hash.slice(1));
     select(fromHash || tabs[0]);

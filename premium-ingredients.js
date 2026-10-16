@@ -1,11 +1,12 @@
 (() => {
-  const grid = document.querySelector('.ingredient-accordion');
-  const input = document.getElementById('ingredient-search');
-  const tools = document.querySelector('.ingredient-tools');
-  const count = document.getElementById('ingredient-count');
-  const empty = document.querySelector('.ingredient-empty');
-  const reset = document.getElementById('ingredient-reset');
-  if (!grid || !input || !tools || !count || !empty || !reset) return;
+  const initialiseLibrary = root => {
+  const grid = root.querySelector('.ingredient-accordion');
+  const input = root.querySelector('[data-library-search]') || root.querySelector('#ingredient-search');
+  const tools = root.querySelector('.ingredient-tools');
+  const count = root.querySelector('[data-library-count]') || root.querySelector('#ingredient-count');
+  const empty = root.querySelector('.ingredient-empty');
+  const reset = root.querySelector('[data-library-reset]') || root.querySelector('#ingredient-reset');
+  if (!grid) return;
 
   const normalize = value => value.normalize('NFKC').toLocaleLowerCase().replace(/\s+/g, '');
   const catalogue = Array.from(grid.querySelectorAll('details.ingredient-category')).map(category => ({
@@ -201,7 +202,7 @@
   grid.classList.add('ingredient-grid-ready');
 
   const filter = ({ animate = true } = {}) => {
-    const query = normalize(input.value.trim());
+    const query = normalize(input ? input.value.trim() : '');
     searching = Boolean(query);
     let visible = 0;
     let firstVisible = null;
@@ -220,17 +221,17 @@
         if (!firstVisible) firstVisible = entry;
       }
     });
-    count.textContent = String(visible);
-    empty.hidden = visible > 0;
+    if (count) count.textContent = String(visible);
+    if (empty) empty.hidden = visible > 0;
     select(searching ? firstVisible : rememberedCategory, { animate });
   };
 
-  tools.hidden = false;
-  input.addEventListener('input', () => filter());
-  reset.addEventListener('click', () => {
-    input.value = '';
+  if (tools && input) tools.hidden = false;
+  input?.addEventListener('input', () => filter());
+  reset?.addEventListener('click', () => {
+    if (input) input.value = '';
     filter();
-    input.focus();
+    input?.focus();
   });
   const scheduleLayout = () => {
     if (resizeFrame) return;
@@ -290,7 +291,7 @@
   const revealHashCategory = () => {
     const entry = hashCategory();
     if (!entry) return;
-    input.value = '';
+    if (input) input.value = '';
     rememberedCategory = entry;
     filter();
     window.requestAnimationFrame(() => revealPanel(entry));
@@ -299,4 +300,9 @@
   rememberedCategory = hashCategory() || rememberedCategory;
   filter({ animate: false });
   if (hashCategory()) window.requestAnimationFrame(() => revealPanel(selected));
+  };
+
+  const roots = Array.from(document.querySelectorAll('[data-ingredient-library]'));
+  if (roots.length) roots.forEach(initialiseLibrary);
+  else initialiseLibrary(document);
 })();

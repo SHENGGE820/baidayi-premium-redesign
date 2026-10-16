@@ -560,10 +560,10 @@ function ingredientCard(it, p) {
 /* The ingredient library exposes the original eleven categories inline,
    using the same source data as each direction page. */
 const INGREDIENT_CATEGORIES = ['beauty', 'secret-garden', 'metabolism', 'protein', 'body-functions', 'energetic', 'gut', 'generation-3c', 'balance', 'action', 'sleep'];
-function ingredientCategory(c, index, p = '../../') {
+function ingredientCategory(c, index, p = '../../', coverImage) {
   // Category cards use the complete supplied portraits, not the cropped
   // landscape image still used by each function page's hero.
-  const image = responsiveImg(`/assets/brand/category-${c.slug}-portrait.jpg`, p);
+  const image = responsiveImg(coverImage || `/assets/brand/category-${c.slug}-portrait.jpg`, p);
   const categorySearch = `${c.title} ${c.en}`;
   const allSearch = [categorySearch, ...c.items.map(ingredientSearch)].join(' ');
   const materials = c.items.map((it, itemIndex) => {
@@ -899,6 +899,10 @@ const ingredientIndexChanged = fill('全面性服務/原料成分/index.html', '
 const inlineIngredientIndex = ingredientCategories.map((category, index) => ingredientCategory(category, index, '../')).join('\n');
 const integratedIngredientsChanged = ['全面性服務/index.html', '全面性服務/capability-c.html'].filter(file => fill(file, 'cap-ingredient-categories', inlineIngredientIndex + '\n              ')).length;
 console.log(`ingredients: ${INGREDIENT_CATEGORIES.length} inline categories (library ${ingredientIndexChanged ? 'updated' : 'unchanged'}, ${integratedIngredientsChanged} integrated views updated)`);
+const developmentLibraries = require('./lib/development-cards')({ directions, ingredientCategory, responsiveImg });
+for (const file of ['全面性服務/index.html', '全面性服務/capability-c.html']) {
+  for (const [kind, html] of Object.entries(developmentLibraries)) fill(file, 'cap-' + kind + '-categories', html);
+}
 
 // page text and images
 const pageOpts = dir => ({
