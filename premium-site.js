@@ -74,15 +74,14 @@
 
   /* Homepage factory loop. The markup ships with preload="none" and the
      source held in data-src, so nothing downloads until this decides to play
-     it. Visitors who asked for reduced motion, or for reduced data, keep the
-     poster — a still from the same shoot — and never fetch the 2MB file. If
-     this script never runs, the poster is what everyone sees, which is a
-     complete hero on its own. */
+     it. Reduced motion controls interface animations independently of this
+     factory film. Visitors using reduced data keep the poster and do not
+     fetch the 2MB file. If this script never runs, the poster still supplies
+     a complete hero. */
   var heroVideo = document.querySelector('[data-hero-video]');
   if (heroVideo) {
-    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var saveData = navigator.connection && navigator.connection.saveData;
-    if (!reduceMotion && !saveData) {
+    if (!saveData) {
       var source = heroVideo.querySelector('source[data-src]');
       source.src = source.getAttribute('data-src');
       heroVideo.load();

@@ -5,6 +5,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const matter = require('gray-matter');
+const vm = require('node:vm');
 const fields = require('./lib/html-fields');
 const root = path.resolve(__dirname, '..');
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
@@ -41,10 +42,82 @@ test('homepage preserves accessible landmarks, descriptions and fragment destina
   for (const m of html.matchAll(/<img\b[^>]+>/g)) assert.match(m[0], /\balt="[^"]+"/);
 });
 
-test('factory media remain local and the loader respects motion and data preferences', () => {
+test('factory media remain local', () => {
   for (const file of ['assets/brand/factory-loop.mp4', 'assets/brand/factory-cleanroom.jpg']) assert.ok(fs.existsSync(path.join(root, file)));
-  const loader = fs.readFileSync(path.join(root, 'premium-site.js'), 'utf8');
-  assert.match(loader, /prefers-reduced-motion: reduce/);
-  assert.match(loader, /navigator.connection.saveData/);
-  assert.match(loader, /if \(!reduceMotion && !saveData\)/);
+});
+
+function runHomepageLoader({ reducedMotion = false, saveData = false, refusePlay = false } = {}) {
+  const state = { loads: 0, plays: 0, handledRejections: 0, observers: 0, revealed: false };
+  const listeners = {};
+  const source = { getAttribute: () => './assets/brand/factory-loop.mp4' };
+  const video = {
+    paused: true,
+    querySelector: () => source,
+    load: () => { state.loads++; },
+    play: () => {
+      state.plays++;
+      return { catch: handler => {
+        if (refusePlay) { state.handledRejections++; handler(new Error('Autoplay refused')); }
+      } };
+    }
+  };
+  const document = {
+    visibilityState: 'visible',
+    body: { classList: { contains: () => false } },
+    querySelector: selector => selector === '[data-hero-video]' ? video : null,
+    querySelectorAll: selector => selector === '.reveal' ? [{ classList: { add: () => { state.revealed = true; } } }] : [],
+    addEventListener: (type, callback) => { listeners[type] = callback; }
+  };
+  class Observer {
+    constructor() { state.observers++; }
+    observe() {}
+    unobserve() {}
+  }
+  const window = { matchMedia: () => ({ matches: reducedMotion }), addEventListener() {}, IntersectionObserver: Observer };
+  vm.runInNewContext(fs.readFileSync(path.join(root, 'premium-site.js'), 'utf8'), {
+    window, document, navigator: { connection: { saveData } }, IntersectionObserver: Observer
+  });
+  return { state, source, video, document, listeners };
+}
+
+test('the factory film starts with both normal and reduced interface motion', () => {
+  for (const reducedMotion of [false, true]) {
+    const { state, source } = runHomepageLoader({ reducedMotion });
+    assert.equal(source.src, './assets/brand/factory-loop.mp4');
+    assert.equal(state.loads, 1);
+    assert.equal(state.plays, 1);
+    if (reducedMotion) {
+      assert.equal(state.observers, 0, 'interface entrance animation stays disabled');
+      assert.equal(state.revealed, true, 'copy remains immediately visible');
+    }
+  }
+});
+
+test('data saving retains the poster without fetching or starting the factory film', () => {
+  for (const reducedMotion of [false, true]) {
+    const { state, source } = runHomepageLoader({ reducedMotion, saveData: true });
+    assert.equal(source.src, undefined);
+    assert.equal(state.loads, 0);
+    assert.equal(state.plays, 0);
+  }
+});
+
+test('a paused factory film retries when a reduced-motion tab becomes visible', () => {
+  const { state, document, video, listeners } = runHomepageLoader({ reducedMotion: true });
+  document.visibilityState = 'hidden';
+  listeners.visibilitychange();
+  assert.equal(state.plays, 1);
+  document.visibilityState = 'visible';
+  listeners.visibilitychange();
+  assert.equal(state.plays, 2);
+  video.paused = false;
+  listeners.visibilitychange();
+  assert.equal(state.plays, 2);
+});
+
+test('an autoplay refusal is handled without breaking the homepage', () => {
+  const { state } = runHomepageLoader({ reducedMotion: true, refusePlay: true });
+  assert.equal(state.plays, 1);
+  assert.equal(state.handledRejections, 1);
+  assert.equal(state.revealed, true);
 });

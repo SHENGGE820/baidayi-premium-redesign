@@ -27,6 +27,10 @@
 [data-video-reference-hero] .cap-hero-shade {
   background: linear-gradient(90deg, rgba(18,18,15,.76), rgba(18,18,15,.5) 42%, rgba(18,18,15,.05) 76%), linear-gradient(0deg, rgba(18,18,15,.4), transparent 58%);
 }
+@media (min-width: 1441px) {
+  [data-video-reference-hero="capability"] .cap-hero-media img,
+  [data-video-reference-hero="about"] .inner-hero-media img { object-position: center 28%; }
+}
 @media (max-width: 720px) {
   [data-video-reference-hero] .inner-hero-media img,
   [data-video-reference-hero] .cap-hero-media img { object-position: 78% center; }
