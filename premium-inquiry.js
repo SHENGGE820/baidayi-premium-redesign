@@ -250,6 +250,16 @@
     heroCopy.appendChild(makeToggle({ id: 'function:' + fnMatch[1], kind: 'function', group: '功能方向', name: pageTitle, img: heroImg ? heroImg.src : '', page: pageUrl }, null, 'inquiry-toggle-hero'));
   }
 
+  // Dosage introductions share the same selection identity as overview cards.
+  var dosageCopy = document.querySelector('[data-dosage-guide] .inner-hero-copy');
+  if (dosageCopy && pageTitle) {
+    var dosageImg = document.querySelector('[data-dosage-guide] .inner-hero-card-media img');
+    dosageCopy.appendChild(makeToggle({
+      id: 'format:' + pageTitle, kind: 'format', group: '多元劑型', name: pageTitle,
+      img: dosageImg ? dosageImg.src : '', page: pageUrl
+    }, null, 'inquiry-toggle-hero'));
+  }
+
   // A one-line hint above the first thing that can be picked on a page.
   var firstPickable = document.querySelector('.spec-group, .catalogue-grid:not(.catalogue-grid-ingredient), .service-overview');
   if (toggles.length && firstPickable && !isContact && !document.querySelector('.hero')) {

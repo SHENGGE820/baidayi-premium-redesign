@@ -1,5 +1,6 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
+const { presentArticle } = require('./lib/article-presentation');
 const {
   ArticleContentError,
   normalizeArticleBlocks,
@@ -122,4 +123,25 @@ test('an unsafe render prefix is rejected before producing HTML', () => {
   assert.throws(() => renderArticleBlocks([
     { type: 'paragraph', text: '內文' }
   ], { prefix: '\"><script>alert(1)</script>' }), /Unsafe article path prefix/);
+});
+
+test('article presentation preserves text and media while reserving true image dimensions', () => {
+  const source = '<h2>第一段 &amp; 專業觀點</h2><p>原文<strong>不可改寫</strong>。</p><p><img src="../assets/a.jpg" alt="原有圖說" width="760" height="1347" /></p><h2 id="existing">第二段</h2>';
+  const out = presentArticle(source, { sizeFor: () => [272, 482] });
+  assert.match(out.html, /width="272" height="482" data-media-shape="portrait"/);
+  assert.match(out.html, /style="--article-image-width:272px"/);
+  assert.match(out.html, /alt="原有圖說"/);
+  assert.match(out.html, /loading="lazy"/);
+  assert.match(out.html, /<p>原文<strong>不可改寫<\/strong>。<\/p>/);
+  assert.deepEqual(out.headings, [{ id: 'article-section-1', text: '第一段 &amp; 專業觀點' }, { id: 'existing', text: '第二段' }]);
+});
+
+test('only adjacent image-only containers become galleries, not prose or existing captions', () => {
+  const source = '<div><img src="a.jpg" alt="甲"><br /><img src="b.jpg" alt="乙"></div><div><img src="c.jpg" alt="丙"><p>內文</p><img src="d.jpg" alt="丁"></div><figure><img src="e.jpg" alt="戊"><figcaption>作者圖說</figcaption></figure><p><br></p>';
+  const out = presentArticle(source).html;
+  assert.equal((out.match(/class="article-gallery"/g) || []).length, 1);
+  assert.match(out, /<p>內文<\/p>/);
+  assert.match(out, /<figcaption>作者圖說<\/figcaption>/);
+  assert.equal((out.match(/<img /g) || []).length, 5);
+  assert.doesNotMatch(out, /<p><br><\/p>/);
 });

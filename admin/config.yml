@@ -156,6 +156,12 @@ collections:
               - { label: "樣式頁｜粉末鋁袋", value: "page:粉末鋁包" }
               - { label: "樣式頁｜錠劑", value: "page:錠劑" }
               - { label: "樣式頁｜動／植物膠囊", value: "page:多元劑型-膠囊" }
+              - { label: "樣式頁｜搖搖隨身袋", value: "page:搖搖隨身袋" }
+              - { label: "樣式頁｜果凍／茶包", value: "page:果凍與茶包" }
+              - { label: "樣式頁｜機能餅乾", value: "page:機能餅乾" }
+              - { label: "樣式頁｜營養代餐", value: "page:營養代餐" }
+              - { label: "樣式頁｜粉末食品", value: "page:粉末食品" }
+              - { label: "樣式頁｜糖果劑型", value: "page:糖果劑型" }
               - { label: "諮詢表單｜機能餅乾", value: "contact:biscuit" }
               - { label: "諮詢表單｜搖搖隨身袋", value: "contact:shaker" }
               - { label: "諮詢表單｜糖果劑型", value: "contact:candy" }
@@ -289,7 +295,7 @@ collections:
               - { label: 說明, name: text, widget: string, required: false }
               - { label: 圖片, name: image, widget: image }
               - { label: 圖片說明, name: alt, widget: string, required: false, hint: 給看不到圖片的讀者；空白時使用標題。 }
-              - { label: 連結到, name: link, widget: select, required: false, options: *links, hint: 樣式頁或預先選好劑型的諮詢表單；空白則卡片不能點。新增的樣式頁約 2 分鐘後出現在選單。 }
+              - { label: 連結到, name: link, widget: select, required: false, options: *links, hint: 劑型卡片請選對應介紹或樣式頁；詢價由獨立按鈕操作。新增頁面建置後會出現在選單。 }
               - { label: 連結文字, name: more, widget: string, required: false, hint: 例如「查看樣式」；箭頭會自動加上。空白時依連結種類自動填。 }
           - { label: 包材規劃（卡片）, label_singular: 卡片, name: package, widget: list, summary: "{{fields.title}}", fields: *card }
           - { label: 成品包材（卡片）, label_singular: 卡片, name: finished, widget: list, summary: "{{fields.title}}", fields: *card }
@@ -311,6 +317,66 @@ collections:
           - {"label":"主視覺","name":"主視覺","widget":"object","collapsed":true,"fields":[{"label":"背景圖","name":"背景圖","widget":"image"},{"label":"英文小標","name":"英文小標","widget":"string"},{"label":"標題","name":"標題","widget":"text"},{"label":"說明","name":"說明","widget":"text"},{"label":"小標","name":"小標","widget":"string"}]}
           - {"label":"先決定基材","name":"先決定基材","widget":"object","collapsed":true,"fields":[{"label":"英文小標","name":"英文小標","widget":"string"},{"label":"標題","name":"標題","widget":"text","hint":"換行會照樣換行。"},{"label":"說明","name":"說明","widget":"text"},{"label":"卡片1｜圖片","name":"卡片1｜圖片","widget":"image","media_folder":"/wp-content/uploads","public_folder":"/wp-content/uploads"},{"label":"卡片1｜圖片說明","name":"卡片1｜圖片說明","widget":"string","required":false,"hint":"給看不到圖片的讀者（例如螢幕閱讀器）。"},{"label":"卡片1｜英文小標","name":"卡片1｜英文小標","widget":"string"},{"label":"卡片1｜標題","name":"卡片1｜標題","widget":"string"},{"label":"卡片1｜說明","name":"卡片1｜說明","widget":"text"},{"label":"卡片1｜連結文字","name":"卡片1｜連結文字","widget":"string"},{"label":"卡片2｜圖片","name":"卡片2｜圖片","widget":"image","media_folder":"/wp-content/uploads","public_folder":"/wp-content/uploads"},{"label":"卡片2｜圖片說明","name":"卡片2｜圖片說明","widget":"string","required":false,"hint":"給看不到圖片的讀者（例如螢幕閱讀器）。"},{"label":"卡片2｜英文小標","name":"卡片2｜英文小標","widget":"string"},{"label":"卡片2｜標題","name":"卡片2｜標題","widget":"string"},{"label":"卡片2｜說明","name":"卡片2｜說明","widget":"text"},{"label":"卡片2｜連結文字","name":"卡片2｜連結文字","widget":"string"},{"label":"卡片3｜圖片","name":"卡片3｜圖片","widget":"image","media_folder":"/wp-content/uploads","public_folder":"/wp-content/uploads"},{"label":"卡片3｜圖片說明","name":"卡片3｜圖片說明","widget":"string","required":false,"hint":"給看不到圖片的讀者（例如螢幕閱讀器）。"},{"label":"卡片3｜英文小標","name":"卡片3｜英文小標","widget":"string"},{"label":"卡片3｜標題","name":"卡片3｜標題","widget":"string"},{"label":"卡片3｜說明","name":"卡片3｜說明","widget":"text"},{"label":"卡片3｜連結文字","name":"卡片3｜連結文字","widget":"string"},{"label":"說明2","name":"說明2","widget":"text"}]}
           - {"label":"頁尾諮詢","name":"頁尾諮詢","widget":"object","collapsed":true,"fields":[{"label":"英文小標","name":"英文小標","widget":"string"},{"label":"標題","name":"標題","widget":"text","hint":"換行會照樣換行。"},{"label":"說明","name":"說明","widget":"text"},{"label":"連結文字","name":"連結文字","widget":"string"}]}
+      - name: dosage-powder
+        label: "劑型介紹｜粉末食品"
+        file: content/pages/dosage-powder.md
+        format: frontmatter
+        fields:
+          - {"label":"搜尋與分享","name":"搜尋與分享","widget":"object","collapsed":true,"fields":[{"label":"網頁標題","name":"網頁標題","widget":"string","hint":"瀏覽器分頁、搜尋結果與分享預覽的標題。"},{"label":"搜尋說明","name":"搜尋說明","widget":"text","hint":"搜尋結果下方的說明，建議 80 字內。"},{"label":"分享說明","name":"分享說明","widget":"text","required":false,"hint":"LINE、Facebook 分享預覽的說明；空白時與搜尋說明相同。"}]}
+          - {"label":"主視覺","name":"主視覺","widget":"object","collapsed":true,"fields":[{"label":"英文小標","name":"英文小標","widget":"string"},{"label":"標題","name":"標題","widget":"text"},{"label":"說明","name":"說明","widget":"text"},{"label":"圖片","name":"圖片","widget":"image"},{"label":"圖片說明","name":"圖片說明","widget":"string","required":false,"hint":"給看不到圖片的讀者（例如螢幕閱讀器）。"}]}
+          - {"label":"劑型介紹","name":"劑型介紹","widget":"object","collapsed":true,"fields":[{"label":"標題","name":"標題","widget":"text"},{"label":"說明","name":"說明","widget":"text"},{"label":"方向1｜標題","name":"方向1｜標題","widget":"string"},{"label":"方向1｜說明","name":"方向1｜說明","widget":"text"},{"label":"方向2｜標題","name":"方向2｜標題","widget":"string"},{"label":"方向2｜說明","name":"方向2｜說明","widget":"text"}]}
+          - {"label":"開發重點","name":"開發重點","widget":"object","collapsed":true,"fields":[{"label":"標題","name":"標題","widget":"text"},{"label":"重點1｜標題","name":"重點1｜標題","widget":"string"},{"label":"重點1｜說明","name":"重點1｜說明","widget":"text"},{"label":"重點2｜標題","name":"重點2｜標題","widget":"string"},{"label":"重點2｜說明","name":"重點2｜說明","widget":"text"},{"label":"重點3｜標題","name":"重點3｜標題","widget":"string"},{"label":"重點3｜說明","name":"重點3｜說明","widget":"text"},{"label":"補充","name":"補充","widget":"text"}]}
+          - {"label":"頁尾諮詢","name":"頁尾諮詢","widget":"object","collapsed":true,"fields":[{"label":"標題","name":"標題","widget":"text"},{"label":"說明","name":"說明","widget":"text"}]}
+      - name: dosage-biscuit
+        label: "劑型介紹｜機能餅乾"
+        file: content/pages/dosage-biscuit.md
+        format: frontmatter
+        fields:
+          - {"label":"搜尋與分享","name":"搜尋與分享","widget":"object","collapsed":true,"fields":[{"label":"網頁標題","name":"網頁標題","widget":"string","hint":"瀏覽器分頁、搜尋結果與分享預覽的標題。"},{"label":"搜尋說明","name":"搜尋說明","widget":"text","hint":"搜尋結果下方的說明，建議 80 字內。"},{"label":"分享說明","name":"分享說明","widget":"text","required":false,"hint":"LINE、Facebook 分享預覽的說明；空白時與搜尋說明相同。"}]}
+          - {"label":"主視覺","name":"主視覺","widget":"object","collapsed":true,"fields":[{"label":"英文小標","name":"英文小標","widget":"string"},{"label":"標題","name":"標題","widget":"text"},{"label":"說明","name":"說明","widget":"text"},{"label":"圖片","name":"圖片","widget":"image"},{"label":"圖片說明","name":"圖片說明","widget":"string","required":false,"hint":"給看不到圖片的讀者（例如螢幕閱讀器）。"}]}
+          - {"label":"劑型介紹","name":"劑型介紹","widget":"object","collapsed":true,"fields":[{"label":"標題","name":"標題","widget":"text"},{"label":"說明","name":"說明","widget":"text"},{"label":"方向1｜標題","name":"方向1｜標題","widget":"string"},{"label":"方向1｜說明","name":"方向1｜說明","widget":"text"},{"label":"方向2｜標題","name":"方向2｜標題","widget":"string"},{"label":"方向2｜說明","name":"方向2｜說明","widget":"text"}]}
+          - {"label":"開發重點","name":"開發重點","widget":"object","collapsed":true,"fields":[{"label":"標題","name":"標題","widget":"text"},{"label":"重點1｜標題","name":"重點1｜標題","widget":"string"},{"label":"重點1｜說明","name":"重點1｜說明","widget":"text"},{"label":"重點2｜標題","name":"重點2｜標題","widget":"string"},{"label":"重點2｜說明","name":"重點2｜說明","widget":"text"},{"label":"重點3｜標題","name":"重點3｜標題","widget":"string"},{"label":"重點3｜說明","name":"重點3｜說明","widget":"text"},{"label":"補充","name":"補充","widget":"text"}]}
+          - {"label":"頁尾諮詢","name":"頁尾諮詢","widget":"object","collapsed":true,"fields":[{"label":"標題","name":"標題","widget":"text"},{"label":"說明","name":"說明","widget":"text"}]}
+      - name: dosage-shaker
+        label: "劑型介紹｜搖搖隨身袋"
+        file: content/pages/dosage-shaker.md
+        format: frontmatter
+        fields:
+          - {"label":"搜尋與分享","name":"搜尋與分享","widget":"object","collapsed":true,"fields":[{"label":"網頁標題","name":"網頁標題","widget":"string","hint":"瀏覽器分頁、搜尋結果與分享預覽的標題。"},{"label":"搜尋說明","name":"搜尋說明","widget":"text","hint":"搜尋結果下方的說明，建議 80 字內。"},{"label":"分享說明","name":"分享說明","widget":"text","required":false,"hint":"LINE、Facebook 分享預覽的說明；空白時與搜尋說明相同。"}]}
+          - {"label":"主視覺","name":"主視覺","widget":"object","collapsed":true,"fields":[{"label":"英文小標","name":"英文小標","widget":"string"},{"label":"標題","name":"標題","widget":"text"},{"label":"說明","name":"說明","widget":"text"},{"label":"圖片","name":"圖片","widget":"image"},{"label":"圖片說明","name":"圖片說明","widget":"string","required":false,"hint":"給看不到圖片的讀者（例如螢幕閱讀器）。"}]}
+          - {"label":"劑型介紹","name":"劑型介紹","widget":"object","collapsed":true,"fields":[{"label":"標題","name":"標題","widget":"text"},{"label":"說明","name":"說明","widget":"text"},{"label":"方向1｜標題","name":"方向1｜標題","widget":"string"},{"label":"方向1｜說明","name":"方向1｜說明","widget":"text"},{"label":"方向2｜標題","name":"方向2｜標題","widget":"string"},{"label":"方向2｜說明","name":"方向2｜說明","widget":"text"}]}
+          - {"label":"開發重點","name":"開發重點","widget":"object","collapsed":true,"fields":[{"label":"標題","name":"標題","widget":"text"},{"label":"重點1｜標題","name":"重點1｜標題","widget":"string"},{"label":"重點1｜說明","name":"重點1｜說明","widget":"text"},{"label":"重點2｜標題","name":"重點2｜標題","widget":"string"},{"label":"重點2｜說明","name":"重點2｜說明","widget":"text"},{"label":"重點3｜標題","name":"重點3｜標題","widget":"string"},{"label":"重點3｜說明","name":"重點3｜說明","widget":"text"},{"label":"補充","name":"補充","widget":"text"}]}
+          - {"label":"頁尾諮詢","name":"頁尾諮詢","widget":"object","collapsed":true,"fields":[{"label":"標題","name":"標題","widget":"text"},{"label":"說明","name":"說明","widget":"text"}]}
+      - name: dosage-candy
+        label: "劑型介紹｜糖果劑型"
+        file: content/pages/dosage-candy.md
+        format: frontmatter
+        fields:
+          - {"label":"搜尋與分享","name":"搜尋與分享","widget":"object","collapsed":true,"fields":[{"label":"網頁標題","name":"網頁標題","widget":"string","hint":"瀏覽器分頁、搜尋結果與分享預覽的標題。"},{"label":"搜尋說明","name":"搜尋說明","widget":"text","hint":"搜尋結果下方的說明，建議 80 字內。"},{"label":"分享說明","name":"分享說明","widget":"text","required":false,"hint":"LINE、Facebook 分享預覽的說明；空白時與搜尋說明相同。"}]}
+          - {"label":"主視覺","name":"主視覺","widget":"object","collapsed":true,"fields":[{"label":"英文小標","name":"英文小標","widget":"string"},{"label":"標題","name":"標題","widget":"text"},{"label":"說明","name":"說明","widget":"text"},{"label":"圖片","name":"圖片","widget":"image"},{"label":"圖片說明","name":"圖片說明","widget":"string","required":false,"hint":"給看不到圖片的讀者（例如螢幕閱讀器）。"}]}
+          - {"label":"劑型介紹","name":"劑型介紹","widget":"object","collapsed":true,"fields":[{"label":"標題","name":"標題","widget":"text"},{"label":"說明","name":"說明","widget":"text"},{"label":"方向1｜標題","name":"方向1｜標題","widget":"string"},{"label":"方向1｜說明","name":"方向1｜說明","widget":"text"},{"label":"方向2｜標題","name":"方向2｜標題","widget":"string"},{"label":"方向2｜說明","name":"方向2｜說明","widget":"text"}]}
+          - {"label":"開發重點","name":"開發重點","widget":"object","collapsed":true,"fields":[{"label":"標題","name":"標題","widget":"text"},{"label":"重點1｜標題","name":"重點1｜標題","widget":"string"},{"label":"重點1｜說明","name":"重點1｜說明","widget":"text"},{"label":"重點2｜標題","name":"重點2｜標題","widget":"string"},{"label":"重點2｜說明","name":"重點2｜說明","widget":"text"},{"label":"重點3｜標題","name":"重點3｜標題","widget":"string"},{"label":"重點3｜說明","name":"重點3｜說明","widget":"text"},{"label":"補充","name":"補充","widget":"text"}]}
+          - {"label":"頁尾諮詢","name":"頁尾諮詢","widget":"object","collapsed":true,"fields":[{"label":"標題","name":"標題","widget":"text"},{"label":"說明","name":"說明","widget":"text"}]}
+      - name: dosage-meal
+        label: "劑型介紹｜營養代餐"
+        file: content/pages/dosage-meal.md
+        format: frontmatter
+        fields:
+          - {"label":"搜尋與分享","name":"搜尋與分享","widget":"object","collapsed":true,"fields":[{"label":"網頁標題","name":"網頁標題","widget":"string","hint":"瀏覽器分頁、搜尋結果與分享預覽的標題。"},{"label":"搜尋說明","name":"搜尋說明","widget":"text","hint":"搜尋結果下方的說明，建議 80 字內。"},{"label":"分享說明","name":"分享說明","widget":"text","required":false,"hint":"LINE、Facebook 分享預覽的說明；空白時與搜尋說明相同。"}]}
+          - {"label":"主視覺","name":"主視覺","widget":"object","collapsed":true,"fields":[{"label":"英文小標","name":"英文小標","widget":"string"},{"label":"標題","name":"標題","widget":"text"},{"label":"說明","name":"說明","widget":"text"},{"label":"圖片","name":"圖片","widget":"image"},{"label":"圖片說明","name":"圖片說明","widget":"string","required":false,"hint":"給看不到圖片的讀者（例如螢幕閱讀器）。"}]}
+          - {"label":"劑型介紹","name":"劑型介紹","widget":"object","collapsed":true,"fields":[{"label":"標題","name":"標題","widget":"text"},{"label":"說明","name":"說明","widget":"text"},{"label":"方向1｜標題","name":"方向1｜標題","widget":"string"},{"label":"方向1｜說明","name":"方向1｜說明","widget":"text"},{"label":"方向2｜標題","name":"方向2｜標題","widget":"string"},{"label":"方向2｜說明","name":"方向2｜說明","widget":"text"}]}
+          - {"label":"開發重點","name":"開發重點","widget":"object","collapsed":true,"fields":[{"label":"標題","name":"標題","widget":"text"},{"label":"重點1｜標題","name":"重點1｜標題","widget":"string"},{"label":"重點1｜說明","name":"重點1｜說明","widget":"text"},{"label":"重點2｜標題","name":"重點2｜標題","widget":"string"},{"label":"重點2｜說明","name":"重點2｜說明","widget":"text"},{"label":"重點3｜標題","name":"重點3｜標題","widget":"string"},{"label":"重點3｜說明","name":"重點3｜說明","widget":"text"},{"label":"補充","name":"補充","widget":"text"}]}
+          - {"label":"頁尾諮詢","name":"頁尾諮詢","widget":"object","collapsed":true,"fields":[{"label":"標題","name":"標題","widget":"text"},{"label":"說明","name":"說明","widget":"text"}]}
+      - name: dosage-jelly-tea
+        label: "劑型介紹｜果凍／茶包"
+        file: content/pages/dosage-jelly-tea.md
+        format: frontmatter
+        fields:
+          - {"label":"搜尋與分享","name":"搜尋與分享","widget":"object","collapsed":true,"fields":[{"label":"網頁標題","name":"網頁標題","widget":"string","hint":"瀏覽器分頁、搜尋結果與分享預覽的標題。"},{"label":"搜尋說明","name":"搜尋說明","widget":"text","hint":"搜尋結果下方的說明，建議 80 字內。"},{"label":"分享說明","name":"分享說明","widget":"text","required":false,"hint":"LINE、Facebook 分享預覽的說明；空白時與搜尋說明相同。"}]}
+          - {"label":"主視覺","name":"主視覺","widget":"object","collapsed":true,"fields":[{"label":"英文小標","name":"英文小標","widget":"string"},{"label":"標題","name":"標題","widget":"text"},{"label":"說明","name":"說明","widget":"text"},{"label":"圖片","name":"圖片","widget":"image"},{"label":"圖片說明","name":"圖片說明","widget":"string","required":false,"hint":"給看不到圖片的讀者（例如螢幕閱讀器）。"}]}
+          - {"label":"劑型介紹","name":"劑型介紹","widget":"object","collapsed":true,"fields":[{"label":"標題","name":"標題","widget":"text"},{"label":"說明","name":"說明","widget":"text"},{"label":"方向1｜標題","name":"方向1｜標題","widget":"string"},{"label":"方向1｜說明","name":"方向1｜說明","widget":"text"},{"label":"方向2｜標題","name":"方向2｜標題","widget":"string"},{"label":"方向2｜說明","name":"方向2｜說明","widget":"text"}]}
+          - {"label":"開發重點","name":"開發重點","widget":"object","collapsed":true,"fields":[{"label":"標題","name":"標題","widget":"text"},{"label":"重點1｜標題","name":"重點1｜標題","widget":"string"},{"label":"重點1｜說明","name":"重點1｜說明","widget":"text"},{"label":"重點2｜標題","name":"重點2｜標題","widget":"string"},{"label":"重點2｜說明","name":"重點2｜說明","widget":"text"},{"label":"重點3｜標題","name":"重點3｜標題","widget":"string"},{"label":"重點3｜說明","name":"重點3｜說明","widget":"text"},{"label":"補充","name":"補充","widget":"text"}]}
+          - {"label":"頁尾諮詢","name":"頁尾諮詢","widget":"object","collapsed":true,"fields":[{"label":"標題","name":"標題","widget":"text"},{"label":"說明","name":"說明","widget":"text"}]}
       - name: functions
         label: "功能配方方向"
         file: content/pages/functions.md

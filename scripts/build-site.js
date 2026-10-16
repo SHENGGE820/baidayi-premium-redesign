@@ -39,6 +39,7 @@ const fs = require('fs');
 const path = require('path');
 const matter = require('gray-matter');
 const { renderArticleBlocks, renderSafeMarkdown } = require('./lib/article-content');
+const { presentArticle } = require('./lib/article-presentation');
 
 const ROOT = path.resolve(__dirname, '..');
 const V = '20260929-11';
@@ -146,12 +147,14 @@ function articleMain(a) {
         ${embeddedVideo(a, prefix)}
       </div>`;
   }
-  const hero = a.hero ? `      <div class="article-hero reveal"><img src="${esc(rel(a.hero, prefix))}" alt="${esc(a.heroAlt)}"></div>\n` : '';
+  const hero = a.hero ? `      <div class="article-hero reveal">${articleImage(a.hero, a.heroAlt, prefix, false)}</div>\n` : '';
   const video = videoBlock(a, prefix);
-  return `${hero}      <div class="article-body">\n${video ? video + '\n' : ''}${body.trim()}\n      </div>`;
+  const presented = presentArticle(body.trim(), { sizeFor: articleImageSize });
+  const toc = presented.headings.length >= 3 ? `<aside class="article-outline"><details open><summary>本文導覽</summary><nav aria-label="本文段落"><ol>${presented.headings.map(h => `<li><a href="#${esc(h.id)}">${h.text}</a></li>`).join('')}</ol></nav></details></aside>` : '';
+  return `${hero}<div class="article-reading${toc ? ' article-reading-indexed' : ''}">${toc}<div class="article-body">\n${video ? video + '\n' : ''}${presented.html}\n      </div></div>`;
 }
 
-function articlePage(a) {
+function articlePage(a, posts) {
   const ogImage = SITE + String(a.hero || a.cover || '/assets/brand/factory-cleanroom.jpg').replace(/^\//, '');
   const url = SITE + a.slug + '/';
   return `<!doctype html>
@@ -174,7 +177,7 @@ function articlePage(a) {
   <link rel="icon" href="../wp-content/uploads/2025/09/BKE-favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600&family=Noto+Serif+TC:wght@500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../premium-site.css?v=${V}"><link rel="stylesheet" href="../premium-inner.css?v=${V}">
+  <link rel="stylesheet" href="../premium-site.css?v=${V}"><link rel="stylesheet" href="../premium-inner.css?v=${V}"><link rel="stylesheet" href="../premium-news.css?v=20261016-01">
   <script src="../premium-transition-init.js?v=${V}"></script><link rel="stylesheet" href="../premium-motion.css?v=${V}">
 </head>
 <body class="premium-site premium-inner article-page" data-root="../" data-active="news">
@@ -182,19 +185,21 @@ function articlePage(a) {
   <main id="main-content">
     <header class="news-masthead">
       <div class="container">
+        <a class="article-breadcrumb" href="../最新消息/index.html"><span aria-hidden="true">←</span> 最新消息</a>
         <p class="article-meta reveal"><span>${esc(a.category)}</span><i aria-hidden="true"></i><time datetime="${esc(a.date)}">${esc(a.date)}</time></p>
         <h1 class="reveal">${esc(a.title)}</h1>
         ${a.summary ? `<p class="reveal">${esc(a.summary)}</p>` : ''}
       </div>
     </header>
-    <section class="page-section page-section-ivory"><div class="container">
+    <article class="article-content-section" aria-label="文章內容"><div class="container">
 ${articleMain(a)}
       <a class="article-back reveal" href="../最新消息/index.html"><span aria-hidden="true">←</span> 回到最新消息</a>
-    </div></section>
+    </div></article>
+${relatedArticles(a, posts)}
     <section class="project-cta"><div class="container project-cta-inner"><div><p class="eyebrow eyebrow-dark reveal">START A PROJECT</p><h2 class="reveal">看到市場機會，<br>下一步是做對產品。</h2></div><div class="project-cta-copy reveal"><p>把您的產品構想與目標客群告訴我們，專案顧問會協助整理可行的開發路徑。</p><a class="button button-dark" href="../contact/index.html">代工諮詢 <span aria-hidden="true">↗</span></a></div></div></section>
   </main>
   <div data-premium-footer></div><script src="../premium-shell.js?v=${V}"></script><script src="../premium-site.js?v=${V}"></script>
-  <script src="../premium-motion.js?v=${V}"></script>
+  <script src="../premium-news.js?v=20261016-01"></script><script src="../premium-motion.js?v=${V}"></script>
 </body>
 </html>
 `;
@@ -223,8 +228,30 @@ function homePicks(posts) {
 /* ------------------------------------------------------------- listing */
 const dots = d => d.replace(/-/g, '.');
 
-function listingCard(a) {
-  return `<a class="article-card reveal" href="../${a.slug}/index.html" data-news-category="${a.group}"><div class="article-card-image"><img src="${esc(rel(a.cover, '../'))}" alt="${esc(a.coverAlt)}" loading="lazy"></div><div class="article-card-copy"><span>${esc(a.category)}</span><h2>${esc(a.title)}</h2>${a.summary ? `<p>${esc(a.summary)}</p>` : ''}<time datetime="${a.date}">${dots(a.date)}</time></div></a>`;
+function listingCard(a, featured = false) {
+  return `<a class="article-card${featured ? ' article-card-featured' : ''} reveal" href="../${a.slug}/index.html" data-news-category="${esc(a.category)}"><div class="article-card-image${!a.hero ? ' article-card-image-artwork' : ''}">${articleImage(a.cover, a.coverAlt, '../', !featured)}</div><div class="article-card-copy"><span>${esc(a.category)}</span><h2>${esc(a.title)}</h2>${a.summary ? `<p>${esc(a.summary)}</p>` : ''}<div class="article-card-foot"><time datetime="${a.date}">${dots(a.date)}</time><span>閱讀全文 <i aria-hidden="true">↗</i></span></div></div></a>`;
+}
+
+function articleImageSize(src) {
+  // Only resolve existing local assets inside this repository.
+  let local;
+  try { local = decodeURI(src).replace(/^(?:\.\.\/|\.\/|\/)+/, '').split(/[?#]/)[0]; } catch { return null; }
+  if (!/^(?:assets|wp-content)\//.test(local)) return null;
+  const absolute = path.resolve(ROOT, local);
+  if (!absolute.startsWith(ROOT + path.sep)) return null;
+  return imageSize(absolute);
+}
+
+function articleImage(src, alt, prefix, lazy = true) {
+  const size = articleImageSize(src);
+  return `<img src="${esc(rel(src, prefix))}" alt="${esc(alt)}"${size ? ` width="${size[0]}" height="${size[1]}"` : ''} decoding="async"${lazy ? ' loading="lazy"' : ' fetchpriority="high"'}>`;
+}
+
+function relatedArticles(a, posts) {
+  const others = posts.filter(p => p.slug !== a.slug);
+  const picks = [...others.filter(p => p.category === a.category), ...others.filter(p => p.category !== a.category)].slice(0, 3);
+  if (!picks.length) return '';
+  return `<section class="article-related" aria-labelledby="related-title"><div class="container"><div class="article-related-head"><h2 id="related-title">延伸閱讀</h2><a href="../最新消息/index.html">所有消息 <span aria-hidden="true">↗</span></a></div><div class="article-related-grid">${picks.map(p => `<a href="../${p.slug}/index.html"><span>${esc(p.category)} · ${dots(p.date)}</span><h3>${esc(p.title)}</h3><span class="article-related-more">閱讀全文 <i aria-hidden="true">↗</i></span></a>`).join('')}</div></div></section>`;
 }
 
 /* Replace what sits between <!-- cms:NAME --> and <!-- /cms:NAME --> (or
@@ -404,6 +431,9 @@ function overviewCard(c, photo, targets, where, fromDir = path.posix.dirname(OVE
   const prefix = fromDir === '.' ? './' : '../'.repeat(fromDir.split('/').length);
   if (!c.title || !c.image) throw new Error(`content/pages/catalogue.md: a card in ${where} needs a title and an image`);
   let href = '', arrow = '', more = '';
+  if (where === 'dosage' && !String(c.link || '').startsWith('page:')) {
+    throw new Error('content/pages/catalogue.md: "' + c.title + '" must link to its dosage introduction page, not an enquiry form');
+  }
   if (c.link) {
     const link = resolveLink(c.link, fromDir, targets, `content/pages/catalogue.md: "${c.title}" in ${where}`);
     href = link.href;
@@ -641,6 +671,12 @@ const PAGES = [
   { id: 'process', label: '合作流程', file: '全面性服務/一站式服務/index.html' },
   { id: 'catalogue', label: '劑型與包材總覽', file: '全面性服務/劑型與包材/index.html', lists: ['dosage', 'package', 'finished', 'products'] },
   { id: 'capsules', label: '動／植物膠囊', file: '全面性服務/一站式服務/多元劑型-膠囊/index.html' },
+  { id: 'dosage-powder', label: '劑型介紹｜粉末食品', file: '全面性服務/一站式服務/粉末食品/index.html' },
+  { id: 'dosage-biscuit', label: '劑型介紹｜機能餅乾', file: '全面性服務/一站式服務/機能餅乾/index.html' },
+  { id: 'dosage-shaker', label: '劑型介紹｜搖搖隨身袋', file: '全面性服務/一站式服務/搖搖隨身袋/index.html' },
+  { id: 'dosage-candy', label: '劑型介紹｜糖果劑型', file: '全面性服務/一站式服務/糖果劑型/index.html' },
+  { id: 'dosage-meal', label: '劑型介紹｜營養代餐', file: '全面性服務/一站式服務/營養代餐/index.html' },
+  { id: 'dosage-jelly-tea', label: '劑型介紹｜果凍／茶包', file: '全面性服務/一站式服務/果凍與茶包/index.html' },
   { id: 'functions', label: '功能配方方向', file: '全面性服務/功能配方/index.html' },
   { id: 'esg', label: '綠色永續', file: '認識百達醫/綠色永續/index.html' },
   { id: 'news', label: '最新消息（列表頁）', file: '最新消息/index.html' },
@@ -688,7 +724,7 @@ const CARD_LISTS_YAML = `          - label: 多元劑型（卡片）
               - { label: 說明, name: text, widget: string, required: false }
               - { label: 圖片, name: image, widget: image }
               - { label: 圖片說明, name: alt, widget: string, required: false, hint: 給看不到圖片的讀者；空白時使用標題。 }
-              - { label: 連結到, name: link, widget: select, required: false, options: *links, hint: 樣式頁或預先選好劑型的諮詢表單；空白則卡片不能點。新增的樣式頁約 2 分鐘後出現在選單。 }
+              - { label: 連結到, name: link, widget: select, required: false, options: *links, hint: 劑型卡片請選對應介紹或樣式頁；詢價由獨立按鈕操作。新增頁面建置後會出現在選單。 }
               - { label: 連結文字, name: more, widget: string, required: false, hint: 例如「查看樣式」；箭頭會自動加上。空白時依連結種類自動填。 }
           - { label: 包材規劃（卡片）, label_singular: 卡片, name: package, widget: list, summary: "{{fields.title}}", fields: *card }
           - { label: 成品包材（卡片）, label_singular: 卡片, name: finished, widget: list, summary: "{{fields.title}}", fields: *card }
@@ -776,7 +812,7 @@ for (const a of posts) {
   if (fs.existsSync(file) && !fs.readFileSync(file, 'utf8').includes(MARK) && !fs.readFileSync(file, 'utf8').includes('article-page')) {
     throw new Error(`${a.slug}/ exists and is not an article page; choose another file name`);
   }
-  const html = articlePage(a);
+  const html = articlePage(a, posts);
   fs.mkdirSync(dir, { recursive: true });
   if (!fs.existsSync(file) || fs.readFileSync(file, 'utf8') !== html) { fs.writeFileSync(file, html); written++; }
 }
@@ -791,7 +827,7 @@ for (const e of fs.readdirSync(ROOT, { withFileTypes: true })) {
   }
 }
 
-const listingChanged = fill('最新消息/index.html', 'article-cards', posts.map(a => '      ' + listingCard(a)).join('\n') + '\n      ');
+const listingChanged = fill('最新消息/index.html', 'article-cards', posts.map((a, i) => '      ' + listingCard(a, i === 0)).join('\n') + '\n      ');
 const homeChanged = fill('index.html', 'home-articles', homePicks(posts).map((a, i) => '          ' + homeCard(a, i === 0)).join('\n') + '\n          ');
 
 console.log(`articles: ${posts.length} (${written} written, ${removed} removed); listing ${listingChanged ? 'updated' : 'unchanged'}; homepage ${homeChanged ? 'updated' : 'unchanged'}`);

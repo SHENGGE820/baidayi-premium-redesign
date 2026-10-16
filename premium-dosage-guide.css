@@ -1,0 +1,28 @@
+.dosage-guide .inner-hero { min-height: 0; padding: calc(var(--header-height) + 64px) 0 72px; }
+.dosage-guide .inner-hero h1 { font-size: clamp(38px, 5vw, 68px); }
+.dosage-guide .inner-hero-card .inner-hero-content { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(36px, 6vw, 88px); }
+.dosage-guide .inner-hero-card-media img { width: 100%; box-shadow: none; border-radius: 0; }
+.dosage-guide .inner-hero-card-media figcaption { margin-top: 12px; color: rgba(255,255,255,.62); font-size: 12px; line-height: 1.7; }
+.dosage-back { display: inline-block; margin-bottom: 34px; color: rgba(255,255,255,.68); font-size: 13px; }
+.dosage-back:hover { color: var(--gold-light); }
+.dosage-directions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px; }
+.dosage-direction { padding-top: 24px; border-top: 1px solid var(--line); }
+.dosage-direction > span { color: #8d672b; font-family: "Outfit", sans-serif; font-size: 13px; }
+.dosage-direction h3 { margin: 14px 0; font-family: "Noto Serif TC", serif; font-size: 26px; }
+.dosage-direction p { margin: 0; max-width: 500px; color: var(--muted); }
+.dosage-considerations { margin: 40px 0 24px; border-top: 1px solid var(--line); }
+.dosage-considerations > div { display: grid; grid-template-columns: minmax(150px, .7fr) minmax(0, 2fr); gap: 32px; padding: 28px 0; border-bottom: 1px solid var(--line); }
+.dosage-considerations dt { font-size: 19px; font-weight: 500; }
+.dosage-considerations dd { margin: 0; color: var(--muted); }
+.dosage-related { margin-top: 56px; }
+.dosage-related-links { display: flex; flex-wrap: wrap; gap: 20px 32px; margin-top: 20px; }
+@media (max-width: 900px) {
+  .dosage-guide .inner-hero-card .inner-hero-content { grid-template-columns: 1fr; gap: 36px; }
+  .dosage-guide .inner-hero { padding: calc(var(--header-height) + 40px) 0 48px; }
+}
+@media (max-width: 560px) {
+  .dosage-directions { grid-template-columns: 1fr; gap: 32px; }
+  .dosage-considerations > div { grid-template-columns: 1fr; gap: 10px; padding: 22px 0; }
+  .dosage-guide .page-heading { gap: 24px; }
+  .dosage-guide .inner-hero h1 { font-size: 36px; }
+}

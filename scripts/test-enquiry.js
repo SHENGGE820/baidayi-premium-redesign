@@ -121,8 +121,25 @@ test('dosage priorities and all generated grids share the ordered CMS source', (
     const rendered = [...grid.matchAll(/<h3>([^<]+)<\/h3>/g)].map(match => match[1]);
     assert.deepEqual(rendered, titles, file + ' must preserve source order without omissions or duplicates');
     assert.match(grid, /href="[^"]*一站式服務\/錠劑\/index.html"/);
-    assert.match(grid, /href="[^"]*contact\/index.html\?format=powder"/);
+    assert.match(grid, /href="[^"]*一站式服務\/粉末食品\/index.html"/);
     assert.match(grid, /href="[^"]*一站式服務\/多元劑型-膠囊\/index.html"/);
+    const links = [...grid.matchAll(/<a class="catalogue-card reveal" href="([^"]+)"/g)].map(match => match[1]);
+    assert.equal(links.length, titles.length);
+    for (const href of links) {
+      assert(!href.includes('contact/'), file + ': dosage cards must open content');
+      const destination = path.resolve(root, path.dirname(file), decodeURI(href));
+      assert.ok(fs.statSync(destination).isFile(), file + ': missing destination ' + href);
+      const target = fs.readFileSync(destination, 'utf8');
+      assert.match(target, /<h1\b/);
+      assert.doesNotMatch(target, /http-equiv="refresh"/i);
+    }
+  }
+  assert.ok(content.dosage.every(card => card.link.startsWith('page:')));
+  for (const slug of ['粉末食品', '機能餅乾', '搖搖隨身袋', '糖果劑型', '營養代餐', '果凍與茶包']) {
+    const page = fs.readFileSync(path.join(root, '全面性服務/一站式服務', slug, 'index.html'), 'utf8');
+    assert.match(page, /id="introduction"/);
+    assert.match(page, /class="dosage-considerations"/);
+    assert.match(page, /討論這個劑型/);
   }
 });
 

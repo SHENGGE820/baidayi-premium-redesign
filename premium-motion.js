@@ -270,6 +270,9 @@
     }
 
     document.querySelectorAll('.insight-card, .article-card').forEach(function (card) {
+      // Editorial rows can span the whole page; keep their gentle CSS lift,
+      // without turning the entire article layout into a pointer-driven plane.
+      if (body.classList.contains('news-page')) return;
       var returnTimer;
       card.classList.add('tilt-card');
 
