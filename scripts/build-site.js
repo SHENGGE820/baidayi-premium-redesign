@@ -561,7 +561,9 @@ function ingredientCard(it, p) {
    using the same source data as each direction page. */
 const INGREDIENT_CATEGORIES = ['beauty', 'secret-garden', 'metabolism', 'protein', 'body-functions', 'energetic', 'gut', 'generation-3c', 'balance', 'action', 'sleep'];
 function ingredientCategory(c, index, p = '../../') {
-  const image = responsiveImg(c.image, p);
+  // Category cards use the complete supplied portraits, not the cropped
+  // landscape image still used by each function page's hero.
+  const image = responsiveImg(`/assets/brand/category-${c.slug}-portrait.jpg`, p);
   const categorySearch = `${c.title} ${c.en}`;
   const allSearch = [categorySearch, ...c.items.map(ingredientSearch)].join(' ');
   const materials = c.items.map((it, itemIndex) => {
@@ -585,8 +587,8 @@ function ingredientCategory(c, index, p = '../../') {
       (it.form ? `<p class="ingredient-material-form"><span>形式</span>${esc(it.form)}</p>` : '') + `</div>` +
       visual + `</article>`;
   }).join('\n              ');
-  return `        <details class="ingredient-category" name="ingredient-category" id="category-${c.slug}" data-category-search="${esc(categorySearch)}" data-search="${esc(allSearch)}">
-          <summary aria-controls="materials-${c.slug}"><span class="ingredient-category-visual"><img class="ingredient-category-image" src="${image.src}"${image.srcset} sizes="(max-width: 600px) 50vw, (max-width: 1100px) 33vw, 290px" alt="" width="1200" height="800" loading="lazy"><span class="ingredient-category-number" aria-hidden="true">${String(index + 1).padStart(2, '0')}</span><span class="ingredient-category-selected" aria-hidden="true">已展開</span></span><span class="ingredient-category-copy"><span class="ingredient-category-title"><span>${esc(c.en)}</span><strong id="category-${c.slug}-title">${esc(c.title)}</strong></span><span class="ingredient-category-preview">${c.items.slice(0, 2).map(it => esc(it.name)).join('・')}</span><span class="ingredient-category-action"><span>${c.items.length} 項原料</span><span class="ingredient-category-action-label"><span class="ingredient-card-open-label">查看原料</span><span class="ingredient-card-close-label">收合原料</span><i aria-hidden="true"></i></span></span></span></summary>
+  return `        <details class="ingredient-category" data-blended-category name="ingredient-category" id="category-${c.slug}" data-category-search="${esc(categorySearch)}" data-search="${esc(allSearch)}">
+<summary aria-controls="materials-${c.slug}"><span class="ingredient-category-visual"><img class="ingredient-category-image" src="${image.src}"${image.srcset} sizes="(max-width: 620px) 90vw, (max-width: 1100px) 40vw, 320px" alt=""${image.dims} loading="lazy"><span class="ingredient-category-number" aria-hidden="true">${String(index + 1).padStart(2, '0')}</span><span class="ingredient-category-selected" aria-hidden="true">已展開</span></span><span class="ingredient-category-copy"><span class="ingredient-category-title"><span>${esc(c.en)}</span><strong id="category-${c.slug}-title">${esc(c.title)}</strong></span><span class="ingredient-category-preview">${c.items.slice(0, 2).map(it => esc(it.name)).join('・')}</span><span class="ingredient-category-action"><span>${c.items.length} 項原料</span><span class="ingredient-category-action-label"><span class="ingredient-card-open-label">查看原料</span><span class="ingredient-card-close-label">收合原料</span><i aria-hidden="true"></i></span></span></span></summary>
           <div class="ingredient-category-panel" id="materials-${c.slug}" role="region" aria-labelledby="category-${c.slug}-title">
             <div class="ingredient-panel-heading"><div><p>INGREDIENT SELECTION</p><h3>${esc(c.title)}<span>原料清單</span></h3></div><button type="button" class="ingredient-panel-close" data-close-ingredients aria-label="收合${esc(c.title)}原料清單">收合 <span aria-hidden="true">×</span></button></div>
             ${c.notice ? `<p class="ingredient-source-note">${esc(c.notice)}</p>\n            ` : ''}<div class="ingredient-material-grid${c.notice ? ' has-source-records' : ''}">

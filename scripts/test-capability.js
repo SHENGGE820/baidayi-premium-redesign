@@ -8,6 +8,23 @@ const read = file => fs.readFileSync(path.join(root, file), 'utf8');
 const pages = ['全面性服務/index.html', '全面性服務/capability-c.html'];
 const marked = (html, name) => html.split(`<!-- cms:${name} -->`)[1]?.split(`<!-- /cms:${name} -->`)[0].trim();
 
+test('all category covers use complete local portraits without changing function heroes', () => {
+  const slugs = ['beauty','secret-garden','metabolism','protein','body-functions','energetic','gut','generation-3c','balance','action','sleep'];
+  for (const file of [...pages, '全面性服務/原料成分/index.html']) {
+    const html = read(file);
+    assert.equal((html.match(/data-blended-category/g) || []).length, 11);
+    for (const slug of slugs) {
+      const cover = html.split(`id="category-${slug}"`)[1].split('</summary>')[0];
+      assert.match(cover, new RegExp(`category-${slug}-portrait\\.jpg`));
+      const dimensions = cover.match(/width="(\d+)" height="(\d+)"/);
+      assert.ok(dimensions && Number(dimensions[2]) > Number(dimensions[1]));
+      assert.ok(fs.existsSync(path.join(root, `assets/brand/category-${slug}-portrait.jpg`)));
+      assert.ok(fs.existsSync(path.join(root, `assets/brand/category-${slug}-portrait-640.jpg`)));
+    }
+  }
+  for (const slug of slugs) assert.match(read(`content/functions/${slug}.md`), new RegExp(`function-${slug}\\.jpg`));
+});
+
 test('both capability layouts expose the complete same-source ingredient library inline', () => {
   const reference = marked(read('全面性服務/原料成分/index.html'), 'ingredient-categories');
   assert.ok(reference);
